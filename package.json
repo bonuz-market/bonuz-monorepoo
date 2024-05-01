@@ -1,18 +1,39 @@
 {
-  "name": "social-id",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "react": "link:@web3modal/wagmi/react",
-    "typescript": "^5.4.5",
-    "viem": "^2.9.29",
-    "wagmi": "^2.7.1"
-  }
+	"name": "@bonuz/social-id",
+	"version": "1.0.0",
+	"description": "",
+	"files": [
+		"dist/**",
+		"!dist/**/*.tsbuildinfo",
+		"src/**/*.ts"
+	],
+	"sideEffects": false,
+	"type": "module",
+	"main": "./src/index.ts",
+	"types": "./src/index.d.ts",
+	"typings": "./src/index.d.ts",
+	"exports": {
+		".": {
+			"import": "./src/index.ts",
+			"default": "./src/index.ts"
+		},
+		"./package.json": "./package.json"
+	},
+	"scripts": {
+		"build": "pnpm run clean && pnpm run build:esm+types",
+		"build:esm+types": "tsc --project tsconfig.json --outDir ./dist/esm --declaration --declarationMap --declarationDir ./dist/types",
+		"clean": "rm -rf dist tsconfig.tsbuildinfo hooks",
+		"test:build": "publint --strict",
+		"typecheck": "tsc --noEmit"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"devDependencies": {
+		"@types/node": "^20.12.8",
+		"react": "link:@web3modal/wagmi/react",
+		"typescript": "^5.4.5",
+		"viem": "^2.9.29",
+		"wagmi": "^2.7.1"
+	}
 }
