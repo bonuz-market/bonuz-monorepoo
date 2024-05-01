@@ -1,0 +1,55 @@
+import { coreDao } from "viem/chains";
+
+export const BONUZ_WALLET_NAME = "Bonuz";
+
+export const BONUZ_SOCIAL_ID_ADDRESS =
+	"0x9220070245b67130977FdF32acA4acdF6aD163cC";
+export const BONUZ_SOCIAL_ID_CHAIN = coreDao;
+
+export const SUPPORTED_PLATFORMS = [
+	"s_x",
+	"s_instagram",
+	"s_facebook",
+	"s_linkedin",
+	"s_tiktok",
+	"s_snapchat",
+	"s_discord",
+	"s_pinterest",
+	"s_twitch",
+	"s_reddit",
+	"s_mastadon",
+	"s_youmeme",
+	"s_rumble",
+	"s_youtube",
+	"s_vk",
+	"s_qq",
+	"w_near",
+	"w_sui",
+	"w_aptos",
+	"w_cosmos",
+	"w_cardano",
+	"w_solana",
+	"w_icp",
+	"w_btc",
+	"w_doge",
+	"w_polkadot",
+	"w_lukso",
+	"w_algorand",
+	"w_tron",
+	"w_ton",
+	"w_wallet1",
+	"w_wallet2",
+	"w_wallet3",
+	"w_wallet4",
+	"w_wallet5",
+	"m_telegram",
+	"m_whatsapp",
+	"m_signal",
+	"m_weChat",
+	"d_ens",
+	"d_worldId",
+	"d_lens",
+	"d_bnb",
+	"d_anima",
+	"d_demos",
+];
