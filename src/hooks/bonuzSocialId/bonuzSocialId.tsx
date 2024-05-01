@@ -8,7 +8,11 @@ import {
 import { Address, parseAbi } from "viem";
 import { prepareSocialId } from "./bonuzSociald.helpers";
 
-export const useBonuzSocialWallet = (address?: Address) => {
+type UseBonuzSocialId = {
+	address?: Address;
+};
+export const useBonuzSocialId = (args: UseBonuzSocialId) => {
+	const { address } = args;
 	return useReadContract({
 		abi: parseAbi(BonuzSocialIdAbi),
 		address: BONUZ_SOCIAL_ID_ADDRESS,
