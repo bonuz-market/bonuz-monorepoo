@@ -20,7 +20,7 @@
 		"./package.json": "./package.json"
 	},
 	"scripts": {
-		"build": "pnpm run build:esm+types",
+		"build": "pnpm run clean && pnpm run build:esm+types",
 		"build:esm+types": "tsc --project tsconfig.json --outDir ./dist/esm --declaration --declarationMap --declarationDir ./dist/types",
 		"clean": "rm -rf dist tsconfig.tsbuildinfo hooks components",
 		"test:build": "publint --strict",
