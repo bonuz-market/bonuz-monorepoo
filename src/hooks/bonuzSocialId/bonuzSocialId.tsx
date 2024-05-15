@@ -1,12 +1,12 @@
 import { useReadContract } from "wagmi";
-import { BonuzSocialIdAbi } from "./bonuzSociald.abi";
+import { BonuzSocialIdAbi } from "./bonuzSocialId.abi";
 import {
 	BONUZ_SOCIAL_ID_ADDRESS,
 	BONUZ_SOCIAL_ID_CHAIN,
 	SUPPORTED_PLATFORMS,
 } from "./bonuzSocialId.config";
 import { Address, parseAbi } from "viem";
-import { prepareSocialId } from "./bonuzSociald.helpers";
+import { prepareSocialId } from "./bonuzSocialId.helpers";
 
 type UseBonuzSocialId = {
 	address?: Address;

@@ -1,4 +1,4 @@
-import { isBonuzWallet } from "../hooks/bonuzSocialId/bonuzSociald.helpers";
+import { isBonuzWallet } from "../hooks/bonuzSocialId/bonuzSocialId.helpers";
 import { useWalletInfo } from "@web3modal/wagmi/react";
 
 import { Fragment, useState } from "react";
