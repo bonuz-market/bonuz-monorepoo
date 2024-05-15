@@ -25,12 +25,16 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: "lts/*"
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 9
       - name: Install dependencies
-        run: pnpm clean-install
+        run: pnpm install --frozen-lockfile
       - name: Verify the integrity of provenance attestations and registry signatures for installed dependencies
         run: pnpm audit signatures
       - name: Release
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_SECRET }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: pnpx semantic-release
