@@ -15,9 +15,17 @@ const BonuzIdModal = ({ address }: BonuzIdModalProps) => {
 	return (
 		<>
 			<button
-				className="rounded-full bg-indigo-500 p-2 shadow-lg border-none cursor-pointer"
 				onClick={() => setIsOpen((state: boolean) => !state)}
 				type="button"
+				style={{
+					padding: "0.5rem",
+					borderRadius: "9999px",
+					borderStyle: "none",
+					backgroundColor: "#6366F1",
+					cursor: "pointer",
+					boxShadow:
+						"0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)",
+				}}
 			>
 				{!isOpen ? (
 					<img
@@ -31,7 +39,14 @@ const BonuzIdModal = ({ address }: BonuzIdModalProps) => {
 				)}
 			</button>
 			<Transition appear show={isOpen} as={Fragment}>
-				<div className="fixed bottom-24 right-4 overflow-y-auto">
+				<div
+					style={{
+						overflowY: "auto",
+						position: "fixed",
+						right: "1rem",
+						bottom: "6rem",
+					}}
+				>
 					<Transition.Child
 						as={Fragment}
 						enter="ease-out duration-300"
@@ -45,7 +60,11 @@ const BonuzIdModal = ({ address }: BonuzIdModalProps) => {
 							src={`https://bonuz.id/${address}`}
 							width="400px"
 							height="450px"
-							className="border-none rounded bg-gray-800"
+							style={{
+								borderRadius: "0.25rem",
+								borderStyle: "none",
+								backgroundColor: "#1F2937",
+							}}
 						/>
 					</Transition.Child>
 				</div>
@@ -62,7 +81,7 @@ export const BonuzSocialId = () => {
 	if (!isEnabled) return null;
 
 	return (
-		<div className="fixed bottom-4 right-4">
+		<div style={{ position: "fixed", right: "1rem", bottom: "1rem" }}>
 			<BonuzIdModal address={address!} />
 		</div>
 	);
