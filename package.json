@@ -2,29 +2,17 @@
 	"name": "@bonuz/social-id",
 	"version": "1.1.2",
 	"description": "",
+	"main": "./dist/index.js",
+	"module": "./dist/index.mjs",
+	"types": "./dist/index.d.ts",
 	"files": [
-		"dist",
-		"!dist/**/*.tsbuildinfo"
+	  "dist/**"
 	],
-	"sideEffects": false,
-	"type": "module",
-	"main": "./dist/esm/index.js",
-	"types": "./dist/types/index.d.ts",
-	"typings": "./dist/types/index.d.ts",
-	"exports": {
-		".": {
-			"types": "./dist/types/index.d.ts",
-			"import": "./dist/esm/index.js",
-			"default": "./dist/esm/index.js"
-		},
-		"./package.json": "./package.json"
-	},
 	"scripts": {
-		"build": "pnpm run clean && pnpm run build:esm+types",
-		"build:esm+types": "tsc --project tsconfig.json --outDir ./dist/esm --declaration --declarationMap --declarationDir ./dist/types",
-		"clean": "rm -rf dist tsconfig.tsbuildinfo hooks components",
-		"test:build": "publint --strict",
-		"typecheck": "tsc --noEmit"
+	  "build": "tsup src/index.tsx --format esm,cjs --dts --external react",
+	  "clean": "rm -rf dist",
+	  "dev": "tsup src/index.tsx --format esm,cjs --watch --dts --external react",
+	  "lint": "eslint \"src/**/*.ts*\""
 	},
 	"keywords": [],
 	"author": "",
