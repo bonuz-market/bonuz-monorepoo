@@ -6,6 +6,7 @@ import {
 	AccordionTrigger,
 } from "@/components/ui/accordion";
 import { useBonuzSocialId } from "@/hooks";
+
 export const UserDetails = () => {
 	const { address } = useAccount();
 	const { data } = useBonuzSocialId({ address });
@@ -17,7 +18,7 @@ export const UserDetails = () => {
 				On-Chain Social ID
 			</div>
 			<div className="justify-center pr-3 pb-10 pl-3.5 w-full max-md:max-w-full">
-				<div className="flex gap-5 max-md:flex-col max-md:gap-0">
+				<div className="flex gap-5 max-md:flex-col max-md:gap-3">
 					<div className="flex flex-col w-2/5 max-md:ml-0 max-md:w-full">
 						<div className="flex flex-col tracking-tight text-white max-md:mt-10">
 							<img
@@ -31,7 +32,7 @@ export const UserDetails = () => {
 							<div className="mt-2 text-sm leading-5 text-center">
 								@{data?.handle}
 							</div>
-							<div className="flex gap-3 px-2.5 py-2 mt-3 text-base leading-6 whitespace-nowrap rounded-xl bg-blend-overlay backdrop-blur-[20px] bg-neutral-400">
+							<div className="flex gap-3 px-2.5 py-2 mt-3 text-base leading-6 whitespace-nowrap rounded-xl backdrop-blur-[20px] bg-neutral-400 !bg-opacity-15">
 								<div className="flex gap-2 justify-center">
 									<img
 										loading="lazy"
@@ -51,9 +52,16 @@ export const UserDetails = () => {
 						</div>
 					</div>
 					<div className="flex flex-col ml-5 w-3/5 max-md:ml-0 max-md:w-full">
-						<Accordion type="single" collapsible>
-							<AccordionItem value="item-1">
-								<AccordionTrigger>
+						<Accordion
+							type="single"
+							collapsible
+							className="flex flex-col gap-2"
+						>
+							<AccordionItem
+								value="item-1"
+								className="flex flex-col gap-2 bg-neutral-400 !bg-opacity-15 rounded-3xl"
+							>
+								<AccordionTrigger className="data-[state=open]:border-b border-[#9C9C9C]">
 									<div className="flex flex-1 gap-4">
 										<div className="flex justify-center items-center p-1.5 w-10 h-10 bg-blue-600 rounded-xl">
 											<img
@@ -66,42 +74,40 @@ export const UserDetails = () => {
 											<div className="text-base leading-6 capitalize">
 												Social media accounts
 											</div>
-											<div className="justify-center p-1 text-sm leading-4 text-center whitespace-nowrap bg-blend-overlay bg-neutral-400 rounded-[50px]">
-												2
-											</div>
 										</div>
 									</div>
 								</AccordionTrigger>
-								<AccordionContent className="flex flex-col gap-2">
+								<AccordionContent className="flex flex-col gap-2 px-3">
 									{Object.values(data.userSocials)
 										.filter((social) => !!social.handle)
 										.map((social) => (
 											<div
 												key={social.type}
-												className="flex gap-3 p-3 w-full rounded-3xl bg-blend-overlay bg-neutral-400"
+												className="flex gap-2 p-2 w-full rounded-xl bg-blend-overlay bg-neutral-400 !bg-opacity-15"
 											>
-												<div className="w-80 h-12 p-2 bg-neutral-400 rounded-xl backdrop-blur-2xl justify-start items-center gap-2 inline-flex">
-													<div className="w-8 h-8 opacity-60 justify-center items-center flex">
-														<img
-															loading="lazy"
-															src={
-																"https://cdn.builder.io/api/v1/image/assets/TEMP/ef642e4563756a93b400b6efba23427c9a8eed026cb231dbe4165461f8edb973?"
-															}
-															className="w-7 aspect-square"
-														/>
-													</div>
-													<div className="justify-start items-center gap-0.5 flex">
-														<div className="opacity-70 text-white text-base font-normal font-['Inter'] leading-normal">
-															{social.handle}
-														</div>
+												<div className="w-8 h-8 opacity-60 justify-center items-center flex">
+													<img
+														loading="lazy"
+														src={
+															"https://cdn.builder.io/api/v1/image/assets/TEMP/ef642e4563756a93b400b6efba23427c9a8eed026cb231dbe4165461f8edb973?"
+														}
+														className="w-7 aspect-square"
+													/>
+												</div>
+												<div className="justify-start items-center gap-0.5 flex">
+													<div className="opacity-70 text-white text-base font-normal font-['Inter'] leading-normal">
+														{social.handle}
 													</div>
 												</div>
 											</div>
 										))}
 								</AccordionContent>
 							</AccordionItem>
-							<AccordionItem value="item-2">
-								<AccordionTrigger>
+							<AccordionItem
+								value="item-2"
+								className="flex flex-col gap-2 bg-neutral-400 !bg-opacity-15 rounded-3xl"
+							>
+								<AccordionTrigger className="data-[state=open]:border-b border-[#9C9C9C]">
 									<div className="flex flex-1 gap-4">
 										<div className="flex justify-center items-center p-1.5 w-10 h-10 bg-blue-600 rounded-xl">
 											<img
@@ -117,36 +123,37 @@ export const UserDetails = () => {
 										</div>
 									</div>
 								</AccordionTrigger>
-								<AccordionContent className="flex flex-col gap-2">
+								<AccordionContent className="flex flex-col gap-2 px-3">
 									{Object.values(data.userMessagingApps)
 										.filter((social) => !!social.handle)
 										.map((social) => (
 											<div
 												key={social.type}
-												className="flex gap-3 p-3 w-full rounded-3xl bg-blend-overlay bg-neutral-400"
+												className="flex gap-2 p-2 w-full rounded-xl bg-blend-overlay bg-neutral-400 !bg-opacity-15"
 											>
-												<div className="w-80 h-12 p-2 bg-neutral-400 rounded-xl backdrop-blur-2xl justify-start items-center gap-2 inline-flex">
-													<div className="w-8 h-8 opacity-60 justify-center items-center flex">
-														<img
-															loading="lazy"
-															src={
-																"https://cdn.builder.io/api/v1/image/assets/TEMP/ef642e4563756a93b400b6efba23427c9a8eed026cb231dbe4165461f8edb973?"
-															}
-															className="w-7 aspect-square"
-														/>
-													</div>
-													<div className="justify-start items-center gap-0.5 flex">
-														<div className="opacity-70 text-white text-base font-normal font-['Inter'] leading-normal">
-															{social.handle}
-														</div>
+												<div className="w-8 h-8 opacity-60 justify-center items-center flex">
+													<img
+														loading="lazy"
+														src={
+															"https://cdn.builder.io/api/v1/image/assets/TEMP/ef642e4563756a93b400b6efba23427c9a8eed026cb231dbe4165461f8edb973?"
+														}
+														className="w-7 aspect-square"
+													/>
+												</div>
+												<div className="justify-start items-center gap-0.5 flex">
+													<div className="opacity-70 text-white text-base font-normal font-['Inter'] leading-normal">
+														{social.handle}
 													</div>
 												</div>
 											</div>
 										))}
 								</AccordionContent>
-							</AccordionItem>
-							<AccordionItem value="item-3">
-								<AccordionTrigger>
+							</AccordionItem>{" "}
+							<AccordionItem
+								value="item-3"
+								className="flex flex-col gap-2 bg-neutral-400 !bg-opacity-15 rounded-3xl"
+							>
+								<AccordionTrigger className="data-[state=open]:border-b border-[#9C9C9C]">
 									<div className="flex flex-1 gap-4">
 										<div className="flex justify-center items-center p-1.5 w-10 h-10 bg-blue-600 rounded-xl">
 											<img
@@ -162,37 +169,38 @@ export const UserDetails = () => {
 										</div>
 									</div>
 								</AccordionTrigger>
-								<AccordionContent className="flex flex-col gap-2">
+								<AccordionContent className="flex flex-col gap-2 px-3">
 									{Object.values(data.userWallets)
 										.filter((social) => !!social.handle)
 										.map((social) => (
 											<div
 												key={social.type}
-												className="flex gap-3 p-3 w-full rounded-3xl bg-blend-overlay bg-neutral-400"
+												className="flex gap-2 p-2 w-full rounded-xl bg-blend-overlay bg-neutral-400 !bg-opacity-15"
 											>
-												<div className="w-80 min-h-12 p-2 bg-neutral-400 rounded-xl backdrop-blur-2xl justify-start items-center gap-2 inline-flex">
-													<div className="w-8 h-8 opacity-60 justify-center items-center flex">
-														<img
-															loading="lazy"
-															src={
-																"https://cdn.builder.io/api/v1/image/assets/TEMP/ef642e4563756a93b400b6efba23427c9a8eed026cb231dbe4165461f8edb973?"
-															}
-															className="w-7 aspect-square"
-														/>
-													</div>
-													<div className="justify-start items-center gap-0.5 flex">
-														<div className="opacity-70 text-white text-base font-normal font-['Inter'] leading-normal">
-															{social.handle?.slice(0, 6)}...
-															{social.handle?.slice(-4)}
-														</div>
+												<div className="w-8 h-8 opacity-60 justify-center items-center flex">
+													<img
+														loading="lazy"
+														src={
+															"https://cdn.builder.io/api/v1/image/assets/TEMP/ef642e4563756a93b400b6efba23427c9a8eed026cb231dbe4165461f8edb973?"
+														}
+														className="w-7 aspect-square"
+													/>
+												</div>
+												<div className="justify-start items-center gap-0.5 flex">
+													<div className="opacity-70 text-white text-base font-normal font-['Inter'] leading-normal">
+														{social.handle?.slice(0, 6)}...
+														{social.handle?.slice(-4)}
 													</div>
 												</div>
 											</div>
 										))}
 								</AccordionContent>
-							</AccordionItem>
-							<AccordionItem value="item-4">
-								<AccordionTrigger>
+							</AccordionItem>{" "}
+							<AccordionItem
+								value="4"
+								className="flex flex-col gap-2 bg-neutral-400 !bg-opacity-15 rounded-3xl"
+							>
+								<AccordionTrigger className="data-[state=open]:border-b border-[#9C9C9C]">
 									<div className="flex flex-1 gap-4">
 										<div className="flex justify-center items-center p-1.5 w-10 h-10 bg-blue-600 rounded-xl">
 											<img
@@ -203,33 +211,31 @@ export const UserDetails = () => {
 										</div>
 										<div className="flex flex-1 gap-1 my-auto tracking-tight text-white">
 											<div className="text-base leading-6 capitalize">
-												Decentralized Identifiers
+												Decentralized Identities
 											</div>
 										</div>
 									</div>
 								</AccordionTrigger>
-								<AccordionContent className="flex flex-col gap-2">
+								<AccordionContent className="flex flex-col gap-2 px-3">
 									{Object.values(data.decentralizedIdentifiers)
 										.filter((social) => !!social.handle)
 										.map((social) => (
 											<div
 												key={social.type}
-												className="flex gap-3 p-3 w-full rounded-3xl bg-blend-overlay bg-neutral-400"
+												className="flex gap-2 p-2 w-full rounded-xl bg-blend-overlay bg-neutral-400 !bg-opacity-15"
 											>
-												<div className="w-80 h-12 p-2 bg-neutral-400 rounded-xl backdrop-blur-2xl justify-start items-center gap-2 inline-flex">
-													<div className="w-8 h-8 opacity-60 justify-center items-center flex">
-														<img
-															loading="lazy"
-															src={
-																"https://cdn.builder.io/api/v1/image/assets/TEMP/ef642e4563756a93b400b6efba23427c9a8eed026cb231dbe4165461f8edb973?"
-															}
-															className="w-7 aspect-square"
-														/>
-													</div>
-													<div className="justify-start items-center gap-0.5 flex">
-														<div className="opacity-70 text-white text-base font-normal font-['Inter'] leading-normal">
-															{social.handle}
-														</div>
+												<div className="w-8 h-8 opacity-60 justify-center items-center flex">
+													<img
+														loading="lazy"
+														src={
+															"https://cdn.builder.io/api/v1/image/assets/TEMP/ef642e4563756a93b400b6efba23427c9a8eed026cb231dbe4165461f8edb973?"
+														}
+														className="w-7 aspect-square"
+													/>
+												</div>
+												<div className="justify-start items-center gap-0.5 flex">
+													<div className="opacity-70 text-white text-base font-normal font-['Inter'] leading-normal">
+														{social.handle}
 													</div>
 												</div>
 											</div>
