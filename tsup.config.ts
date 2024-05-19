@@ -12,5 +12,6 @@ export default defineConfig((options: Options) => ({
 	dts: true,
 	minify: "terser",
 	treeshake: true,
+	legacyOutput: true,
 	...options,
 }));

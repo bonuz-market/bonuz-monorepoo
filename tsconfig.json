@@ -35,7 +35,12 @@
 		// Skip type checking for node modules
 		"skipLibCheck": true,
 		"noErrorTruncation": true,
-		"jsx": "react-jsx"
+		"jsx": "react-jsx",
+		"paths": {
+			"@/*": ["./src/*"]
+		},
+		"baseUrl": ".",
+		"rootDir": "src"
 	},
 	"include": ["src/**/*"]
 }
