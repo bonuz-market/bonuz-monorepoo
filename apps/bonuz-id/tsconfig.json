@@ -1,0 +1,12 @@
+{
+  "exclude": ["node_modules"],
+  "compilerOptions": {
+    "outDir": "dist",
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
+  },
+  "include": ["src", "next.config.js", "next-env.d.ts", ".next/types/**/*.ts"]
+}
