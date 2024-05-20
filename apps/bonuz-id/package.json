@@ -1,34 +1,29 @@
 {
-  "name": "blog",
+  "name": "bonuz-id",
   "version": "0.0.0",
   "private": true,
-  "sideEffects": false,
   "scripts": {
-    "build": "remix build",
-    "dev": "remix dev",
+    "build": "next build",
+    "clean": "rm -rf .next",
+    "dev": "next dev -p 3002",
+    "lint": "next lint",
     "typecheck": "tsc --noEmit",
-    "lint": "eslint app/"
+    "start": "next start"
   },
   "dependencies": {
-    "@remix-run/node": "^2.8.0",
-    "@remix-run/react": "^2.8.0",
-    "@remix-run/serve": "^2.8.0",
-    "@remix-run/server-runtime": "^2.8.0",
-    "@vercel/analytics": "^1.2.2",
-    "@vercel/remix-entry-server": "^0.1.1",
+    "@repo/logger": "workspace:*",
+    "next": "^14.1.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "@repo/ui": "workspace:*"
   },
   "devDependencies": {
-    "@remix-run/dev": "^2.8.0",
+    "@next/eslint-plugin-next": "^14.1.1",
+    "@types/node": "^20.11.24",
     "@types/react": "^18.2.62",
     "@types/react-dom": "^18.2.19",
     "@repo/eslint-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
     "typescript": "^5.3.3"
-  },
-  "engines": {
-    "node": ">=18"
   }
 }
