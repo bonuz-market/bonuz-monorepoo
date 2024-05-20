@@ -1,13 +1,10 @@
-# Sample Hardhat Project
-
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, and a Hardhat Ignition module that deploys that contract.
-
-Try running some of the following tasks:
+# Hardhat Project
+Types, ABIs, SubGraphs, audits export
 
 ```shell
-npx hardhat help
-npx hardhat test
-REPORT_GAS=true npx hardhat test
-npx hardhat node
-npx hardhat ignition deploy ./ignition/modules/Lock.ts
+npm i @bonuz/smart-contracts
 ```
+```js
+import {abi, SocialIdProfile} from '@bonuz/smart-contracts'
+```
+We should set this up like ../social-id with export of .ts typechain, abis, deployments, etc
