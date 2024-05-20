@@ -25,31 +25,3 @@ body {
   padding: 0 16px;
   text-align: center;
 }
-
-.title {
-  font-size: 3rem;
-  font-weight: 700;
-  margin: 0;
-}
-
-.title span {
-  display: inline-block;
-  background-image: linear-gradient(to right, #3b82f6, #ef4444);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-
-.description {
-  color: #9ca3af;
-  font-weight: 500;
-}
-
-.description a {
-  color: #3b82f6;
-  text-decoration: none;
-}
-
-.description a:hover {
-  text-decoration: underline;
-}
