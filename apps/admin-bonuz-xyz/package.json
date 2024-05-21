@@ -15,8 +15,7 @@
     "cors": "^2.8.5",
     "express": "^4.18.3",
     "morgan": "^1.10.0",
-    "@bonuz/social-id": "workspace:*",
-    "@bonuz/smart-contracts": "workspace:*"
+    "@bonuz/social-id": "workspace:*"
   },
   "devDependencies": {
     "@types/body-parser": "^1.19.5",
