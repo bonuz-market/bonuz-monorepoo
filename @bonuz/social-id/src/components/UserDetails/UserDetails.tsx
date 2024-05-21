@@ -6,6 +6,12 @@ import {
 	AccordionTrigger,
 } from "@/components/ui/accordion";
 import { useBonuzSocialId } from "@/hooks";
+import { Icon } from "@iconify-icon/react";
+import SocialsIcon from "@/assets/icons/types/Social.png";
+import MessagingIcon from "@/assets/icons/types/Messaging.png";
+import WalletIcon from "@/assets/icons/types/Blockchain.png";
+import DecentralizedIcon from "@/assets/icons/types/Decentralized.png";
+import { ICONS_MAPPING } from "@/assets/config";
 
 export const UserDetails = () => {
 	const { address } = useAccount();
@@ -34,20 +40,24 @@ export const UserDetails = () => {
 							</div>
 							<div className="flex gap-3 px-2.5 py-2 mt-3 text-base leading-6 whitespace-nowrap rounded-xl backdrop-blur-[20px] bg-neutral-400 !bg-opacity-15">
 								<div className="flex gap-2 justify-center">
-									<img
-										loading="lazy"
-										src={data?.profileImage}
-										className="shrink-0 w-6 aspect-square"
+									<Icon
+										icon={"iconoir:wallet"}
+										width={24}
+										height={24}
+										className="opacity-70"
 									/>
 									<div className="text-ellipsis">
 										{address.slice(0, 6)}...{address.slice(-4)}
 									</div>
 								</div>
-								<img
-									loading="lazy"
-									src="https://cdn.builder.io/api/v1/image/assets/TEMP/2d68f9cf667288c3458a02e9dcc8002458192be49096982ffdf6b2d4382606c2?"
-									className="shrink-0 my-auto w-5 aspect-square"
-								/>
+								<button
+									onClick={async () => {
+										await navigator.clipboard.writeText(address);
+									}}
+									className="w-6 h-6 opacity-60 ms-auto"
+								>
+									<Icon icon="radix-icons:copy" width={24} height={24} />
+								</button>
 							</div>
 						</div>
 					</div>
@@ -63,13 +73,11 @@ export const UserDetails = () => {
 							>
 								<AccordionTrigger className="data-[state=open]:border-b border-[#9C9C9C]">
 									<div className="flex flex-1 gap-4">
-										<div className="flex justify-center items-center p-1.5 w-10 h-10 bg-blue-600 rounded-xl">
-											<img
-												loading="lazy"
-												src="https://cdn.builder.io/api/v1/image/assets/TEMP/ef642e4563756a93b400b6efba23427c9a8eed026cb231dbe4165461f8edb973?"
-												className="w-7 aspect-square"
-											/>
-										</div>
+										<img
+											loading="lazy"
+											src={SocialsIcon.src}
+											className="w-7 aspect-square"
+										/>
 										<div className="flex flex-1 gap-1 my-auto tracking-tight text-white">
 											<div className="text-base leading-6 capitalize">
 												Social media accounts
@@ -86,13 +94,11 @@ export const UserDetails = () => {
 												className="flex gap-2 p-2 w-full rounded-xl bg-blend-overlay bg-neutral-400 !bg-opacity-15"
 											>
 												<div className="w-8 h-8 opacity-60 justify-center items-center flex">
-													<img
-														loading="lazy"
-														src={
-															"https://cdn.builder.io/api/v1/image/assets/TEMP/ef642e4563756a93b400b6efba23427c9a8eed026cb231dbe4165461f8edb973?"
-														}
-														className="w-7 aspect-square"
-													/>
+													{
+														ICONS_MAPPING[
+															social.type as keyof typeof ICONS_MAPPING
+														]
+													}
 												</div>
 												<div className="justify-start items-center gap-0.5 flex">
 													<div className="opacity-70 text-white text-base font-normal font-['Inter'] leading-normal">
@@ -109,13 +115,11 @@ export const UserDetails = () => {
 							>
 								<AccordionTrigger className="data-[state=open]:border-b border-[#9C9C9C]">
 									<div className="flex flex-1 gap-4">
-										<div className="flex justify-center items-center p-1.5 w-10 h-10 bg-blue-600 rounded-xl">
-											<img
-												loading="lazy"
-												src="https://cdn.builder.io/api/v1/image/assets/TEMP/ef642e4563756a93b400b6efba23427c9a8eed026cb231dbe4165461f8edb973?"
-												className="w-7 aspect-square"
-											/>
-										</div>
+										<img
+											loading="lazy"
+											src={MessagingIcon.src}
+											className="w-7 aspect-square"
+										/>
 										<div className="flex flex-1 gap-1 my-auto tracking-tight text-white">
 											<div className="text-base leading-6 capitalize">
 												Messaging Apps
@@ -132,13 +136,11 @@ export const UserDetails = () => {
 												className="flex gap-2 p-2 w-full rounded-xl bg-blend-overlay bg-neutral-400 !bg-opacity-15"
 											>
 												<div className="w-8 h-8 opacity-60 justify-center items-center flex">
-													<img
-														loading="lazy"
-														src={
-															"https://cdn.builder.io/api/v1/image/assets/TEMP/ef642e4563756a93b400b6efba23427c9a8eed026cb231dbe4165461f8edb973?"
-														}
-														className="w-7 aspect-square"
-													/>
+													{
+														ICONS_MAPPING[
+															social.type as keyof typeof ICONS_MAPPING
+														]
+													}
 												</div>
 												<div className="justify-start items-center gap-0.5 flex">
 													<div className="opacity-70 text-white text-base font-normal font-['Inter'] leading-normal">
@@ -155,13 +157,11 @@ export const UserDetails = () => {
 							>
 								<AccordionTrigger className="data-[state=open]:border-b border-[#9C9C9C]">
 									<div className="flex flex-1 gap-4">
-										<div className="flex justify-center items-center p-1.5 w-10 h-10 bg-blue-600 rounded-xl">
-											<img
-												loading="lazy"
-												src="https://cdn.builder.io/api/v1/image/assets/TEMP/ef642e4563756a93b400b6efba23427c9a8eed026cb231dbe4165461f8edb973?"
-												className="w-7 aspect-square"
-											/>
-										</div>
+										<img
+											loading="lazy"
+											src={WalletIcon.src}
+											className="w-7 aspect-square"
+										/>
 										<div className="flex flex-1 gap-1 my-auto tracking-tight text-white">
 											<div className="text-base leading-6 capitalize">
 												Blockchain & Wallets
@@ -178,13 +178,11 @@ export const UserDetails = () => {
 												className="flex gap-2 p-2 w-full rounded-xl bg-blend-overlay bg-neutral-400 !bg-opacity-15"
 											>
 												<div className="w-8 h-8 opacity-60 justify-center items-center flex">
-													<img
-														loading="lazy"
-														src={
-															"https://cdn.builder.io/api/v1/image/assets/TEMP/ef642e4563756a93b400b6efba23427c9a8eed026cb231dbe4165461f8edb973?"
-														}
-														className="w-7 aspect-square"
-													/>
+													{
+														ICONS_MAPPING[
+															social.type as keyof typeof ICONS_MAPPING
+														]
+													}
 												</div>
 												<div className="justify-start items-center gap-0.5 flex">
 													<div className="opacity-70 text-white text-base font-normal font-['Inter'] leading-normal">
@@ -202,13 +200,11 @@ export const UserDetails = () => {
 							>
 								<AccordionTrigger className="data-[state=open]:border-b border-[#9C9C9C]">
 									<div className="flex flex-1 gap-4">
-										<div className="flex justify-center items-center p-1.5 w-10 h-10 bg-blue-600 rounded-xl">
-											<img
-												loading="lazy"
-												src="https://cdn.builder.io/api/v1/image/assets/TEMP/ef642e4563756a93b400b6efba23427c9a8eed026cb231dbe4165461f8edb973?"
-												className="w-7 aspect-square"
-											/>
-										</div>
+										<img
+											loading="lazy"
+											src={DecentralizedIcon.src}
+											className="w-7 aspect-square"
+										/>
 										<div className="flex flex-1 gap-1 my-auto tracking-tight text-white">
 											<div className="text-base leading-6 capitalize">
 												Decentralized Identities
@@ -225,13 +221,11 @@ export const UserDetails = () => {
 												className="flex gap-2 p-2 w-full rounded-xl bg-blend-overlay bg-neutral-400 !bg-opacity-15"
 											>
 												<div className="w-8 h-8 opacity-60 justify-center items-center flex">
-													<img
-														loading="lazy"
-														src={
-															"https://cdn.builder.io/api/v1/image/assets/TEMP/ef642e4563756a93b400b6efba23427c9a8eed026cb231dbe4165461f8edb973?"
-														}
-														className="w-7 aspect-square"
-													/>
+													{
+														ICONS_MAPPING[
+															social.type as keyof typeof ICONS_MAPPING
+														]
+													}
 												</div>
 												<div className="justify-start items-center gap-0.5 flex">
 													<div className="opacity-70 text-white text-base font-normal font-['Inter'] leading-normal">
