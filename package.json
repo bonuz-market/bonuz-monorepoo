@@ -1,6 +1,8 @@
 {
 	"private": true,
 	"scripts": {
+		"dev:bonuz-id": "turbo run dev --filter=bonuz-id",
+		"dev:admin-bonuz-xyz": "turbo run dev --filter=admin-bonuz-xyz",
 		"build": "turbo run build",
 		"clean": "turbo run clean",
 		"dev": "turbo run dev",

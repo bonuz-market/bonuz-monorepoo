@@ -1,3 +1,7 @@
 packages:
-  - "apps/*"
-  - "@bonuz/*"
+  - "@bonuz/smart-contracts"
+  - "@bonuz/social-id"
+  - "admin-bonuz-xyz"
+  - "apps/partner-bocuz-xyz"
+  - "apps/quests-bonuz-xyz"
+  - "apps/bonuz-id"
