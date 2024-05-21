@@ -10,6 +10,12 @@ Run the following command:
 pnpm dev
 ```
 
+## Installing a package
+
+```bash
+pnpm install:in <workspace-package-name> <package-name>
+```
+
 ## What's inside?
 
 This Turborepo includes the following packages and apps:
@@ -25,7 +31,6 @@ This Turborepo includes the following packages and apps:
 Each package and app is 100% [TypeScript](https://www.typescriptlang.org/).
 
 ### Utilities
-
 
 - [TypeScript](https://www.typescriptlang.org/) for static type checking
 - [ESLint](https://eslint.org/) for code linting
