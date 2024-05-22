@@ -1,21 +1,27 @@
 {
-	"private": true,
-	"scripts": {
-		"dev:bonuz-id": "turbo run dev --filter=bonuz-id",
-		"dev:admin-bonuz-xyz": "turbo run dev --filter=admin-bonuz-xyz",
-		"build": "turbo run build",
-		"clean": "turbo run clean",
-		"dev": "turbo run dev",
-		"format": "prettier --write \"**/*.{ts,tsx,md}\"",
-		"lint": "turbo run lint",
-		"test": "turbo run test",
-		"typecheck": "turbo run typecheck"
-	},
-	"devDependencies": {
-		"prettier": "^3.2.5",
-		"turbo": "^1.12.4"
-	},
-	"engines": {
-		"node": ">=18"
-	}
+  "private": true,
+  "scripts": {
+    "dev:bonuz-id": "turbo run dev --filter=bonuz-id",
+    "dev:admin-bonuz-xyz": "turbo run dev --filter=admin-bonuz-xyz",
+    "build": "turbo run build",
+    "clean": "turbo run clean",
+    "dev": "turbo run dev",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "lint": "turbo run lint",
+    "test": "turbo run test",
+    "typecheck": "turbo run typecheck"
+  },
+  "devDependencies": {
+    "prettier": "^3.2.5",
+    "turbo": "^1.13.3"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@web3modal/wagmi": "^3.5.7",
+    "@wagmi/core": "^2.9.7",
+    "@types/react": "^18.2.52",
+    "@tanstack/query-core": "^5.36.1"
+  }
 }
