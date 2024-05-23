@@ -2,6 +2,7 @@ import Head from "next/head";
 import Image from "next/image";
 import styles from "@/styles/Home.module.css";
 import { useState } from "react";
+import backgroundImage from '../../public/images/first-background.svg';
 
 export default function Home() {
 	const [isNetworkSwitchHighlighted, setIsNetworkSwitchHighlighted] =
@@ -48,21 +49,19 @@ export default function Home() {
 					<div className={styles.buttons}>
 						<div
 							onClick={closeAll}
-							className={`${styles.highlight} ${
-								isNetworkSwitchHighlighted
-									? styles.highlightSelected
-									: ``
-							}`}
+							className={`${styles.highlight} ${isNetworkSwitchHighlighted
+								? styles.highlightSelected
+								: ``
+								}`}
 						>
 							<w3m-network-button />
 						</div>
 						<div
 							onClick={closeAll}
-							className={`${styles.highlight} ${
-								isConnectHighlighted
-									? styles.highlightSelected
-									: ``
-							}`}
+							className={`${styles.highlight} ${isConnectHighlighted
+								? styles.highlightSelected
+								: ``
+								}`}
 						>
 							<w3m-button />
 						</div>
@@ -70,6 +69,9 @@ export default function Home() {
 				</div>
 			</header>
 			<main className={styles.main}>
+				<div className={styles.background}>
+					<Image alt="background" width={100} height={100} src={backgroundImage} className={styles.backgroundImage} />
+				</div>
 				<div className={styles.wrapper}>
 					<div className={styles.container}>
 						<h1>Next.js Starter Template</h1>
