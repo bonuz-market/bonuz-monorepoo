@@ -65,22 +65,39 @@ export default function Home() {
       </Head>
       <main className={styles.main}>
         <div className="flex flex-row gap-2 w-full px-12 z-50 mb-2">
-          <button className={styles.topbutton1}>bonuz.market #Ecosystem</button>
-          <button className={styles.topbutton2}>Whitepaper #Degen</button>
-          <button className={styles.topbutton3}>Documentation #Devs</button>
-          <button className={styles.topbutton4}>Bonuz Wallet</button>
-        </div>
-        <div className={styles.wrapper}>
-          <div
-            className={`${styles.mainContainer} lg:flex-row md:flex-col flex-col`}
+          <button
+            className="w-[228px] h-[41px] rounded-[40px] bg-custom-bg-gradient border border-transparent"
+            style={{
+              borderImageSource: 'linear-gradient(3.31deg, rgba(255, 161, 16, 0.6) -14.44%, rgba(255, 161, 16, 0) 91.68%)',
+              borderWidth: '1px'
+            }}
           >
-            <div className={styles.leftContainer}>
+            bonuz.market #Ecosystem
+          </button>
+
+          <button
+            className="w-[208px] h-[41px] rounded-[40px] border border-transparent"
+            style={{
+              background: 'linear-gradient(97.19deg, rgba(106, 52, 211, 0.4) 14.82%, rgba(106, 52, 211, 0) 83.7%)',
+              borderImageSource: 'linear-gradient(3.31deg, rgba(255, 161, 16, 0.6) -14.44%, rgba(255, 161, 16, 0) 91.68%)',
+              borderWidth: '1px'
+            }}
+          >Whitepaper #Degen</button>
+
+          <button className="w-[208px] h-[41px] gap-[8px] rounded-[30px]" style={{ background: "linear-gradient(122.58deg, #e79413 -19.89%, #ea3e5b 48.73%, #fa0af0 119.63%)" }}>Documentation #Devs</button>
+          <button className="w-[208px] h-[41px] gap-[8px] rounded-[30px]" style={{ background: "linear-gradient(122.58deg, #e79413 -19.89%, #ea3e5b 48.73%, #fa0af0 119.63%)" }}>Bonuz Wallet</button>
+        </div>
+        <div className="relative z-[100] px-[75px] py-[89px] pb-[13px] rounded-[40px] w-full flex flex-col bg-[#9c9c9c4d]">
+          <div
+            className="flex w-full lg:flex-row md:flex-col flex-col"
+          >
+            <div className="flex flex-col flex-1">
               <div
-                className={`${styles.walletContent} flex-col md:flex-col lg:flex-row`}
+                className="flex justify-between max-w-[700px] p-[46px] gap-0 rounded-[30px] bg-gradient-to-r from-[#0e2875] to-[#4b2ea2] via-[#4b2ea2] flex-col md:flex-col lg:flex-row"
               >
                 <div>
-                  <div className={styles.walletHeader}>
-                    <div className={styles.walletIcon}>
+                  <div className='w-[213px] h-[268px] gap-[16px]'>
+                    <div className='flex w-full justify-center mb-[30px]'>
                       <Image
                         src={walletAvatar}
                         alt="walletAvatar"
@@ -88,10 +105,10 @@ export default function Home() {
                         height={140}
                       />
                     </div>
-                    <div className={styles.walletDescription}>
+                    <div className="w-[213px] h-[112px] px-[16px] gap-[12px]">
                       <p className="text-center">Santiago Bob</p>
                       <p className="text-center">@bob</p>
-                      <div className={styles.walletAddressContent}>
+                      <div className="flex w-[200px] h-[40px] p-[8px_10px] gap-[12px] rounded-[12px]">
                         <Image
                           src={walletIcon}
                           alt="walletIcon"
@@ -109,8 +126,8 @@ export default function Home() {
                     </div>
                   </div>
                 </div>
-                <div className={styles.walletItems}>
-                  <div className={styles.walletItem}>
+                <div className="flex flex-col gap-[8px]">
+                  <div className="flex w-[361px] h-[64px] p-[12px] gap-[30px] rounded-[24px] items-center justify-between">
                     <div className="flex gap-2 items-center">
                       <Image
                         src={socialIcon}
@@ -127,7 +144,7 @@ export default function Home() {
                       alt="dropdownIcon"
                     />
                   </div>
-                  <div className={styles.walletItem}>
+                  <div className="flex w-[361px] h-[64px] p-[12px] gap-[30px] rounded-[24px] items-center justify-between">
                     <div className="flex gap-2 items-center">
                       <Image
                         src={messageIcon}
@@ -144,7 +161,7 @@ export default function Home() {
                       alt="dropdownIcon"
                     />
                   </div>
-                  <div className={styles.walletItem}>
+                  <div className="flex w-[361px] h-[64px] p-[12px] gap-[30px] rounded-[24px] items-center justify-between">
                     <div className="flex gap-2 items-center">
                       <Image
                         src={blockchainIcon}
@@ -161,7 +178,7 @@ export default function Home() {
                       alt="dropdownIcon"
                     />
                   </div>
-                  <div className={styles.walletItem}>
+                  <div className="flex w-[361px] h-[64px] p-[12px] gap-[30px] rounded-[24px] items-center justify-between">
                     <div className="flex gap-2 items-center">
                       <Image
                         src={decentralIcon}
@@ -181,23 +198,23 @@ export default function Home() {
                 </div>
               </div>
               <div>
-                <div className={styles.descriptionContent}>
-                  <p className={styles.descriptionTitle}>
+                <div className="max-w-[510px] top-[548px] left-[142px] gap-[24px] mt-[5rem]">
+                  <p className="font-space-grotesk text-[56px] font-bold leading-[61.6px] tracking-[-0.08em] text-left text-white">
                     Exclusive BRC-721 Social ID Airdrop
                   </p>
-                  <p className={styles.descriptions}>
+                  <p className="font-inter text-[16px] font-normal leading-[24px] tracking-[-0.4px] text-left text-white opacity-60 mt-[24px]">
                     Get Your exclusive 2-char, 3-char or 4-char letter Bonuz
                     username and secure your spot for the next round of quests
                     coming soon! We will mint BTC username similar to lens
                     powered by the bonuz ecosystem!
                   </p>
                 </div>
-                <button className={styles.mintButton}>
+                <button className="w-[330px] h-[51px] gap-[8px] rounded-[30px] bg-custom-gradient my-[29px]">
                   Mint for 0.00011 $BTC
                 </button>
               </div>
-            </div>
-            <div className={styles.rightContainer}>
+            </div >
+            <div className="flex flex-col flex-1 items-center">
               <div
                 id="controls-carousel"
                 className="relative w-full w-[550px] h-[330px] flex justify-center"
@@ -232,9 +249,8 @@ export default function Home() {
                   {frames.map((frame, index) => (
                     <div
                       key={index}
-                      className={`duration-700 ease-in-out ${
-                        index === currentIndex ? "block" : "hidden"
-                      }`}
+                      className={`duration-700 ease-in-out ${index === currentIndex ? "block" : "hidden"
+                        }`}
                       data-carousel-item={
                         index === currentIndex ? "active" : undefined
                       }
@@ -276,16 +292,16 @@ export default function Home() {
                 </button>
               </div>
               <div>
-                <h2 className={styles.ttls}>
+                <h2 className="w-[360px] h-[68px] mt-[62px] font-inter font-bold text-[28px] leading-[34px] text-center tracking-[-0.4px] text-white self-stretch flex-grow-0 order-0">
                   Connect to Apps & Dapps using your Wallet
                 </h2>
-                <p className={styles.desc}>
+                <p className="w-[360px] h-[48px] mt-[12px] font-inter font-normal text-[16px] leading-[24px] text-center tracking-[-0.4px] text-white opacity-60 self-stretch flex-grow-0 order-1">
                   Seamlessly access and use your favorite Web3 applications
                   directly from your wallet interface
                 </p>
               </div>
-              <div className={styles.btn_forms}>
-                <button className={styles.btn_download}>
+              <div className="mt-[55px] flex gap-[24px]">
+                <button className="flex items-center justify-center gap-[4px] isolate w-[172.63px] h-[56px] bg-white rounded-[16px] order-0 flex-grow-0">
                   <Image
                     src={GoogleIcon}
                     alt="GoogleIcon"
@@ -293,12 +309,12 @@ export default function Home() {
                     height={36}
                   />
                   <div>
-                    <p className={styles.btn_download_text}>Download on the</p>
-                    <p className={styles.btn_download_ttl}>App Store</p>
+                    <p className="text-start text-black text-[12px] font-normal">Download on the</p>
+                    <p className="text-start text-black text-[22px] font-semibold">App Store</p>
                   </div>
                 </button>
 
-                <button className={styles.btn_download}>
+                <button className="flex items-center justify-center gap-[4px] isolate w-[172.63px] h-[56px] bg-white rounded-[16px] order-0 flex-grow-0">
                   <Image
                     src={GoogleIcon}
                     alt="GoogleIcon"
@@ -306,17 +322,17 @@ export default function Home() {
                     height={36}
                   />
                   <div>
-                    <p className={styles.btn_download_text}>GET IT ON </p>
-                    <p className={styles.btn_download_ttl}>Google Play</p>
+                    <p className="text-start text-black text-[12px] font-normal">GET IT ON </p>
+                    <p className="text-start text-black text-[22px] font-semibold">Google Play</p>
                   </div>
                 </button>
               </div>
             </div>
-          </div>
-          <hr className={styles.containerDivider} />
-          <div className={styles.containerFooter}>
-            <p className={styles.containerFooterText}>bonuz</p>
-            <button className={styles.containerBtnMove}>
+          </div >
+          <hr className="absolute w-[96%] bottom-[10%] ml-[-2%]" />
+          <div className="flex justify-between items-center mt-[28px]">
+            <p className='font-[26px]'>bonuz</p>
+            <button className="w-[54px] h-[54px] bg-[#c5c5c56b] rounded-[50px] flex justify-center items-center">
               <svg
                 className="w-3 h-3 text-white"
                 aria-hidden="true"
@@ -333,12 +349,12 @@ export default function Home() {
                 />
               </svg>
             </button>
-            <button className={styles.containerBtnConnect}>
+            <button className="rounded-[30px] px-[8px] bg-custom-gradient1">
               Connect Bonuz On-Chain Social ID
             </button>
           </div>
-        </div>
-      </main>
+        </div >
+      </main >
     </>
   );
 }
