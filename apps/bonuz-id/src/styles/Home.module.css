@@ -1,14 +1,10 @@
 .main {
-  display: grid;
+  display: flex;
+  flex-direction: column;
   place-items: center;
-  height: 100%;
-  background: linear-gradient(
-      to bottom,
-      var(--color-bg),
-      transparent,
-      var(--color-bg)
-    ),
-    radial-gradient(circle, transparent 0%, var(--color-bg) 70%);
+  padding: 40px;
+  background-image: url("/images/first-background.png");
+  background-size: 100% 100%;
 }
 
 .background {
@@ -24,27 +20,72 @@
 }
 .wrapper {
   position: relative;
-  border: 1px solid var(--color-primary);
-  border-radius: var(--rounded-md);
-  background: hsl(var(--h), 1%, 10%);
-  max-width: clamp(20rem, 90%, 40rem);
-  box-shadow: var(--shadow-lg);
   z-index: 100;
+  padding-inline: 75px;
+  padding-block: 89px 13px;
+  border-radius: 40px;
+  opacity: 0px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: #9c9c9c4d;
 }
 
-.wrapper::after {
-  position: absolute;
-  content: "";
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: -1;
-  height: 100%;
+.mainContainer {
+  display: flex;
   width: 100%;
-  filter: blur(100px);
-  background: linear-gradient(95deg, #7baff3, #3f8ef6, #0b2c56, #4e70d0);
-  background-size: 200% 200%;
-  animation: animateGlow 5s linear infinite;
+}
+
+.leftContainer {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1;
+}
+
+.rightContainer {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1;
+  align-items: center;
+}
+
+.containerDivider {
+  position: absolute;
+  width: 96%;
+  bottom: 10%;
+  margin-left: -2%;
+}
+
+.containerFooterText {
+  font-size: 26px;
+}
+
+.containerBtnMove {
+  width: 54px;
+  height: 54px;
+  background-color: #c5c5c56b;
+  border-radius: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.containerBtnConnect {
+  border-radius: 30px;
+  padding-inline: 8px;
+  background: linear-gradient(
+    122.58deg,
+    #e79413 -19.89%,
+    #ea3e5b 48.73%,
+    #fa0af0 119.63%
+  );
+}
+
+.containerFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 28px;
 }
 
 .content {
@@ -84,6 +125,9 @@
 
 .container {
   padding: 2rem 2.25rem;
+}
+
+.wrapper {
 }
 
 .wrapper li {
@@ -183,6 +227,259 @@ span.button:hover {
   pointer-events: none;
   background: hsla(0, 0%, 4%, 0.75);
   transition: opacity 0.2s;
+}
+
+.topbutton1 {
+  background: linear-gradient(
+    97.19deg,
+    rgba(106, 52, 211, 0.4) 14.82%,
+    rgba(106, 52, 211, 0) 83.7%
+  );
+  border: 1px solid;
+
+  border-image-source: linear-gradient(
+    3.31deg,
+    rgba(255, 161, 16, 0.6) -14.44%,
+    rgba(255, 161, 16, 0) 91.68%
+  );
+  width: 228px;
+  height: 41px;
+  border-radius: 40px;
+  border: 1px 0px 0px 0px;
+  opacity: 0px;
+}
+
+.topbutton2 {
+  background: linear-gradient(
+    97.19deg,
+    rgba(106, 52, 211, 0.4) 14.82%,
+    rgba(106, 52, 211, 0) 83.7%
+  );
+  border: 1px solid;
+
+  border-image-source: linear-gradient(
+    3.31deg,
+    rgba(255, 161, 16, 0.6) -14.44%,
+    rgba(255, 161, 16, 0) 91.68%
+  );
+  width: 208px;
+  height: 41px;
+  border-radius: 40px;
+  border: 1px 0px 0px 0px;
+  opacity: 0px;
+}
+
+.topbutton3 {
+  width: 208px;
+  height: 41px;
+  gap: 8px;
+  border-radius: 30px;
+  opacity: 0px;
+  background: linear-gradient(
+    122.58deg,
+    #e79413 -19.89%,
+    #ea3e5b 48.73%,
+    #fa0af0 119.63%
+  );
+}
+
+.topbutton4 {
+  width: 208px;
+  height: 41px;
+  gap: 8px;
+  border-radius: 30px;
+  opacity: 0px;
+  background: linear-gradient(
+    122.58deg,
+    #e79413 -19.89%,
+    #ea3e5b 48.73%,
+    #fa0af0 119.63%
+  );
+}
+
+.mintButton {
+  width: 330px;
+  height: 51px;
+  gap: 8px;
+  border-radius: 30px;
+  opacity: 0px;
+  background: linear-gradient(
+    122.58deg,
+    #e79413 -19.89%,
+    #ea3e5b 48.73%,
+    #fa0af0 119.63%
+  );
+  margin-block: 29px;
+}
+
+.walletContent {
+  display: flex;
+  justify-content: space-between;
+  max-width: 700px;
+  padding: 46px;
+  gap: 0px;
+  border-radius: 30px;
+  opacity: 0px;
+  background: linear-gradient(15deg, #0e2875 9.18%, #4b2ea2 90.82%);
+}
+
+.walletHeader {
+  width: 213px;
+  height: 268px;
+  gap: 16px;
+  opacity: 0px;
+}
+
+.walletDescription {
+  width: Fill (213px) px;
+  height: Hug (112px) px;
+  padding: 0px 16px 0px 16px;
+  gap: 12px;
+  opacity: 0px;
+}
+
+.walletAddressContent {
+  display: flex;
+  width: Hug (200px) px;
+  height: Fixed (40px) px;
+  padding: 8px 10px 8px 10px;
+  gap: 12px;
+  border-radius: 12px;
+  opacity: 0px;
+}
+.walletIcon {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+.walletItems {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  opacity: 0px;
+}
+
+.walletItem {
+  width: Fixed (361px) px;
+  height: Hug (64px) px;
+  padding: 12px;
+  gap: 30px;
+  border-radius: 24px;
+  opacity: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.descriptionContent {
+  max-width: 510px;
+  top: 548px;
+  left: 142px;
+  gap: 24px;
+  opacity: 0px;
+  margin-top: 5rem;
+}
+.descriptionTitle {
+  font-family: Space Grotesk;
+  font-size: 56px;
+  font-weight: 700;
+  line-height: 61.6px;
+  letter-spacing: -0.08em;
+  text-align: left;
+  color: #ffffff;
+}
+.descriptions {
+  font-family: Inter;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: -0.4000000059604645px;
+  text-align: left;
+  opacity: 0.6px;
+  color: #ffffff;
+  margin-top: 24px;
+}
+
+.ttls {
+  width: 360px;
+  height: 68px;
+  margin-top: 62px;
+
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 28px;
+  line-height: 34px;
+  text-align: center;
+  letter-spacing: -0.4px;
+
+  color: #ffffff;
+
+  flex: none;
+  order: 0;
+  align-self: stretch;
+  flex-grow: 0;
+}
+
+.desc {
+  width: 360px;
+  height: 48px;
+  margin-top: 12px;
+
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  text-align: center;
+  letter-spacing: -0.4px;
+
+  color: #ffffff;
+
+  opacity: 0.6;
+
+  flex: none;
+  order: 1;
+  align-self: stretch;
+  flex-grow: 0;
+}
+
+.btn_forms {
+  margin-top: 55px;
+  display: flex;
+  gap: 24px;
+}
+
+.btn_download {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  isolation: isolate;
+  width: 172.63px;
+  height: 56px;
+
+  background: #ffffff;
+  border-radius: 16px;
+
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+
+.btn_download_text {
+  text-align: start;
+  color: #000;
+  font-size: 12px;
+  font-weight: 400px;
+}
+
+.btn_download_ttl {
+  text-align: start;
+  color: #000;
+  font-size: 22px;
+  font-weight: 600px;
 }
 
 @keyframes animateGlow {
