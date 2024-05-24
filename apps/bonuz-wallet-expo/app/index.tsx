@@ -1,10 +1,4 @@
-import React, {
-  useRef,
-  useState,
-  useCallback,
-  useMemo,
-  useEffect,
-} from "react";
+import React, { useRef, useState, useCallback, useMemo, useEffect } from 'react';
 import {
   View,
   Text,
@@ -14,61 +8,57 @@ import {
   Dimensions,
   ImageBackground,
   FlatList,
-} from "react-native";
-import { RFPercentage } from "react-native-responsive-fontsize";
+} from 'react-native';
+import { RFPercentage } from 'react-native-responsive-fontsize';
 import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
-} from "react-native-responsive-screen";
-import {
-  BottomSheetModal,
-  BottomSheetModalProvider,
-} from "@gorhom/bottom-sheet";
-import { LinearGradient } from "expo-linear-gradient";
-import { Redirect, useRouter } from "expo-router";
+} from 'react-native-responsive-screen';
+import { BottomSheetModal, BottomSheetModalProvider } from '@gorhom/bottom-sheet';
+import { LinearGradient } from 'expo-linear-gradient';
+import { Redirect, useRouter } from 'expo-router';
 import * as SecureStore from 'expo-secure-store';
-import { useAuth } from "@/hooks/Auth.hooks";
+import { useAuth } from '@/hooks/Auth.hooks';
 
-const SCREEN_WIDTH = Dimensions.get("window").width;
-const SCREEN_HEIGHT = Dimensions.get("window").height;
+const SCREEN_WIDTH = Dimensions.get('window').width;
+const SCREEN_HEIGHT = Dimensions.get('window').height;
 
-export default function onBoarding() {
+export default function OnBoarding() {
   const [activeIndex, setActiveIndex] = useState(0);
   const { user, login, logout } = useAuth();
-  const scrollViewRef = useRef(null);
-  const bottomSheetModalRef = useRef<BottomSheetModal>(null);
+  const scrollViewReference = useRef(null);
+  const bottomSheetModalReference = useRef<BottomSheetModal>(null);
   const router = useRouter();
-  const snapPoints = useMemo(() => ["5%", "40%"], []);
+  const snapPoints = useMemo(() => ['5%', '40%'], []);
 
   const handleSheetChanges = useCallback((index: number) => {
     // console.log("handleSheetChanges", index);
   }, []);
   const handlePresentModalPress = useCallback(() => {
-    bottomSheetModalRef.current?.present();
+    bottomSheetModalReference.current?.present();
   }, []);
   const onboardingData = [
     {
-      image: require("@/assets/images/onboardingOne.png"),
-      title: "Welcome to your On-chain Social Wallet",
+      image: require('@/assets/images/onboardingOne.png'),
+      title: 'Welcome to your On-chain Social Wallet',
       description:
-        "Add your social media links to your profile so new friends can easily connect to you",
+        'Add your social media links to your profile so new friends can easily connect to you',
     },
     {
-      image: require("@/assets/images/onboardingTwo.png"),
-      title: "Make new friends while exploring new events",
-      description: "Use QR-code to add a new connections",
+      image: require('@/assets/images/onboardingTwo.png'),
+      title: 'Make new friends while exploring new events',
+      description: 'Use QR-code to add a new connections',
     },
     {
-      image: require("@/assets/images/onboardingThree.png"),
-      title: "Earn exclusive rewards by participating in challenges",
-      description:
-        "Secure vouchers, discounts, certificates and more from Bonuz partners",
+      image: require('@/assets/images/onboardingThree.png'),
+      title: 'Earn exclusive rewards by participating in challenges',
+      description: 'Secure vouchers, discounts, certificates and more from Bonuz partners',
     },
     {
-      image: require("@/assets/images/onboardingFour.png"),
-      title: "Connect to Apps & Dapps using your wallet",
+      image: require('@/assets/images/onboardingFour.png'),
+      title: 'Connect to Apps & Dapps using your wallet',
       description:
-        "Seamlessly access and use your favorite Web3 applications directly from the integrated wallet interface",
+        'Seamlessly access and use your favorite Web3 applications directly from the integrated wallet interface',
     },
   ];
 
@@ -76,29 +66,26 @@ export default function onBoarding() {
     const retrieveToken = async () => {
       try {
         const loggedIn = await SecureStore.getItemAsync('loggedIn');
-        if(loggedIn !== null){
-          login(JSON.parse(loggedIn))
+        if (loggedIn !== null) {
+          login(JSON.parse(loggedIn));
         }
       } catch (error) {
         console.error('Error retrieving token:', error);
-        return null;
+        return;
       }
     };
-    retrieveToken()
-  
-    return () => {
-      
-    }
-  }, [])
-  
+    retrieveToken();
+
+    return () => {};
+  }, [login]);
 
   const handleNext = () => {
-    if (activeIndex == 3) {
+    if (activeIndex === 3) {
       return handlePresentModalPress();
     } else {
       const nextIndex = activeIndex + 1;
-      if (scrollViewRef.current) {
-        scrollViewRef.current.scrollToIndex({
+      if (scrollViewReference.current) {
+        scrollViewReference.current.scrollToIndex({
           animated: true,
           index: nextIndex, // Loop to the first item after reaching the last one
         });
@@ -108,31 +95,29 @@ export default function onBoarding() {
   };
 
   const handleTitle = () => {
-    if (activeIndex == 0) {
-      return "Continue";
-    } else if (activeIndex == 3) {
-      return "Connect Decentralized ID";
+    if (activeIndex === 0) {
+      return 'Continue';
+    } else if (activeIndex === 3) {
+      return 'Connect Decentralized ID';
     } else {
-      return "Next";
+      return 'Next';
     }
   };
 
-  const handleLogin = async (provider : string) => {
+  const handleLogin = async (provider: string) => {
     let loginState = {
-      jwt:'dsgfhddfghdfg',
-      socialProvider:provider,
-      guest:false,
-      isLoggedIn:true
-    }
-    login(loginState)
+      jwt: 'dsgfhddfghdfg',
+      socialProvider: provider,
+      guest: false,
+      isLoggedIn: true,
+    };
+    login(loginState);
     try {
-      await SecureStore.setItemAsync('loggedIn', JSON.stringify(loginState))
+      await SecureStore.setItemAsync('loggedIn', JSON.stringify(loginState));
     } catch (error) {
       console.error('Error storing token:', error);
     }
-
-
-  }
+  };
 
   const renderItem = ({ item }: any) => {
     return (
@@ -144,35 +129,26 @@ export default function onBoarding() {
     );
   };
 
-  if (user?.jwt || user?.guest)
-    return <Redirect href={"/(tabs)/profile"} />;
+  if (user?.jwt || user?.guest) return <Redirect href={'/(tabs)/profile'} />;
 
   return (
     <BottomSheetModalProvider>
-      <ImageBackground
-        source={require("@/assets/images/background.png")}
-        style={styles.container}
-      >
+      <ImageBackground source={require('@/assets/images/background.png')} style={styles.container}>
         <View style={styles.scrollContainer}>
           <View style={styles.pagination}>
             {activeIndex !== 0 &&
               onboardingData.map((_, index) => {
-                if (index == 0) return null;
-                else
-                  return (
-                    <View
-                      key={index}
-                      style={[
-                        styles.paginationDot,
-                        index <= activeIndex && styles.activeDot,
-                      ]}
-                    />
-                  );
+                return index === 0 ? undefined : (
+                  <View
+                    key={index}
+                    style={[styles.paginationDot, index <= activeIndex && styles.activeDot]}
+                  />
+                );
               })}
           </View>
 
           <FlatList
-            ref={scrollViewRef}
+            ref={scrollViewReference}
             data={onboardingData}
             renderItem={renderItem}
             horizontal
@@ -183,7 +159,7 @@ export default function onBoarding() {
             onMomentumScrollEnd={(event) => {
               const index = Math.floor(
                 Math.floor(event.nativeEvent.contentOffset.x) /
-                  Math.floor(event.nativeEvent.layoutMeasurement.width)
+                  Math.floor(event.nativeEvent.layoutMeasurement.width),
               );
               setActiveIndex(index);
             }}
@@ -193,56 +169,47 @@ export default function onBoarding() {
           <TouchableOpacity onPress={handleNext} style={styles.button}>
             <Text style={styles.buttonText}>{handleTitle()}</Text>
           </TouchableOpacity>
-          {activeIndex == 3 && (
-            <Text
-              onPress={() => login({ ...user, guest: true })}
-              style={styles.guest}
-            >
+          {activeIndex === 3 && (
+            <Text onPress={() => login({ ...user, guest: true })} style={styles.guest}>
               Continue as guest
             </Text>
           )}
         </View>
       </ImageBackground>
       <BottomSheetModal
-        backgroundStyle={{ backgroundColor: "transparent" }}
-        ref={bottomSheetModalRef}
+        backgroundStyle={{ backgroundColor: 'transparent' }}
+        ref={bottomSheetModalReference}
         handleIndicatorStyle={styles.indicator}
         index={1}
         snapPoints={snapPoints}
-        onChange={handleSheetChanges}
-      >
+        onChange={handleSheetChanges}>
         <LinearGradient
-          colors={["#0E2875", "#4B2EA2"]}
+          colors={['#0E2875', '#4B2EA2']}
           style={{
             flex: 1,
             borderTopLeftRadius: 25,
             borderTopRightRadius: 25,
-            alignItems: "center",
-          }}
-        >
+            alignItems: 'center',
+          }}>
           <Text style={styles.signUp}>Sign Up</Text>
           <Image
-            source={require("@/assets/images/logo.png")}
+            source={require('@/assets/images/logo.png')}
             style={styles.logo}
             resizeMode="contain"
           />
           <TouchableOpacity
             onPress={() => handleLogin('Google')}
-            style={[styles.button, styles.buttonSocial]}
-          >
+            style={[styles.button, styles.buttonSocial]}>
             <Image
-              source={require("@/assets/images/google.png")}
+              source={require('@/assets/images/google.png')}
               style={styles.icon}
               resizeMode="contain"
             />
             <Text style={styles.buttonText}>Sign Up with Google</Text>
           </TouchableOpacity>
-          <TouchableOpacity
-           onPress={() => handleLogin('Apple')}
-            style={styles.button}
-          >
+          <TouchableOpacity onPress={() => handleLogin('Apple')} style={styles.button}>
             <Image
-              source={require("@/assets/images/apple.png")}
+              source={require('@/assets/images/apple.png')}
               style={styles.icon}
               resizeMode="contain"
             />
@@ -257,16 +224,16 @@ export default function onBoarding() {
 const styles = StyleSheet.create({
   contentContainer: {
     flex: 1,
-    alignItems: "center",
-    backgroundColor: "red",
+    alignItems: 'center',
+    backgroundColor: 'red',
   },
   container: {
     flex: 1,
   },
   slide: {
     width: wp(100),
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   scrollContainer: {
     height: hp(82),
@@ -277,69 +244,69 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: RFPercentage(3.2),
-    fontWeight: "bold",
+    fontWeight: 'bold',
     marginVertical: 10,
-    color: "white",
-    textAlign: "center",
+    color: 'white',
+    textAlign: 'center',
     width: wp(75),
   },
   subtitle: {
     fontSize: RFPercentage(1.8),
-    textAlign: "center",
+    textAlign: 'center',
     marginHorizontal: 40,
     marginBottom: 40,
-    color: "#FFFFFF60",
+    color: '#FFFFFF60',
   },
   pagination: {
-    flexDirection: "row",
+    flexDirection: 'row',
     marginTop: hp(8),
-    alignSelf: "center",
+    alignSelf: 'center',
   },
   paginationDot: {
     width: wp(10),
     height: hp(0.7),
     borderRadius: 5,
-    backgroundColor: "#6F43D0",
+    backgroundColor: '#6F43D0',
     marginHorizontal: 3,
   },
   activeDot: {
-    backgroundColor: "#FFFFFF",
+    backgroundColor: '#FFFFFF',
   },
   buttonWrap: {
     height: hp(15),
     width: wp(92),
-    alignSelf: "center",
-    justifyContent: "center",
+    alignSelf: 'center',
+    justifyContent: 'center',
   },
   button: {
-    flexDirection: "row",
-    backgroundColor: "#ffffff",
+    flexDirection: 'row',
+    backgroundColor: '#ffffff',
     height: hp(6),
     width: wp(90),
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     borderRadius: 50,
   },
   buttonSocial: {
     marginBottom: hp(1),
   },
   buttonText: {
-    color: "#000",
+    color: '#000',
     fontSize: RFPercentage(2),
-    fontWeight: "600",
+    fontWeight: '600',
   },
   signUp: {
-    color: "#fff",
+    color: '#fff',
     fontSize: RFPercentage(2.5),
-    fontWeight: "bold",
+    fontWeight: 'bold',
     marginTop: hp(4),
   },
   guest: {
-    color: "#fff",
+    color: '#fff',
     fontSize: RFPercentage(1.8),
-    fontWeight: "500",
+    fontWeight: '500',
     marginTop: hp(2),
-    alignSelf: "center",
+    alignSelf: 'center',
   },
   logo: {
     width: wp(35),
@@ -351,7 +318,7 @@ const styles = StyleSheet.create({
     marginRight: wp(3),
   },
   indicator: {
-    backgroundColor: "#905CFF",
+    backgroundColor: '#905CFF',
     top: hp(3),
     height: hp(0.6),
     width: wp(10),
