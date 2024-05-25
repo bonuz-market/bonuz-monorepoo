@@ -64,29 +64,100 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
-        <div className="flex gap-2 w-full px-12 z-50 mb-2 flex-col md:flex-row">
-          <button
-            className="w-[228px] h-[41px] rounded-[40px] bg-custom-bg-gradient border border-transparent"
-            style={{
-              borderImageSource: 'linear-gradient(3.31deg, rgba(255, 161, 16, 0.6) -14.44%, rgba(255, 161, 16, 0) 91.68%)',
-              borderWidth: '1px'
-            }}
-          >
-            bonuz.market #Ecosystem
-          </button>
+        <nav className="w-full">
+          <div className="flex gap-2 w-full z-50 mb-2 max-w-screen-xl flex flex-wrap flex-col">
+            <button
+              data-collapse-toggle="navbar-default"
+              type="button"
+              className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+              aria-controls="navbar-default"
+              aria-expanded="false"
+              onClick={() => {
+                const navbar = document.getElementById("navbar-default");
+                if (navbar) {
+                  if (navbar.classList.contains("hidden")) {
+                    navbar.classList.remove("hidden");
+                  } else {
+                    navbar.classList.add("hidden");
+                  }
+                }
+              }}
+            >
+              <span className="sr-only">Open main menu</span>
+              <svg
+                className="w-5 h-5"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 17 14"
+              >
+                <path
+                  stroke="currentColor"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M1 1h15M1 7h15M1 13h15"
+                />
+              </svg>
+            </button>
+            <div
+              className="hidden w-full md:flex md:w-auto gap-2"
+              id="navbar-default"
+            >
+              <ul className="flex w-full gap-2 flex-col md:flex-row">
+                <li>
+                  <button
+                    className="w-[228px] h-[41px] rounded-[40px] bg-custom-bg-gradient border border-transparent"
+                    style={{
+                      borderImageSource:
+                        "linear-gradient(3.31deg, rgba(255, 161, 16, 0.6) -14.44%, rgba(255, 161, 16, 0) 91.68%)",
+                      borderWidth: "1px",
+                    }}
+                  >
+                    bonuz.market #Ecosystem
+                  </button>
+                </li>
+                <li>
+                  <button
+                    className="w-[208px] h-[41px] rounded-[40px] border border-transparent"
+                    style={{
+                      background:
+                        "linear-gradient(97.19deg, rgba(106, 52, 211, 0.4) 14.82%, rgba(106, 52, 211, 0) 83.7%)",
+                      borderImageSource:
+                        "linear-gradient(3.31deg, rgba(255, 161, 16, 0.6) -14.44%, rgba(255, 161, 16, 0) 91.68%)",
+                      borderWidth: "1px",
+                    }}
+                  >
+                    Whitepaper #Degen
+                  </button>
+                </li>
+                <li>
+                  <button
+                    className="w-[208px] h-[41px] gap-[8px] rounded-[30px]"
+                    style={{
+                      background:
+                        "linear-gradient(122.58deg, #e79413 -19.89%, #ea3e5b 48.73%, #fa0af0 119.63%)",
+                    }}
+                  >
+                    Documentation #Devs
+                  </button>
+                </li>
+                <li>
+                  <button
+                    className="w-[208px] h-[41px] gap-[8px] rounded-[30px]"
+                    style={{
+                      background:
+                        "linear-gradient(122.58deg, #e79413 -19.89%, #ea3e5b 48.73%, #fa0af0 119.63%)",
+                    }}
+                  >
+                    Bonuz Wallet
+                  </button>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
 
-          <button
-            className="w-[208px] h-[41px] rounded-[40px] border border-transparent"
-            style={{
-              background: 'linear-gradient(97.19deg, rgba(106, 52, 211, 0.4) 14.82%, rgba(106, 52, 211, 0) 83.7%)',
-              borderImageSource: 'linear-gradient(3.31deg, rgba(255, 161, 16, 0.6) -14.44%, rgba(255, 161, 16, 0) 91.68%)',
-              borderWidth: '1px'
-            }}
-          >Whitepaper #Degen</button>
-
-          <button className="w-[208px] h-[41px] gap-[8px] rounded-[30px]" style={{ background: "linear-gradient(122.58deg, #e79413 -19.89%, #ea3e5b 48.73%, #fa0af0 119.63%)" }}>Documentation #Devs</button>
-          <button className="w-[208px] h-[41px] gap-[8px] rounded-[30px]" style={{ background: "linear-gradient(122.58deg, #e79413 -19.89%, #ea3e5b 48.73%, #fa0af0 119.63%)" }}>Bonuz Wallet</button>
-        </div>
         <div className="relative z-[100] pb-[13px] rounded-[40px] w-full flex flex-col bg-[#9c9c9c4d] px-[5px] py-[5px] md:px-[75px] md:py-[89px]">
           <div
             className="flex w-full flex-col md:flex-row"
