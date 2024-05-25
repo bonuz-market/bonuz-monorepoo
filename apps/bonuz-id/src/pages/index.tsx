@@ -164,7 +164,7 @@ export default function Home() {
           >
             <div className="flex flex-col flex-1">
               <div
-                className="flex justify-between max-w-[700px] p-[46px] gap-0 rounded-[30px] bg-gradient-to-r from-[#0e2875] to-[#4b2ea2] via-[#4b2ea2] flex-col md:flex-col lg:flex-row md: p-[10px]"
+                className="flex justify-between max-w-[700px] p-[10px] gap-0 rounded-[30px] bg-gradient-to-r from-[#0e2875] to-[#4b2ea2] via-[#4b2ea2] flex-col md:flex-col lg:flex-row md: p-[46px]"
               >
                 <div>
                   <div className=' h-[268px] gap-[16px] w-full md:w-[213px]'>
