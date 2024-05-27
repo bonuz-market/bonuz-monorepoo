@@ -63,9 +63,9 @@ export const useUserStore = create<UserStore & (UserStoreActions & PersistedStat
       },
       clear: () => {
         set({
-          user: undefined,
-          wallet: undefined,
-          auth: undefined,
+          user: {},
+          wallet: {},
+          auth: {},
         });
       },
 
