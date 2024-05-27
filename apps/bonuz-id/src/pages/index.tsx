@@ -2,7 +2,6 @@
 import Head from "next/head";
 import styles from "@/styles/Home.module.css";
 import { useState } from "react";
-import { useAccount } from "wagmi";
 import Image from "next/image";
 import walletIcon from "../../public/icons/wallet-icon.svg";
 import copyIcon from "../../public/icons/copy-icon.svg";
@@ -23,16 +22,8 @@ import GoogleIcon from "../../public/icons/apple.png";
 
 export default function Home() {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [isNetworkSwitchHighlighted, setIsNetworkSwitchHighlighted] =
-    useState(false);
-  const [isConnectHighlighted, setIsConnectHighlighted] = useState(false);
 
   const frames = [Frame1, Frame2, Frame3, Frame4];
-
-  const closeAll = () => {
-    setIsNetworkSwitchHighlighted(false);
-    setIsConnectHighlighted(false);
-  };
 
   function shortenEthereumAddress(address: any) {
     if (address) {
