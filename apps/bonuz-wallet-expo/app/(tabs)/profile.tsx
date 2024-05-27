@@ -20,6 +20,7 @@ import { StatusBarHeight } from '@/components/StatusbarHeight';
 import { Text, View } from '@/components/Themed';
 import { useLogin } from '@/hooks/useLogin';
 import { useUserStore } from '@/store';
+import { isNotEmpty } from '@/utils/object';
 
 export default function Profile() {
   const state = useUserStore((store) => store);
@@ -73,7 +74,7 @@ export default function Profile() {
     router.push('/');
   };
 
-  return state.auth ? (
+  return isNotEmpty(state.auth) && isNotEmpty(state.user) ? (
     <LinearGradient colors={['#4B2EA2', '#0E2875']} style={styles.container}>
       <ImageBackground
         source={require('@/assets/images/profile/profile.png')}
