@@ -18,5 +18,11 @@
 	},
 	"engines": {
 		"node": ">=18"
+	},
+	"pnpm": {
+		"overrides": {
+			"valtio": "v1.10.5",
+			"abitype": "v1.0.0"
+		}
 	}
 }

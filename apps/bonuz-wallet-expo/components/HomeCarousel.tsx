@@ -1,13 +1,26 @@
-import { StyleSheet, Text, View } from 'react-native';
-import React from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
+import React from 'react';
+import { StyleSheet, Text, View } from 'react-native';
 import Carousel from 'react-native-reanimated-carousel';
+import { RFPercentage } from 'react-native-responsive-fontsize';
 import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
-import { RFPercentage } from 'react-native-responsive-fontsize';
 
+interface HomeCarouselProps {
+  title: string;
+  lineargradient?: string[];
+  start?: [number, number];
+  end?: [number, number];
+  right: JSX.Element;
+  badgeCount: number;
+  item: JSX.Element;
+  data: any[];
+  activeIndex: number;
+  setActiveIndex: (index: number) => void;
+  style?: any;
+}
 export default function HomeCarousel({
   title,
   lineargradient,
@@ -20,7 +33,7 @@ export default function HomeCarousel({
   activeIndex,
   setActiveIndex,
   style,
-}) {
+}: HomeCarouselProps) {
   return (
     <LinearGradient
       start={start || [0, 0.4]}

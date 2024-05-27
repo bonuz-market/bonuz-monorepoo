@@ -1,37 +1,41 @@
-import React, { useRef, useState, useCallback, useMemo, useEffect } from 'react';
+import { BottomSheetModal, BottomSheetModalProvider } from '@gorhom/bottom-sheet';
+import { LinearGradient } from 'expo-linear-gradient';
+import { Redirect } from 'expo-router';
+import React, { useCallback, useMemo, useRef, useState } from 'react';
 import {
-  View,
-  Text,
-  Image,
-  TouchableOpacity,
-  StyleSheet,
   Dimensions,
-  ImageBackground,
   FlatList,
+  Image,
+  ImageBackground,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
 } from 'react-native';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
-import { BottomSheetModal, BottomSheetModalProvider } from '@gorhom/bottom-sheet';
-import { LinearGradient } from 'expo-linear-gradient';
-import { Redirect, useRouter } from 'expo-router';
-import * as SecureStore from 'expo-secure-store';
-import { useAuth } from '@/hooks/Auth.hooks';
+
+import { useLogin } from '@/hooks/useLogin';
+import { useUserStore } from '@/store';
+import { isNotEmpty } from '@/utils/object';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 const SCREEN_HEIGHT = Dimensions.get('window').height;
 
-export default function OnBoarding() {
+export default function Home() {
   const [activeIndex, setActiveIndex] = useState(0);
-  const { user, login, logout } = useAuth();
-  const scrollViewReference = useRef(null);
+  const { login } = useLogin();
+  const state = useUserStore((store) => store);
+  console.log('state', state);
+
+  const scrollViewReference = useRef<FlatList>(null);
   const bottomSheetModalReference = useRef<BottomSheetModal>(null);
-  const router = useRouter();
   const snapPoints = useMemo(() => ['5%', '40%'], []);
 
-  const handleSheetChanges = useCallback((index: number) => {
+  const handleSheetChanges = useCallback(() => {
     // console.log("handleSheetChanges", index);
   }, []);
   const handlePresentModalPress = useCallback(() => {
@@ -62,23 +66,6 @@ export default function OnBoarding() {
     },
   ];
 
-  useEffect(() => {
-    const retrieveToken = async () => {
-      try {
-        const loggedIn = await SecureStore.getItemAsync('loggedIn');
-        if (loggedIn !== null) {
-          login(JSON.parse(loggedIn));
-        }
-      } catch (error) {
-        console.error('Error retrieving token:', error);
-        return;
-      }
-    };
-    retrieveToken();
-
-    return () => {};
-  }, [login]);
-
   const handleNext = () => {
     if (activeIndex === 3) {
       return handlePresentModalPress();
@@ -104,18 +91,12 @@ export default function OnBoarding() {
     }
   };
 
-  const handleLogin = async (provider: string) => {
-    let loginState = {
-      jwt: 'dsgfhddfghdfg',
-      socialProvider: provider,
-      guest: false,
-      isLoggedIn: true,
-    };
-    login(loginState);
+  const handleLogin = async ({ provider }: { provider: 'google' | 'apple' }) => {
     try {
-      await SecureStore.setItemAsync('loggedIn', JSON.stringify(loginState));
+      await login({ provider });
+      console.log('Login', provider);
     } catch (error) {
-      console.error('Error storing token:', error);
+      console.error('Error Login', error);
     }
   };
 
@@ -129,7 +110,7 @@ export default function OnBoarding() {
     );
   };
 
-  if (user?.jwt || user?.guest) return <Redirect href={'/(tabs)/profile'} />;
+  if (isNotEmpty(state.auth)) return <Redirect href={'/home'} />;
 
   return (
     <BottomSheetModalProvider>
@@ -155,8 +136,8 @@ export default function OnBoarding() {
             pagingEnabled
             initialNumToRender={5}
             showsHorizontalScrollIndicator={false}
-            keyExtractor={(item, index) => index.toString()}
-            onMomentumScrollEnd={(event) => {
+            keyExtractor={(_, index) => index.toString()}
+            onMomentumScrollEnd={(event: any) => {
               const index = Math.floor(
                 Math.floor(event.nativeEvent.contentOffset.x) /
                   Math.floor(event.nativeEvent.layoutMeasurement.width),
@@ -169,11 +150,7 @@ export default function OnBoarding() {
           <TouchableOpacity onPress={handleNext} style={styles.button}>
             <Text style={styles.buttonText}>{handleTitle()}</Text>
           </TouchableOpacity>
-          {activeIndex === 3 && (
-            <Text onPress={() => login({ ...user, guest: true })} style={styles.guest}>
-              Continue as guest
-            </Text>
-          )}
+          {activeIndex === 3 && <Text style={styles.guest}>Continue as guest</Text>}
         </View>
       </ImageBackground>
       <BottomSheetModal
@@ -198,7 +175,7 @@ export default function OnBoarding() {
             resizeMode="contain"
           />
           <TouchableOpacity
-            onPress={() => handleLogin('Google')}
+            onPress={() => handleLogin({ provider: 'google' })}
             style={[styles.button, styles.buttonSocial]}>
             <Image
               source={require('@/assets/images/google.png')}
@@ -207,7 +184,9 @@ export default function OnBoarding() {
             />
             <Text style={styles.buttonText}>Sign Up with Google</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => handleLogin('Apple')} style={styles.button}>
+          <TouchableOpacity
+            onPress={() => handleLogin({ provider: 'apple' })}
+            style={styles.button}>
             <Image
               source={require('@/assets/images/apple.png')}
               style={styles.icon}
