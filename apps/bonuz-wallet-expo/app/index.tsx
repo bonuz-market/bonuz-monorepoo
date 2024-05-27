@@ -1,6 +1,6 @@
 import { BottomSheetModal, BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { LinearGradient } from 'expo-linear-gradient';
-import { Redirect } from 'expo-router';
+import { Redirect, useRouter } from 'expo-router';
 import React, { useCallback, useMemo, useRef, useState } from 'react';
 import {
   Dimensions,
@@ -29,7 +29,7 @@ export default function Home() {
   const [activeIndex, setActiveIndex] = useState(0);
   const { login } = useLogin();
   const state = useUserStore((store) => store);
-  console.log('state', state);
+  const { navigate } = useRouter();
 
   const scrollViewReference = useRef<FlatList>(null);
   const bottomSheetModalReference = useRef<BottomSheetModal>(null);
@@ -150,7 +150,11 @@ export default function Home() {
           <TouchableOpacity onPress={handleNext} style={styles.button}>
             <Text style={styles.buttonText}>{handleTitle()}</Text>
           </TouchableOpacity>
-          {activeIndex === 3 && <Text style={styles.guest}>Continue as guest</Text>}
+          {activeIndex === 3 && (
+            <Text style={styles.guest} onPress={() => navigate('/home')}>
+              Continue as guest
+            </Text>
+          )}
         </View>
       </ImageBackground>
       <BottomSheetModal
