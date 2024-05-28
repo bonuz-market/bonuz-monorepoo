@@ -408,24 +408,8 @@ export default function Home() {
           </div >
           <hr className="flex w-[98%]" />
           <div className="flex justify-between items-center mt-[28px] flex-col md:flex-row md: gap-2">
-            <p className='font-[26px] invisible md:visible'>bonuz</p>
-            <button className="w-[54px] h-[54px] bg-[#c5c5c56b] rounded-[50px] flex justify-center items-center">
-              <svg
-                className="w-3 h-3 text-white"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 14 8"
-              >
-                <path
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="m1 1 5.326 5.7a.909.909 0 0 0 1.348 0L13 1"
-                />
-              </svg>
-            </button>
+            <p className='font-[26px] hidden md:flex'>bonuz</p>
+            <div className="w-[25px] h-[25px] md:w-[30px] md:h-[30px] bg-[url('/icons/up-icon.png')] rounded-[50px] bg-center flex justify-center items-center cursor-pointer" onClick={() => router.push('/')} />
             <button className="rounded-[30px] px-[8px] bg-custom-gradient1">
               Connect Bonuz On-Chain Social ID
             </button>
