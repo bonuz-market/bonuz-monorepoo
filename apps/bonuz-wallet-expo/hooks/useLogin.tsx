@@ -3,7 +3,7 @@ import { useEmailLogin } from '@/features/email';
 import { useGoogleLogin } from '@/features/Google';
 import { useUserStore } from '@/store';
 
-type loginParams =
+export type loginParams =
   | {
       provider: 'google' | 'apple';
     }

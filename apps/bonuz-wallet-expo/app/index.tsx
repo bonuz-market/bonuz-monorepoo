@@ -9,6 +9,7 @@ import {
   ImageBackground,
   StyleSheet,
   Text,
+  TextInput,
   TouchableOpacity,
   View,
 } from 'react-native';
@@ -18,7 +19,7 @@ import {
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
 
-import { useLogin } from '@/hooks/useLogin';
+import { loginParams, useLogin } from '@/hooks/useLogin';
 import { useUserStore } from '@/store';
 import { isNotEmpty } from '@/utils/object';
 
@@ -33,7 +34,7 @@ export default function Home() {
 
   const scrollViewReference = useRef<FlatList>(null);
   const bottomSheetModalReference = useRef<BottomSheetModal>(null);
-  const snapPoints = useMemo(() => ['5%', '40%'], []);
+  const snapPoints = useMemo(() => ['50%', '60%'], []);
 
   const handleSheetChanges = useCallback(() => {
     // console.log("handleSheetChanges", index);
@@ -91,10 +92,10 @@ export default function Home() {
     }
   };
 
-  const handleLogin = async ({ provider }: { provider: 'google' | 'apple' }) => {
+  const handleLogin = async (params: loginParams) => {
     try {
-      await login({ provider });
-      console.log('Login', provider);
+      await login(params);
+      console.log('Login', params);
     } catch (error) {
       console.error('Error Login', error);
     }
@@ -109,6 +110,8 @@ export default function Home() {
       </View>
     );
   };
+
+  const [email, setEmail] = useState('');
 
   if (isNotEmpty(state.auth)) return <Redirect href={'/home'} />;
 
@@ -198,6 +201,38 @@ export default function Home() {
             />
             <Text style={styles.buttonText}>Sign Up with Apple</Text>
           </TouchableOpacity>
+
+          <View style={{ width: wp(90) }}>
+            <View style={{ flexDirection: 'row', alignItems: 'center', marginVertical: 16 }}>
+              <View style={{ flex: 1, height: 1, backgroundColor: '#2b34a0' }} />
+              <Text style={{ color: 'white', marginHorizontal: 10 }}>or</Text>
+              <View style={{ flex: 1, height: 1, backgroundColor: '#2b34a0' }} />
+            </View>
+
+            <View style={{ flexDirection: 'column', gap: 8 }}>
+              <Text style={{ color: 'white', fontSize: 16 }}>Email</Text>
+              <TextInput
+                style={{
+                  backgroundColor: '#2b3ca3',
+                  borderRadius: 12,
+                  padding: 12,
+                  width: '100%',
+                  borderWidth: 2,
+                  borderColor: '#2f48b6',
+                  height: 48,
+                }}
+                placeholder="Enter your email"
+                placeholderTextColor={'rgba(255, 255, 255, 0.6)'}
+                value={email}
+                onChangeText={setEmail}
+              />
+            </View>
+            <TouchableOpacity
+              onPress={() => handleLogin({ provider: 'email', email, onLoginComplete: () => {} })}
+              style={[styles.button, { marginTop: 16 }]}>
+              <Text style={styles.buttonText}>Sign Up</Text>
+            </TouchableOpacity>
+          </View>
         </LinearGradient>
       </BottomSheetModal>
     </BottomSheetModalProvider>
