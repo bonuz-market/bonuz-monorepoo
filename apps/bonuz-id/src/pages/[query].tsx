@@ -72,23 +72,27 @@ export default function SearchPage() {
                         <p>Real-World D/Apps</p>
                         <div className="flex flex-col gap-2 pt-6">
                             <div className="flex flex-row p-2 max-w-[360px] gap-4 border-[1px] rounded-[16px] bg-transparent justify-between font-inter text-base font-normal leading-6 tracking-tight text-left">
-                                <p>On-Chain Engagement Airdrops</p>
+                                <p>Humans (Bonuz On-Chain ID)</p>
                                 <Image src={checkboxIcon} width={20} height={20} alt="checkbox_icon" />
                             </div>
                             <div className="flex flex-row p-2 max-w-[360px] border-[1px] rounded-[16px] bg-transparent justify-between font-inter text-base font-normal leading-6 tracking-tight text-left">
-                                <p>Education Certificates</p>
+                                <p>Lens Profiles</p>
                                 <Image src={checkboxIcon} width={20} height={20} alt="checkbox_icon" />
                             </div>
                             <div className="flex flex-row p-2 max-w-[360px] border-[1px] rounded-[16px] bg-transparent justify-between font-inter text-base font-normal leading-6 tracking-tight text-left">
-                                <p>Shopping (Vouchers, Gift Cards)</p>
+                                <p>Real Life Engagement Airdrops</p>
                                 <Image src={checkboxIcon} width={20} height={20} alt="checkbox_icon" />
                             </div>
                             <div className="flex flex-row p-2 border-[1px] max-w-[360px] rounded-[16px] bg-transparent justify-between font-inter text-base font-normal leading-6 tracking-tight text-left">
-                                <p>DEFI</p>
+                                <p>99+</p>
                                 <Image src={checkboxIcon} width={20} height={20} alt="checkbox_icon" />
                             </div>
                             <div className="flex flex-row p-2 border-[1px] max-w-[360px] rounded-[16px] bg-transparent justify-between font-inter text-base font-normal leading-6 tracking-tight text-left">
-                                <p>Virtual Reality</p>
+                                <p>Token-Gated Meetup</p>
+                                <Image src={checkboxIcon} width={20} height={20} alt="checkbox_icon" />
+                            </div>
+                            <div className="flex flex-row p-2 border-[1px] max-w-[360px] rounded-[16px] bg-transparent justify-between font-inter text-base font-normal leading-6 tracking-tight text-left">
+                                <p>Mixed Reality Games (AR)</p>
                                 <Image src={checkboxIcon} width={20} height={20} alt="checkbox_icon" />
                             </div>
                         </div>
