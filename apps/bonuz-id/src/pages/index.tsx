@@ -2,6 +2,7 @@
 import Head from "next/head";
 import styles from "@/styles/Home.module.css";
 import { useState } from "react";
+import { useRouter } from "next/router";
 import Image from "next/image";
 import walletIcon from "../../public/icons/wallet-icon.svg";
 import copyIcon from "../../public/icons/copy-icon.svg";
@@ -15,6 +16,7 @@ import dropdownIcon from "../../public/icons/dropdown-icon.svg";
 import cancleIcon from '../../public/icons/arrow-cancle.png';
 import searchIcon from '../../public/icons/search.svg';
 
+
 import Frame1 from "../../public/images/carousel/Frame_1.png";
 import Frame2 from "../../public/images/carousel/Frame_2.png";
 import Frame3 from "../../public/images/carousel/Frame_3.png";
@@ -24,6 +26,8 @@ import GoogleIcon from "../../public/icons/apple.png";
 
 export default function Home() {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [searchQuery, setSearchQuery] = useState('')
+  const router = useRouter()
 
   const frames = [Frame1, Frame2, Frame3, Frame4];
 
@@ -46,6 +50,14 @@ export default function Home() {
       prevIndex === frames.length - 1 ? 0 : prevIndex + 1
     );
   };
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      router.push(`/q=${searchQuery}&filters=all`)
+    }
+  }
+
   return (
     <>
       <Head>
@@ -422,7 +434,7 @@ export default function Home() {
 
         <div className="mt-16 w-full h-[48px] flex justify-between items-center justify-center p-3 pt-0 gap-2 rounded-[30px] border-2 pb-0 pt-0 border-[#9651FF]">
           <Image src={searchIcon} width={24} height={24} alt="search" />
-          <input name="search" className="w-full bg-transparent font-inter text-base font-normal leading-6 tracking-tight text-left border-none" defaultValue="Search" />
+          <input name="search" className="w-full bg-transparent font-inter text-base font-normal leading-6 tracking-tight text-left border-none" defaultValue="Search" onChange={(e) => setSearchQuery(e.target.value)} onKeyDown={handleKeyDown} />
           <Image src={cancleIcon} width={30} height={30} alt="cancle" className="cursor-pointer" />
         </div>
       </main >
