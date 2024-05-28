@@ -1,5 +1,7 @@
+import { Address } from 'viem';
+
 export interface Wallet {
-  eoaAddress: string;
+  eoaAddress: Address;
   privateKey: string;
-  address: string;
+  address: Address;
 }

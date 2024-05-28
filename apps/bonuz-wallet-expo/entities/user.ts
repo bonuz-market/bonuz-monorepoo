@@ -1,4 +1,4 @@
-interface Link {
+export interface Link {
   type: string;
   handle: string;
   isPublic: boolean;

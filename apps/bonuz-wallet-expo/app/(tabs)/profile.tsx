@@ -19,12 +19,14 @@ import {
 import { StatusBarHeight } from '@/components/StatusbarHeight';
 import { Text, View } from '@/components/Themed';
 import { useLogin } from '@/hooks/useLogin';
+import { useQueryGetUserProfileAndSocialLinks } from '@/services/blockchain/bonuz/useSocialId';
 import { useUserStore } from '@/store';
 import { isNotEmpty } from '@/utils/object';
 
 export default function Profile() {
   const state = useUserStore((store) => store);
   const { logout, login } = useLogin();
+  const { data } = useQueryGetUserProfileAndSocialLinks();
   let list = [
     {
       background: '#117EFF',
@@ -77,7 +79,11 @@ export default function Profile() {
   return isNotEmpty(state.auth) && isNotEmpty(state.user) ? (
     <LinearGradient colors={['#4B2EA2', '#0E2875']} style={styles.container}>
       <ImageBackground
-        source={require('@/assets/images/profile/profile.png')}
+        source={
+          data?.profilePicture
+            ? { uri: data.profilePicture }
+            : require('@/assets/images/profile/profile.png')
+        }
         style={styles.profile}>
         <View
           style={[
@@ -111,8 +117,8 @@ export default function Profile() {
           </View>
           <View style={styles.rowContainer}>
             <View style={{ backgroundColor: 'transparent' }}>
-              <Text style={styles.name}>Santiago Welch</Text>
-              <Text style={styles.userName}>@Art_Kulas62</Text>
+              <Text style={styles.name}>{data?.name}</Text>
+              <Text style={styles.userName}>{data?.handle}</Text>
             </View>
             <View style={styles.editImageWrap}>
               <Image

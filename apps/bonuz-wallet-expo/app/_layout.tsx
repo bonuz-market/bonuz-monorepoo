@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 import { StyleSheet } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
+import { ReactQueryProvider } from '@/providers';
 import { useUserStore } from '@/store';
 
 export {
@@ -56,10 +57,12 @@ export default function RootLayout() {
 function RootLayoutNav() {
   return (
     <GestureHandlerRootView style={styles.container}>
-      <Stack initialRouteName="index">
-        <Stack.Screen name="index" options={{ headerShown: false }} />
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-      </Stack>
+      <ReactQueryProvider>
+        <Stack initialRouteName="index">
+          <Stack.Screen name="index" options={{ headerShown: false }} />
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        </Stack>
+      </ReactQueryProvider>
     </GestureHandlerRootView>
   );
 }
