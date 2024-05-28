@@ -19,9 +19,9 @@
     "node": ">=18"
   },
   "dependencies": {
-    "@web3modal/wagmi": "^3.5.7",
-    "@wagmi/core": "^2.9.7",
-    "@types/react": "^18.2.52",
-    "@tanstack/query-core": "^5.36.1"
+    "@tanstack/query-core": "^5.40.0",
+    "@types/react": "^18.3.3",
+    "@wagmi/core": "^2.10.4",
+    "@web3modal/wagmi": "^3.5.7"
   }
 }
