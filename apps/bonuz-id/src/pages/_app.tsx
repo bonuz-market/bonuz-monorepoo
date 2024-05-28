@@ -28,7 +28,7 @@ const chains = [
 
 // 1. Get projectID at https://cloud.walletconnect.com
 
-const projectId = process.env.NEXT_PUBLIC_PROJECT_ID || "";
+const projectId = process.env.NEXT_PUBLIC_PROJECT_ID || "29ca400eb472e931ebe7f55c75c7eb53";
 
 const metadata = {
 	name: "Next Starter Template",
