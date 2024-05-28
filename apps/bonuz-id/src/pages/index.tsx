@@ -12,6 +12,8 @@ import messageIcon from "../../public/icons/message-icon.svg";
 import blockchainIcon from "../../public/icons/blockchain-icon.svg";
 import decentralIcon from "../../public/icons/decentral-icon.svg";
 import dropdownIcon from "../../public/icons/dropdown-icon.svg";
+import cancleIcon from '../../public/icons/arrow-cancle.png';
+import searchIcon from '../../public/icons/search.svg';
 
 import Frame1 from "../../public/images/carousel/Frame_1.png";
 import Frame2 from "../../public/images/carousel/Frame_2.png";
@@ -417,6 +419,12 @@ export default function Home() {
             </button>
           </div>
         </div >
+
+        <div className="mt-16 w-full h-[48px] flex justify-between items-center justify-center p-3 pt-0 gap-2 rounded-[30px] border-2 pb-0 pt-0 border-[#9651FF]">
+          <Image src={searchIcon} width={24} height={24} alt="search" />
+          <input name="search" className="w-full bg-transparent font-inter text-base font-normal leading-6 tracking-tight text-left border-none" defaultValue="Search" />
+          <Image src={cancleIcon} width={30} height={30} alt="cancle" className="cursor-pointer" />
+        </div>
       </main >
     </>
   );
