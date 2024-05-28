@@ -105,9 +105,6 @@ importers:
 
   apps/bonuz-id:
     dependencies:
-      '@bonuz/social-id':
-        specifier: workspace:*
-        version: link:../../@bonuz/social-id
       '@types/node':
         specifier: 18.19.14
         version: 18.19.14
@@ -5594,6 +5591,7 @@ packages:
 
   rimraf@2.6.3:
     resolution: {integrity: sha512-mwqeW5XsA2qAejG46gYdENaxXjx9onRNCfn7L0duuP4hCuTIi/QO7PDK07KJfp1d+izWPrzEJDcSqBa0OZQriA==}
+    deprecated: Rimraf versions prior to v4 are no longer supported
     hasBin: true
 
   rimraf@3.0.2:
