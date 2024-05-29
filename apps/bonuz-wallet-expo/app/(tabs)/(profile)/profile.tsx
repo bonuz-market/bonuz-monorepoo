@@ -1,7 +1,8 @@
+import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { BlurView } from 'expo-blur';
 import { LinearGradient } from 'expo-linear-gradient';
-import { router } from 'expo-router';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { router, useNavigation } from 'expo-router';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
   FlatList,
   Image,
@@ -16,6 +17,7 @@ import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
+import tw from 'twrnc';
 import { useShallow } from 'zustand/react/shallow';
 
 import { Accordion, Section } from '@/components/Accordion/Accordion';
@@ -25,6 +27,7 @@ import { Text, View } from '@/components/Themed';
 import { User } from '@/entities';
 import { useLogin } from '@/hooks/useLogin';
 import { getIcon } from '@/pages/profile/profile.config';
+import { ProfileEdit } from '@/pages/profile/sheets';
 import { useQueryGetUserProfileAndSocialLinks } from '@/services/blockchain/bonuz/useSocialId';
 import { useUserStore } from '@/store';
 import { isNotEmpty } from '@/utils/object';
@@ -65,6 +68,8 @@ export default function Profile() {
   );
   const { logout, login } = useLogin();
   const { data } = useQueryGetUserProfileAndSocialLinks();
+
+  const bottomModalRef = useRef<BottomSheetModal>(null);
 
   const handleLogout = async () => {
     logout();
@@ -350,65 +355,74 @@ export default function Profile() {
     [sections.length],
   );
 
+  const onEditPress = () => {
+    bottomModalRef.current?.present();
+    // TODO: add global state to hide tabBar
+  };
+
   return isNotEmpty(auth) && isNotEmpty(user) ? (
-    <LinearGradient colors={['#4B2EA2', '#0E2875']} style={styles.container}>
-      <ImageBackground
-        source={
-          data?.profilePicture
-            ? { uri: data.profilePicture }
-            : require('@/assets/images/profile/profile.png')
-        }
-        style={styles.profile}>
-        <View
-          style={[
-            styles.header,
-            {
-              paddingTop: Platform.OS === 'android' ? StatusBarHeight() + hp(2) : StatusBarHeight(),
-            },
-          ]}>
-          <Pressable onPress={handleLogout} style={styles.headerImageWrap}>
-            <Image
-              style={styles.headerImage}
-              source={require('@/assets/images/profile/settings.png')}
-            />
-          </Pressable>
-          <View style={styles.headerImageWrap}>
-            <Image
-              style={styles.headerImage}
-              source={require('@/assets/images/profile/share.png')}
-            />
-          </View>
-        </View>
-      </ImageBackground>
-      <View style={styles.listHeader}>
-        <BlurView
-          intensity={Platform.OS === 'ios' ? 25 : 10}
-          tint={Platform.OS === 'ios' ? 'light' : 'dark'}
-          experimentalBlurMethod="dimezisBlurView"
-          style={styles.absolute}>
-          <View style={styles.blur}>
-            <Text style={styles.socialId}>On-Chain Social ID</Text>
-          </View>
-          <View style={styles.rowContainer}>
-            <View style={{ backgroundColor: 'transparent' }}>
-              <Text style={styles.name}>{data?.name}</Text>
-              <Text style={styles.userName}>{data?.handle}</Text>
-            </View>
-            <View style={styles.editImageWrap}>
+    <View style={tw`flex-1`}>
+      <LinearGradient colors={['#4B2EA2', '#0E2875']} style={styles.container}>
+        <ImageBackground
+          source={
+            data?.profilePicture
+              ? { uri: data.profilePicture }
+              : require('@/assets/images/profile/profile.png')
+          }
+          style={styles.profile}>
+          <View
+            style={[
+              styles.header,
+              {
+                paddingTop:
+                  Platform.OS === 'android' ? StatusBarHeight() + hp(2) : StatusBarHeight(),
+              },
+            ]}>
+            <Pressable onPress={handleLogout} style={styles.headerImageWrap}>
               <Image
-                style={styles.editImage}
-                source={require('@/assets/images/profile/edit.png')}
+                style={styles.headerImage}
+                source={require('@/assets/images/profile/settings.png')}
+              />
+            </Pressable>
+            <View style={styles.headerImageWrap}>
+              <Image
+                style={styles.headerImage}
+                source={require('@/assets/images/profile/share.png')}
               />
             </View>
           </View>
-          <Accordion
-            sections={sections}
-            activeSections={activeSections}
-            onAccordionChange={onAccordionChange}
-          />
-        </BlurView>
-      </View>
-    </LinearGradient>
+        </ImageBackground>
+        <View style={styles.listHeader}>
+          <BlurView
+            intensity={Platform.OS === 'ios' ? 25 : 10}
+            tint={Platform.OS === 'ios' ? 'light' : 'dark'}
+            experimentalBlurMethod="dimezisBlurView"
+            style={styles.absolute}>
+            <View style={styles.blur}>
+              <Text style={styles.socialId}>On-Chain Social ID</Text>
+            </View>
+            <View style={styles.rowContainer}>
+              <View style={{ backgroundColor: 'transparent' }}>
+                <Text style={styles.name}>{data?.name}</Text>
+                <Text style={styles.userName}>{data?.handle}</Text>
+              </View>
+              <Pressable style={styles.editImageWrap} onPress={onEditPress}>
+                <Image
+                  style={styles.editImage}
+                  source={require('@/assets/images/profile/edit.png')}
+                />
+              </Pressable>
+            </View>
+            <Accordion
+              sections={sections}
+              activeSections={activeSections}
+              onAccordionChange={onAccordionChange}
+            />
+          </BlurView>
+        </View>
+      </LinearGradient>
+      <ProfileEdit ref={bottomModalRef} />
+    </View>
   ) : (
     <LinearGradient
       colors={['#4B2EA2', '#0E2875']}

@@ -48,6 +48,7 @@
     "path-browserify": "^1.0.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-hook-form": "^7.51.5",
     "react-native": "0.74.1",
     "react-native-collapsible": "^1.6.1",
     "react-native-fs": "^2.20.0",
@@ -66,6 +67,7 @@
     "stream-browserify": "^3.0.0",
     "stream-http": "^3.2.0",
     "tls": "^0.0.1",
+    "twrnc": "^4.2.0",
     "url": "^0.11.3",
     "viem": "^2.12.1",
     "zustand": "^4.5.2"
