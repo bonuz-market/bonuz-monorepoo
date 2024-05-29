@@ -24,6 +24,25 @@ import Frame4 from "../../public/images/carousel/Frame_4.png";
 
 import GoogleIcon from "../../public/icons/apple.png";
 
+const profileData = [
+  {
+    label: "Social Media Accounts",
+    url: socialIcon
+  },
+  {
+    label: "Messaging Apps",
+    url: messageIcon
+  },
+  {
+    label: "Blockchain & Wallets",
+    url: blockchainIcon
+  },
+  {
+    label: "Decentralized Identifiers",
+    url: decentralIcon
+  }
+]
+
 export default function Home() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [searchQuery, setSearchQuery] = useState('')
@@ -203,74 +222,26 @@ export default function Home() {
                   </div>
                 </div>
                 <div className="flex flex-col gap-[8px]">
-                  <div className="flex h-[64px] p-[12px] gap-[30px] rounded-[24px] items-center justify-between w-full md:w-[361px]">
-                    <div className="flex gap-2 items-center">
+                  {profileData.map((data, index) => (
+                    <div key={index} className="flex h-[64px] p-[12px] gap-[30px] rounded-[24px] items-center justify-between w-full md:w-[361px]">
+                      <div className="flex gap-2 items-center">
+                        <Image
+                          src={data.url}
+                          width={40}
+                          height={40}
+                          alt="socialIcon"
+                        />
+                        <p>{data.label}</p>
+                      </div>
                       <Image
-                        src={socialIcon}
-                        width={40}
-                        height={40}
-                        alt="socialIcon"
+                        src={dropdownIcon}
+                        width={28}
+                        height={28}
+                        alt="dropdownIcon"
+                        className="cursor-pointer"
                       />
-                      <p>Social Media Accounts</p>
                     </div>
-                    <Image
-                      src={dropdownIcon}
-                      width={28}
-                      height={28}
-                      alt="dropdownIcon"
-                    />
-                  </div>
-                  <div className="flex h-[64px] p-[12px] gap-[30px] rounded-[24px] items-center justify-between w-full md:w-[361px]">
-                    <div className="flex gap-2 items-center">
-                      <Image
-                        src={messageIcon}
-                        width={40}
-                        height={40}
-                        alt="messageIcon"
-                      />
-                      <p>Messaging Apps</p>
-                    </div>
-                    <Image
-                      src={dropdownIcon}
-                      width={28}
-                      height={28}
-                      alt="dropdownIcon"
-                    />
-                  </div>
-                  <div className="flex h-[64px] p-[12px] gap-[30px] rounded-[24px] items-center justify-between w-full md:w-[361px]">
-                    <div className="flex gap-2 items-center">
-                      <Image
-                        src={blockchainIcon}
-                        width={40}
-                        height={40}
-                        alt="blockchainIcon"
-                      />
-                      <p>Blockchain & Wallets</p>
-                    </div>
-                    <Image
-                      src={dropdownIcon}
-                      width={28}
-                      height={28}
-                      alt="dropdownIcon"
-                    />
-                  </div>
-                  <div className="flex h-[64px] p-[12px] gap-[30px] rounded-[24px] items-center justify-between :w-full md:w-[361px]">
-                    <div className="flex gap-2 items-center">
-                      <Image
-                        src={decentralIcon}
-                        width={40}
-                        height={40}
-                        alt="decentralIcon"
-                      />
-                      <p>Decentralized Identifiers</p>
-                    </div>
-                    <Image
-                      src={dropdownIcon}
-                      width={28}
-                      height={28}
-                      alt="dropdownIcon"
-                    />
-                  </div>
+                  ))}
                 </div>
               </div>
               <div>
@@ -376,7 +347,7 @@ export default function Home() {
                   directly from your wallet interface
                 </p>
               </div>
-              <div className="mt-[55px] flex gap-[24px] flex-col md:flex-row w-full">
+              <div className="mt-[55px] flex gap-[24px] flex-col justify-center md:flex-row w-full">
                 <button className="flex items-center justify-center gap-[4px] isolate h-[56px] bg-white rounded-[16px] w-full md:w-[172.63px]">
                   <Image
                     src={GoogleIcon}

@@ -3,8 +3,9 @@
   flex-direction: column;
   place-items: center;
   padding: 40px;
-  background-image: url("/images/first-background.png");
-  background-size: 100% 100%;
+  background-image: url("/images/first-background.svg");
+  background-size: cover;
+  background-position: center;
 }
 
 .background {
