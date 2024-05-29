@@ -1,6 +1,5 @@
 /* eslint-disable @next/next/no-sync-scripts */
 import Head from "next/head";
-import styles from "@/styles/Home.module.css";
 import { useState } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
@@ -87,7 +86,7 @@ export default function Home() {
         <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={styles.main}>
+      <main className="flex flex-col items-center p-10 bg-cover bg-center bg-[url('/images/first-background.svg')]">
         <nav className="w-full">
           <div className="flex gap-2 w-full z-50 mb-2 max-w-screen-xl flex flex-wrap flex-col">
             <button
@@ -389,7 +388,7 @@ export default function Home() {
 
         <div className="mt-16 w-full h-[48px] flex justify-between items-center justify-center p-3 pt-0 gap-2 rounded-[30px] border-2 pb-0 pt-0 border-[#9651FF]">
           <Image src={searchIcon} width={24} height={24} alt="search" />
-          <input name="search" className="w-full bg-transparent font-inter text-base font-normal leading-6 tracking-tight text-left border-none" defaultValue="Search" onChange={(e) => setSearchQuery(e.target.value)} onKeyDown={handleKeyDown} />
+          <input name="search" className="w-full outline-none bg-transparent font-inter text-base font-normal leading-6 tracking-tight text-left border-none" defaultValue="Search" onChange={(e) => setSearchQuery(e.target.value)} onKeyDown={handleKeyDown} />
           <Image src={cancleIcon} width={30} height={30} alt="cancle" className="cursor-pointer" />
         </div>
       </main >
