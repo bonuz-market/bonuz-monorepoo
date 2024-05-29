@@ -62,7 +62,6 @@ export const useQueryGetUserProfileAndSocialLinks = () => {
   return useQuery({
     queryKey,
     queryFn,
-    enabled: !!privateKey,
     select: ({ contractData, privateKey, user: userData }) => {
       const [name, profileImage, _handle, links] = contractData;
 
@@ -435,6 +434,7 @@ export const useQueryGetUserProfileAndSocialLinks = () => {
         decentralizedIdentifiers,
       } satisfies Partial<User>;
     },
+    refetchOnMount: true,
   });
 };
 // export const useQueryGetUserProfileAndSocialLinksByHandle = (handle: string | null) => {

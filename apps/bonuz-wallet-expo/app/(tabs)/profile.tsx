@@ -1,6 +1,7 @@
 import { BlurView } from 'expo-blur';
 import { LinearGradient } from 'expo-linear-gradient';
 import { router } from 'expo-router';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import {
   FlatList,
   Image,
@@ -15,60 +16,55 @@ import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
+import { useShallow } from 'zustand/react/shallow';
 
+import { Accordion, Section } from '@/components/Accordion/Accordion';
+import { SocialItem } from '@/components/SocialItem/SocialItem';
 import { StatusBarHeight } from '@/components/StatusbarHeight';
 import { Text, View } from '@/components/Themed';
+import { User } from '@/entities';
 import { useLogin } from '@/hooks/useLogin';
+import { getIcon } from '@/pages/profile/profile.config';
 import { useQueryGetUserProfileAndSocialLinks } from '@/services/blockchain/bonuz/useSocialId';
 import { useUserStore } from '@/store';
 import { isNotEmpty } from '@/utils/object';
 
+const SECTIONS = {
+  SOCIALS_MEDIA_ACCOUNTS: {
+    title: 'Social Media Accounts',
+    index: 0,
+    background: '#117EFF',
+    icon: require('@/assets/images/profile/globe.png'),
+  },
+  MESSAGING_APPS: {
+    title: 'Messaging Apps',
+    index: 1,
+    background: '#E2A612',
+    icon: require('@/assets/images/profile/message.png'),
+  },
+  WALLETS: {
+    title: 'Blockchain & Wallets',
+    index: 2,
+    background: '#8247E5',
+    icon: require('@/assets/images/profile/crypto.png'),
+  },
+  DECENTRALIZED_IDENTIFERS: {
+    title: 'Decentralized Identifiers',
+    index: 3,
+    background: '#3BAF7E',
+    icon: require('@/assets/images/profile/decentralized.png'),
+  },
+};
+
 export default function Profile() {
-  const state = useUserStore((store) => store);
+  const { auth, user } = useUserStore(
+    useShallow((store) => ({
+      auth: store.auth,
+      user: store.user,
+    })),
+  );
   const { logout, login } = useLogin();
   const { data } = useQueryGetUserProfileAndSocialLinks();
-  let list = [
-    {
-      background: '#117EFF',
-      icon: require('@/assets/images/profile/globe.png'),
-      title: 'Social media accounts',
-    },
-    {
-      background: '#E2A612',
-      icon: require('@/assets/images/profile/message.png'),
-      title: 'Messaging apps',
-    },
-    {
-      background: '#8247E5',
-      icon: require('@/assets/images/profile/crypto.png'),
-      title: 'Blockchain & Wallets',
-    },
-    {
-      background: '#3BAF7E',
-      icon: require('@/assets/images/profile/decentralized.png'),
-      title: 'Decentralized identifiers',
-    },
-  ];
-
-  const renderItem = ({ item }: { item: any }) => {
-    return (
-      <View style={styles.listContainer}>
-        <View style={styles.listRow}>
-          <View style={[styles.listIconWrap, { backgroundColor: item.background }]}>
-            <Image source={item.icon} style={styles.listIcon} resizeMode="contain" />
-          </View>
-          <Text style={styles.listTitle} numberOfLines={1}>
-            {item.title}
-          </Text>
-        </View>
-        <Image
-          source={require('@/assets/images/profile/down.png')}
-          style={styles.listDown}
-          resizeMode="contain"
-        />
-      </View>
-    );
-  };
 
   const handleLogout = async () => {
     logout();
@@ -76,7 +72,285 @@ export default function Profile() {
     router.push('/');
   };
 
-  return isNotEmpty(state.auth) && isNotEmpty(state.user) ? (
+  const [activeSections, setActiveSections] = useState([SECTIONS.SOCIALS_MEDIA_ACCOUNTS.index]);
+
+  const socialsSection = useMemo<Section>(() => {
+    const linksFiltered = Object.values(data?.socials ?? {}).filter((link) => !!link.handle);
+
+    return {
+      index: SECTIONS.SOCIALS_MEDIA_ACCOUNTS.index,
+      titleComponent: (
+        <View style={styles.listRow}>
+          <View
+            style={[
+              styles.listIconWrap,
+              { backgroundColor: SECTIONS.SOCIALS_MEDIA_ACCOUNTS.background },
+            ]}>
+            <Image
+              source={SECTIONS.SOCIALS_MEDIA_ACCOUNTS.icon}
+              style={styles.listIcon}
+              resizeMode="contain"
+            />
+          </View>
+          <Text style={styles.listTitle} numberOfLines={1}>
+            {SECTIONS.SOCIALS_MEDIA_ACCOUNTS.title}
+          </Text>
+        </View>
+      ),
+      renderContent: (
+        <View>
+          <FlatList
+            data={linksFiltered}
+            renderItem={({ item }) => (
+              <SocialItem
+                // Icon={
+                //   getIcon(item.type, 'normal') ?? (
+                //     <Icon as={FontAwesome} name={item.type} size={5} />
+                //   )
+                // }
+                leftAddon={getIcon(item.type, 'normal')}
+                content={
+                  <Text style={{ fontSize: 16, color: 'white', opacity: 0.7 }}>{item.handle}</Text>
+                }
+
+                // text={item.handle}
+                // RightComponent={
+                //   <HStack space={2} alignItems="center" justifyContent="center">
+                //     {item.type === SOCIAL_ACCOUNTS.s_x && !item.isVerified && (
+                //       <Button
+                //         onPress={async () => {
+                //           setIsVerifyDone(false);
+                //           promptAsync();
+                //         }}
+                //         size="xs"
+                //         colorScheme="fuchsia"
+                //         disabled={isVerifyLoading}>
+                //         Verify
+                //       </Button>
+                //     )}
+                //     <Ionicons
+                //       name={item.isPublic ? 'eye-outline' : 'eye-off-outline'}
+                //       color="white"
+                //       size={20}
+                //     />
+                //   </HStack>
+                // }
+                // isVerified={item.isVerified}
+              />
+            )}
+            keyExtractor={(item) => item.type}
+            ItemSeparatorComponent={() => (
+              <View style={{ height: 10, backgroundColor: '#303db4' }} />
+            )}
+            // ListEmptyComponent={<EmptySectionMessage text="social media" />}
+          />
+        </View>
+      ),
+    };
+  }, [data?.socials]);
+
+  const walletsSection = useMemo<Section>(() => {
+    const wallets = Object.values(data?.wallets ?? {}).filter((item) => !!item.handle);
+
+    return {
+      index: SECTIONS.WALLETS.index,
+      titleComponent: (
+        <View style={styles.listRow}>
+          <View style={[styles.listIconWrap, { backgroundColor: SECTIONS.WALLETS.background }]}>
+            <Image source={SECTIONS.WALLETS.icon} style={styles.listIcon} resizeMode="contain" />
+          </View>
+          <Text style={styles.listTitle} numberOfLines={1}>
+            {SECTIONS.WALLETS.title}
+          </Text>
+        </View>
+      ),
+      renderContent: (
+        <View>
+          <FlatList
+            data={wallets}
+            renderItem={({ item }) => (
+              <SocialItem
+                //   Icon={
+                //     getIcon(item.type, 'normal') ?? (
+                //       <Icon as={FontAwesome} name={item.type} size={5} />
+                //     )
+                //   }
+                leftAddon={getIcon(item.type, 'normal')}
+                content={
+                  <Text style={{ fontSize: 16, color: 'white', opacity: 0.7 }}>{item.handle}</Text>
+                }
+
+                //   text={item.handle}
+                //   RightComponent={
+                //     <HStack space={1} alignItems="center">
+                //       <Ionicons
+                //         name={item.isPublic ? 'eye-outline' : 'eye-off-outline'}
+                //         color="white"
+                //         size={20}
+                //       />
+                //     </HStack>
+                //   }
+                //   isVerified={item.isVerified}
+              />
+            )}
+            keyExtractor={(item) => item.type}
+            ItemSeparatorComponent={() => (
+              <View style={{ height: 10, backgroundColor: '#303db4' }} />
+            )}
+            // ListEmptyComponent={<EmptySectionMessage text="wallets" />}
+          />
+        </View>
+      ),
+    };
+  }, [data?.wallets]);
+
+  const messagingAppsSection = useMemo<Section>(() => {
+    const messagingApps = Object.values(data?.messagingApps ?? {}).filter((item) => !!item.handle);
+
+    return {
+      index: SECTIONS.MESSAGING_APPS.index,
+      titleComponent: (
+        <View style={styles.listRow}>
+          <View
+            style={[styles.listIconWrap, { backgroundColor: SECTIONS.MESSAGING_APPS.background }]}>
+            <Image
+              source={SECTIONS.MESSAGING_APPS.icon}
+              style={styles.listIcon}
+              resizeMode="contain"
+            />
+          </View>
+          <Text style={styles.listTitle} numberOfLines={1}>
+            {SECTIONS.MESSAGING_APPS.title}
+          </Text>
+        </View>
+      ),
+      renderContent: (
+        <View>
+          <FlatList
+            data={messagingApps}
+            renderItem={({ item }) => (
+              <SocialItem
+                //   Icon={
+                //     getIcon(item.type, 'normal') ?? (
+                //       <Icon as={FontAwesome} name={item.type} size={5} />
+                //     )
+                //   }
+                leftAddon={getIcon(item.type, 'normal')}
+                content={
+                  <Text style={{ fontSize: 16, color: 'white', opacity: 0.7 }}>{item.handle}</Text>
+                }
+
+                //   text={item.handle}
+                //   RightComponent={
+                //     <HStack space={1} alignItems="center">
+                //       <Ionicons
+                //         name={item.isPublic ? 'eye-outline' : 'eye-off-outline'}
+                //         color="white"
+                //         size={20}
+                //       />
+                //     </HStack>
+                //   }
+                //   isVerified={item.isVerified}
+              />
+            )}
+            keyExtractor={(item) => item.type}
+            ItemSeparatorComponent={() => (
+              <View style={{ height: 10, backgroundColor: '#303db4' }} />
+            )}
+            // ListEmptyComponent={<EmptySectionMessage text="messaging apps" />}
+          />
+        </View>
+      ),
+    };
+  }, [data?.messagingApps]);
+
+  const othersSection = useMemo<Section>(() => {
+    const others = Object.values(data?.decentralizedIdentifiers ?? {}).filter(
+      (item) => !!item.handle,
+    );
+
+    return {
+      index: SECTIONS.DECENTRALIZED_IDENTIFERS.index,
+      titleComponent: (
+        <View style={styles.listRow}>
+          <View
+            style={[
+              styles.listIconWrap,
+              { backgroundColor: SECTIONS.DECENTRALIZED_IDENTIFERS.background },
+            ]}>
+            <Image
+              source={SECTIONS.DECENTRALIZED_IDENTIFERS.icon}
+              style={styles.listIcon}
+              resizeMode="contain"
+            />
+          </View>
+          <Text style={styles.listTitle} numberOfLines={1}>
+            {SECTIONS.DECENTRALIZED_IDENTIFERS.title}
+          </Text>
+        </View>
+      ),
+      renderContent: (
+        <View>
+          <FlatList
+            data={others}
+            renderItem={({ item }) => (
+              <SocialItem
+                // Icon={
+                //   getIcon(item.type, 'normal') ?? (
+                //     <Icon as={FontAwesome} name={item.type} size={5} />
+                //   )
+                // }
+                leftAddon={getIcon(item.type, 'normal')}
+                content={
+                  <Text style={{ fontSize: 16, color: 'white', opacity: 0.7 }}>{item.handle}</Text>
+                }
+
+                // RightComponent={
+                //   <HStack space={1} alignItems="center">
+                //     <Ionicons
+                //       name={item.isPublic ? 'eye-outline' : 'eye-off-outline'}
+                //       color="white"
+                //       size={20}
+                //     />
+                //   </HStack>
+                // }
+                // isVerified={item.isVerified}
+              />
+            )}
+            keyExtractor={(item) => item.type}
+            ItemSeparatorComponent={() => (
+              <View style={{ height: 10, backgroundColor: '#303db4' }} />
+            )}
+            // ListEmptyComponent={<EmptySectionMessage text="decentralized identifiers" />}
+          />
+        </View>
+      ),
+    };
+  }, [data?.decentralizedIdentifiers]);
+  const sections = useMemo<Section[]>(() => {
+    const sections: Section[] = [
+      socialsSection,
+      messagingAppsSection,
+      walletsSection,
+      othersSection,
+    ];
+
+    return sections;
+  }, [messagingAppsSection, socialsSection, othersSection, walletsSection]);
+
+  const onAccordionChange = useCallback(
+    (activeSections: number[]) => {
+      const isSingleItem = sections.length === 1;
+      if (isSingleItem) {
+        return;
+      }
+
+      setActiveSections(activeSections);
+    },
+    [sections.length],
+  );
+
+  return isNotEmpty(auth) && isNotEmpty(user) ? (
     <LinearGradient colors={['#4B2EA2', '#0E2875']} style={styles.container}>
       <ImageBackground
         source={
@@ -113,7 +387,7 @@ export default function Profile() {
           experimentalBlurMethod="dimezisBlurView"
           style={styles.absolute}>
           <View style={styles.blur}>
-            <Text style={styles.socialId}>You are logged in with placeholder</Text>
+            <Text style={styles.socialId}>On-Chain Social ID</Text>
           </View>
           <View style={styles.rowContainer}>
             <View style={{ backgroundColor: 'transparent' }}>
@@ -127,12 +401,10 @@ export default function Profile() {
               />
             </View>
           </View>
-          <FlatList
-            data={list}
-            renderItem={renderItem}
-            initialNumToRender={5}
-            showsHorizontalScrollIndicator={false}
-            keyExtractor={(item, index) => index.toString()}
+          <Accordion
+            sections={sections}
+            activeSections={activeSections}
+            onAccordionChange={onAccordionChange}
           />
         </BlurView>
       </View>
@@ -199,17 +471,6 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-  },
-  listContainer: {
-    paddingHorizontal: wp(4),
-    height: hp(7.4),
-    marginBottom: hp(1),
-    marginHorizontal: wp(5),
-    borderRadius: wp(5),
-    backgroundColor: '#117EFF50',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
   },
   listIconWrap: {
     height: hp(4.5),
