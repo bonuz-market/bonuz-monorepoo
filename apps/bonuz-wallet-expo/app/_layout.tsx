@@ -38,16 +38,12 @@ export default function RootLayout() {
   }, [error]);
 
   useEffect(() => {
-    if (loaded) {
+    if (loaded && isHydrated) {
       SplashScreen.hideAsync();
     }
-  }, [loaded]);
+  }, [isHydrated, loaded]);
 
-  if (!loaded) {
-    return;
-  }
-
-  if (!isHydrated) {
+  if (!loaded || !isHydrated) {
     return;
   }
 
