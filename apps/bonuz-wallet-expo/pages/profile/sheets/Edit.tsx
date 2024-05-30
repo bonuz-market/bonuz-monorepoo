@@ -35,12 +35,7 @@ export const ProfileEdit = forwardRef<BottomSheetModal, {}>((props, bottomSheetM
 
   const user = useUserStore((store) => store.user);
   const { data: userData } = useQueryGetUserProfileAndSocialLinks();
-  const { mutateAsync: updateUser } = useMutationSetUserProfile(
-    () => {
-      Toast.hide();
-    },
-    () => {},
-  );
+
   const [image, setImage] = useState<ImagePicker.ImagePickerAsset>();
 
   const pickImage = async () => {
@@ -77,6 +72,19 @@ export const ProfileEdit = forwardRef<BottomSheetModal, {}>((props, bottomSheetM
       decentralizedIdentifiers: userData?.decentralizedIdentifiers,
     },
   });
+
+  const { mutateAsync: updateUser } = useMutationSetUserProfile(
+    () => {
+      Toast.hide();
+      Toast.show({
+        type: 'success',
+        text1: 'Profile Updated',
+      });
+      reset();
+      _bottomSheetModalRef.current?.dismiss();
+    },
+    () => {},
+  );
 
   const renderLinkInput = useCallback(
     (

@@ -18,7 +18,6 @@ import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
-import Toast from 'react-native-toast-message';
 import tw from 'twrnc';
 import { useShallow } from 'zustand/react/shallow';
 
@@ -69,7 +68,7 @@ export default function Profile() {
   );
 
   const { logout, login } = useLogin();
-  const { data } = useQueryGetUserProfileAndSocialLinks();
+  const { data, isLoading } = useQueryGetUserProfileAndSocialLinks();
 
   const bottomModalRef = useRef<BottomSheetModal>(null);
 
@@ -352,6 +351,10 @@ export default function Profile() {
   );
 
   const onEditPress = () => {
+    if (isLoading) {
+      return;
+    }
+
     bottomModalRef.current?.present();
   };
 
@@ -416,7 +419,7 @@ export default function Profile() {
           </BlurView>
         </View>
       </LinearGradient>
-      <ProfileEdit ref={bottomModalRef} />
+      {!isLoading && <ProfileEdit ref={bottomModalRef} />}
     </View>
   ) : (
     <LinearGradient
