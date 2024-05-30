@@ -45,7 +45,7 @@ export default function SearchPage() {
             <div className="flex justify-between bg-[url('/images/third-baackground.svg')] h-[56px] items-center flex-col rounded-b-[30px] bg-opacity-5 md:flex-row gap-0 md:gap-2 px-8">
                 <p className='font-[26px] hidden md:flex'>bonuz</p>
                 <div className="w-[25px] h-[25px] md:w-[30px] md:h-[30px] bg-[url('/icons/up-icon.png')] rounded-[50px] bg-center flex justify-center items-center cursor-pointer" onClick={() => router.push('/')} />
-                <button className="rounded-[30px] px-[8px] bg-custom-gradient1 text-[15px] md:text-[16px]">
+                <button className="rounded-[30px] px-[8px] bg-custom-gradient-mint text-[15px] md:text-[16px]">
                     Connect Bonuz On-Chain Social ID
                 </button>
             </div>
@@ -96,7 +96,7 @@ export default function SearchPage() {
                     </div>
                 </div>
                 <div className='flex flex-col gap4'>
-                    <div className='flex flex-col bg-gradient-border mt-10 p-2 rounded-[25px]'>
+                    <div className='flex flex-col bg-gradient-border mt-10 p-2 rounded-[25px] '>
                         <p>Humans</p>
                         <div className='flex flex-col md:flex-row gap-4'>
                             <div className="rounded-[30px] bg-[url('/images/third-baackground.svg')] p-4 h-[165px] w-[300px] md:w-[450px] flex flex-row gap-4 justify-center items-center">
@@ -104,7 +104,7 @@ export default function SearchPage() {
                                 <div className='flex flex-col w-full items-center gap-2'>
                                     <p>Web3 Guru</p>
                                     <p>@wayneweb3</p>
-                                    <button className="rounded-[30px] px-[8px] h-[35px] bg-custom-gradient1 w-full text-[12px] md:text-[16px]">
+                                    <button className="rounded-[30px] px-[8px] h-[35px] bg-custom-gradient-mint w-full text-[12px] md:text-[16px]">
                                         View Social ID Profile
                                     </button>
                                 </div>
@@ -114,7 +114,7 @@ export default function SearchPage() {
                                 <div className='flex flex-col w-full items-center gap-2'>
                                     <p>Web3 News</p>
                                     <p>@web3news</p>
-                                    <button className="rounded-[30px] px-[8px] h-[35px] bg-custom-gradient1 w-full text-[12px] md:text-[16px]">
+                                    <button className="rounded-[30px] px-[8px] h-[35px] bg-custom-gradient-mint w-full text-[12px] md:text-[16px]">
                                         View Social ID Profile
                                     </button>
                                 </div>
@@ -128,7 +128,7 @@ export default function SearchPage() {
                                 <div className='flex flex-col w-full items-center gap-2'>
                                     <p>Web3 Guru</p>
                                     <p>@wayneweb3</p>
-                                    <button className="rounded-[30px] px-[8px] h-[35px] bg-custom-gradient1 w-full text-[12px] md:text-[16px]">
+                                    <button className="rounded-[30px] px-[8px] h-[35px] bg-custom-gradient-mint w-full text-[12px] md:text-[16px]">
                                         View Social ID Profile
                                     </button>
                                 </div>
@@ -138,7 +138,7 @@ export default function SearchPage() {
                                 <div className='flex flex-col w-full items-center gap-2'>
                                     <p>Web3 News</p>
                                     <p>@web3news</p>
-                                    <button className="rounded-[30px] px-[8px] h-[35px] bg-custom-gradient1 w-full text-[12px] md:text-[16px]">
+                                    <button className="rounded-[30px] px-[8px] h-[35px] bg-custom-gradient-mint w-full text-[12px] md:text-[16px]">
                                         View Social ID Profile
                                     </button>
                                 </div>
@@ -149,7 +149,7 @@ export default function SearchPage() {
                                 <div className='flex flex-col w-full items-center gap-2'>
                                     <p>Web3 News</p>
                                     <p>@web3news</p>
-                                    <button className="rounded-[30px] px-[8px] h-[35px] bg-custom-gradient1 w-full text-[12px] md:text-[16px]">
+                                    <button className="rounded-[30px] px-[8px] h-[35px] bg-custom-gradient-mint w-full text-[12px] md:text-[16px]">
                                         View Social ID Profile
                                     </button>
                                 </div>

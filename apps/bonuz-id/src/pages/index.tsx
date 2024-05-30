@@ -130,48 +130,29 @@ export default function Home() {
               <ul className="flex w-full gap-2 flex-col md:flex-row">
                 <li>
                   <button
-                    className="w-[228px] h-[41px] rounded-[40px] bg-custom-bg-gradient border border-transparent"
-                    style={{
-                      borderImageSource:
-                        "linear-gradient(3.31deg, rgba(255, 161, 16, 0.6) -14.44%, rgba(255, 161, 16, 0) 91.68%)",
-                      borderWidth: "1px",
-                    }}
+                    className="w-[228px] h-[41px] rounded-border-gradient bg-custom-gradient "
                   >
                     bonuz.market #Ecosystem
                   </button>
+
                 </li>
                 <li>
                   <button
-                    className="w-[208px] h-[41px] rounded-[40px] border border-transparent"
-                    style={{
-                      background:
-                        "linear-gradient(97.19deg, rgba(106, 52, 211, 0.4) 14.82%, rgba(106, 52, 211, 0) 83.7%)",
-                      borderImageSource:
-                        "linear-gradient(3.31deg, rgba(255, 161, 16, 0.6) -14.44%, rgba(255, 161, 16, 0) 91.68%)",
-                      borderWidth: "1px",
-                    }}
+                    className="w-[208px] h-[41px] rounded-[40px] bg-custom-gradient1"
                   >
                     Whitepaper #Degen
                   </button>
                 </li>
                 <li>
                   <button
-                    className="w-[208px] h-[41px] gap-[8px] rounded-[30px]"
-                    style={{
-                      background:
-                        "linear-gradient(122.58deg, #e79413 -19.89%, #ea3e5b 48.73%, #fa0af0 119.63%)",
-                    }}
+                    className="w-[208px] h-[41px] gap-[8px] rounded-[30px] bg-custom-gradient2"
                   >
                     Documentation #Devs
                   </button>
                 </li>
                 <li>
                   <button
-                    className="w-[208px] h-[41px] gap-[8px] rounded-[30px]"
-                    style={{
-                      background:
-                        "linear-gradient(122.58deg, #e79413 -19.89%, #ea3e5b 48.73%, #fa0af0 119.63%)",
-                    }}
+                    className="w-[208px] h-[41px] gap-[8px] rounded-[30px] bg-custom-gradient2"
                   >
                     Bonuz Wallet
                   </button>
@@ -255,7 +236,7 @@ export default function Home() {
                     powered by the bonuz ecosystem!
                   </p>
                 </div>
-                <button className="h-[51px] gap-[8px] rounded-[30px] bg-custom-gradient my-[29px] w-full md:w-[330px]">
+                <button className="h-[51px] gap-[8px] rounded-[30px] bg-custom-gradient-mint my-[29px] w-full md:w-[330px]">
                   Mint for 0.00011 $BTC
                 </button>
               </div>
@@ -380,7 +361,7 @@ export default function Home() {
           <div className="flex justify-between items-center mt-[28px] flex-col md:flex-row md: gap-2">
             <p className='font-[26px] hidden md:flex'>bonuz</p>
             <div className="w-[25px] h-[25px] md:w-[30px] md:h-[30px] bg-[url('/icons/up-icon.png')] rounded-[50px] bg-center flex justify-center items-center cursor-pointer" onClick={() => router.push('/')} />
-            <button className="rounded-[30px] px-[8px] bg-custom-gradient1">
+            <button className="rounded-[30px] px-[8px] bg-custom-gradient-mint">
               Connect Bonuz On-Chain Social ID
             </button>
           </div>

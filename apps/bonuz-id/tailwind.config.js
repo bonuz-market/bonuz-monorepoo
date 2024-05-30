@@ -9,21 +9,19 @@ export const content = [
 ];
 export const theme = {
   extend: {
-    button1Image: {
+    borderImageSource: {
       "custom-gradient":
-        "linear-gradient(96.3deg, rgba(106, 52, 211, 0.4) 14.82%, rgba(106, 52, 211, 0) 88.09%)",
-    },
-    borderImage: {
-      "gradient-border":
-        "1 solid linear-gradient(135.72deg, #57B3F5 0%, rgba(255, 255, 255, 0) 34.5%)",
+        "linear-gradient(328.15deg, rgba(255, 161, 16, 0.6) -5.22%, rgba(255, 255, 255, 0) 84.32%)",
     },
     backgroundImage: {
       "custom-gradient":
-        "linear-gradient(122.58deg, #e79413 -19.89%, #ea3e5b 48.73%, #fa0af0 119.63%)",
+        "linear-gradient(96.3deg, rgba(106, 52, 211, 0.4) 14.82%, rgba(106, 52, 211, 0) 88.09%)",
       "custom-gradient1":
-        "linear-gradient(122.58deg, #e79413 -19.89%, #ea3e5b 48.73%, #fa0af0 119.63%)",
-      "custom-bg-gradient":
         "linear-gradient(97.19deg, rgba(106, 52, 211, 0.4) 14.82%, rgba(106, 52, 211, 0) 83.7%)",
+      "custom-gradient2":
+        "linear-gradient(122.58deg, #E79413 -19.89%, #EA3E5B 48.73%, #FA0AF0 119.63%)",
+      "custom-gradient-mint":
+        "linear-gradient(122.58deg, #E79413 -19.89%, #EA3E5B 48.73%, #FA0AF0 119.63%)",
       "custom-border-gradient":
         "linear-gradient(3.31deg, rgba(255, 161, 16, 0.6) -14.44%, rgba(255, 161, 16, 0) 91.68%)",
     },
@@ -31,13 +29,27 @@ export const theme = {
 };
 export const plugins = [
   function ({ addUtilities }) {
-    addUtilities({
-      ".border-custom-gradient": {
-        "border-image-source":
-          "linear-gradient(135.72deg, #57B3F5 0%, rgba(255, 255, 255, 0) 34.5%)",
-        "border-image-slice": "1",
+    const newUtilities = {
+      ".border-solid-1": {
+        border: "1px solid",
       },
-    });
+      ".border-gradient-custom": {
+        borderImageSource:
+          "linear-gradient(328.15deg, rgba(255, 161, 16, 0.6) -5.22%, rgba(255, 255, 255, 0) 84.32%)",
+        borderImageSlice: "1",
+      },
+      ".rounded-border-gradient": {
+        position: "relative",
+        padding: "1px" /* Adjust as necessary */,
+        borderRadius: "40px",
+      },
+      ".rounded-border-gradient-inner": {
+        borderRadius: "40px",
+        overflow: "hidden",
+      },
+    };
+
+    addUtilities(newUtilities, ["responsive", "hover"]);
   },
   require("daisyui"),
 ];
