@@ -11,6 +11,7 @@ import { HTTPError } from 'ky';
 import { forwardRef, useCallback, useImperativeHandle, useMemo, useRef, useState } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { Image, Pressable, Text, TextInput, View } from 'react-native';
+import Toast from 'react-native-toast-message';
 import tw from 'twrnc';
 
 import userPlaceholderImage from '@/assets/images/profile/user-placeholder.png';
@@ -35,7 +36,9 @@ export const ProfileEdit = forwardRef<BottomSheetModal, {}>((props, bottomSheetM
   const user = useUserStore((store) => store.user);
   const { data: userData } = useQueryGetUserProfileAndSocialLinks();
   const { mutateAsync: updateUser } = useMutationSetUserProfile(
-    () => {},
+    () => {
+      Toast.hide();
+    },
     () => {},
   );
   const [image, setImage] = useState<ImagePicker.ImagePickerAsset>();
@@ -146,7 +149,7 @@ export const ProfileEdit = forwardRef<BottomSheetModal, {}>((props, bottomSheetM
             }}
             render={({ field: { onChange, onBlur, value } }) => (
               <TextInput
-                style={tw`flex-1 w-full px-4 bg-[#2b3ca3] rounded-lg h-12 text-white`}
+                style={tw`w-full px-4 bg-[#2b3ca3] rounded-lg h-12 text-white`}
                 placeholder="Enter your name..."
                 placeholderTextColor={'rgba(255, 255, 255, 0.6)'}
                 value={value}
@@ -167,7 +170,7 @@ export const ProfileEdit = forwardRef<BottomSheetModal, {}>((props, bottomSheetM
             }}
             render={({ field: { onChange, onBlur, value } }) => (
               <TextInput
-                style={tw`flex-1 w-full px-4 bg-[#2b3ca3] rounded-lg h-12 text-white`}
+                style={tw`w-full px-4 bg-[#2b3ca3] rounded-lg h-12 text-white`}
                 placeholder="Enter a username..."
                 placeholderTextColor={'rgba(255, 255, 255, 0.6)'}
                 value={value}
@@ -276,8 +279,15 @@ export const ProfileEdit = forwardRef<BottomSheetModal, {}>((props, bottomSheetM
         console.log('dataToUpdate', dataToUpdate);
 
         if (!Object.values(dataToUpdate).every((value) => value === undefined)) {
+          Toast.show({
+            type: 'info',
+            text1: 'Updating Blockchain...',
+            autoHide: false,
+            swipeable: true,
+          });
           //@ts-ignore
           updateUser(dataToUpdate);
+          _bottomSheetModalRef.current?.dismiss();
         }
       } catch (error) {
         console.log("error updating user's profile", error);
@@ -315,6 +325,10 @@ export const ProfileEdit = forwardRef<BottomSheetModal, {}>((props, bottomSheetM
           } else {
             setIsTabBarHidden(true);
           }
+        }}
+        onDismiss={() => {
+          setIsTabBarHidden(false);
+          reset();
         }}>
         <LinearGradient colors={['#4B2EA2', '#0E2875']} style={tw`flex-1`}>
           <BottomSheetSectionList<any, any>
@@ -348,7 +362,7 @@ export const ProfileEdit = forwardRef<BottomSheetModal, {}>((props, bottomSheetM
                 title: '',
                 id: 'nameAndHandle',
                 renderItem: () => nameAndHandleInput,
-                data: [0],
+                data: [1],
               },
               {
                 title: 'Social Media Accounts',

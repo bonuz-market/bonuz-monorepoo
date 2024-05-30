@@ -5,6 +5,7 @@ import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import { StyleSheet } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import Toast from 'react-native-toast-message';
 
 import { ReactQueryProvider } from '@/providers';
 import { useUserStore } from '@/store';
@@ -59,6 +60,7 @@ function RootLayoutNav() {
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         </Stack>
       </ReactQueryProvider>
+      <Toast />
     </GestureHandlerRootView>
   );
 }

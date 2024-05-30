@@ -18,6 +18,7 @@ import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
+import Toast from 'react-native-toast-message';
 import tw from 'twrnc';
 import { useShallow } from 'zustand/react/shallow';
 
