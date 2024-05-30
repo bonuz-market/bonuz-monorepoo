@@ -20,6 +20,7 @@ import {
   useQueryGetUserProfileAndSocialLinks,
 } from '@/services/blockchain/bonuz/useSocialId';
 import { useUserStore } from '@/store';
+import { useUiStore } from '@/store/ui';
 import { isNotEmpty } from '@/utils/object';
 
 import { getIcon } from '../profile.config';
@@ -29,6 +30,7 @@ export const ProfileEdit = forwardRef<BottomSheetModal, {}>((props, bottomSheetM
   useImperativeHandle(bottomSheetModalRef, () => _bottomSheetModalRef.current!, []);
 
   const snapPoints = useMemo(() => ['50%', '90%'], []);
+  const setIsTabBarHidden = useUiStore((state) => state.setIsTabBarHidden);
 
   const user = useUserStore((store) => store.user);
   const { data: userData } = useQueryGetUserProfileAndSocialLinks();
@@ -294,7 +296,14 @@ export const ProfileEdit = forwardRef<BottomSheetModal, {}>((props, bottomSheetM
         }}
         style={{ flex: 1 }}
         index={0}
-        snapPoints={snapPoints}>
+        snapPoints={snapPoints}
+        onAnimate={(_, toIndex) => {
+          if (toIndex === -1) {
+            setIsTabBarHidden(false);
+          } else {
+            setIsTabBarHidden(true);
+          }
+        }}>
         <LinearGradient colors={['#4B2EA2', '#0E2875']} style={tw`flex-1`}>
           <BottomSheetSectionList<any, any>
             contentContainerStyle={{ padding: 20, flexGrow: 1 }}

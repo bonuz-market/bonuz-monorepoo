@@ -3,12 +3,16 @@ import React from 'react';
 
 import TabBar from '@/components/TabBar';
 import Colors from '@/constants/Colors';
+import { useUiStore } from '@/store/ui';
 
 export default function TabLayout() {
+  const isTabBarHidden = useUiStore((state) => state.isTabBarHidden);
+  console.log('isTabBarHidden', isTabBarHidden);
+
   return (
     <Tabs
       tabBar={(properties) => {
-        return <TabBar {...properties} />;
+        return isTabBarHidden ? undefined : <TabBar {...properties} />;
       }}
       screenOptions={{
         tabBarActiveTintColor: Colors['light'].tint,

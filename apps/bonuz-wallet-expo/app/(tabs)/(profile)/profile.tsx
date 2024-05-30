@@ -1,8 +1,8 @@
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { BlurView } from 'expo-blur';
 import { LinearGradient } from 'expo-linear-gradient';
-import { router, useNavigation } from 'expo-router';
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { router } from 'expo-router';
+import { useCallback, useMemo, useRef, useState } from 'react';
 import {
   FlatList,
   Image,
@@ -24,7 +24,6 @@ import { Accordion, Section } from '@/components/Accordion/Accordion';
 import { SocialItem } from '@/components/SocialItem/SocialItem';
 import { StatusBarHeight } from '@/components/StatusbarHeight';
 import { Text, View } from '@/components/Themed';
-import { User } from '@/entities';
 import { useLogin } from '@/hooks/useLogin';
 import { getIcon } from '@/pages/profile/profile.config';
 import { ProfileEdit } from '@/pages/profile/sheets';
@@ -66,6 +65,7 @@ export default function Profile() {
       user: store.user,
     })),
   );
+
   const { logout, login } = useLogin();
   const { data } = useQueryGetUserProfileAndSocialLinks();
 
@@ -357,7 +357,6 @@ export default function Profile() {
 
   const onEditPress = () => {
     bottomModalRef.current?.present();
-    // TODO: add global state to hide tabBar
   };
 
   return isNotEmpty(auth) && isNotEmpty(user) ? (
