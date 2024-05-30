@@ -105,7 +105,7 @@ export default function Profile() {
         </View>
       ),
       renderContent: (
-        <View>
+        <View style={tw`bg-transparent`}>
           <FlatList
             data={linksFiltered}
             renderItem={({ item }) => (
@@ -176,7 +176,7 @@ export default function Profile() {
         </View>
       ),
       renderContent: (
-        <View>
+        <View style={tw`bg-transparent`}>
           <FlatList
             data={wallets}
             renderItem={({ item }) => (
@@ -232,7 +232,7 @@ export default function Profile() {
         </View>
       ),
       renderContent: (
-        <View>
+        <View style={tw`bg-transparent`}>
           <FlatList
             data={messagingApps}
             renderItem={({ item }) => (
@@ -294,7 +294,7 @@ export default function Profile() {
         </View>
       ),
       renderContent: (
-        <View>
+        <View style={tw`bg-transparent`}>
           <FlatList
             data={others}
             renderItem={({ item }) => (
