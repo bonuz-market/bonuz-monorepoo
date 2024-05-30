@@ -7,11 +7,6 @@ import staticFace from '../../public/images/static-face.svg';
 
 import Image from 'next/image';
 
-import Frame1 from "../../public/images/carousel/Frame_1.png";
-import Frame2 from "../../public/images/carousel/Frame_2.png";
-import Frame3 from "../../public/images/carousel/Frame_3.png";
-import Frame4 from "../../public/images/carousel/Frame_4.png";
-
 const digitalDappData = [
     { label: 'ON-CHain Engagement Airdrops', count: '96+' },
     { label: 'Education Certificates', count: '99+' },
@@ -19,6 +14,7 @@ const digitalDappData = [
     { label: 'DEFI', count: '99+' },
     { label: 'Virtual Reality', count: '99+' },
 ]
+
 const realWorldData = [
     { label: 'Humans (Bonuz On-Chain ID)', count: '96+' },
     { label: 'Lens Profiles', count: '99+' },
@@ -111,23 +107,22 @@ const sliderData = [
         ]
     }
 ]
+
 export default function SearchPage() {
     const router = useRouter();
     const { query } = router.query;
     const [searchQuery, setSearchQuery] = useState('')
     const [currentIndex, setCurrentIndex] = useState(0);
 
-    const frames = [Frame1, Frame2, Frame3, Frame4];
-
     const handlePrev = () => {
         setCurrentIndex((prevIndex) =>
-            prevIndex === 0 ? frames.length - 1 : prevIndex - 1
+            prevIndex - 1
         );
     };
 
     const handleNext = () => {
         setCurrentIndex((prevIndex) =>
-            prevIndex === frames.length - 1 ? 0 : prevIndex + 1
+            prevIndex + 1
         );
     };
 
@@ -274,21 +269,22 @@ export default function SearchPage() {
                                                 <span className="sr-only">Previous</span>
                                             </span>
                                         </button>
+
                                         <div className="relative overflow-hidden rounded-lg h-[100%] w-[100%] flex items-center justify-center">
-                                            {data.images.map((frame, index) => (
+                                            {data.images.map((frame, index1) => (
                                                 <div
-                                                    key={index}
-                                                    className={`duration-700 ease-in-out ${index === currentIndex ? "block" : "hidden"
+                                                    key={index1}
+                                                    className={`duration-700 ease-in-out ${index1 === currentIndex ? "block" : "hidden"
                                                         }`}
                                                     data-carousel-item={
-                                                        index === currentIndex ? "active" : undefined
+                                                        index1 === currentIndex ? "active" : undefined
                                                     }
                                                 >
                                                     <Image
                                                         src={frame.url}
                                                         alt={`Frame ${index + 1}`}
-                                                        width={330}
-                                                        height={330}
+                                                        width={138}
+                                                        height={70}
                                                     />
                                                 </div>
                                             ))}
