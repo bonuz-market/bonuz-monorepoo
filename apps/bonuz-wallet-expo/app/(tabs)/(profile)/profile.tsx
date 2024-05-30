@@ -515,8 +515,6 @@ const styles = StyleSheet.create({
   listHeader: {
     height: hp(62),
     top: hp(-7),
-    zIndex: 1,
-    flexWrap: 'wrap',
     backgroundColor: 'transparent',
   },
   blur: {
@@ -566,7 +564,6 @@ const styles = StyleSheet.create({
     left: 0,
     bottom: 0,
     right: 0,
-    // zIndex:-1
   },
   socialId: {
     fontSize: RFPercentage(2),
