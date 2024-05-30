@@ -1,3 +1,4 @@
+import { Ionicons } from '@expo/vector-icons';
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { BlurView } from 'expo-blur';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -117,9 +118,13 @@ export default function Profile() {
                 content={
                   <Text style={{ fontSize: 16, color: 'white', opacity: 0.7 }}>{item.handle}</Text>
                 }
-
-                // text={item.handle}
-                // RightComponent={
+                rightAddon={
+                  <Ionicons
+                    name={item.isPublic ? 'eye-outline' : 'eye-off-outline'}
+                    color="white"
+                    size={20}
+                  />
+                } // RightComponent={
                 //   <HStack space={2} alignItems="center" justifyContent="center">
                 //     {item.type === SOCIAL_ACCOUNTS.s_x && !item.isVerified && (
                 //       <Button
@@ -184,17 +189,13 @@ export default function Profile() {
                 content={
                   <Text style={{ fontSize: 16, color: 'white', opacity: 0.7 }}>{item.handle}</Text>
                 }
-
-                //   text={item.handle}
-                //   RightComponent={
-                //     <HStack space={1} alignItems="center">
-                //       <Ionicons
-                //         name={item.isPublic ? 'eye-outline' : 'eye-off-outline'}
-                //         color="white"
-                //         size={20}
-                //       />
-                //     </HStack>
-                //   }
+                rightAddon={
+                  <Ionicons
+                    name={item.isPublic ? 'eye-outline' : 'eye-off-outline'}
+                    color="white"
+                    size={20}
+                  />
+                }
                 //   isVerified={item.isVerified}
               />
             )}
@@ -244,17 +245,14 @@ export default function Profile() {
                 content={
                   <Text style={{ fontSize: 16, color: 'white', opacity: 0.7 }}>{item.handle}</Text>
                 }
-
                 //   text={item.handle}
-                //   RightComponent={
-                //     <HStack space={1} alignItems="center">
-                //       <Ionicons
-                //         name={item.isPublic ? 'eye-outline' : 'eye-off-outline'}
-                //         color="white"
-                //         size={20}
-                //       />
-                //     </HStack>
-                //   }
+                rightAddon={
+                  <Ionicons
+                    name={item.isPublic ? 'eye-outline' : 'eye-off-outline'}
+                    color="white"
+                    size={20}
+                  />
+                }
                 //   isVerified={item.isVerified}
               />
             )}
@@ -309,16 +307,13 @@ export default function Profile() {
                 content={
                   <Text style={{ fontSize: 16, color: 'white', opacity: 0.7 }}>{item.handle}</Text>
                 }
-
-                // RightComponent={
-                //   <HStack space={1} alignItems="center">
-                //     <Ionicons
-                //       name={item.isPublic ? 'eye-outline' : 'eye-off-outline'}
-                //       color="white"
-                //       size={20}
-                //     />
-                //   </HStack>
-                // }
+                rightAddon={
+                  <Ionicons
+                    name={item.isPublic ? 'eye-outline' : 'eye-off-outline'}
+                    color="white"
+                    size={20}
+                  />
+                }
                 // isVerified={item.isVerified}
               />
             )}

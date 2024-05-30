@@ -97,6 +97,18 @@ export const ProfileEdit = forwardRef<BottomSheetModal, {}>((props, bottomSheetM
             )}
             name={`${category}.${type}.handle`}
           />
+          <Controller
+            control={control}
+            render={({ field: { onChange, onBlur, value } }) => (
+              <Ionicons
+                name={value ? 'eye-outline' : 'eye-off-outline'}
+                size={24}
+                color="white"
+                onPress={() => onChange(!value)}
+              />
+            )}
+            name={`${category}.${type}.isPublic`}
+          />
         </View>
       );
     },
