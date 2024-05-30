@@ -35,16 +35,9 @@ export const Collapsible: FunctionComponent<Props> = ({ collapsed, children, sty
     [shareValue],
   );
 
-  const handleLayout = useCallback(
-    (event: LayoutChangeEvent) => {
-      if (bodySectionHeight !== undefined) {
-        return;
-      }
-
-      setBodySectionHeight(event.nativeEvent.layout.height);
-    },
-    [bodySectionHeight],
-  );
+  const handleLayout = useCallback((event: LayoutChangeEvent) => {
+    setBodySectionHeight(event.nativeEvent.layout.height);
+  }, []);
 
   useEffect(() => {
     toggleCollapsed(collapsed);
