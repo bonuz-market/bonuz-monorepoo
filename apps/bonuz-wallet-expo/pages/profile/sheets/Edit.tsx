@@ -134,7 +134,7 @@ export const ProfileEdit = forwardRef<BottomSheetModal, {}>((props, bottomSheetM
             }}
             render={({ field: { onChange, onBlur, value } }) => (
               <TextInput
-                style={tw`w-full bg-[#2b3ca3] rounded-lg p-4 h-12 text-white`}
+                style={tw`flex-1 w-full px-4 bg-[#2b3ca3] rounded-lg h-12 text-white`}
                 placeholder="Enter your name..."
                 placeholderTextColor={'rgba(255, 255, 255, 0.6)'}
                 value={value}
@@ -155,7 +155,7 @@ export const ProfileEdit = forwardRef<BottomSheetModal, {}>((props, bottomSheetM
             }}
             render={({ field: { onChange, onBlur, value } }) => (
               <TextInput
-                style={tw`w-full bg-[#2b3ca3] rounded-lg p-4 h-12 text-white`}
+                style={tw`flex-1 w-full px-4 bg-[#2b3ca3] rounded-lg h-12 text-white`}
                 placeholder="Enter a username..."
                 placeholderTextColor={'rgba(255, 255, 255, 0.6)'}
                 value={value}
