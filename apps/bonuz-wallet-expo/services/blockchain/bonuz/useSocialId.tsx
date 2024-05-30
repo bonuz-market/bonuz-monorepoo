@@ -1,5 +1,7 @@
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import CryptoES from 'crypto-es';
+import { ImagePickerAsset } from 'expo-image-picker';
+import { HTTPError } from 'ky';
 
 import {
   DecentralizedIdentifiersType,
@@ -11,10 +13,11 @@ import {
   WalletType,
 } from '@/entities';
 import { Wallet } from '@/entities/wallet';
-import { getUserInfo } from '@/services/backend';
+import { getUserInfo, updateUserInfo } from '@/services/backend';
 import { useUserStore } from '@/store';
 import { viemPublicClients } from '@/store/smartAccounts';
 
+import { uploadImageToIPFS } from '../nftStorage';
 import { socialIdAbi } from './abi';
 import { SOCIAL_ID_ADDRESS, SOCIAL_ID_CHAIN_ID } from './bonuz.config';
 
@@ -435,6 +438,7 @@ export const useQueryGetUserProfileAndSocialLinks = () => {
       } satisfies Partial<User>;
     },
     refetchOnMount: true,
+    staleTime: 0,
   });
 };
 // export const useQueryGetUserProfileAndSocialLinksByHandle = (handle: string | null) => {
@@ -1370,147 +1374,145 @@ export const useQueryGetUserProfileAndSocialLinks = () => {
 //     },
 //   });
 // };
-// interface setUserProfileMutationArgs {
-//   name?: string;
-//   profilePicture?: ImagePickerAsset;
-//   handle?: string;
-//   socials: Record<SocialAccount, UserLink>;
-//   messagingApps: Record<MessagingAppType, UserLink>;
-//   wallets: Record<WalletType, UserLink>;
-//   decentralizedIdentifiers: Record<DecentralizedIdentifiersType, UserLink>;
-//   domains: Record<DomainsType, UserLink>;
-//   validations: Partial<Record<SocialAccount, any>>;
-// }
-// export const useMutationSetUserProfile = (
-//   handelOnSuccess: (data: any) => void,
-//   handleOnError: (error: { message: string }) => void,
-// ) => {
-//   const queryClient = useQueryClient();
-//   const accessToken = useAuthStore((state) => state.token);
-//   const privateKey = useWalletStore((state) => state.privateKey);
+interface SetUserProfileMutationArgs {
+  name?: string;
+  profilePicture?: ImagePickerAsset;
+  handle?: string;
+  socials: Record<SocialAccount, Link>;
+  messagingApps: Record<MessagingAppType, Link>;
+  wallets: Record<WalletType, Link>;
+  decentralizedIdentifiers: Record<DecentralizedIdentifiersType, Link>;
+}
+export const useMutationSetUserProfile = (
+  handelOnSuccess: (data: any) => void,
+  handleOnError: (error: { message: string }) => void,
+) => {
+  const privateKey = useUserStore((state) => (state.wallet as Wallet).privateKey);
+  const mutationFn = async (userData: SetUserProfileMutationArgs) => {
+    let newProfilePicture;
 
-//   const mutationFn = async (userData: setUserProfileMutationArgs) => {
-//     let newProfilePicture;
+    if (userData.profilePicture) {
+      const imageUrl = await uploadImageToIPFS(userData.profilePicture);
+      console.log('imageUrl', imageUrl);
 
-//     if (userData.profilePicture) {
-//       const imageUrl = await uploadImageToIPFS(userData.profilePicture);
-//       console.log('imageUrl', imageUrl);
+      newProfilePicture = imageUrl;
+    }
 
-//       newProfilePicture = imageUrl;
-//     }
+    const updateUser = async ({
+      socials = {},
+      messagingApps = {},
+      wallets = {},
+      decentralizedIdentifiers = {},
+      handle,
+      name,
+      profilePicture,
+    }: {
+      socials: Record<string, Link>;
+      messagingApps: Record<string, Link>;
+      wallets: Record<string, Link>;
+      decentralizedIdentifiers: Record<string, Link>;
+      handle?: string;
+      name?: string;
+      profilePicture?: string;
+      validations?: Partial<Record<SocialAccount, any>>;
+    }) => {
+      const prepareLink = (link: Link) => {
+        let newLink;
 
-//     const updateUser = async ({
-//       socials = {},
-//       messagingApps = {},
-//       wallets = {},
-//       decentralizedIdentifiers = {},
-//       handle,
-//       name,
-//       profilePicture,
-//       validations,
-//     }: {
-//       socials: Record<string, UserLink>;
-//       messagingApps: Record<string, UserLink>;
-//       wallets: Record<string, UserLink>;
-//       decentralizedIdentifiers: Record<string, UserLink>;
-//       handle?: string;
-//       name?: string;
-//       profilePicture?: string;
-//       validations?: Partial<Record<SocialAccount, any>>;
-//     }) => {
-//       const prepareLink = (link: UserLink) => {
-//         let newLink;
+        if (link.isPublic) {
+          newLink = `p_${link.handle}`;
+        } else {
+          console.log('link.handle', link.handle, privateKey);
 
-//         if (link.isPublic) {
-//           newLink = `p_${link.handle}`;
-//         } else {
-//           const encrypted = CryptoES.AES.encrypt(link.handle, privateKey!).toString();
-//           newLink = `e_${encrypted}`;
-//         }
+          const encrypted = CryptoES.AES.encrypt(link.handle, privateKey).toString();
+          newLink = `e_${encrypted}`;
+        }
 
-//         return newLink;
-//       };
+        return newLink;
+      };
 
-//       const socialLinksCombined: {
-//         platforms: string[];
-//         links: string[];
-//       } = {
-//         platforms: [],
-//         links: [],
-//       };
+      const socialLinksCombined: {
+        platforms: string[];
+        links: string[];
+      } = {
+        platforms: [],
+        links: [],
+      };
 
-//       const socialPlatforms = Object.keys(socials).map((platform) => `s_${platform}`);
-//       const socialLinks = Object.values(socials).map(prepareLink);
+      const socialPlatforms = Object.keys(socials).map((platform) => `s_${platform}`);
+      const socialLinks = Object.values(socials).map((element) => prepareLink(element));
 
-//       const messagePlatforms = Object.keys(messagingApps).map((platform) => `m_${platform}`);
-//       const messageLinks = Object.values(messagingApps).map(prepareLink);
+      const messagePlatforms = Object.keys(messagingApps).map((platform) => `m_${platform}`);
+      const messageLinks = Object.values(messagingApps).map((element) => prepareLink(element));
 
-//       const walletPlatforms = Object.keys(wallets).map((platform) => `w_${platform}`);
-//       const walletLinks = Object.values(wallets).map(prepareLink);
+      const walletPlatforms = Object.keys(wallets).map((platform) => `w_${platform}`);
+      const walletLinks = Object.values(wallets).map((element) => prepareLink(element));
 
-//       const decentralizedIdentifiersPlatforms = Object.keys(decentralizedIdentifiers).map(
-//         (platform) => `d_${platform}`,
-//       );
-//       const decentralizedIdentifiersLinks =
-//         Object.values(decentralizedIdentifiers).map(prepareLink);
+      const decentralizedIdentifiersPlatforms = Object.keys(decentralizedIdentifiers).map(
+        (platform) => `d_${platform}`,
+      );
+      const decentralizedIdentifiersLinks = Object.values(decentralizedIdentifiers).map((element) =>
+        prepareLink(element),
+      );
 
-//       socialLinksCombined.platforms = [
-//         ...socialPlatforms,
-//         ...messagePlatforms,
-//         ...walletPlatforms,
-//         ...decentralizedIdentifiersPlatforms,
-//       ];
+      socialLinksCombined.platforms = [
+        ...socialPlatforms,
+        ...messagePlatforms,
+        ...walletPlatforms,
+        ...decentralizedIdentifiersPlatforms,
+      ];
 
-//       socialLinksCombined.links = [
-//         ...socialLinks,
-//         ...messageLinks,
-//         ...walletLinks,
-//         ...decentralizedIdentifiersLinks,
-//       ];
+      socialLinksCombined.links = [
+        ...socialLinks,
+        ...messageLinks,
+        ...walletLinks,
+        ...decentralizedIdentifiersLinks,
+      ];
 
-//       const data = {
-//         socialLinks: socialLinksCombined,
-//         ...(handle && { handle }),
-//         ...(name && { name }),
-//         ...(profilePicture && { profileImage: profilePicture }),
-//       };
+      const data = {
+        socialLinks: socialLinksCombined,
+        ...(handle && { handle }),
+        ...(name && { name }),
+        ...(profilePicture && { profileImage: profilePicture }),
+      };
+      console.log('data', data);
 
-//       return updateUserInfo(accessToken!, data);
-//     };
+      return updateUserInfo(data);
+    };
 
-//     try {
-//       await updateUser({
-//         handle: userData.handle,
-//         name: userData.name,
-//         profilePicture: newProfilePicture,
-//         socials: userData.socials,
-//         messagingApps: userData.messagingApps,
-//         wallets: userData.wallets,
-//         decentralizedIdentifiers: userData.decentralizedIdentifiers,
-//         validations: userData.validations,
-//       });
-//     } catch (error) {
-//       console.log('error', error);
-//       throw error;
-//     }
-//   };
+    try {
+      await updateUser({
+        handle: userData.handle,
+        name: userData.name,
+        profilePicture: newProfilePicture,
+        socials: userData.socials,
+        messagingApps: userData.messagingApps,
+        wallets: userData.wallets,
+        decentralizedIdentifiers: userData.decentralizedIdentifiers,
+      });
+    } catch (error) {
+      console.log('error', error);
+      throw error;
+    }
+  };
 
-//   return useMutation(mutationFn, {
-//     mutationKey: ['updateUser'],
-//     onSuccess(data) {
-//       queryClient.invalidateQueries({
-//         queryKey: ['getUserProfileAndSocialLinks'],
-//         exact: true,
-//       });
+  const queryClient = useQueryClient();
 
-//       handelOnSuccess(data);
-//     },
-//     onError(error) {
-//       const _error = error as AxiosError<{
-//         message: string;
-//       }>;
+  return useMutation({
+    mutationKey: ['updateUser'],
+    mutationFn,
+    onSuccess(data) {
+      queryClient.invalidateQueries({
+        queryKey: ['getUserProfileAndSocialLinks'],
+        exact: true,
+      });
 
-//       handleOnError({ message: _error.response?.data.message ?? _error.message });
-//     },
-//   });
-// };
+      handelOnSuccess(data);
+    },
+    onError(error) {
+      const _error = error as HTTPError;
+
+      handleOnError({ message: _error.message });
+    },
+  });
+};

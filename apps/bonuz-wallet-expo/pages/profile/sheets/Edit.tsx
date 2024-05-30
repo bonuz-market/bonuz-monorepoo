@@ -4,14 +4,21 @@ import {
   BottomSheetModalProvider,
   BottomSheetSectionList,
 } from '@gorhom/bottom-sheet';
+import * as ImageManipulator from 'expo-image-manipulator';
+import * as ImagePicker from 'expo-image-picker';
 import { LinearGradient } from 'expo-linear-gradient';
-import { forwardRef, useCallback, useImperativeHandle, useMemo, useRef } from 'react';
-import { Controller, useForm } from 'react-hook-form';
+import { HTTPError } from 'ky';
+import { forwardRef, useCallback, useImperativeHandle, useMemo, useRef, useState } from 'react';
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { Image, Pressable, Text, TextInput, View } from 'react-native';
 import tw from 'twrnc';
 
+import userPlaceholderImage from '@/assets/images/profile/user-placeholder.png';
 import { Link, User } from '@/entities';
-import { useQueryGetUserProfileAndSocialLinks } from '@/services/blockchain/bonuz/useSocialId';
+import {
+  useMutationSetUserProfile,
+  useQueryGetUserProfileAndSocialLinks,
+} from '@/services/blockchain/bonuz/useSocialId';
 import { useUserStore } from '@/store';
 import { isNotEmpty } from '@/utils/object';
 
@@ -24,29 +31,59 @@ export const ProfileEdit = forwardRef<BottomSheetModal, {}>((props, bottomSheetM
   const snapPoints = useMemo(() => ['50%', '90%'], []);
 
   const user = useUserStore((store) => store.user);
-  const { data } = useQueryGetUserProfileAndSocialLinks();
+  const { data: userData } = useQueryGetUserProfileAndSocialLinks();
+  const { mutateAsync: updateUser } = useMutationSetUserProfile(
+    () => {},
+    () => {},
+  );
+  const [image, setImage] = useState<ImagePicker.ImagePickerAsset>();
 
-  const { control } = useForm<User>({
+  const pickImage = async () => {
+    ImagePicker.requestMediaLibraryPermissionsAsync().then(({ granted }) => {
+      if (granted) {
+        ImagePicker.launchImageLibraryAsync({
+          mediaTypes: ImagePicker.MediaTypeOptions.Images,
+          allowsEditing: true,
+          aspect: [1, 1],
+          quality: 0.2,
+        }).then((result) => {
+          ImageManipulator.manipulateAsync(
+            result.assets?.[0].uri ?? '',
+            [{ resize: { width: 600 } }],
+            {
+              compress: 0.2,
+              format: ImageManipulator.SaveFormat.JPEG,
+            },
+          ).then((compressed) => {
+            setImage(compressed);
+          });
+        });
+      }
+    });
+  };
+
+  const { control, handleSubmit, reset, formState } = useForm<User>({
     defaultValues: {
-      name: data?.name,
-      handle: data?.handle,
-      socials: data?.socials,
-      wallets: data?.wallets,
-      messagingApps: data?.messagingApps,
-      decentralizedIdentifiers: data?.decentralizedIdentifiers,
+      name: userData?.name,
+      handle: userData?.handle,
+      socials: userData?.socials,
+      wallets: userData?.wallets,
+      messagingApps: userData?.messagingApps,
+      decentralizedIdentifiers: userData?.decentralizedIdentifiers,
     },
   });
 
   const renderLinkInput = useCallback(
-    (type: string, link: Link) => {
+    (
+      type: string,
+      link: Link,
+      category: 'socials' | 'wallets' | 'messagingApps' | 'decentralizedIdentifiers',
+    ) => {
       return (
         <View style={tw`flex flex-row gap-2 px-2 w-full items-center bg-[#2b3ca3] rounded-lg`}>
           <View>{getIcon(type, 'normal')}</View>
           <Controller
             control={control}
-            rules={{
-              required: true,
-            }}
             render={({ field: { onChange, onBlur, value } }) => (
               <TextInput
                 style={tw`flex-1 bg-[#2b3ca3] rounded-lg h-12 text-white`}
@@ -56,7 +93,7 @@ export const ProfileEdit = forwardRef<BottomSheetModal, {}>((props, bottomSheetM
                 onChangeText={onChange}
               />
             )}
-            name={`socials.${type}.handle`}
+            name={`${category}.${type}.handle`}
           />
         </View>
       );
@@ -69,15 +106,19 @@ export const ProfileEdit = forwardRef<BottomSheetModal, {}>((props, bottomSheetM
       <View style={tw`flex flex-col gap-1 items-center`}>
         <Image
           style={tw`w-36 h-36 rounded-full`}
-          source={{ uri: data?.profilePicture! }}
+          source={
+            (userData?.profilePicture !== null && userData?.profilePicture !== '') || image?.uri
+              ? { uri: image?.uri ?? userData?.profilePicture }
+              : userPlaceholderImage
+          }
           alt="user"
         />
-        <Pressable>
+        <Pressable onPress={pickImage}>
           <Text style={tw`text-white text-sm font-medium`}>Set New Photo</Text>
         </Pressable>
       </View>
     );
-  }, [data?.profilePicture]);
+  }, [userData?.profilePicture, image?.uri]);
   const nameAndHandleInput = useMemo(() => {
     return (
       <View style={tw`flex flex-col gap-3 items-center w-full`}>
@@ -126,6 +167,116 @@ export const ProfileEdit = forwardRef<BottomSheetModal, {}>((props, bottomSheetM
     );
   }, [control]);
 
+  const handleSave: SubmitHandler<User> = useCallback(
+    (data) => {
+      try {
+        if (!userData) {
+          return;
+        }
+        console.log(data);
+
+        const keys = ['socials', 'wallets', 'messagingApps', 'decentralizedIdentifiers'];
+        const updatedData = {};
+
+        for (const key of keys) {
+          const updated = Object.entries<Link>(
+            data[key as 'socials' | 'wallets' | 'messagingApps' | 'decentralizedIdentifiers'] ?? {},
+          ).reduce(
+            (acc, [k, value]) => {
+              if (
+                value.handle !==
+                  // @ts-ignore
+                  userData[
+                    key as 'socials' | 'wallets' | 'messagingApps' | 'decentralizedIdentifiers'
+                  ][k]?.handle ||
+                value.isPublic !==
+                  // @ts-ignore
+                  userData[
+                    key as 'socials' | 'wallets' | 'messagingApps' | 'decentralizedIdentifiers'
+                  ][k]?.isPublic
+              ) {
+                return {
+                  ...acc,
+                  [k]: value,
+                };
+              }
+              return acc;
+            },
+            {} as Record<string, Link>,
+          );
+
+          if (Object.keys(updated).length > 0) {
+            // @ts-ignore
+            updatedData[
+              key as 'socials' | 'wallets' | 'messagingApps' | 'decentralizedIdentifiers'
+            ] = updated;
+          }
+        }
+
+        // const validatableWallets = Object.entries(
+        //   (data.wallets as Record<
+        //     string,
+        //     UserLink & {
+        //       validation: {
+        //         message: string;
+        //         signature: string;
+        //       };
+        //     }
+        //   >) ?? {},
+        // ).reduce(
+        //   (acc, [key, value]) => {
+        //     if (value.validation) {
+        //       return {
+        //         ...acc,
+        //         [key]: {
+        //           message: value.validation.message,
+        //           signature: value.validation.signature,
+        //         },
+        //       };
+        //     }
+        //   },
+        //   {} as Record<
+        //     string,
+        //     {
+        //       message: string;
+        //       signature: string;
+        //     }
+        //   >,
+        // );
+
+        const updatedName = data.name === userData?.name ? undefined : data.name;
+        const updatedHandle = data.handle === userData?.handle ? undefined : data.handle;
+        const updatedProfilePicture =
+          image?.uri && image.uri !== userData?.profilePicture ? image : undefined;
+
+        const dataToUpdate = {
+          ...updatedData,
+          name: updatedName,
+          handle: updatedHandle,
+          profilePicture: updatedProfilePicture,
+          // validations: {
+          //   ...validatableWallets,
+          // },
+        };
+
+        console.log('dataToUpdate', dataToUpdate);
+
+        if (!Object.values(dataToUpdate).every((value) => value === undefined)) {
+          //@ts-ignore
+          updateUser(dataToUpdate);
+        }
+      } catch (error) {
+        console.log("error updating user's profile", error);
+
+        const { message } = error as HTTPError;
+        console.log(error);
+
+        console.log(message);
+      }
+    },
+    [image, updateUser, userData],
+  );
+
   if (!isNotEmpty(user)) {
     return;
   }
@@ -149,17 +300,20 @@ export const ProfileEdit = forwardRef<BottomSheetModal, {}>((props, bottomSheetM
             contentContainerStyle={{ padding: 20, flexGrow: 1 }}
             ListHeaderComponent={
               <View style={tw`flex flex-row items-center justify-center w-full relative h-10`}>
+                <Pressable
+                  style={tw`absolute left-0 top-0 p-3 bg-[#5b38b6] rounded-full ml-auto`}
+                  onPress={() => {
+                    _bottomSheetModalRef.current?.dismiss();
+                    reset();
+                  }}>
+                  <Ionicons name="close" size={20} color="#b770ff" />
+                </Pressable>
                 <Text style={tw`text-white text-base`}>Edit Profile</Text>
-                <View style={tw`absolute right-0 top-0 p-3 bg-[#5b38b6] rounded-full ml-auto`}>
-                  <Ionicons
-                    name="close"
-                    size={20}
-                    color="#b770ff"
-                    onPress={() => {
-                      _bottomSheetModalRef.current?.dismiss();
-                    }}
-                  />
-                </View>
+                <Pressable
+                  style={tw`absolute right-0 top-0 p-3 bg-[#5b38b6] rounded-full ml-auto`}
+                  onPress={handleSubmit(handleSave)}>
+                  <Ionicons name="checkmark" size={20} color="#b770ff" />
+                </Pressable>
               </View>
             }
             sections={[
@@ -170,42 +324,46 @@ export const ProfileEdit = forwardRef<BottomSheetModal, {}>((props, bottomSheetM
                 data: [0],
               },
               {
-                title: 'Name & Handle',
+                title: '',
                 id: 'nameAndHandle',
                 renderItem: () => nameAndHandleInput,
                 data: [0],
               },
               {
                 title: 'Social Media Accounts',
-                data: Object.entries(data?.socials ?? {}).map(([type, link]) => ({
+                data: Object.entries(userData?.socials ?? {}).map(([type, link]) => ({
                   type,
                   link,
                 })),
-                renderItem: ({ item }: any) => renderLinkInput(item.type, item.link),
+                renderItem: ({ item }: any) => renderLinkInput(item.type, item.link, 'socials'),
               },
               {
                 title: 'Messaging Apps',
-                data: Object.entries(data?.messagingApps ?? {}).map(([type, link]) => ({
+                data: Object.entries(userData?.messagingApps ?? {}).map(([type, link]) => ({
                   type,
                   link,
                 })),
-                renderItem: ({ item }: any) => renderLinkInput(item.type, item.link),
+                renderItem: ({ item }: any) =>
+                  renderLinkInput(item.type, item.link, 'messagingApps'),
               },
               {
                 title: 'Wallets',
-                data: Object.entries(data?.wallets ?? {}).map(([type, link]) => ({
+                data: Object.entries(userData?.wallets ?? {}).map(([type, link]) => ({
                   type,
                   link,
                 })),
-                renderItem: ({ item }: any) => renderLinkInput(item.type, item.link),
+                renderItem: ({ item }: any) => renderLinkInput(item.type, item.link, 'wallets'),
               },
               {
                 title: 'Decentralized Identifiers',
-                data: Object.entries(data?.decentralizedIdentifiers ?? {}).map(([type, link]) => ({
-                  type,
-                  link,
-                })),
-                renderItem: ({ item }: any) => renderLinkInput(item.type, item.link),
+                data: Object.entries(userData?.decentralizedIdentifiers ?? {}).map(
+                  ([type, link]) => ({
+                    type,
+                    link,
+                  }),
+                ),
+                renderItem: ({ item }: any) =>
+                  renderLinkInput(item.type, item.link, 'decentralizedIdentifiers'),
               },
             ]}
             initialNumToRender={10}

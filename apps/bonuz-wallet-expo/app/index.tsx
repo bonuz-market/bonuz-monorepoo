@@ -111,6 +111,8 @@ export default function Home() {
     );
   };
 
+  console.log('state.auth', state.auth);
+
   const [email, setEmail] = useState('');
 
   if (isNotEmpty(state.auth)) return <Redirect href={'/home'} />;

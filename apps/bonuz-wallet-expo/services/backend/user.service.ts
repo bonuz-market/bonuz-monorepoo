@@ -14,11 +14,9 @@ export const getUserByHandle = async (handle: string, accessToken?: string) => {
 };
 
 export const updateUserInfo = async (userInfo: any) => {
-  return backendClient
-    .patch(`api/users/me?chainId=1116`, {
-      json: userInfo,
-    })
-    .json();
+  return backendClient.patch(`api/users/me?chainId=1116`, {
+    json: userInfo,
+  });
 };
 
 export const createUser = async (userData: {

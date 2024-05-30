@@ -192,6 +192,9 @@ importers:
       expo-font:
         specifier: ~12.0.5
         version: 12.0.5(expo@51.0.8(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(bufferutil@4.0.8))
+      expo-image-manipulator:
+        specifier: ^12.0.5
+        version: 12.0.5(expo@51.0.8(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(bufferutil@4.0.8))
       expo-image-picker:
         specifier: ^15.0.5
         version: 15.0.5(expo@51.0.8(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(bufferutil@4.0.8))
@@ -225,6 +228,9 @@ importers:
       ky:
         specifier: ^1.2.4
         version: 1.2.4
+      mime:
+        specifier: ^4.0.3
+        version: 4.0.3
       net:
         specifier: ^1.0.2
         version: 1.0.2
@@ -4876,6 +4882,11 @@ packages:
 
   expo-image-loader@4.7.0:
     resolution: {integrity: sha512-cx+MxxsAMGl9AiWnQUzrkJMJH4eNOGlu7XkLGnAXSJrRoIiciGaKqzeaD326IyCTV+Z1fXvIliSgNW+DscvD8g==}
+    peerDependencies:
+      expo: '*'
+
+  expo-image-manipulator@12.0.5:
+    resolution: {integrity: sha512-zJ8yINjckYw/yfoSuICt4yJ9xr112+W9e5QVXwK3nCAHr7sv45RQ5sxte0qppf594TPl+UoV6Tjim7WpoKipRQ==}
     peerDependencies:
       expo: '*'
 
@@ -16000,6 +16011,11 @@ snapshots:
   expo-image-loader@4.7.0(expo@51.0.8(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(bufferutil@4.0.8)):
     dependencies:
       expo: 51.0.8(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(bufferutil@4.0.8)
+
+  expo-image-manipulator@12.0.5(expo@51.0.8(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(bufferutil@4.0.8)):
+    dependencies:
+      expo: 51.0.8(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(bufferutil@4.0.8)
+      expo-image-loader: 4.7.0(expo@51.0.8(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(bufferutil@4.0.8))
 
   expo-image-picker@15.0.5(expo@51.0.8(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(bufferutil@4.0.8)):
     dependencies:
