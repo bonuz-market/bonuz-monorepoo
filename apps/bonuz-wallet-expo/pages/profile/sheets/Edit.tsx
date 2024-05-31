@@ -15,6 +15,7 @@ import Toast from 'react-native-toast-message';
 import tw from 'twrnc';
 
 import userPlaceholderImage from '@/assets/images/profile/user-placeholder.png';
+import { CustomBackdrop } from '@/components/sheets/Backdrop';
 import { Link, User } from '@/entities';
 import {
   useMutationSetUserProfile,
@@ -345,7 +346,8 @@ export const ProfileEdit = forwardRef<BottomSheetModal, {}>((props, bottomSheetM
         onAnimate={handleAnimate}
         onDismiss={() => {
           reset();
-        }}>
+        }}
+        backdropComponent={CustomBackdrop}>
         <LinearGradient colors={['#4B2EA2', '#0E2875']} style={tw`flex-1`}>
           <BottomSheetSectionList<any, any>
             contentContainerStyle={{ padding: 20, flexGrow: 1 }}
