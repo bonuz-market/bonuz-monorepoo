@@ -86,19 +86,19 @@ export default function Profile() {
     return {
       index: SECTIONS.SOCIALS_MEDIA_ACCOUNTS.index,
       titleComponent: (
-        <View style={styles.listRow}>
+        <View style={tw`flex-row gap-4 items-center bg-transparent`}>
           <View
             style={[
-              styles.listIconWrap,
+              tw`h-10 w-10 rounded-xl justify-center items-center`,
               { backgroundColor: SECTIONS.SOCIALS_MEDIA_ACCOUNTS.background },
             ]}>
             <Image
               source={SECTIONS.SOCIALS_MEDIA_ACCOUNTS.icon}
-              style={styles.listIcon}
+              style={tw`h-7 w-7`}
               resizeMode="contain"
             />
           </View>
-          <Text style={styles.listTitle} numberOfLines={1}>
+          <Text style={tw`text-white text-base font-medium`} numberOfLines={1}>
             {SECTIONS.SOCIALS_MEDIA_ACCOUNTS.title}
           </Text>
         </View>
@@ -165,11 +165,15 @@ export default function Profile() {
     return {
       index: SECTIONS.WALLETS.index,
       titleComponent: (
-        <View style={styles.listRow}>
-          <View style={[styles.listIconWrap, { backgroundColor: SECTIONS.WALLETS.background }]}>
-            <Image source={SECTIONS.WALLETS.icon} style={styles.listIcon} resizeMode="contain" />
+        <View style={tw`flex-row gap-4 items-center bg-transparent`}>
+          <View
+            style={[
+              tw`h-10 w-10 rounded-xl justify-center items-center`,
+              { backgroundColor: SECTIONS.WALLETS.background },
+            ]}>
+            <Image source={SECTIONS.WALLETS.icon} style={tw`h-7 w-7`} resizeMode="contain" />
           </View>
-          <Text style={styles.listTitle} numberOfLines={1}>
+          <Text style={tw`text-white text-base font-medium`} numberOfLines={1}>
             {SECTIONS.WALLETS.title}
           </Text>
         </View>
@@ -216,16 +220,15 @@ export default function Profile() {
     return {
       index: SECTIONS.MESSAGING_APPS.index,
       titleComponent: (
-        <View style={styles.listRow}>
+        <View style={tw`flex-row gap-4 items-center bg-transparent`}>
           <View
-            style={[styles.listIconWrap, { backgroundColor: SECTIONS.MESSAGING_APPS.background }]}>
-            <Image
-              source={SECTIONS.MESSAGING_APPS.icon}
-              style={styles.listIcon}
-              resizeMode="contain"
-            />
+            style={[
+              tw`h-10 w-10 rounded-xl justify-center items-center`,
+              { backgroundColor: SECTIONS.MESSAGING_APPS.background },
+            ]}>
+            <Image source={SECTIONS.MESSAGING_APPS.icon} style={tw`h-7 w-7`} resizeMode="contain" />
           </View>
-          <Text style={styles.listTitle} numberOfLines={1}>
+          <Text style={tw`text-white text-base font-medium`} numberOfLines={1}>
             {SECTIONS.MESSAGING_APPS.title}
           </Text>
         </View>
@@ -275,19 +278,19 @@ export default function Profile() {
     return {
       index: SECTIONS.DECENTRALIZED_IDENTIFERS.index,
       titleComponent: (
-        <View style={styles.listRow}>
+        <View style={tw`flex-row gap-4 items-center bg-transparent`}>
           <View
             style={[
-              styles.listIconWrap,
+              tw`h-10 w-10 rounded-xl justify-center items-center`,
               { backgroundColor: SECTIONS.DECENTRALIZED_IDENTIFERS.background },
             ]}>
             <Image
               source={SECTIONS.DECENTRALIZED_IDENTIFERS.icon}
-              style={styles.listIcon}
+              style={tw`h-7 w-7`}
               resizeMode="contain"
             />
           </View>
-          <Text style={styles.listTitle} numberOfLines={1}>
+          <Text style={tw`text-white text-base font-medium`} numberOfLines={1}>
             {SECTIONS.DECENTRALIZED_IDENTIFERS.title}
           </Text>
         </View>
@@ -360,237 +363,87 @@ export default function Profile() {
 
   return isNotEmpty(auth) && isNotEmpty(user) ? (
     <View style={tw`flex-1`}>
-      <LinearGradient colors={['#4B2EA2', '#0E2875']} style={styles.container}>
+      <LinearGradient colors={['#4B2EA2', '#0E2875']} style={tw`flex-1`}>
         <ImageBackground
           source={
             data?.profilePicture
               ? { uri: data.profilePicture }
               : require('@/assets/images/profile/profile.png')
           }
-          style={styles.profile}>
+          style={tw.style(`w-full`, { height: hp(45) })}>
           <View
-            style={[
-              styles.header,
-              {
-                paddingTop:
-                  Platform.OS === 'android' ? StatusBarHeight() + hp(2) : StatusBarHeight(),
-              },
-            ]}>
-            <Pressable onPress={handleLogout} style={styles.headerImageWrap}>
-              <Image
-                style={styles.headerImage}
-                source={require('@/assets/images/profile/settings.png')}
-              />
+            style={tw.style(`flex-row justify-between items-center px-5 w-full bg-transparent`, {
+              paddingTop: Platform.OS === 'android' ? StatusBarHeight() + hp(2) : StatusBarHeight(),
+            })}>
+            <Pressable
+              onPress={handleLogout}
+              style={tw`w-13 h-13 rounded-full justify-center items-center bg-[#E9A08F]`}>
+              <Image style={tw`w-7 h-7`} source={require('@/assets/images/profile/settings.png')} />
             </Pressable>
-            <View style={styles.headerImageWrap}>
-              <Image
-                style={styles.headerImage}
-                source={require('@/assets/images/profile/share.png')}
-              />
+            <View style={tw`w-13 h-13 rounded-full justify-center items-center bg-[#E9A08F]`}>
+              <Image style={tw`w-7 h-7`} source={require('@/assets/images/profile/share.png')} />
             </View>
           </View>
-        </ImageBackground>
-        <View style={styles.listHeader}>
           <BlurView
             intensity={Platform.OS === 'ios' ? 25 : 10}
             tint={Platform.OS === 'ios' ? 'light' : 'dark'}
             experimentalBlurMethod="dimezisBlurView"
-            style={styles.absolute}>
-            <View style={styles.blur}>
-              <Text style={styles.socialId}>On-Chain Social ID</Text>
+            style={tw`absolute -bottom-5 rounded-t-full overflow-hidden w-full`}>
+            <View
+              style={tw`bg-transparent h-14 flex-1 justify-center w-[100%] rounded-t-3xl items-center`}>
+              <Text style={tw`text-white text-base font-extrabold`}>On-Chain Social ID</Text>
             </View>
-            <View style={styles.rowContainer}>
-              <View style={{ backgroundColor: 'transparent' }}>
-                <Text style={styles.name}>{data?.name}</Text>
-                <Text style={styles.userName}>{data?.handle}</Text>
-              </View>
-              <Pressable style={styles.editImageWrap} onPress={onEditPress}>
-                <Image
-                  style={styles.editImage}
-                  source={require('@/assets/images/profile/edit.png')}
-                />
-              </Pressable>
-            </View>
-            <Accordion
-              sections={sections}
-              activeSections={activeSections}
-              onAccordionChange={onAccordionChange}
-            />
           </BlurView>
+        </ImageBackground>
+        <View style={tw`bg-transparent flex-1 gap-5 mt-6`}>
+          <View style={tw`flex-row items-center justify-between bg-transparent px-4`}>
+            <View style={tw`bg-transparent`}>
+              <Text style={tw`text-white text-2xl font-extrabold`}>{data?.name}</Text>
+              <Text style={tw`text-[#D5D7E6] text-sm mt-2`}>{data?.handle}</Text>
+            </View>
+            <Pressable
+              style={tw`w-8 h-8 rounded-full justify-center items-center bg-[#684FCD]`}
+              onPress={onEditPress}>
+              <Image style={tw`w-5 h-5`} source={require('@/assets/images/profile/edit.png')} />
+            </Pressable>
+          </View>
+          <Accordion
+            sections={sections}
+            activeSections={activeSections}
+            onAccordionChange={onAccordionChange}
+          />
         </View>
       </LinearGradient>
       {!isLoading && <ProfileEdit ref={bottomModalRef} />}
     </View>
   ) : (
-    <LinearGradient
-      colors={['#4B2EA2', '#0E2875']}
-      style={[styles.container, styles.guestContainer]}>
-      <Text style={styles.guestText}>You are guest please login to continue</Text>
+    <LinearGradient colors={['#4B2EA2', '#0E2875']} style={tw`flex-1 justify-center items-center`}>
+      <Text style={tw`text-white text-base font-medium mb-20`}>
+        You are guest please login to continue
+      </Text>
       <TouchableOpacity
         onPress={() => login({ provider: 'google' })}
-        style={[styles.button, styles.buttonSocial]}>
+        style={[
+          tw`flex-row bg-white h-24 w-72 justify-center items-center rounded-full`,
+          tw`mb-4`,
+        ]}>
         <Image
           source={require('@/assets/images/google.png')}
-          style={styles.icon}
+          style={tw`w-14 h-14 mr-6`}
           resizeMode="contain"
         />
-        <Text style={styles.buttonText}>Sign Up with Google</Text>
+        <Text style={tw`text-black text-base font-semibold`}>Sign Up with Google</Text>
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => login({ provider: 'apple' })} style={styles.button}>
+      <TouchableOpacity
+        onPress={() => login({ provider: 'apple' })}
+        style={tw`flex-row bg-white h-24 w-72 justify-center items-center rounded-full`}>
         <Image
           source={require('@/assets/images/apple.png')}
-          style={styles.icon}
+          style={tw`w-14 h-14 mr-6`}
           resizeMode="contain"
         />
-        <Text style={styles.buttonText}>Sign Up with Apple</Text>
+        <Text style={tw`text-black text-base font-semibold`}>Sign Up with Apple</Text>
       </TouchableOpacity>
     </LinearGradient>
   );
 }
-
-const styles = StyleSheet.create({
-  guestContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  guestText: {
-    fontSize: RFPercentage(2),
-    color: 'white',
-    fontWeight: '500',
-    marginBottom: hp(5),
-  },
-  buttonText: {
-    color: '#000',
-    fontSize: RFPercentage(2),
-    fontWeight: '600',
-  },
-  button: {
-    flexDirection: 'row',
-    backgroundColor: '#ffffff',
-    height: hp(6),
-    width: wp(90),
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 50,
-  },
-  icon: {
-    width: wp(7),
-    height: wp(7),
-    marginRight: wp(3),
-  },
-  buttonSocial: {
-    marginBottom: hp(1),
-  },
-  container: {
-    flex: 1,
-  },
-  listIconWrap: {
-    height: hp(4.5),
-    width: hp(4.5),
-    borderRadius: hp(1),
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  listRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: 'transparent',
-  },
-  listTitle: {
-    fontSize: RFPercentage(2),
-    color: 'white',
-    fontWeight: '500',
-    marginLeft: wp(4),
-    width: wp(55),
-  },
-  listIcon: {
-    height: hp(3),
-    width: hp(3),
-  },
-  listDown: {
-    height: hp(3.5),
-    width: hp(3.5),
-  },
-  listHeader: {
-    height: hp(62),
-    top: hp(-7),
-    backgroundColor: 'transparent',
-  },
-  blur: {
-    backgroundColor: 'transparent',
-    height: hp(7),
-    justifyContent: 'center',
-    width: wp(100),
-    borderTopLeftRadius: wp(10),
-    borderTopRightRadius: wp(10),
-    alignItems: 'center',
-  },
-  rowContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    backgroundColor: 'transparent',
-    padding: wp(5),
-  },
-  name: {
-    fontSize: RFPercentage(3),
-    color: 'white',
-    fontWeight: '700',
-  },
-  userName: {
-    fontSize: RFPercentage(1.8),
-    color: '#D5D7E6',
-    marginTop: hp(0.6),
-  },
-  editImageWrap: {
-    width: wp(10),
-    height: wp(10),
-    borderRadius: wp(6),
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#684FCD',
-  },
-  editImage: {
-    width: wp(5),
-    height: wp(5),
-  },
-  absolute: {
-    overflow: 'hidden',
-    borderTopLeftRadius: wp(10),
-    borderTopRightRadius: wp(10),
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    bottom: 0,
-    right: 0,
-  },
-  socialId: {
-    fontSize: RFPercentage(2),
-    color: 'white',
-    fontWeight: '700',
-  },
-  header: {
-    flexDirection: 'row',
-    paddingHorizontal: wp(5),
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    backgroundColor: 'transparent',
-  },
-  profile: {
-    width: wp(100),
-    height: hp(45),
-    zIndex: 0,
-  },
-  headerImage: {
-    width: wp(6),
-    height: wp(5),
-  },
-  headerImageWrap: {
-    width: wp(13),
-    height: wp(13),
-    borderRadius: wp(7),
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#E9A08F',
-  },
-});
