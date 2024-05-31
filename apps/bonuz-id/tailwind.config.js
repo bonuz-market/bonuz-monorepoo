@@ -9,6 +9,9 @@ export const content = [
 ];
 export const theme = {
   extend: {
+    flex: {
+      '3': '3 3 0%'
+    },
     borderImageSource: {
       "custom-gradient":
         "linear-gradient(328.15deg, rgba(255, 161, 16, 0.6) -5.22%, rgba(255, 255, 255, 0) 84.32%)",

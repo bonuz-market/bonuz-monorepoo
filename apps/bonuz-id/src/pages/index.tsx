@@ -12,9 +12,8 @@ import messageIcon from "../../public/icons/message-icon.svg";
 import blockchainIcon from "../../public/icons/blockchain-icon.svg";
 import decentralIcon from "../../public/icons/decentral-icon.svg";
 import dropdownIcon from "../../public/icons/dropdown-icon.svg";
-import cancleIcon from '../../public/icons/arrow-cancle.png';
-import searchIcon from '../../public/icons/search.svg';
-
+import cancleIcon from "../../public/icons/arrow-cancle.png";
+import searchIcon from "../../public/icons/search.svg";
 
 import Frame1 from "../../public/images/carousel/Frame_1.png";
 import Frame2 from "../../public/images/carousel/Frame_2.png";
@@ -26,26 +25,26 @@ import GoogleIcon from "../../public/icons/apple.png";
 const profileData = [
   {
     label: "Social Media Accounts",
-    url: socialIcon
+    url: socialIcon,
   },
   {
     label: "Messaging Apps",
-    url: messageIcon
+    url: messageIcon,
   },
   {
     label: "Blockchain & Wallets",
-    url: blockchainIcon
+    url: blockchainIcon,
   },
   {
     label: "Decentralized Identifiers",
-    url: decentralIcon
-  }
-]
+    url: decentralIcon,
+  },
+];
 
 export default function Home() {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [searchQuery, setSearchQuery] = useState('')
-  const router = useRouter()
+  const [searchQuery, setSearchQuery] = useState("");
+  const router = useRouter();
 
   const frames = [Frame1, Frame2, Frame3, Frame4];
 
@@ -70,11 +69,11 @@ export default function Home() {
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter') {
+    if (e.key === "Enter") {
       e.preventDefault();
-      router.push(`/q=${searchQuery}&filters=all`)
+      router.push(`/q=${searchQuery}&filters=all`);
     }
-  }
+  };
 
   return (
     <>
@@ -129,31 +128,22 @@ export default function Home() {
             >
               <ul className="flex w-full gap-2 flex-col md:flex-row">
                 <li>
-                  <button
-                    className="w-[228px] h-[41px] rounded-border-gradient bg-custom-gradient "
-                  >
+                  <button className="w-[228px] h-[41px] rounded-border-gradient bg-custom-gradient ">
                     bonuz.market #Ecosystem
                   </button>
-
                 </li>
                 <li>
-                  <button
-                    className="w-[208px] h-[41px] rounded-[40px] bg-custom-gradient1"
-                  >
+                  <button className="w-[208px] h-[41px] rounded-[40px] bg-custom-gradient1">
                     Whitepaper #Degen
                   </button>
                 </li>
                 <li>
-                  <button
-                    className="w-[208px] h-[41px] gap-[8px] rounded-[30px] bg-custom-gradient2"
-                  >
+                  <button className="w-[208px] h-[41px] gap-[8px] rounded-[30px] bg-custom-gradient2">
                     Documentation #Devs
                   </button>
                 </li>
                 <li>
-                  <button
-                    className="w-[208px] h-[41px] gap-[8px] rounded-[30px] bg-custom-gradient2"
-                  >
+                  <button className="w-[208px] h-[41px] gap-[8px] rounded-[30px] bg-custom-gradient2">
                     Bonuz Wallet
                   </button>
                 </li>
@@ -162,17 +152,13 @@ export default function Home() {
           </div>
         </nav>
 
-        <div className="relative z-[100] pb-[13px] rounded-[40px] w-full flex flex-col bg-[#9c9c9c4d] px-[5px] py-[5px] md:px-[75px] md:py-[89px]">
-          <div
-            className="flex w-full flex-col md:flex-row"
-          >
+        <div className="relative z-[100] pb-[13px] rounded-[40px] w-full flex flex-col px-[5px] py-[5px] md:px-[75px] md:py-[89px]">
+          <div className="flex w-full flex-col md:flex-row">
             <div className="flex flex-col flex-1">
-              <div
-                className="flex justify-between max-w-[700px] p-[10px] gap-0 rounded-[30px] bg-gradient-to-r from-[#0e2875] to-[#4b2ea2] via-[#4b2ea2] flex-col flex-col md:flex-row md:p-[46px]"
-              >
+              <div className="flex justify-between max-w-[700px] p-[10px] gap-0 rounded-[30px] bg-gradient-to-r from-[#0e2875] to-[#4b2ea2] via-[#4b2ea2] flex-col flex-col md:flex-row md:p-[46px]">
                 <div>
-                  <div className=' h-[268px] gap-[16px] w-full md:w-[213px]'>
-                    <div className='flex w-full justify-center mb-[30px]'>
+                  <div className=" h-[268px] gap-[16px] w-full md:w-[213px]">
+                    <div className="flex w-full justify-center mb-[30px]">
                       <Image
                         src={walletAvatar}
                         alt="walletAvatar"
@@ -190,7 +176,11 @@ export default function Home() {
                           width={24}
                           height={24}
                         />
-                        <p>{shortenEthereumAddress("0x235e3Bc8aA372bee06A3f2E264895022fCE7c2e7")}</p>
+                        <p>
+                          {shortenEthereumAddress(
+                            "0x235e3Bc8aA372bee06A3f2E264895022fCE7c2e7"
+                          )}
+                        </p>
                         <Image
                           src={copyIcon}
                           alt="copyIcon"
@@ -203,7 +193,10 @@ export default function Home() {
                 </div>
                 <div className="flex flex-col gap-[8px]">
                   {profileData.map((data, index) => (
-                    <div key={index} className="flex h-[64px] p-[12px] gap-[30px] rounded-[24px] items-center justify-between w-full md:w-[361px]">
+                    <div
+                      key={index}
+                      className="flex h-[64px] p-[12px] gap-[30px] rounded-[24px] items-center justify-between w-full md:w-[361px]"
+                    >
                       <div className="flex gap-2 items-center">
                         <Image
                           src={data.url}
@@ -240,7 +233,7 @@ export default function Home() {
                   Mint for 0.00011 $BTC
                 </button>
               </div>
-            </div >
+            </div>
             <div className="flex flex-col flex-1 items-center">
               <div
                 id="controls-carousel"
@@ -276,8 +269,9 @@ export default function Home() {
                   {frames.map((frame, index) => (
                     <div
                       key={index}
-                      className={`duration-700 ease-in-out ${index === currentIndex ? "block" : "hidden"
-                        }`}
+                      className={`duration-700 ease-in-out ${
+                        index === currentIndex ? "block" : "hidden"
+                      }`}
                       data-carousel-item={
                         index === currentIndex ? "active" : undefined
                       }
@@ -336,8 +330,12 @@ export default function Home() {
                     height={36}
                   />
                   <div>
-                    <p className="text-start text-black text-[12px] font-normal">Download on the</p>
-                    <p className="text-start text-black text-[22px] font-semibold">App Store</p>
+                    <p className="text-start text-black text-[12px] font-normal">
+                      Download on the
+                    </p>
+                    <p className="text-start text-black text-[22px] font-semibold">
+                      App Store
+                    </p>
                   </div>
                 </button>
 
@@ -349,30 +347,49 @@ export default function Home() {
                     height={36}
                   />
                   <div>
-                    <p className="text-start text-black text-[12px] font-normal">GET IT ON </p>
-                    <p className="text-start text-black text-[22px] font-semibold">Google Play</p>
+                    <p className="text-start text-black text-[12px] font-normal">
+                      GET IT ON{" "}
+                    </p>
+                    <p className="text-start text-black text-[22px] font-semibold">
+                      Google Play
+                    </p>
                   </div>
                 </button>
               </div>
             </div>
             <hr className="flex w-full mt-2 md:hidden" />
-          </div >
+          </div>
           <hr className="flex w-[98%]" />
           <div className="flex justify-between items-center mt-[28px] flex-col md:flex-row md: gap-2">
-            <p className='font-[26px] hidden md:flex'>bonuz</p>
-            <div className="w-[25px] h-[25px] md:w-[30px] md:h-[30px] bg-[url('/icons/up-icon.png')] rounded-[50px] bg-center flex justify-center items-center cursor-pointer" onClick={() => router.push('/')} />
+            <p className="font-[26px] hidden md:flex">bonuz</p>
+            <div
+              className="w-[25px] h-[25px] md:w-[30px] md:h-[30px] bg-[url('/icons/up-icon.png')] rounded-[50px] bg-center flex justify-center items-center cursor-pointer"
+              onClick={() => router.push("/")}
+            />
             <button className="rounded-[30px] px-[8px] bg-custom-gradient-mint">
               Connect Bonuz On-Chain Social ID
             </button>
           </div>
-        </div >
+        </div>
 
         <div className="mt-16 w-full h-[48px] flex justify-between items-center justify-center p-3 pt-0 gap-2 rounded-[30px] border-2 pb-0 pt-0 border-[#9651FF]">
           <Image src={searchIcon} width={24} height={24} alt="search" />
-          <input name="search" className="w-full outline-none bg-transparent font-inter text-base font-normal leading-6 tracking-tight text-left border-none" defaultValue="Search" onChange={(e) => setSearchQuery(e.target.value)} onKeyDown={handleKeyDown} />
-          <Image src={cancleIcon} width={30} height={30} alt="cancle" className="cursor-pointer" />
+          <input
+            name="search"
+            className="w-full outline-none bg-transparent font-inter text-base font-normal leading-6 tracking-tight text-left border-none"
+            defaultValue="Search"
+            onChange={(e) => setSearchQuery(e.target.value)}
+            onKeyDown={handleKeyDown}
+          />
+          <Image
+            src={cancleIcon}
+            width={30}
+            height={30}
+            alt="cancle"
+            className="cursor-pointer"
+          />
         </div>
-      </main >
+      </main>
     </>
   );
 }
