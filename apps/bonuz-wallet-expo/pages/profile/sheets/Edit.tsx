@@ -30,7 +30,7 @@ export const ProfileEdit = forwardRef<BottomSheetModal, {}>((props, bottomSheetM
   const _bottomSheetModalRef = useRef<BottomSheetModal>(null);
   useImperativeHandle(bottomSheetModalRef, () => _bottomSheetModalRef.current!, []);
 
-  const snapPoints = useMemo(() => ['50%', '90%'], []);
+  const snapPoints = useMemo(() => ['90%'], []);
   const setIsTabBarHidden = useUiStore((state) => state.setIsTabBarHidden);
 
   const user = useUserStore((store) => store.user);
@@ -309,6 +309,19 @@ export const ProfileEdit = forwardRef<BottomSheetModal, {}>((props, bottomSheetM
     [image, updateUser, userData],
   );
 
+  const handleAnimate = useCallback(
+    (_: number, toIndex: number) => {
+      console.log('toIndex', toIndex);
+
+      if (toIndex === -1) {
+        setIsTabBarHidden(false);
+      } else {
+        setIsTabBarHidden(true);
+      }
+    },
+    [setIsTabBarHidden],
+  );
+
   if (!isNotEmpty(user)) {
     return;
   }
@@ -327,15 +340,8 @@ export const ProfileEdit = forwardRef<BottomSheetModal, {}>((props, bottomSheetM
         style={{ flex: 1 }}
         index={0}
         snapPoints={snapPoints}
-        onAnimate={(_, toIndex) => {
-          if (toIndex === -1) {
-            setIsTabBarHidden(false);
-          } else {
-            setIsTabBarHidden(true);
-          }
-        }}
+        onAnimate={handleAnimate}
         onDismiss={() => {
-          setIsTabBarHidden(false);
           reset();
         }}>
         <LinearGradient colors={['#4B2EA2', '#0E2875']} style={tw`flex-1`}>
