@@ -150,7 +150,7 @@ export default function Profile() {
             )}
             keyExtractor={(item) => item.type}
             ItemSeparatorComponent={() => (
-              <View style={{ height: 10, backgroundColor: '#303db4' }} />
+              <View style={{ height: 10, backgroundColor: 'transparent' }} />
             )}
             // ListEmptyComponent={<EmptySectionMessage text="social media" />}
           />
@@ -201,7 +201,7 @@ export default function Profile() {
             )}
             keyExtractor={(item) => item.type}
             ItemSeparatorComponent={() => (
-              <View style={{ height: 10, backgroundColor: '#303db4' }} />
+              <View style={{ height: 10, backgroundColor: 'transparent' }} />
             )}
             // ListEmptyComponent={<EmptySectionMessage text="wallets" />}
           />
@@ -258,7 +258,7 @@ export default function Profile() {
             )}
             keyExtractor={(item) => item.type}
             ItemSeparatorComponent={() => (
-              <View style={{ height: 10, backgroundColor: '#303db4' }} />
+              <View style={{ height: 10, backgroundColor: 'transparent' }} />
             )}
             // ListEmptyComponent={<EmptySectionMessage text="messaging apps" />}
           />
@@ -319,7 +319,7 @@ export default function Profile() {
             )}
             keyExtractor={(item) => item.type}
             ItemSeparatorComponent={() => (
-              <View style={{ height: 10, backgroundColor: '#303db4' }} />
+              <View style={{ height: 10, backgroundColor: 'transparent' }} />
             )}
             // ListEmptyComponent={<EmptySectionMessage text="decentralized identifiers" />}
           />

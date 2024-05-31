@@ -1,6 +1,7 @@
 import { Ionicons } from '@expo/vector-icons';
 import { ReactNode, useCallback } from 'react';
 import { View } from 'react-native';
+import tw from 'twrnc';
 
 import AccordionBase from '@/components/Collapsible/Accordion';
 
@@ -26,23 +27,21 @@ export const Accordion = ({
 
       return (
         <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            padding: 12,
-            height: 64,
-            borderRadius: 24,
-            backgroundColor: '#117EFF50',
-            borderBottomWidth: isActive ? 1 : 0,
-            borderBottomRightRadius: isActive ? 0 : 24,
-            borderBottomLeftRadius: isActive ? 0 : 24,
-            borderBottomColor: '#394ac4',
-          }}>
-          {section.titleComponent}
-          {!isSingleItem && (
-            <Ionicons name={isActive ? 'chevron-up' : 'chevron-down'} size={24} color="white" />
-          )}
+          style={tw.style(`border-[#303db4]`, {
+            [`border-b`]: isActive,
+          })}>
+          <View
+            style={tw.style(
+              `flex-row items-center justify-between w-full px-4 py-3 bg-[#117EFF50] rounded-3xl`,
+              {
+                [`rounded-b-none`]: isActive,
+              },
+            )}>
+            {section.titleComponent}
+            {!isSingleItem && (
+              <Ionicons name={isActive ? 'chevron-up' : 'chevron-down'} size={24} color="white" />
+            )}
+          </View>
         </View>
       );
     },
@@ -50,17 +49,7 @@ export const Accordion = ({
   );
 
   const renderContent = useCallback((section: Section) => {
-    return (
-      <View
-        style={{
-          padding: 12,
-          backgroundColor: '#303db4',
-          borderBottomEndRadius: 12,
-          borderBottomStartRadius: 12,
-        }}>
-        {section.renderContent}
-      </View>
-    );
+    return <View style={tw`p-3 bg-[#117EFF50] rounded-b-3xl`}>{section.renderContent}</View>;
   }, []);
 
   return (
@@ -74,10 +63,7 @@ export const Accordion = ({
       containerStyle={{
         backgroundColor: 'transparent',
       }}
-      sectionContainerStyle={{
-        paddingHorizontal: 12,
-        marginBottom: 12,
-      }}
+      sectionContainerStyle={tw`mb-3 px-3`}
       underlayColor="#117EFF50"
     />
   );

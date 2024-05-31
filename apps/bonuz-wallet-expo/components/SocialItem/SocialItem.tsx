@@ -18,7 +18,7 @@ export const SocialItem = ({ content, leftAddon, rightAddon }: SocialItemProps) 
         height: 48,
         gap: 8,
         borderRadius: 12,
-        backgroundColor: '#214ac2',
+        backgroundColor: '#303db4',
         overflow: 'hidden',
       }}>
       <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', gap: 8 }}>
