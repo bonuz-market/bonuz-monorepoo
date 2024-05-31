@@ -129,17 +129,19 @@ export const ProfileEdit = forwardRef<BottomSheetModal, {}>((props, bottomSheetM
   const profilePictureInput = useMemo(() => {
     return (
       <View style={tw`flex flex-col gap-1 items-center`}>
-        <Image
-          style={tw`w-36 h-36 rounded-full`}
-          source={
-            (userData?.profilePicture !== null && userData?.profilePicture !== '') || image?.uri
-              ? { uri: image?.uri ?? userData?.profilePicture }
-              : userPlaceholderImage
-          }
-          alt="user"
-        />
-        <Pressable onPress={pickImage}>
-          <Text style={tw`text-white text-sm font-medium`}>Set New Photo</Text>
+        <Pressable style={tw`relative`} onPress={pickImage}>
+          <Image
+            style={tw`w-36 h-36 rounded-full`}
+            source={
+              (userData?.profilePicture !== null && userData?.profilePicture !== '') || image?.uri
+                ? { uri: image?.uri ?? userData?.profilePicture }
+                : userPlaceholderImage
+            }
+            alt="user"
+          />
+          <View style={tw`absolute bottom-0 right-0 w-10 h-10 p-2 bg-[#5b38b6] rounded-full`}>
+            <Ionicons name="image-outline" size={24} color="white" />
+          </View>
         </Pressable>
       </View>
     );
