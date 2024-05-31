@@ -1,11 +1,18 @@
-import React from 'react';
-import { Pressable, Dimensions, StyleSheet, Image } from 'react-native';
-import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import { LinearGradient } from 'expo-linear-gradient';
+import React from 'react';
+import { Dimensions, Image, Pressable, StyleSheet } from 'react-native';
+import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
+
+import { useUiStore } from '@/store/ui';
 
 const { width } = Dimensions.get('window');
 
 const TabBar = ({ state, descriptors, navigation }: any) => {
+  const isTabBarHidden = useUiStore((state) => state.isTabBarHidden);
+
+  if (isTabBarHidden) {
+    return;
+  }
   return (
     <LinearGradient colors={['#263d9F', '#475CB4']} style={styles.mainContainer}>
       {state.routes.map((route: any, index: number) => {
