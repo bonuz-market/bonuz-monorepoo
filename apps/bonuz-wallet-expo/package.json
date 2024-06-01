@@ -17,6 +17,7 @@
     "@biconomy/account": "^4.4.3",
     "@biconomy/bundler": "^4.1.1",
     "@biconomy/paymaster": "^4.1.1",
+    "@codeherence/react-native-header": "^0.12.2",
     "@expo/vector-icons": "^14.0.0",
     "@gorhom/bottom-sheet": "^4.6.1",
     "@react-navigation/native": "^6.0.2",
