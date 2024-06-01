@@ -99,13 +99,18 @@ export const ProfileEdit = forwardRef<BottomSheetModal, {}>((props, bottomSheetM
           <Controller
             control={control}
             render={({ field: { onChange, onBlur, value } }) => (
-              <TextInput
-                style={tw`flex-1 bg-[#2b3ca3] rounded-lg h-12 text-white`}
-                placeholder={`Enter your ${type} handle...`}
-                placeholderTextColor={'rgba(255, 255, 255, 0.6)'}
-                value={value}
-                onChangeText={onChange}
-              />
+              <>
+                {category === 'socials' && (
+                  <Text style={tw`text-white text-sm font-medium`}>@</Text>
+                )}
+                <TextInput
+                  style={tw`flex-1 bg-[#2b3ca3] rounded-lg h-12 text-white`}
+                  placeholder={`Enter your ${type} handle...`}
+                  placeholderTextColor={'rgba(255, 255, 255, 0.6)'}
+                  value={value}
+                  onChangeText={onChange}
+                />
+              </>
             )}
             name={`${category}.${type}.handle`}
           />

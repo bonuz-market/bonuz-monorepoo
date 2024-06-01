@@ -200,7 +200,7 @@ const HeaderComponent = ({
             </Pressable>
             <FadingView opacity={showNavBar}>
               <Text style={tw`text-base font-bold text-white`}>{data?.name}</Text>
-              <Text style={tw`text-[#ffffff99] text-xs`}>{data?.handle}</Text>
+              <Text style={tw`text-[#ffffff99] text-xs`}>@{data?.handle}</Text>
             </FadingView>
           </View>
         }
@@ -236,7 +236,7 @@ const LargeHeaderComponent: React.FC<
         <View style={tw.style(`space-x-1`, `flex flex-row justify-between`)}>
           <View style={tw`flex flex-col gap-1`}>
             <Text style={tw`text-[28px] font-bold text-white`}>{data?.name}</Text>
-            <Text style={tw`text-[#ffffff99] text-xs`}>{data?.handle}</Text>
+            <Text style={tw`text-[#ffffff99] text-xs`}>@{data?.handle}</Text>
           </View>
 
           <Pressable
@@ -295,7 +295,7 @@ export const ProfileHome = () => {
                 // }
                 leftAddon={getIcon(item.type, 'normal')}
                 content={
-                  <Text style={{ fontSize: 16, color: 'white', opacity: 0.7 }}>{item.handle}</Text>
+                  <Text style={{ fontSize: 16, color: 'white', opacity: 0.7 }}>@{item.handle}</Text>
                 }
                 rightAddon={
                   <Ionicons
