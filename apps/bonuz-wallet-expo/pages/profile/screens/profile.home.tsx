@@ -187,10 +187,7 @@ const HeaderComponent = ({
             <Image style={tw`w-7 h-7`} source={require('@/assets/images/profile/share.png')} />
           </Pressable>
         }
-        headerRightStyle={[
-          tw`space-x-1.5 pl-3`,
-          { paddingLeft: Math.max(right, ROOT_HORIZONTAL_PADDING) },
-        ]}
+        headerRightStyle={[tw`pl-3`, { paddingLeft: Math.max(right, ROOT_HORIZONTAL_PADDING) }]}
         headerLeft={
           <View style={tw`flex flex-row gap-2 items-center`}>
             <Pressable
@@ -204,10 +201,7 @@ const HeaderComponent = ({
             </FadingView>
           </View>
         }
-        headerLeftStyle={[
-          tw`space-x-3 pl-3`,
-          { paddingLeft: Math.max(left, ROOT_HORIZONTAL_PADDING) },
-        ]}
+        headerLeftStyle={[tw`pl-3`, { paddingLeft: Math.max(left, ROOT_HORIZONTAL_PADDING) }]}
       />
     </View>
   );
@@ -226,14 +220,14 @@ const LargeHeaderComponent: React.FC<
           paddingRight: Math.max(right, ROOT_HORIZONTAL_PADDING),
           marginTop: BANNER_BOTTOM_HEIGHT_ADDITION - VERTICAL_SPACING,
         },
-        tw`flex flex-col space-y-3 px-0 bg-transparent gap-0 pb-0`,
+        tw`flex flex-col px-0 bg-transparent gap-0 pb-0`,
       ]}>
       <BlurView
         intensity={Platform.OS === 'ios' ? 25 : 10}
         tint={Platform.OS === 'ios' ? 'light' : 'dark'}
         experimentalBlurMethod="dimezisBlurView"
         style={tw`px-4 pt-7 pb-5`}>
-        <View style={tw.style(`space-x-1`, `flex flex-row justify-between`)}>
+        <View style={tw.style(`flex flex-row justify-between`)}>
           <View style={tw`flex flex-col gap-1`}>
             <Text style={tw`text-[28px] font-bold text-white`}>{data?.name}</Text>
             <Text style={tw`text-[#ffffff99] text-xs`}>@{data?.handle}</Text>

@@ -431,9 +431,11 @@ export const ProfileEdit = forwardRef<BottomSheetModal, {}>((props, bottomSheetM
             }}
             stickyHeaderHiddenOnScroll={false}
             stickySectionHeadersEnabled={false}
-            renderSectionHeader={({ section }) => (
-              <Text style={tw`text-white text-sm font-medium`}>{section.title}</Text>
-            )}
+            renderSectionHeader={({ section }) =>
+              section.title && (
+                <Text style={tw`text-white text-sm font-medium`}>{section.title}</Text>
+              )
+            }
             ItemSeparatorComponent={() => <View style={tw`h-4`} />}
             SectionSeparatorComponent={() => <View style={tw`h-4`} />}
           />
