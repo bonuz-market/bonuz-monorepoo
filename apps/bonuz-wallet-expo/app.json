@@ -1,35 +1,73 @@
 {
-	"expo": {
-		"name": "bonuz",
-		"slug": "bonuz",
-		"version": "1.0.0",
-		"orientation": "portrait",
-		"icon": "./assets/images/icon.png",
-		"scheme": "myapp",
-		"userInterfaceStyle": "automatic",
-		"splash": {
-			"image": "./assets/images/splash.png",
-			"resizeMode": "contain",
-			"backgroundColor": "#ffffff"
-		},
-		"assetBundlePatterns": ["**/*"],
-		"ios": {
-			"supportsTablet": true
-		},
-		"android": {
-			"adaptiveIcon": {
-				"foregroundImage": "./assets/images/adaptive-icon.png",
-				"backgroundColor": "#ffffff"
-			}
-		},
-		"web": {
-			"bundler": "metro",
-			"output": "static",
-			"favicon": "./assets/images/favicon.png"
-		},
-		"plugins": ["expo-router", "expo-secure-store", "expo-font"],
-		"experiments": {
-			"typedRoutes": true
-		}
-	}
+  "expo": {
+    "name": "BonuzApp",
+    "slug": "bonuzapp",
+    "scheme": "bonuzapp",
+    "version": "3.11.27",
+    "orientation": "portrait",
+    // "icon": "./assets/icon.png",
+    "userInterfaceStyle": "automatic",
+    "splash": {
+      //   "image": "./assets/splash.png",
+      "resizeMode": "cover",
+      "backgroundColor": "#ffffff"
+    },
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "market.bonuz.app",
+      "buildNumber": "31127",
+      "infoPlist": {
+        "NSPhotoLibraryUsageDescription": "The app needs access to your photos to let you update your Profile Picture.",
+        "NSCameraUsageDescription": "The app needs access to your camera to let you update your Profile Picture or Scan QR codes.",
+        "NSFaceIDUsageDescription": "The app needs access to Face ID to let you use Face ID."
+      },
+      "privacyManifests": {
+        "NSPrivacyAccessedAPITypes": [
+          {
+            "NSPrivacyAccessedAPIType": "NSPrivacyAccessedAPICategoryUserDefaults",
+            "NSPrivacyAccessedAPITypeReasons": ["CA92.1"]
+          }
+        ]
+      }
+    },
+    "android": {
+      "versionCode": 31127,
+      "adaptiveIcon": {
+        // "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "package": "market.bonuz.app",
+      "softwareKeyboardLayoutMode": "pan",
+      "intentFilters": [
+        {
+          "action": "VIEW",
+          "category": ["BROWSABLE", "DEFAULT"],
+          "data": {
+            "scheme": "wc"
+          }
+        },
+        {
+          "action": "VIEW",
+          "category": ["BROWSABLE", "DEFAULT"],
+          "data": {
+            "scheme": "bonuzapp"
+          }
+        }
+      ]
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": ["expo-router", "expo-secure-store", "expo-font"],
+    "experiments": {
+      "typedRoutes": true
+    },
+    "extra": {
+      "web3auth": {
+        "clientId": "BCZyEo3y-o9dn5RxCk4bfqbVFP9K1D4eKZBGVtpJ25kIK1iE6UiSlVKTqj2wJMancY7LQiiL4151GhprqIukOi4"
+      },
+      "backendUrl": "https://bonuz-admin-wts46rwpca-ey.a.run.app"
+    }
+  }
 }

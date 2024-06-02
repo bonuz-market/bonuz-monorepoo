@@ -1,7 +1,8 @@
-import React from 'react';
 import { Tabs } from 'expo-router';
-import Colors from '@/constants/Colors';
+import React from 'react';
+
 import TabBar from '@/components/TabBar';
+import Colors from '@/constants/Colors';
 
 export default function TabLayout() {
   return (
@@ -22,6 +23,7 @@ export default function TabLayout() {
       />
       <Tabs.Screen
         name="profile"
+
         // options={{
         //   title: 'Tab Two',
         //   tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,

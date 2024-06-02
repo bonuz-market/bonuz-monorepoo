@@ -1,3 +1,6 @@
+import { BlurView } from 'expo-blur';
+import { LinearGradient } from 'expo-linear-gradient';
+import { router } from 'expo-router';
 import {
   FlatList,
   Image,
@@ -7,21 +10,21 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from 'react-native';
-import { Text, View } from '@/components/Themed';
-import { LinearGradient } from 'expo-linear-gradient';
+import { RFPercentage } from 'react-native-responsive-fontsize';
 import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
-import { RFPercentage } from 'react-native-responsive-fontsize';
+
 import { StatusBarHeight } from '@/components/StatusbarHeight';
-import { BlurView } from 'expo-blur';
-import { router } from 'expo-router';
-import * as SecureStore from 'expo-secure-store';
-import { useAuth } from '@/hooks/Auth.hooks';
+import { Text, View } from '@/components/Themed';
+import { useLogin } from '@/hooks/useLogin';
+import { useUserStore } from '@/store';
+import { isNotEmpty } from '@/utils/object';
 
 export default function Profile() {
-  const { user, login, logout } = useAuth();
+  const state = useUserStore((store) => store);
+  const { logout, login } = useLogin();
   let list = [
     {
       background: '#117EFF',
@@ -45,7 +48,7 @@ export default function Profile() {
     },
   ];
 
-  const renderItem = ({ item }) => {
+  const renderItem = ({ item }: { item: any }) => {
     return (
       <View style={styles.listContainer}>
         <View style={styles.listRow}>
@@ -64,52 +67,14 @@ export default function Profile() {
       </View>
     );
   };
-  const handleGuestLogin = async (provider: any) => {
-    let loginState = {
-      jwt: 'dsgfhddfghdfg',
-      socialProvider: provider,
-      guest: false,
-      isLoggedIn: true,
-    };
-    login(loginState);
-    try {
-      await SecureStore.setItemAsync('loggedIn', JSON.stringify(loginState));
-    } catch (error) {
-      console.error('Error storing token:', error);
-    }
-  };
 
   const handleLogout = async () => {
     logout();
-    await SecureStore.deleteItemAsync('loggedIn');
+
     router.push('/');
   };
 
-  return user?.guest && !user.jwt ? (
-    <LinearGradient
-      colors={['#4B2EA2', '#0E2875']}
-      style={[styles.container, styles.guestContainer]}>
-      <Text style={styles.guestText}>You are guest please login to continue</Text>
-      <TouchableOpacity
-        onPress={() => handleGuestLogin('Google')}
-        style={[styles.button, styles.buttonSocial]}>
-        <Image
-          source={require('@/assets/images/google.png')}
-          style={styles.icon}
-          resizeMode="contain"
-        />
-        <Text style={styles.buttonText}>Sign Up with Google</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => handleGuestLogin('Apple')} style={styles.button}>
-        <Image
-          source={require('@/assets/images/apple.png')}
-          style={styles.icon}
-          resizeMode="contain"
-        />
-        <Text style={styles.buttonText}>Sign Up with Apple</Text>
-      </TouchableOpacity>
-    </LinearGradient>
-  ) : (
+  return isNotEmpty(state.auth) && isNotEmpty(state.user) ? (
     <LinearGradient colors={['#4B2EA2', '#0E2875']} style={styles.container}>
       <ImageBackground
         source={require('@/assets/images/profile/profile.png')}
@@ -142,7 +107,7 @@ export default function Profile() {
           experimentalBlurMethod="dimezisBlurView"
           style={styles.absolute}>
           <View style={styles.blur}>
-            <Text style={styles.socialId}>You are logged in with {user?.socialProvider}</Text>
+            <Text style={styles.socialId}>You are logged in with placeholder</Text>
           </View>
           <View style={styles.rowContainer}>
             <View style={{ backgroundColor: 'transparent' }}>
@@ -165,6 +130,30 @@ export default function Profile() {
           />
         </BlurView>
       </View>
+    </LinearGradient>
+  ) : (
+    <LinearGradient
+      colors={['#4B2EA2', '#0E2875']}
+      style={[styles.container, styles.guestContainer]}>
+      <Text style={styles.guestText}>You are guest please login to continue</Text>
+      <TouchableOpacity
+        onPress={() => login({ provider: 'google' })}
+        style={[styles.button, styles.buttonSocial]}>
+        <Image
+          source={require('@/assets/images/google.png')}
+          style={styles.icon}
+          resizeMode="contain"
+        />
+        <Text style={styles.buttonText}>Sign Up with Google</Text>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={() => login({ provider: 'apple' })} style={styles.button}>
+        <Image
+          source={require('@/assets/images/apple.png')}
+          style={styles.icon}
+          resizeMode="contain"
+        />
+        <Text style={styles.buttonText}>Sign Up with Apple</Text>
+      </TouchableOpacity>
     </LinearGradient>
   );
 }

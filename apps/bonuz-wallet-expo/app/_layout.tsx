@@ -1,4 +1,3 @@
-import { AuthProvider } from '@/hooks/Auth.hooks';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
@@ -7,6 +6,8 @@ import { useEffect } from 'react';
 import { StyleSheet } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
+import { useUserStore } from '@/store';
+
 export {
   // Catch any errors thrown by the Layout component.
   ErrorBoundary,
@@ -14,7 +15,7 @@ export {
 
 export const unstable_settings = {
   // Ensure that reloading on `/modal` keeps a back button present.
-  initialRouteName: '(tabs)',
+  initialRouteName: 'index',
 };
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
@@ -25,6 +26,10 @@ export default function RootLayout() {
     SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
     ...FontAwesome.font,
   });
+
+  const { isHydrated } = useUserStore((store) => ({
+    isHydrated: store._hasHydrated,
+  }));
 
   // Expo Router uses Error Boundaries to catch errors in the navigation tree.
   useEffect(() => {
@@ -41,18 +46,20 @@ export default function RootLayout() {
     return;
   }
 
+  if (!isHydrated) {
+    return;
+  }
+
   return <RootLayoutNav />;
 }
 
 function RootLayoutNav() {
   return (
     <GestureHandlerRootView style={styles.container}>
-      <AuthProvider>
-        <Stack initialRouteName="onBoarding">
-          <Stack.Screen name="index" options={{ headerShown: false }} />
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        </Stack>
-      </AuthProvider>
+      <Stack initialRouteName="index">
+        <Stack.Screen name="index" options={{ headerShown: false }} />
+        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+      </Stack>
     </GestureHandlerRootView>
   );
 }

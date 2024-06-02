@@ -1,14 +1,15 @@
-import { Image, ScrollView, StatusBar, StyleSheet, TextInput } from 'react-native';
-import { Text, View } from '@/components/Themed';
 import { LinearGradient } from 'expo-linear-gradient';
+import { useState } from 'react';
+import { Image, ScrollView, StatusBar, StyleSheet, TextInput } from 'react-native';
+import { RFPercentage } from 'react-native-responsive-fontsize';
 import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
-import { RFPercentage } from 'react-native-responsive-fontsize';
-import { useState } from 'react';
+
 import HomeCarousel from '@/components/HomeCarousel';
 import { StatusBarHeight } from '@/components/StatusbarHeight';
+import { Text, View } from '@/components/Themed';
 
 export default function Home() {
   const [yourItemIndex, setYourItemIndex] = useState(0);
@@ -46,7 +47,7 @@ export default function Home() {
       <ScrollView contentContainerStyle={{ paddingBottom: 100 }} style={styles.scrollContainer}>
         <HomeCarousel
           title={'Your Items'}
-          badgeCount={'99'}
+          badgeCount={99}
           right={<Image style={styles.info} source={require('@/assets/images/home/info.png')} />}
           data={yourItemsArray}
           item={
@@ -74,7 +75,7 @@ export default function Home() {
           title={'Events'}
           end={[0.6, 0.4]}
           start={[0.8, 0.7]}
-          badgeCount={'99'}
+          badgeCount={99}
           style={styles.eventContainer}
           right={
             <View style={styles.viewAll}>
@@ -107,7 +108,7 @@ export default function Home() {
           title={'Food'}
           end={[0.6, 0.4]}
           start={[0.8, 0.7]}
-          badgeCount={'99'}
+          badgeCount={99}
           style={styles.eventContainer}
           right={
             <View style={styles.viewAll}>
