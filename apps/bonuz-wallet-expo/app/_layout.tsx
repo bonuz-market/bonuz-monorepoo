@@ -5,7 +5,9 @@ import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import { StyleSheet } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import Toast from 'react-native-toast-message';
 
+import { ReactQueryProvider } from '@/providers';
 import { useUserStore } from '@/store';
 
 export {
@@ -37,16 +39,12 @@ export default function RootLayout() {
   }, [error]);
 
   useEffect(() => {
-    if (loaded) {
+    if (loaded && isHydrated) {
       SplashScreen.hideAsync();
     }
-  }, [loaded]);
+  }, [isHydrated, loaded]);
 
-  if (!loaded) {
-    return;
-  }
-
-  if (!isHydrated) {
+  if (!loaded || !isHydrated) {
     return;
   }
 
@@ -56,10 +54,13 @@ export default function RootLayout() {
 function RootLayoutNav() {
   return (
     <GestureHandlerRootView style={styles.container}>
-      <Stack initialRouteName="index">
-        <Stack.Screen name="index" options={{ headerShown: false }} />
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-      </Stack>
+      <ReactQueryProvider>
+        <Stack initialRouteName="index">
+          <Stack.Screen name="index" options={{ headerShown: false }} />
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        </Stack>
+      </ReactQueryProvider>
+      <Toast />
     </GestureHandlerRootView>
   );
 }

@@ -56,7 +56,7 @@ importers:
         version: 18.3.3
       '@web3modal/wagmi':
         specifier: ^4.2.0
-        version: 4.2.2(@react-native-async-storage/async-storage@1.23.1(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.2.0)))(@wagmi/connectors@5.0.6(@react-native-async-storage/async-storage@1.23.1(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.2.0)))(@wagmi/core@2.9.7(@tanstack/query-core@5.38.0)(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.2.0)(typescript@5.4.5)(viem@2.10.3(bufferutil@4.0.8)(typescript@5.4.5)(zod@3.23.8))(zod@3.23.8))(bufferutil@4.0.8)(react-dom@18.2.0(react@18.2.0))(react-i18next@14.1.2(i18next@22.5.1)(react-dom@18.2.0(react@18.2.0))(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.2.0))(react@18.2.0))(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.2.0))(react@18.2.0)(rollup@4.18.0)(typescript@5.4.5)(viem@2.10.3(bufferutil@4.0.8)(typescript@5.4.5)(zod@3.23.8))(zod@3.23.8))(@wagmi/core@2.9.7(@tanstack/query-core@5.38.0)(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.2.0)(typescript@5.4.5)(viem@2.10.3(bufferutil@4.0.8)(typescript@5.4.5)(zod@3.23.8))(zod@3.23.8))(bufferutil@4.0.8)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(viem@2.10.3(bufferutil@4.0.8)(typescript@5.4.5)(zod@3.23.8))(vue@3.4.27(typescript@5.4.5))
+        version: 4.2.2(@react-native-async-storage/async-storage@1.23.1(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.2.0)))(@wagmi/connectors@5.0.6(@react-native-async-storage/async-storage@1.23.1(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.2.0)))(@wagmi/core@2.9.7(@tanstack/query-core@5.40.0)(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.2.0)(typescript@5.4.5)(viem@2.10.3(bufferutil@4.0.8)(typescript@5.4.5)(zod@3.23.8))(zod@3.23.8))(bufferutil@4.0.8)(react-dom@18.2.0(react@18.2.0))(react-i18next@14.1.2(i18next@22.5.1)(react-dom@18.2.0(react@18.2.0))(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.2.0))(react@18.2.0))(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.2.0))(react@18.2.0)(rollup@4.18.0)(typescript@5.4.5)(viem@2.10.3(bufferutil@4.0.8)(typescript@5.4.5)(zod@3.23.8))(zod@3.23.8))(@wagmi/core@2.9.7(@tanstack/query-core@5.40.0)(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.2.0)(typescript@5.4.5)(viem@2.10.3(bufferutil@4.0.8)(typescript@5.4.5)(zod@3.23.8))(zod@3.23.8))(bufferutil@4.0.8)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(viem@2.10.3(bufferutil@4.0.8)(typescript@5.4.5)(zod@3.23.8))(vue@3.4.27(typescript@5.4.5))
       autoprefixer:
         specifier: ^10.4.19
         version: 10.4.19(postcss@8.4.38)
@@ -92,7 +92,7 @@ importers:
         version: 2.10.3(bufferutil@4.0.8)(typescript@5.4.5)(zod@3.23.8)
       wagmi:
         specifier: 2.8.7
-        version: 2.8.7(@react-native-async-storage/async-storage@1.23.1(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.2.0)))(@tanstack/query-core@5.38.0)(@tanstack/react-query@5.39.0(react@18.2.0))(@types/react@18.3.3)(bufferutil@4.0.8)(react-dom@18.2.0(react@18.2.0))(react-i18next@14.1.2(i18next@22.5.1)(react-dom@18.2.0(react@18.2.0))(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.2.0))(react@18.2.0))(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.2.0))(react@18.2.0)(rollup@4.18.0)(typescript@5.4.5)(viem@2.10.3(bufferutil@4.0.8)(typescript@5.4.5)(zod@3.23.8))(zod@3.23.8)
+        version: 2.8.7(@react-native-async-storage/async-storage@1.23.1(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.2.0)))(@tanstack/query-core@5.40.0)(@tanstack/react-query@5.40.0(react@18.2.0))(@types/react@18.3.3)(bufferutil@4.0.8)(react-dom@18.2.0(react@18.2.0))(react-i18next@14.1.2(i18next@22.5.1)(react-dom@18.2.0(react@18.2.0))(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.2.0))(react@18.2.0))(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.2.0))(react@18.2.0)(rollup@4.18.0)(typescript@5.4.5)(viem@2.10.3(bufferutil@4.0.8)(typescript@5.4.5)(zod@3.23.8))(zod@3.23.8)
 
   apps/bonuz-id:
     dependencies:
@@ -110,7 +110,7 @@ importers:
         version: 18.2.18
       '@web3modal/wagmi':
         specifier: 3.5.7
-        version: 3.5.7(@wagmi/core@2.10.4(@tanstack/query-core@5.38.0)(@types/react@18.2.52)(bufferutil@4.0.8)(react@18.2.0)(typescript@5.3.3)(viem@1.21.4(bufferutil@4.0.8)(typescript@5.3.3)(zod@3.23.8))(zod@3.23.8))(typescript@5.3.3)(viem@1.21.4(bufferutil@4.0.8)(typescript@5.3.3)(zod@3.23.8))
+        version: 3.5.7(@wagmi/core@2.10.4(@tanstack/query-core@5.40.0)(@types/react@18.2.52)(bufferutil@4.0.8)(react@18.2.0)(typescript@5.3.3)(viem@1.21.4(bufferutil@4.0.8)(typescript@5.3.3)(zod@3.23.8))(zod@3.23.8))(typescript@5.3.3)(viem@1.21.4(bufferutil@4.0.8)(typescript@5.3.3)(zod@3.23.8))
       eslint:
         specifier: 8.56.0
         version: 8.56.0
@@ -147,6 +147,9 @@ importers:
       '@biconomy/paymaster':
         specifier: ^4.1.1
         version: 4.1.1(bufferutil@4.0.8)(typescript@5.4.5)(zod@3.23.8)
+      '@codeherence/react-native-header':
+        specifier: ^0.12.2
+        version: 0.12.2(@shopify/flash-list@1.6.4(@babel/runtime@7.24.6)(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.2.79)(bufferutil@4.0.8)(react@18.2.0))(react@18.2.0))(react-native-reanimated@3.10.1(@babel/core@7.24.6)(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.2.79)(bufferutil@4.0.8)(react@18.2.0))(react@18.2.0))(react-native-safe-area-context@4.10.1(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.2.79)(bufferutil@4.0.8)(react@18.2.0))(react@18.2.0))(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.2.79)(bufferutil@4.0.8)(react@18.2.0))(react@18.2.0)
       '@expo/vector-icons':
         specifier: ^14.0.0
         version: 14.0.2
@@ -156,6 +159,15 @@ importers:
       '@react-navigation/native':
         specifier: ^6.0.2
         version: 6.1.17(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.2.79)(bufferutil@4.0.8)(react@18.2.0))(react@18.2.0)
+      '@tanstack/query-async-storage-persister':
+        specifier: ^5.40.0
+        version: 5.40.0
+      '@tanstack/react-query':
+        specifier: ^5.40.0
+        version: 5.40.0(react@18.2.0)
+      '@tanstack/react-query-persist-client':
+        specifier: ^5.40.0
+        version: 5.40.0(@tanstack/react-query@5.40.0(react@18.2.0))(react@18.2.0)
       '@walletconnect/react-native-compat':
         specifier: ^2.13.0
         version: 2.13.0(@react-native-async-storage/async-storage@1.23.1(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.2.79)(bufferutil@4.0.8)(react@18.2.0)))(@react-native-community/netinfo@11.3.2(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.2.79)(bufferutil@4.0.8)(react@18.2.0)))(react-native-get-random-values@1.11.0(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.2.79)(bufferutil@4.0.8)(react@18.2.0)))(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.2.79)(bufferutil@4.0.8)(react@18.2.0))
@@ -171,6 +183,9 @@ importers:
       crypto-browserify:
         specifier: ^3.12.0
         version: 3.12.0
+      crypto-es:
+        specifier: ^2.1.0
+        version: 2.1.0
       expo:
         specifier: ~51.0.8
         version: 51.0.8(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(bufferutil@4.0.8)
@@ -180,6 +195,12 @@ importers:
       expo-font:
         specifier: ~12.0.5
         version: 12.0.5(expo@51.0.8(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(bufferutil@4.0.8))
+      expo-image-manipulator:
+        specifier: ^12.0.5
+        version: 12.0.5(expo@51.0.8(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(bufferutil@4.0.8))
+      expo-image-picker:
+        specifier: ^15.0.5
+        version: 15.0.5(expo@51.0.8(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(bufferutil@4.0.8))
       expo-linear-gradient:
         specifier: ~13.0.2
         version: 13.0.2(expo@51.0.8(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(bufferutil@4.0.8))
@@ -201,6 +222,9 @@ importers:
       expo-system-ui:
         specifier: ~3.0.4
         version: 3.0.4(expo@51.0.8(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(bufferutil@4.0.8))
+      expo-updates:
+        specifier: ~0.25.15
+        version: 0.25.15(expo@51.0.8(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(bufferutil@4.0.8))
       expo-web-browser:
         specifier: ~13.0.3
         version: 13.0.3(expo@51.0.8(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(bufferutil@4.0.8))
@@ -210,6 +234,9 @@ importers:
       ky:
         specifier: ^1.2.4
         version: 1.2.4
+      mime:
+        specifier: ^4.0.3
+        version: 4.0.3
       net:
         specifier: ^1.0.2
         version: 1.0.2
@@ -225,15 +252,24 @@ importers:
       react-dom:
         specifier: 18.2.0
         version: 18.2.0(react@18.2.0)
+      react-hook-form:
+        specifier: ^7.51.5
+        version: 7.51.5(react@18.2.0)
       react-native:
         specifier: 0.74.1
         version: 0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.2.79)(bufferutil@4.0.8)(react@18.2.0)
+      react-native-collapsible:
+        specifier: ^1.6.1
+        version: 1.6.1(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.2.79)(bufferutil@4.0.8)(react@18.2.0))(react@18.2.0)
       react-native-fs:
         specifier: ^2.20.0
         version: 2.20.0(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.2.79)(bufferutil@4.0.8)(react@18.2.0))
       react-native-gesture-handler:
         specifier: ~2.16.2
         version: 2.16.2(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.2.79)(bufferutil@4.0.8)(react@18.2.0))(react@18.2.0)
+      react-native-iconify:
+        specifier: ^1.0.2
+        version: 1.0.2(@babel/core@7.24.6)(@types/react@18.2.79)(react-native-svg@15.2.0(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.2.79)(bufferutil@4.0.8)(react@18.2.0))(react@18.2.0))(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.2.79)(bufferutil@4.0.8)(react@18.2.0))(react@18.2.0)
       react-native-mmkv:
         specifier: ^2.12.2
         version: 2.12.2(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.2.79)(bufferutil@4.0.8)(react@18.2.0))(react@18.2.0)
@@ -255,6 +291,12 @@ importers:
       react-native-screens:
         specifier: ~3.31.1
         version: 3.31.1(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.2.79)(bufferutil@4.0.8)(react@18.2.0))(react@18.2.0)
+      react-native-svg:
+        specifier: 15.2.0
+        version: 15.2.0(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.2.79)(bufferutil@4.0.8)(react@18.2.0))(react@18.2.0)
+      react-native-toast-message:
+        specifier: ^2.2.0
+        version: 2.2.0(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.2.79)(bufferutil@4.0.8)(react@18.2.0))(react@18.2.0)
       react-native-web:
         specifier: ~0.19.6
         version: 0.19.12(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
@@ -270,6 +312,9 @@ importers:
       tls:
         specifier: ^0.0.1
         version: 0.0.1
+      twrnc:
+        specifier: ^4.2.0
+        version: 4.2.0(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.2.79)(bufferutil@4.0.8)(react@18.2.0))
       url:
         specifier: ^0.11.3
         version: 0.11.3
@@ -345,7 +390,7 @@ importers:
         version: 18.2.18
       '@web3modal/wagmi':
         specifier: 3.5.7
-        version: 3.5.7(@wagmi/core@2.10.4(@tanstack/query-core@5.38.0)(@types/react@18.2.52)(bufferutil@4.0.8)(react@18.2.0)(typescript@5.3.3)(viem@1.21.4(bufferutil@4.0.8)(typescript@5.3.3)(zod@3.23.8))(zod@3.23.8))(typescript@5.3.3)(viem@1.21.4(bufferutil@4.0.8)(typescript@5.3.3)(zod@3.23.8))
+        version: 3.5.7(@wagmi/core@2.10.4(@tanstack/query-core@5.40.0)(@types/react@18.2.52)(bufferutil@4.0.8)(react@18.2.0)(typescript@5.3.3)(viem@1.21.4(bufferutil@4.0.8)(typescript@5.3.3)(zod@3.23.8))(zod@3.23.8))(typescript@5.3.3)(viem@1.21.4(bufferutil@4.0.8)(typescript@5.3.3)(zod@3.23.8))
       eslint:
         specifier: 8.56.0
         version: 8.56.0
@@ -388,6 +433,12 @@ packages:
   '@ampproject/remapping@2.3.0':
     resolution: {integrity: sha512-30iZtAPgz+LTIYoeivqYo853f02jBYSd5uGnGpkFV0M3xOt9aN73erkgYAmZU43x4VfqcnLxW9Kpg3R5LC4YYw==}
     engines: {node: '>=6.0.0'}
+
+  '@antfu/install-pkg@0.1.1':
+    resolution: {integrity: sha512-LyB/8+bSfa0DFGC06zpCEfs89/XoWZwws5ygEa5D+Xsm3OfI+aXQ86VgVG7Acyef+rSZ5HE7J8rrxzrQeM3PjQ==}
+
+  '@antfu/utils@0.7.8':
+    resolution: {integrity: sha512-rWQkqXRESdjXtc+7NRfK9lASQjpXJu1ayp7qi1d23zZorY+wBHVLHHoVcMsEnkqEBWTFqbztO7/QdJFzyEcLTg==}
 
   '@babel/code-frame@7.10.4':
     resolution: {integrity: sha512-vG6SvB6oYEhvgisZNFRmRCUkLz11c7rp+tbNTynGqc6mS1d5ATd/sGyV6W0KZZnXRKMTzZDRgQT3Ou9jhpAfUg==}
@@ -1167,6 +1218,16 @@ packages:
   '@biconomy/paymaster@4.1.1':
     resolution: {integrity: sha512-Vj+a+jtNpHtykD3CerkaNnaS66rccTRYzI8rAl7jd2HuWZAzxxs8LDmsS0EZvu1crJMqXzLb6435hFn+qvn7kQ==}
 
+  '@codeherence/react-native-header@0.12.2':
+    resolution: {integrity: sha512-/8Jer/UHA2tfFhZGn5nU9ez+hsTupxTP4ZnfdLvultRUhHlqqANfbSol3qxscWEHNSEfQcC/sZQGMBwcA1N3VA==}
+    engines: {node: '>= 16.0.0'}
+    peerDependencies:
+      '@shopify/flash-list': '*'
+      react: '*'
+      react-native: '*'
+      react-native-reanimated: '>=2.0.0'
+      react-native-safe-area-context: '*'
+
   '@coinbase/wallet-sdk@3.9.1':
     resolution: {integrity: sha512-cGUE8wm1/cMI8irRMVOqbFWYcnNugqCtuy2lnnHfgloBg+GRLs9RsrkOUDMdv/StfUeeKhCDyYudsXXvcL1xIA==}
 
@@ -1438,6 +1499,10 @@ packages:
   '@expo/env@0.3.0':
     resolution: {integrity: sha512-OtB9XVHWaXidLbHvrVDeeXa09yvTl3+IQN884sO6PhIi2/StXfgSH/9zC7IvzrDB8kW3EBJ1PPLuCUJ2hxAT7Q==}
 
+  '@expo/fingerprint@0.8.0':
+    resolution: {integrity: sha512-LBNweJnpG16p7SbvFGINF5Q44bDErIcm1li9SuvYQgrrSey3ErIPmZsiMsNBxlvVie6eTp4wmFO6IFmeaqEhbg==}
+    hasBin: true
+
   '@expo/image-utils@0.5.1':
     resolution: {integrity: sha512-U/GsFfFox88lXULmFJ9Shfl2aQGcwoKPF7fawSCLixIKtMCpsI+1r0h+5i0nQnmt9tHuzXZDL8+Dg1z6OhkI9A==}
 
@@ -1563,6 +1628,15 @@ packages:
 
   '@humanwhocodes/object-schema@2.0.3':
     resolution: {integrity: sha512-93zYdMES/c1D69yZiKDBj0V24vqNzB/koF26KPaagAfd3P/4gUlh3Dys5ogAK+Exi9QyzlD8x/08Zt7wIKcDcA==}
+
+  '@iconify/json@2.2.214':
+    resolution: {integrity: sha512-EVdAczIPBz1gcXVSHrEe0vBl6x4lcG7Dw95tO0o/h2SPTXKigEvV1cufe8yFFNuBHKqv/n1XTwqCZX0ontKTtw==}
+
+  '@iconify/types@2.0.0':
+    resolution: {integrity: sha512-+wluvCrRhXrhyOmRDJ3q8mux9JkKy5SJ/v8ol2tu4FVjyYvtEzkc/3pK15ET6RKg4b4w4BmTk1+gsCUhf21Ykg==}
+
+  '@iconify/utils@2.1.23':
+    resolution: {integrity: sha512-YGNbHKM5tyDvdWZ92y2mIkrfvm5Fvhe6WJSkWu7vvOFhMtYDP0casZpoRz0XEHZCrYsR4stdGT3cZ52yp5qZdQ==}
 
   '@isaacs/cliui@8.0.2':
     resolution: {integrity: sha512-O8jcjabXaleOG9DQ0+ARXWZBTfnP4WNAqzuiJK7ll44AmxGKv/J2M4TPjxjY3znBCfvBXFzucm1twdyFybFqEA==}
@@ -2549,6 +2623,13 @@ packages:
     peerDependencies:
       semantic-release: '>=20.1.0'
 
+  '@shopify/flash-list@1.6.4':
+    resolution: {integrity: sha512-M2momcnY7swsvmpHIFDVbdOaFw4aQocJXA/lFP0Gpz+alQjFylqVKvszxl4atYO2SNbjxlb2L6hEP9WEcAknGQ==}
+    peerDependencies:
+      '@babel/runtime': '*'
+      react: '*'
+      react-native: '*'
+
   '@sideway/address@4.1.5':
     resolution: {integrity: sha512-IqO/DUQHUkPeixNQ8n0JA6102hT9CmaljNTPmQ1u8MEhBo/R4Q8eKLN/vGZxuebwOroDB4cbpjheD4+/sKFK4Q==}
 
@@ -2642,14 +2723,20 @@ packages:
   '@swc/helpers@0.5.2':
     resolution: {integrity: sha512-E4KcWTpoLHqwPHLxidpOqQbcrZVgi0rsmmZXUle1jXmJfuIf/UWpczUJ7MZZ5tlxytgJXyp0w4PGkkeLiuIdZw==}
 
+  '@tanstack/query-async-storage-persister@5.40.0':
+    resolution: {integrity: sha512-xzDG8JiHLRFYTRe9Q/m9JnL3ESj1Moxl4QtGCBjvAUf2PsQC3iHsjRwcF2fmGg0EaXxJD09rROt3lu0wkv3O2w==}
+
   '@tanstack/query-core@4.36.1':
     resolution: {integrity: sha512-DJSilV5+ytBP1FbFcEJovv4rnnm/CokuVvrBEtW/Va9DvuJ3HksbXUJEpI0aV1KtuL4ZoO9AVE6PyNLzF7tLeA==}
 
-  '@tanstack/query-core@5.38.0':
-    resolution: {integrity: sha512-QtkoxvFcu52mNpp3+qOo9H265m3rt83Dgbw5WnNyJvr83cegrQ7zT8haHhL4Rul6ZQkeovxyWbXVW9zI0WYx6g==}
+  '@tanstack/query-core@5.40.0':
+    resolution: {integrity: sha512-eD8K8jsOIq0Z5u/QbvOmfvKKE/XC39jA7yv4hgpl/1SRiU+J8QCIwgM/mEHuunQsL87dcvnHqSVLmf9pD4CiaA==}
 
   '@tanstack/query-persist-client-core@4.36.1':
     resolution: {integrity: sha512-eocgCeI7D7TRv1IUUBMfVwOI0wdSmMkBIbkKhqEdTrnUHUQEeOaYac8oeZk2cumAWJdycu6P/wB+WqGynTnzXg==}
+
+  '@tanstack/query-persist-client-core@5.40.0':
+    resolution: {integrity: sha512-dGyxR5uEYBDDU4ARCbm7PehBbMLTqgCG/O6Q4P8mwnu7JIqn2CgCu3iSSWzCrudEq2fhiRLgZ5/3Kx7ymto6PA==}
 
   '@tanstack/query-sync-storage-persister@4.36.1':
     resolution: {integrity: sha512-yMEt5hWe2+1eclf1agMtXHnPIkxEida0lYWkfdhR8U6KXk/lO4Vca6piJmhKI85t0NHlx3l/z6zX+t/Fn5O9NA==}
@@ -2658,6 +2745,12 @@ packages:
     resolution: {integrity: sha512-32I5b9aAu4NCiXZ7Te/KEQLfHbYeTNriVPrKYcvEThnZ9tlW01vLcSoxpUIsMYRsembvJUUAkzYBAiZHLOd6pQ==}
     peerDependencies:
       '@tanstack/react-query': ^4.36.1
+
+  '@tanstack/react-query-persist-client@5.40.0':
+    resolution: {integrity: sha512-uVwzszZ9fBbva1vOpSA1AQDVzIyVmXqcHsHMOLFzgA2ym9tahOi2Ze0X9O1eeyiRftzrXT+ggIloyuXgAPfdOQ==}
+    peerDependencies:
+      '@tanstack/react-query': ^5.40.0
+      react: ^18 || ^19
 
   '@tanstack/react-query@4.36.1':
     resolution: {integrity: sha512-y7ySVHFyyQblPl3J3eQBWpXZkliroki3ARnBKsdJchlgt7yJLRDUcf4B8soufgiYt3pEQIkBWBx1N9/ZPIeUWw==}
@@ -2671,8 +2764,8 @@ packages:
       react-native:
         optional: true
 
-  '@tanstack/react-query@5.39.0':
-    resolution: {integrity: sha512-zc0WnyEffyTgG+myLv8cY2tJOUT6jOprCiprpbMqylCaCFipSDUPCYCt2AC+qxgk2CFuqiI/fjb1u5/HhLkrPg==}
+  '@tanstack/react-query@5.40.0':
+    resolution: {integrity: sha512-iv/W0Axc4aXhFzkrByToE1JQqayxTPNotCoSCnarR/A1vDIHaoKpg7FTIfP3Ev2mbKn1yrxq0ZKYUdLEJxs6Tg==}
     peerDependencies:
       react: ^18.0.0
 
@@ -3438,6 +3531,9 @@ packages:
   application-config-path@0.1.1:
     resolution: {integrity: sha512-zy9cHePtMP0YhwG+CfHm0bgwdnga2X3gZexpdCwEj//dpb+TKajtiC8REEUJUSq6Ab4f9cgNy2l8ObXzCXFkEw==}
 
+  arg@4.1.0:
+    resolution: {integrity: sha512-ZWc51jO3qegGkVh8Hwpv636EkbesNV5ZNQPCtRa+0qytRYPEs9IYT9qITY9buezqUH5uqyzlWLcufrzU2rffdg==}
+
   arg@5.0.2:
     resolution: {integrity: sha512-PYjyFOLKQ9y57JvQ6QLo8dAgNqswh8M1RMJYdQduT6xbWSgK36P/Z/v+p888pM69jMMfS8Xd8F6I1kQ/I9HUGg==}
 
@@ -3645,6 +3741,9 @@ packages:
 
   bn.js@5.2.1:
     resolution: {integrity: sha512-eXRvHzWyYPBuB4NBy0cmYQjGitUrtqwbvlzP3G6VFnNRbsZQIxQ10PbKKHt8gZ/HW/D/747aDl+QkDqg3KQLMQ==}
+
+  boolbase@1.0.0:
+    resolution: {integrity: sha512-JZOSA7Mo9sNGB8+UjSgzdLtokWAky1zbztM3WRLCbZ70/3cTANmQmOdR7y2g+J0e2WXywy1yS468tY+IruqEww==}
 
   bottleneck@2.19.5:
     resolution: {integrity: sha512-VHiNCbI1lKdl44tGrhNfU3lup0Tj/ZBMJB5/2ZbNXRCPuRCO7ed2mgcK4r17y+KB2EfuYuRaVlwNbAeaWGSpbw==}
@@ -4126,6 +4225,9 @@ packages:
   crypto-browserify@3.12.0:
     resolution: {integrity: sha512-fz4spIh+znjO2VjL+IdhEpRJ3YN6sMzITSBijk6FK2UvTqruSQW+/cCZTSNsMiZNvUeq0CqurF+dAbyiGOY6Wg==}
 
+  crypto-es@2.1.0:
+    resolution: {integrity: sha512-C5Dbuv4QTPGuloy5c5Vv/FZHtmK+lobLAypFfuRaBbwCsk3qbCWWESCH3MUcBsrgXloRNMrzwUAiPg4U6+IaKA==}
+
   crypto-js@4.2.0:
     resolution: {integrity: sha512-KALDyEYgpY+Rlob/iriUtjV6d5Eq+Y191A5g4UqLAi8CyGP9N1+FdVbkc1SxKc2r4YAYqG8JzO2KGL+AizD70Q==}
 
@@ -4143,6 +4245,17 @@ packages:
 
   css-in-js-utils@3.1.0:
     resolution: {integrity: sha512-fJAcud6B3rRu+KHYk+Bwf+WFL2MDCJJ1XG9x137tJQ0xYxor7XziQtuGFbWNdqrvF4Tk26O3H73nfVqXt/fW1A==}
+
+  css-select@5.1.0:
+    resolution: {integrity: sha512-nwoRF1rvRRnnCqqY7updORDsuqKzqYJ28+oSMaJMMgOauh3fvwHqMS7EZpIPqK8GL+g9mKxF1vP/ZjSeNjEVHg==}
+
+  css-tree@1.1.3:
+    resolution: {integrity: sha512-tRpdppF7TRazZrjJ6v3stzv93qxRcSsFmW6cX0Zm2NVKpxE1WV1HblnghVv9TreireHkqI/VDEsfolRF1p6y7Q==}
+    engines: {node: '>=8.0.0'}
+
+  css-what@6.1.0:
+    resolution: {integrity: sha512-HTUrgRJ7r4dsZKU6GjmpfRK1O76h97Z8MfS1G0FozR+oF2kG6Vfe8JE6zwrkbxigziPHinCJ+gCPjA9EaBDtRw==}
+    engines: {node: '>= 6'}
 
   cssesc@3.0.0:
     resolution: {integrity: sha512-/Tb/JcjK111nNScGob5MNtsntNM1aCNUDipB/TkwZFhyDrrE47SOx/18wF2bbjgc3ZzCSKW1T5nt5EbFoAz/Vg==}
@@ -4344,10 +4457,23 @@ packages:
     resolution: {integrity: sha512-yS+Q5i3hBf7GBkd4KG8a7eBNNWNGLTaEwwYWUijIYM7zrlYDM0BFXHjjPWlWZ1Rg7UaddZeIDmi9jF3HmqiQ2w==}
     engines: {node: '>=6.0.0'}
 
+  dom-serializer@2.0.0:
+    resolution: {integrity: sha512-wIkAryiqt/nV5EQKqQpo3SToSOV9J0DnbJqwK7Wv/Trc92zIAYZ4FlMu+JPFW1DfGFt81ZTCGgDEabffXeLyJg==}
+
+  domelementtype@2.3.0:
+    resolution: {integrity: sha512-OLETBj6w0OsagBwdXnPdN0cnMfF9opN69co+7ZrbfPGrdpPVNBUj02spi6B1N7wChLQiPn4CSH/zJvXw56gmHw==}
+
   domexception@4.0.0:
     resolution: {integrity: sha512-A2is4PLG+eeSfoTMA95/s4pvAoSo2mKtiM5jlHkAVewmiO8ISFTFKZjH7UAM1Atli/OT/7JHOrJRJiMKUZKYBw==}
     engines: {node: '>=12'}
     deprecated: Use your platform's native DOMException instead
+
+  domhandler@5.0.3:
+    resolution: {integrity: sha512-cgwlv/1iFQiFnU96XXgROh8xTeetsnJiDsTc7TYCLFd9+/WNkIqPTxiM/8pSd8VIrhXGTf1Ny1q1hquVqDJB5w==}
+    engines: {node: '>= 4'}
+
+  domutils@3.1.0:
+    resolution: {integrity: sha512-H78uMmQtI2AhgDJjWeQmHwJJ2bLPD3GMmO7Zja/ZZh84wkm+4ut+IUnUdRa8uCGX88DiVx1j6FRe1XfxEgjEZA==}
 
   dot-prop@5.3.0:
     resolution: {integrity: sha512-QM8q3zDe58hqUqjraQOmzZ1LIH9SWQJTlEKCH4kJ2oQvLZk7RbQXvtDM2XEq3fwkV9CCvvH4LA0AV+ogFsBM2Q==}
@@ -4777,6 +4903,9 @@ packages:
     peerDependencies:
       expo: '*'
 
+  expo-eas-client@0.12.0:
+    resolution: {integrity: sha512-Jkww9Cwpv0z7DdLYiRX0r4fqBEcI9cKqTn7cHx63S09JaZ2rcwEE4zYHgrXwjahO+tU2VW8zqH+AJl6RhhW4zA==}
+
   expo-file-system@17.0.1:
     resolution: {integrity: sha512-dYpnZJqTGj6HCYJyXAgpFkQWsiCH3HY1ek2cFZVHFoEc5tLz9gmdEgTF6nFHurvmvfmXqxi7a5CXyVm0aFYJBw==}
     peerDependencies:
@@ -4786,6 +4915,24 @@ packages:
     resolution: {integrity: sha512-h/VkN4jlHYDJ6T6pPgOYTVoDEfBY0CTKQe4pxnPDGQiE6H+DFdDgk+qWVABGpRMH0+zXoHB+AEi3OoQjXIynFA==}
     peerDependencies:
       expo: '*'
+
+  expo-image-loader@4.7.0:
+    resolution: {integrity: sha512-cx+MxxsAMGl9AiWnQUzrkJMJH4eNOGlu7XkLGnAXSJrRoIiciGaKqzeaD326IyCTV+Z1fXvIliSgNW+DscvD8g==}
+    peerDependencies:
+      expo: '*'
+
+  expo-image-manipulator@12.0.5:
+    resolution: {integrity: sha512-zJ8yINjckYw/yfoSuICt4yJ9xr112+W9e5QVXwK3nCAHr7sv45RQ5sxte0qppf594TPl+UoV6Tjim7WpoKipRQ==}
+    peerDependencies:
+      expo: '*'
+
+  expo-image-picker@15.0.5:
+    resolution: {integrity: sha512-Qqp16udsadx/YpNcNaWzfbmO0tbMxyX9bS1aFiDVC+Zffh8LY8S4HJJcnWqSC2TeuAl+9SxUwTloJagvPeMBBw==}
+    peerDependencies:
+      expo: '*'
+
+  expo-json-utils@0.13.1:
+    resolution: {integrity: sha512-mlfaSArGVb+oJmUcR22jEONlgPp0wj4iNIHfQ2je9Q8WTOqMc0Ws9tUciz3JdJnhffdHqo/k8fpvf0IRmN5HPA==}
 
   expo-keep-awake@13.0.2:
     resolution: {integrity: sha512-kKiwkVg/bY0AJ5q1Pxnm/GvpeB6hbNJhcFsoOWDh2NlpibhCLaHL826KHUM+WsnJRbVRxJ+K9vbPRHEMvFpVyw==}
@@ -4799,6 +4946,11 @@ packages:
 
   expo-linking@6.3.1:
     resolution: {integrity: sha512-xuZCntSBGWCD/95iZ+mTUGTwHdy8Sx+immCqbUBxdvZ2TN61P02kKg7SaLS8A4a/hLrSCwrg5tMMwu5wfKr35g==}
+
+  expo-manifests@0.14.3:
+    resolution: {integrity: sha512-L3b5/qocBPiQjbW0cpOHfnqdKZbTJS7sA3mgeDJT+mWga/xYsdpma1EfNmsuvrOzjLGjStr1k1fceM9Bl49aqQ==}
+    peerDependencies:
+      expo: '*'
 
   expo-modules-autolinking@1.11.1:
     resolution: {integrity: sha512-2dy3lTz76adOl7QUvbreMCrXyzUiF8lygI7iFJLjgIQIVH+43KnFWE5zBumpPbkiaq0f0uaFpN9U0RGQbnKiMw==}
@@ -4840,8 +4992,22 @@ packages:
   expo-status-bar@1.12.1:
     resolution: {integrity: sha512-/t3xdbS8KB0prj5KG5w7z+wZPFlPtkgs95BsmrP/E7Q0xHXTcDcQ6Cu2FkFuRM+PKTb17cJDnLkawyS5vDLxMA==}
 
+  expo-structured-headers@3.8.0:
+    resolution: {integrity: sha512-R+gFGn0x5CWl4OVlk2j1bJTJIz4KO8mPoCHpRHmfqMjmrMvrOM0qQSY3V5NHXwp1yT/L2v8aUmFQsBRIdvi1XA==}
+
   expo-system-ui@3.0.4:
     resolution: {integrity: sha512-v1n6hBO30k9qw6RE8/au4yNoovs71ExGuXizJUlR5KSo4Ruogpb+0/2q3uRZMDIYWWCANvms8L0UOh6fQJ5TXg==}
+    peerDependencies:
+      expo: '*'
+
+  expo-updates-interface@0.16.2:
+    resolution: {integrity: sha512-929XBU70q5ELxkKADj1xL0UIm3HvhYhNAOZv5DSk7rrKvLo7QDdPyl+JVnwZm9LrkNbH4wuE2rLoKu1KMgZ+9A==}
+    peerDependencies:
+      expo: '*'
+
+  expo-updates@0.25.15:
+    resolution: {integrity: sha512-P38Qv2TxeEpUCvAEUR99VSpOXnliiDsvMwFqhTO+iA0ZBDMJ7YZ/Fy5U4L9h8IW8mPfFC9wrWZzWZBn129mpYQ==}
+    hasBin: true
     peerDependencies:
       expo: '*'
 
@@ -5290,6 +5456,9 @@ packages:
     resolution: {integrity: sha512-puUZAUKT5m8Zzvs72XWy3HtvVbTWljRE66cP60bxJzAqf2DgICo7lYTY2IHUmLnNpjYvw5bvmoHvPc0QO2a62w==}
     engines: {node: ^16.14.0 || >=18.0.0}
 
+  html-dom-parser@5.0.8:
+    resolution: {integrity: sha512-vuWiX9EXgu8CJ5m9EP5c7bvBmNSuQVnrY8tl0z0ZX96Uth1IPlYH/8W8VZ/hBajFf18EN+j2pukbCNd01HEd1w==}
+
   html-encoding-sniffer@3.0.0:
     resolution: {integrity: sha512-oWv4T4yJ52iKrufjnyZPkrN0CH3QnrUqdB6In1g5Fe1mia8GmF36gnfNySxoZtxD5+NmYw1EElVXiBk93UeskA==}
     engines: {node: '>=12'}
@@ -5299,6 +5468,18 @@ packages:
 
   html-parse-stringify@3.0.1:
     resolution: {integrity: sha512-KknJ50kTInJ7qIScF3jeaFRpMpE8/lfiTdzf/twXyPBLAGrLRTmkz3AdTnKeh40X8k9L2fdYwEp/42WGXIRGcg==}
+
+  html-react-parser@5.1.10:
+    resolution: {integrity: sha512-gV22PvLij4wdEdtrZbGVC7Zy2OVWnQ0bYhX63S196ZRSx4+K0TuutCreHSXr+saUia8KeKB+2TYziVfijpH4Tw==}
+    peerDependencies:
+      '@types/react': 17 || 18
+      react: 0.14 || 15 || 16 || 17 || 18
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+
+  htmlparser2@9.1.0:
+    resolution: {integrity: sha512-5zfg6mHUoaer/97TxnGpxmbR7zJtPwIYFMZ/H5ucTlPZhKvtum05yiPK3Mgai3a0DyVxv7qYqoweaEd2nrYQzQ==}
 
   http-errors@2.0.0:
     resolution: {integrity: sha512-FtwrG/euBzaEjYeRqOgly7G0qviiXoJWnvEH2Z1plBdXgbyjv34pHTSb9zoeHMyDy33+DWy5Wt9Wo+TURtOYSQ==}
@@ -5412,6 +5593,9 @@ packages:
 
   ini@1.3.8:
     resolution: {integrity: sha512-JV/yugV2uzW5iMRSiZAyDtQd+nxtUnjeLt0acNdw98kKLrvuRVyB80tsREOE7yvGVgalhZ6RNXCmEHkUKBKxew==}
+
+  inline-style-parser@0.2.3:
+    resolution: {integrity: sha512-qlD8YNDqyTKTyuITrDOffsl6Tdhv+UC4hcdAVuQsK4IMQ99nSgd1MIA/Q+jQYoh9r3hVUXhYh7urSRmXPkW04g==}
 
   inline-style-prefixer@6.0.4:
     resolution: {integrity: sha512-FwXmZC2zbeeS7NzGjJ6pAiqRhXR0ugUShSNb6GApMl6da0/XGc4MOJsoWAywia52EEWbXNSy0pzkwz/+Y+swSg==}
@@ -6054,6 +6238,9 @@ packages:
     resolution: {integrity: sha512-eTIzlVOSUR+JxdDFepEYcBMtZ9Qqdef+rnzWdRZuMbOywu5tO2w2N7rqjoANZ5k9vywhL6Br1VRjUIgTQx4E8w==}
     engines: {node: '>=6'}
 
+  kolorist@1.8.0:
+    resolution: {integrity: sha512-Y+60/zizpJ3HRH8DCss+q95yr6145JXZo46OTpFvDZWLfRCE4qChOyk1b26nMaNpfHHgxagk9dXT5OP0Tfe+dQ==}
+
   ky@1.2.4:
     resolution: {integrity: sha512-CfSrf4a0yj1n6WgPT6kQNQOopIGLkQzqSAXo05oKByaH7G3SiqW4a8jGox0p9whMXqO49H7ljgigivrMyycAVA==}
     engines: {node: '>=18'}
@@ -6168,6 +6355,10 @@ packages:
   load-tsconfig@0.2.5:
     resolution: {integrity: sha512-IXO6OCs9yg8tMKzfPZ1YmheJbZCiEsnBdcB03l0OcfK9prKnJb96siuHCr5Fl37/yo9DnKU+TLpxzTUspw9shg==}
     engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
+
+  local-pkg@0.5.0:
+    resolution: {integrity: sha512-ok6z3qlYyCDS4ZEU27HaU6x/xZa9Whf8jD4ptH5UZTQYZVYeb9bnZ3ojVhiJNLiXK1Hfc0GNbLXcmZ5plLDDBg==}
+    engines: {node: '>=14'}
 
   locate-path@2.0.0:
     resolution: {integrity: sha512-NCI2kiDkyR7VeEKm27Kda/iQHyKJe1Bu0FlTbYp3CqJu+9IFe9bLyAjMxf5ZDDbEg+iMPzB5zYyUTSm8wVTKmA==}
@@ -6297,6 +6488,9 @@ packages:
   md5hex@1.0.0:
     resolution: {integrity: sha512-c2YOUbp33+6thdCUi34xIyOU/a7bvGKj/3DB1iaPMTuPHf/Q2d5s4sn1FaCOO43XkXggnb08y5W2PU8UNYNLKQ==}
 
+  mdn-data@2.0.14:
+    resolution: {integrity: sha512-dn6wd0uw5GsdswPFfsgMp5NSB0/aDe6fK94YJV/AJDYXL6HVLWBsxeq7js7Ad+mU2K9LAlwpk6kN2D5mwCPVow==}
+
   memoize-one@5.2.1:
     resolution: {integrity: sha512-zYiwtZUcYyXKo/np96AGZAckk+FWWsUdJ3cHGGmld7+AhvcWmQyGCYUh1hc4Q/pkOhb65dQR/pqCyK0cOaHz4Q==}
 
@@ -6352,6 +6546,12 @@ packages:
   metro-minify-terser@0.80.9:
     resolution: {integrity: sha512-FEeCeFbkvvPuhjixZ1FYrXtO0araTpV6UbcnGgDUpH7s7eR5FG/PiJz3TsuuPP/HwCK19cZtQydcA2QrCw446A==}
     engines: {node: '>=18'}
+
+  metro-react-native-babel-preset@0.77.0:
+    resolution: {integrity: sha512-HPPD+bTxADtoE4y/4t1txgTQ1LVR6imOBy7RMHUsqMVTbekoi8Ph5YI9vKX2VMPtVWeFt0w9YnCSLPa76GcXsA==}
+    engines: {node: '>=18'}
+    peerDependencies:
+      '@babel/core': '*'
 
   metro-resolver@0.80.9:
     resolution: {integrity: sha512-wAPIjkN59BQN6gocVsAvvpZ1+LQkkqUaswlT++cJafE/e54GoVkMNCmrR4BsgQHr9DknZ5Um/nKueeN7kaEz9w==}
@@ -6744,6 +6944,9 @@ packages:
       - validate-npm-package-name
       - which
       - write-file-atomic
+
+  nth-check@2.1.1:
+    resolution: {integrity: sha512-lqjrjmaOoAnWfMmBPL+XNnynZh2+swxiX3WUE0s4yEHI6m+AwrK2UZOimIRl3X/4QctVqS8AiZjFqyOGrMXb/w==}
 
   nullthrows@1.1.1:
     resolution: {integrity: sha512-2vPPEi+Z7WqML2jZYddDIfy5Dqb0r2fze2zTxNNknZaFpVHU3mFB3R+DWeJWGVx0ecvttSGlJTI+WG+8Z4cDWw==}
@@ -7334,6 +7537,12 @@ packages:
     peerDependencies:
       react: '>=17.0.0'
 
+  react-hook-form@7.51.5:
+    resolution: {integrity: sha512-J2ILT5gWx1XUIJRETiA7M19iXHlG74+6O3KApzvqB/w8S5NQR7AbU8HVZrMALdmDgWpRPYiZJl0zx8Z4L2mP6Q==}
+    engines: {node: '>=12.22.0'}
+    peerDependencies:
+      react: ^16.8.0 || ^17 || ^18
+
   react-i18next@14.1.2:
     resolution: {integrity: sha512-FSIcJy6oauJbGEXfhUgVeLzvWBhIBIS+/9c6Lj4niwKZyGaGb4V4vUbATXSlsHJDXXB+ociNxqFNiFuV1gmoqg==}
     peerDependencies:
@@ -7361,6 +7570,12 @@ packages:
   react-is@18.3.1:
     resolution: {integrity: sha512-/LLMVyas0ljjAtoYiPqYiL8VWXzUUdThrmU5+n20DZv+a+ClRoevUzw5JxU+Ieh5/c87ytoTBV9G1FiKfNJdmg==}
 
+  react-native-collapsible@1.6.1:
+    resolution: {integrity: sha512-orF4BeiXd2hZW7fu9YcqIJXzN6TJcFcddY807D3MAOVktLuW9oQ+RIkrTJ5DR3v9ZOFfREkOjEmS79qeUTvkBQ==}
+    peerDependencies:
+      react: '*'
+      react-native: '*'
+
   react-native-fs@2.20.0:
     resolution: {integrity: sha512-VkTBzs7fIDUiy/XajOSNk0XazFE9l+QlMAce7lGuebZcag5CnjszB+u4BdqzwaQOdcYb5wsJIsqq4kxInIRpJQ==}
     peerDependencies:
@@ -7385,6 +7600,14 @@ packages:
     resolution: {integrity: sha512-m3CkXWss6B1dd6mCMleLpzDCJJGGaHOLQsUzZv8kAASJmMfmVT4d2fx375iXKTRWT25ThBfae3dECuX5cq/8hg==}
     peerDependencies:
       react: ^16.6.0 || ^17.0.0 || ^18.0.0
+
+  react-native-iconify@1.0.2:
+    resolution: {integrity: sha512-a0vtHCUliZsANmEe9GUXTcRNiMkNEBrCsU7DAy4zgYACpzhKm/DC4PEvbyyRfdylMOqcZqQGZBpKAdGACm+I4A==}
+    engines: {node: '>= 16.0.0'}
+    peerDependencies:
+      react: '*'
+      react-native: '*'
+      react-native-svg: '>=13.2.0'
 
   react-native-iphone-x-helper@1.3.1:
     resolution: {integrity: sha512-HOf0jzRnq2/aFUcdCJ9w9JGzN3gdEg0zFE4FyYlp4jtidqU03D5X7ZegGKfT1EWteR0gPBGp9ye5T5FvSWi9Yg==}
@@ -7434,6 +7657,18 @@ packages:
       react: '*'
       react-native: '*'
 
+  react-native-svg@15.2.0:
+    resolution: {integrity: sha512-R0E6IhcJfVLsL0lRmnUSm72QO+mTqcAOM5Jb8FVGxJqX3NfJMlMP0YyvcajZiaRR8CqQUpEoqrY25eyZb006kw==}
+    peerDependencies:
+      react: '*'
+      react-native: '*'
+
+  react-native-toast-message@2.2.0:
+    resolution: {integrity: sha512-AFti8VzUk6JvyGAlLm9/BknTNDXrrhqnUk7ak/pM7uCTxDPveAu2ekszU0on6vnUPFnG04H/QfYE2IlETqeaWw==}
+    peerDependencies:
+      react: '*'
+      react-native: '*'
+
   react-native-url-polyfill@2.0.0:
     resolution: {integrity: sha512-My330Do7/DvKnEvwQc0WdcBnFPploYKp9CYlefDXzIdEaA+PAhDYllkvGeEroEzvc4Kzzj2O4yVdz8v6fjRvhA==}
     peerDependencies:
@@ -7462,8 +7697,15 @@ packages:
       '@types/react':
         optional: true
 
+  react-property@2.0.2:
+    resolution: {integrity: sha512-+PbtI3VuDV0l6CleQMsx2gtK0JZbZKbpdu5ynr+lbsuvtmgbNcS3VM0tuY2QjFNOcWxvXeHjDpy42RO+4U2rug==}
+
   react-refresh@0.14.2:
     resolution: {integrity: sha512-jCvmsr+1IUSMUyzOkRcvnVbX3ZYC6g9TDrDbFuFmRDq7PD4yaGbLKNQL6k2jnArV8hjYxh7hVhAZB6s9HDGpZA==}
+    engines: {node: '>=0.10.0'}
+
+  react-refresh@0.4.3:
+    resolution: {integrity: sha512-Hwln1VNuGl/6bVwnd0Xdn1e84gT/8T9aYNL+HAKDArLCS7LWjwr7StE30IEYbIkx0Vi3vs+coQxe+SQDbGbbpA==}
     engines: {node: '>=0.10.0'}
 
   react-shallow-renderer@16.15.0:
@@ -7529,6 +7771,12 @@ packages:
   recast@0.21.5:
     resolution: {integrity: sha512-hjMmLaUXAm1hIuTqOdeYObMslq/q+Xff6QE3Y2P+uoHAg2nmVlLBps2hzh1UJDdMtDTMXOFewK6ky51JQIeECg==}
     engines: {node: '>= 4'}
+
+  recyclerlistview@4.2.0:
+    resolution: {integrity: sha512-uuBCi0c+ggqHKwrzPX4Z/mJOzsBbjZEAwGGmlwpD/sD7raXixdAbdJ6BTcAmuWG50Cg4ru9p12M94Njwhr/27A==}
+    peerDependencies:
+      react: '>= 15.2.1'
+      react-native: '>= 0.30.0'
 
   reflect.getprototypeof@1.0.6:
     resolution: {integrity: sha512-fmfw4XgoDke3kdI6h4xcUz1dG8uaiv5q9gcEwLS4Pnth2kxT+GZ7YehS1JTMGBQmtV7Y4GFGbs2re2NqhdozUg==}
@@ -8093,6 +8341,12 @@ packages:
   structured-headers@0.4.1:
     resolution: {integrity: sha512-0MP/Cxx5SzeeZ10p/bZI0S6MpgD+yxAhi1BOQ34jgnMXsCq3j1t6tQnZu+KdlL7dvJTLT3g9xN8tl10TqgFMcg==}
 
+  style-to-js@1.1.12:
+    resolution: {integrity: sha512-tv+/FkgNYHI2fvCoBMsqPHh5xovwiw+C3X0Gfnss/Syau0Nr3IqGOJ9XiOYXoPnToHVbllKFf5qCNFJGwFg5mg==}
+
+  style-to-object@1.0.6:
+    resolution: {integrity: sha512-khxq+Qm3xEyZfKd/y9L3oIWQimxuc4STrQKtQn8aSDRHb8mFgpukgX1hdzfrMEW6JCjyJ8p89x+IUMVnCBI1PA==}
+
   styled-jsx@5.1.1:
     resolution: {integrity: sha512-pW7uC1l4mBZ8ugbiZrcIsiIvVx1UmTfw7UkC3Um2tmfUq9Bhk8IiyEIPl6F8agHgjzku6j0xQEZbfA5uSgSaCw==}
     engines: {node: '>= 12.0.0'}
@@ -8326,6 +8580,9 @@ packages:
   ts-interface-checker@0.1.13:
     resolution: {integrity: sha512-Y/arvbn+rrz3JCKl9C4kVNfTfSm2/mEp5FSz5EsZSANGPSlQrpRI5M4PKF+mJnE52jOO90PnPSc3Ur3bTQw0gA==}
 
+  ts-object-utils@0.0.5:
+    resolution: {integrity: sha512-iV0GvHqOmilbIKJsfyfJY9/dNHCs969z3so90dQWsO1eMMozvTpnB1MEaUbb3FYtZTGjv5sIy/xmslEz0Rg2TA==}
+
   tsconfig-paths@3.15.0:
     resolution: {integrity: sha512-2Ac2RgzDe/cn48GvOe3M+o82pEFewD3UPbyoUHHdKasHwJKjds4fLXWf/Ux5kATBKN20oaFGu+jbElp1pos0mg==}
 
@@ -8335,6 +8592,9 @@ packages:
 
   tslib@1.14.1:
     resolution: {integrity: sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg==}
+
+  tslib@2.4.0:
+    resolution: {integrity: sha512-d6xOpEDfsi2CZVlPQzGeux8XMwLT9hssAsaPYExaQMuYskwb+x1x7J371tWlbBdWHroy99KnVB6qIkUbs5X3UQ==}
 
   tslib@2.6.2:
     resolution: {integrity: sha512-AEYxH93jGFPn/a2iVAwW87VuUIkR1FVUKB77NwMF7nBTDkDrrT/Hpt/IrCJ0QXhW27jTBDcf5ZY7w6RiqTMw2Q==}
@@ -8394,6 +8654,11 @@ packages:
   turbo@1.13.3:
     resolution: {integrity: sha512-n17HJv4F4CpsYTvKzUJhLbyewbXjq1oLCi90i5tW1TiWDz16ML1eDG7wi5dHaKxzh5efIM56SITnuVbMq5dk4g==}
     hasBin: true
+
+  twrnc@4.2.0:
+    resolution: {integrity: sha512-W0frl6Xt4KlrGOBBQHX4ijNDziHZR/9nWyeVbpF2qwEd15wNrMJpTmJT2PmleMbuuDl+/5DgRMmloXKXUBevdQ==}
+    peerDependencies:
+      react-native: '>=0.63.0'
 
   type-check@0.4.0:
     resolution: {integrity: sha512-XleUoc9uwGXqjWwXaUTZAmzMcFZ5858QA2vvx1Ur5xIcixXIP+8LnFDgRplU30us6teqdlskFfu+ae4K79Ooew==}
@@ -8651,6 +8916,12 @@ packages:
 
   url@0.11.3:
     resolution: {integrity: sha512-6hxOLGfZASQK/cijlZnZJTq8OXAkt/3YGfQX45vvMYXpZoo8NdWZcY73K108Jf759lS1Bv/8wXnHDTSz17dSRw==}
+
+  use-debounce@9.0.3:
+    resolution: {integrity: sha512-FhtlbDtDXILJV7Lix5OZj5yX/fW1tzq+VrvK1fnT2bUrPOGruU9Rw8NCEn+UI9wopfERBEZAOQ8lfeCJPllgnw==}
+    engines: {node: '>= 10.0.0'}
+    peerDependencies:
+      react: '>=16.8.0'
 
   use-latest-callback@0.1.9:
     resolution: {integrity: sha512-CL/29uS74AwreI/f2oz2hLTW7ZqVeV5+gxFeGudzQrgkCytrHw33G4KbnQOrRlAEzzAFXi7dDLMC9zhWcVpzmw==}
@@ -9105,6 +9376,13 @@ snapshots:
     dependencies:
       '@jridgewell/gen-mapping': 0.3.5
       '@jridgewell/trace-mapping': 0.3.25
+
+  '@antfu/install-pkg@0.1.1':
+    dependencies:
+      execa: 5.1.1
+      find-up: 5.0.0
+
+  '@antfu/utils@0.7.8': {}
 
   '@babel/code-frame@7.10.4':
     dependencies:
@@ -10050,6 +10328,15 @@ snapshots:
       - utf-8-validate
       - zod
 
+  '@codeherence/react-native-header@0.12.2(@shopify/flash-list@1.6.4(@babel/runtime@7.24.6)(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.2.79)(bufferutil@4.0.8)(react@18.2.0))(react@18.2.0))(react-native-reanimated@3.10.1(@babel/core@7.24.6)(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.2.79)(bufferutil@4.0.8)(react@18.2.0))(react@18.2.0))(react-native-safe-area-context@4.10.1(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.2.79)(bufferutil@4.0.8)(react@18.2.0))(react@18.2.0))(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.2.79)(bufferutil@4.0.8)(react@18.2.0))(react@18.2.0)':
+    dependencies:
+      '@shopify/flash-list': 1.6.4(@babel/runtime@7.24.6)(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.2.79)(bufferutil@4.0.8)(react@18.2.0))(react@18.2.0)
+      react: 18.2.0
+      react-native: 0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.2.79)(bufferutil@4.0.8)(react@18.2.0)
+      react-native-reanimated: 3.10.1(@babel/core@7.24.6)(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.2.79)(bufferutil@4.0.8)(react@18.2.0))(react@18.2.0)
+      react-native-safe-area-context: 4.10.1(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.2.79)(bufferutil@4.0.8)(react@18.2.0))(react@18.2.0)
+      use-debounce: 9.0.3(react@18.2.0)
+
   '@coinbase/wallet-sdk@3.9.1':
     dependencies:
       bn.js: 5.2.1
@@ -10489,6 +10776,19 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
+  '@expo/fingerprint@0.8.0':
+    dependencies:
+      '@expo/spawn-async': 1.7.2
+      chalk: 4.1.2
+      debug: 4.3.4
+      find-up: 5.0.0
+      minimatch: 3.1.2
+      p-limit: 3.1.0
+      resolve-from: 5.0.0
+      semver: 7.6.2
+    transitivePeerDependencies:
+      - supports-color
+
   '@expo/image-utils@0.5.1':
     dependencies:
       '@expo/spawn-async': 1.7.2
@@ -10710,6 +11010,25 @@ snapshots:
   '@humanwhocodes/module-importer@1.0.1': {}
 
   '@humanwhocodes/object-schema@2.0.3': {}
+
+  '@iconify/json@2.2.214':
+    dependencies:
+      '@iconify/types': 2.0.0
+      pathe: 1.1.2
+
+  '@iconify/types@2.0.0': {}
+
+  '@iconify/utils@2.1.23':
+    dependencies:
+      '@antfu/install-pkg': 0.1.1
+      '@antfu/utils': 0.7.8
+      '@iconify/types': 2.0.0
+      debug: 4.3.4
+      kolorist: 1.8.0
+      local-pkg: 0.5.0
+      mlly: 1.7.0
+    transitivePeerDependencies:
+      - supports-color
 
   '@isaacs/cliui@8.0.2':
     dependencies:
@@ -12153,6 +12472,14 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
+  '@shopify/flash-list@1.6.4(@babel/runtime@7.24.6)(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.2.79)(bufferutil@4.0.8)(react@18.2.0))(react@18.2.0)':
+    dependencies:
+      '@babel/runtime': 7.24.6
+      react: 18.2.0
+      react-native: 0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.2.79)(bufferutil@4.0.8)(react@18.2.0)
+      recyclerlistview: 4.2.0(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.2.79)(bufferutil@4.0.8)(react@18.2.0))(react@18.2.0)
+      tslib: 2.4.0
+
   '@sideway/address@4.1.5':
     dependencies:
       '@hapi/hoek': 9.3.0
@@ -12267,13 +12594,21 @@ snapshots:
     dependencies:
       tslib: 2.6.2
 
+  '@tanstack/query-async-storage-persister@5.40.0':
+    dependencies:
+      '@tanstack/query-persist-client-core': 5.40.0
+
   '@tanstack/query-core@4.36.1': {}
 
-  '@tanstack/query-core@5.38.0': {}
+  '@tanstack/query-core@5.40.0': {}
 
   '@tanstack/query-persist-client-core@4.36.1':
     dependencies:
       '@tanstack/query-core': 4.36.1
+
+  '@tanstack/query-persist-client-core@5.40.0':
+    dependencies:
+      '@tanstack/query-core': 5.40.0
 
   '@tanstack/query-sync-storage-persister@4.36.1':
     dependencies:
@@ -12284,6 +12619,12 @@ snapshots:
       '@tanstack/query-persist-client-core': 4.36.1
       '@tanstack/react-query': 4.36.1(react-dom@18.2.0(react@18.2.0))(react-native@0.74.1(@types/react@18.2.52)(bufferutil@4.0.8)(react@18.2.0))(react@18.2.0)
 
+  '@tanstack/react-query-persist-client@5.40.0(@tanstack/react-query@5.40.0(react@18.2.0))(react@18.2.0)':
+    dependencies:
+      '@tanstack/query-persist-client-core': 5.40.0
+      '@tanstack/react-query': 5.40.0(react@18.2.0)
+      react: 18.2.0
+
   '@tanstack/react-query@4.36.1(react-dom@18.2.0(react@18.2.0))(react-native@0.74.1(@types/react@18.2.52)(bufferutil@4.0.8)(react@18.2.0))(react@18.2.0)':
     dependencies:
       '@tanstack/query-core': 4.36.1
@@ -12293,9 +12634,9 @@ snapshots:
       react-dom: 18.2.0(react@18.2.0)
       react-native: 0.74.1(@types/react@18.2.52)(bufferutil@4.0.8)(react@18.2.0)
 
-  '@tanstack/react-query@5.39.0(react@18.2.0)':
+  '@tanstack/react-query@5.40.0(react@18.2.0)':
     dependencies:
-      '@tanstack/query-core': 5.38.0
+      '@tanstack/query-core': 5.40.0
       react: 18.2.0
 
   '@tanstack/react-virtual@3.5.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)':
@@ -12709,13 +13050,13 @@ snapshots:
       - utf-8-validate
       - zod
 
-  '@wagmi/connectors@4.3.9(@react-native-async-storage/async-storage@1.23.1(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.2.0)))(@wagmi/core@2.9.7(@tanstack/query-core@5.38.0)(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.2.0)(typescript@5.4.5)(viem@2.10.3(bufferutil@4.0.8)(typescript@5.4.5)(zod@3.23.8))(zod@3.23.8))(bufferutil@4.0.8)(react-dom@18.2.0(react@18.2.0))(react-i18next@14.1.2(i18next@22.5.1)(react-dom@18.2.0(react@18.2.0))(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.2.0))(react@18.2.0))(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.2.0))(react@18.2.0)(rollup@4.18.0)(typescript@5.4.5)(viem@2.10.3(bufferutil@4.0.8)(typescript@5.4.5)(zod@3.23.8))(zod@3.23.8)':
+  '@wagmi/connectors@4.3.9(@react-native-async-storage/async-storage@1.23.1(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.2.0)))(@wagmi/core@2.9.7(@tanstack/query-core@5.40.0)(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.2.0)(typescript@5.4.5)(viem@2.10.3(bufferutil@4.0.8)(typescript@5.4.5)(zod@3.23.8))(zod@3.23.8))(bufferutil@4.0.8)(react-dom@18.2.0(react@18.2.0))(react-i18next@14.1.2(i18next@22.5.1)(react-dom@18.2.0(react@18.2.0))(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.2.0))(react@18.2.0))(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.2.0))(react@18.2.0)(rollup@4.18.0)(typescript@5.4.5)(viem@2.10.3(bufferutil@4.0.8)(typescript@5.4.5)(zod@3.23.8))(zod@3.23.8)':
     dependencies:
       '@coinbase/wallet-sdk': 3.9.1
       '@metamask/sdk': 0.20.3(bufferutil@4.0.8)(react-dom@18.2.0(react@18.2.0))(react-i18next@14.1.2(i18next@22.5.1)(react-dom@18.2.0(react@18.2.0))(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.2.0))(react@18.2.0))(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.2.0))(react@18.2.0)(rollup@4.18.0)
       '@safe-global/safe-apps-provider': 0.18.1(bufferutil@4.0.8)(typescript@5.4.5)(zod@3.23.8)
       '@safe-global/safe-apps-sdk': 8.1.0(bufferutil@4.0.8)(typescript@5.4.5)(zod@3.23.8)
-      '@wagmi/core': 2.9.7(@tanstack/query-core@5.38.0)(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.2.0)(typescript@5.4.5)(viem@2.10.3(bufferutil@4.0.8)(typescript@5.4.5)(zod@3.23.8))(zod@3.23.8)
+      '@wagmi/core': 2.9.7(@tanstack/query-core@5.40.0)(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.2.0)(typescript@5.4.5)(viem@2.10.3(bufferutil@4.0.8)(typescript@5.4.5)(zod@3.23.8))(zod@3.23.8)
       '@walletconnect/ethereum-provider': 2.13.0(@react-native-async-storage/async-storage@1.23.1(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.2.0)))(bufferutil@4.0.8)(react@18.2.0)
       '@walletconnect/modal': 2.6.2(react@18.2.0)
       viem: 2.10.3(bufferutil@4.0.8)(typescript@5.4.5)(zod@3.23.8)
@@ -12747,13 +13088,13 @@ snapshots:
       - utf-8-validate
       - zod
 
-  '@wagmi/connectors@5.0.6(@react-native-async-storage/async-storage@1.23.1(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.2.0)))(@wagmi/core@2.9.7(@tanstack/query-core@5.38.0)(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.2.0)(typescript@5.4.5)(viem@2.10.3(bufferutil@4.0.8)(typescript@5.4.5)(zod@3.23.8))(zod@3.23.8))(bufferutil@4.0.8)(react-dom@18.2.0(react@18.2.0))(react-i18next@14.1.2(i18next@22.5.1)(react-dom@18.2.0(react@18.2.0))(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.2.0))(react@18.2.0))(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.2.0))(react@18.2.0)(rollup@4.18.0)(typescript@5.4.5)(viem@2.10.3(bufferutil@4.0.8)(typescript@5.4.5)(zod@3.23.8))(zod@3.23.8)':
+  '@wagmi/connectors@5.0.6(@react-native-async-storage/async-storage@1.23.1(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.2.0)))(@wagmi/core@2.9.7(@tanstack/query-core@5.40.0)(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.2.0)(typescript@5.4.5)(viem@2.10.3(bufferutil@4.0.8)(typescript@5.4.5)(zod@3.23.8))(zod@3.23.8))(bufferutil@4.0.8)(react-dom@18.2.0(react@18.2.0))(react-i18next@14.1.2(i18next@22.5.1)(react-dom@18.2.0(react@18.2.0))(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.2.0))(react@18.2.0))(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.2.0))(react@18.2.0)(rollup@4.18.0)(typescript@5.4.5)(viem@2.10.3(bufferutil@4.0.8)(typescript@5.4.5)(zod@3.23.8))(zod@3.23.8)':
     dependencies:
       '@coinbase/wallet-sdk': 4.0.2
       '@metamask/sdk': 0.20.3(bufferutil@4.0.8)(react-dom@18.2.0(react@18.2.0))(react-i18next@14.1.2(i18next@22.5.1)(react-dom@18.2.0(react@18.2.0))(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.2.0))(react@18.2.0))(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.2.0))(react@18.2.0)(rollup@4.18.0)
       '@safe-global/safe-apps-provider': 0.18.1(bufferutil@4.0.8)(typescript@5.4.5)(zod@3.23.8)
       '@safe-global/safe-apps-sdk': 8.1.0(bufferutil@4.0.8)(typescript@5.4.5)(zod@3.23.8)
-      '@wagmi/core': 2.9.7(@tanstack/query-core@5.38.0)(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.2.0)(typescript@5.4.5)(viem@2.10.3(bufferutil@4.0.8)(typescript@5.4.5)(zod@3.23.8))(zod@3.23.8)
+      '@wagmi/core': 2.9.7(@tanstack/query-core@5.40.0)(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.2.0)(typescript@5.4.5)(viem@2.10.3(bufferutil@4.0.8)(typescript@5.4.5)(zod@3.23.8))(zod@3.23.8)
       '@walletconnect/ethereum-provider': 2.13.0(@react-native-async-storage/async-storage@1.23.1(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.2.0)))(bufferutil@4.0.8)(react@18.2.0)
       '@walletconnect/modal': 2.6.2(react@18.2.0)
       cbw-sdk: '@coinbase/wallet-sdk@3.9.3'
@@ -12819,14 +13160,14 @@ snapshots:
       - utf-8-validate
       - zod
 
-  '@wagmi/core@2.10.4(@tanstack/query-core@5.38.0)(@types/react@18.2.52)(bufferutil@4.0.8)(react@18.2.0)(typescript@5.3.3)(viem@1.21.4(bufferutil@4.0.8)(typescript@5.3.3)(zod@3.23.8))(zod@3.23.8)':
+  '@wagmi/core@2.10.4(@tanstack/query-core@5.40.0)(@types/react@18.2.52)(bufferutil@4.0.8)(react@18.2.0)(typescript@5.3.3)(viem@1.21.4(bufferutil@4.0.8)(typescript@5.3.3)(zod@3.23.8))(zod@3.23.8)':
     dependencies:
       eventemitter3: 5.0.1
       mipd: 0.0.5(bufferutil@4.0.8)(typescript@5.3.3)(zod@3.23.8)
       viem: 1.21.4(bufferutil@4.0.8)(typescript@5.3.3)(zod@3.23.8)
       zustand: 4.4.1(@types/react@18.2.52)(react@18.2.0)
     optionalDependencies:
-      '@tanstack/query-core': 5.38.0
+      '@tanstack/query-core': 5.40.0
       typescript: 5.3.3
     transitivePeerDependencies:
       - '@types/react'
@@ -12836,14 +13177,14 @@ snapshots:
       - utf-8-validate
       - zod
 
-  '@wagmi/core@2.9.7(@tanstack/query-core@5.38.0)(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.2.0)(typescript@5.4.5)(viem@2.10.3(bufferutil@4.0.8)(typescript@5.4.5)(zod@3.23.8))(zod@3.23.8)':
+  '@wagmi/core@2.9.7(@tanstack/query-core@5.40.0)(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.2.0)(typescript@5.4.5)(viem@2.10.3(bufferutil@4.0.8)(typescript@5.4.5)(zod@3.23.8))(zod@3.23.8)':
     dependencies:
       eventemitter3: 5.0.1
       mipd: 0.0.5(bufferutil@4.0.8)(typescript@5.4.5)(zod@3.23.8)
       viem: 2.10.3(bufferutil@4.0.8)(typescript@5.4.5)(zod@3.23.8)
       zustand: 4.4.1(@types/react@18.3.3)(react@18.2.0)
     optionalDependencies:
-      '@tanstack/query-core': 5.38.0
+      '@tanstack/query-core': 5.40.0
       typescript: 5.4.5
     transitivePeerDependencies:
       - '@types/react'
@@ -13730,9 +14071,9 @@ snapshots:
       lit: 3.1.0
       qrcode: 1.5.3
 
-  '@web3modal/wagmi@3.5.7(@wagmi/core@2.10.4(@tanstack/query-core@5.38.0)(@types/react@18.2.52)(bufferutil@4.0.8)(react@18.2.0)(typescript@5.3.3)(viem@1.21.4(bufferutil@4.0.8)(typescript@5.3.3)(zod@3.23.8))(zod@3.23.8))(typescript@5.3.3)(viem@1.21.4(bufferutil@4.0.8)(typescript@5.3.3)(zod@3.23.8))':
+  '@web3modal/wagmi@3.5.7(@wagmi/core@2.10.4(@tanstack/query-core@5.40.0)(@types/react@18.2.52)(bufferutil@4.0.8)(react@18.2.0)(typescript@5.3.3)(viem@1.21.4(bufferutil@4.0.8)(typescript@5.3.3)(zod@3.23.8))(zod@3.23.8))(typescript@5.3.3)(viem@1.21.4(bufferutil@4.0.8)(typescript@5.3.3)(zod@3.23.8))':
     dependencies:
-      '@wagmi/core': 2.10.4(@tanstack/query-core@5.38.0)(@types/react@18.2.52)(bufferutil@4.0.8)(react@18.2.0)(typescript@5.3.3)(viem@1.21.4(bufferutil@4.0.8)(typescript@5.3.3)(zod@3.23.8))(zod@3.23.8)
+      '@wagmi/core': 2.10.4(@tanstack/query-core@5.40.0)(@types/react@18.2.52)(bufferutil@4.0.8)(react@18.2.0)(typescript@5.3.3)(viem@1.21.4(bufferutil@4.0.8)(typescript@5.3.3)(zod@3.23.8))(zod@3.23.8)
       '@web3modal/polyfills': 3.5.7
       '@web3modal/scaffold': 3.5.7(react@18.2.0)
       '@web3modal/scaffold-react': 3.5.7(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
@@ -13747,10 +14088,10 @@ snapshots:
     transitivePeerDependencies:
       - typescript
 
-  ? '@web3modal/wagmi@4.2.2(@react-native-async-storage/async-storage@1.23.1(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.2.0)))(@wagmi/connectors@5.0.6(@react-native-async-storage/async-storage@1.23.1(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.2.0)))(@wagmi/core@2.9.7(@tanstack/query-core@5.38.0)(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.2.0)(typescript@5.4.5)(viem@2.10.3(bufferutil@4.0.8)(typescript@5.4.5)(zod@3.23.8))(zod@3.23.8))(bufferutil@4.0.8)(react-dom@18.2.0(react@18.2.0))(react-i18next@14.1.2(i18next@22.5.1)(react-dom@18.2.0(react@18.2.0))(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.2.0))(react@18.2.0))(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.2.0))(react@18.2.0)(rollup@4.18.0)(typescript@5.4.5)(viem@2.10.3(bufferutil@4.0.8)(typescript@5.4.5)(zod@3.23.8))(zod@3.23.8))(@wagmi/core@2.9.7(@tanstack/query-core@5.38.0)(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.2.0)(typescript@5.4.5)(viem@2.10.3(bufferutil@4.0.8)(typescript@5.4.5)(zod@3.23.8))(zod@3.23.8))(bufferutil@4.0.8)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(viem@2.10.3(bufferutil@4.0.8)(typescript@5.4.5)(zod@3.23.8))(vue@3.4.27(typescript@5.4.5))'
+  ? '@web3modal/wagmi@4.2.2(@react-native-async-storage/async-storage@1.23.1(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.2.0)))(@wagmi/connectors@5.0.6(@react-native-async-storage/async-storage@1.23.1(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.2.0)))(@wagmi/core@2.9.7(@tanstack/query-core@5.40.0)(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.2.0)(typescript@5.4.5)(viem@2.10.3(bufferutil@4.0.8)(typescript@5.4.5)(zod@3.23.8))(zod@3.23.8))(bufferutil@4.0.8)(react-dom@18.2.0(react@18.2.0))(react-i18next@14.1.2(i18next@22.5.1)(react-dom@18.2.0(react@18.2.0))(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.2.0))(react@18.2.0))(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.2.0))(react@18.2.0)(rollup@4.18.0)(typescript@5.4.5)(viem@2.10.3(bufferutil@4.0.8)(typescript@5.4.5)(zod@3.23.8))(zod@3.23.8))(@wagmi/core@2.9.7(@tanstack/query-core@5.40.0)(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.2.0)(typescript@5.4.5)(viem@2.10.3(bufferutil@4.0.8)(typescript@5.4.5)(zod@3.23.8))(zod@3.23.8))(bufferutil@4.0.8)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(viem@2.10.3(bufferutil@4.0.8)(typescript@5.4.5)(zod@3.23.8))(vue@3.4.27(typescript@5.4.5))'
   : dependencies:
-      '@wagmi/connectors': 5.0.6(@react-native-async-storage/async-storage@1.23.1(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.2.0)))(@wagmi/core@2.9.7(@tanstack/query-core@5.38.0)(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.2.0)(typescript@5.4.5)(viem@2.10.3(bufferutil@4.0.8)(typescript@5.4.5)(zod@3.23.8))(zod@3.23.8))(bufferutil@4.0.8)(react-dom@18.2.0(react@18.2.0))(react-i18next@14.1.2(i18next@22.5.1)(react-dom@18.2.0(react@18.2.0))(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.2.0))(react@18.2.0))(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.2.0))(react@18.2.0)(rollup@4.18.0)(typescript@5.4.5)(viem@2.10.3(bufferutil@4.0.8)(typescript@5.4.5)(zod@3.23.8))(zod@3.23.8)
-      '@wagmi/core': 2.9.7(@tanstack/query-core@5.38.0)(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.2.0)(typescript@5.4.5)(viem@2.10.3(bufferutil@4.0.8)(typescript@5.4.5)(zod@3.23.8))(zod@3.23.8)
+      '@wagmi/connectors': 5.0.6(@react-native-async-storage/async-storage@1.23.1(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.2.0)))(@wagmi/core@2.9.7(@tanstack/query-core@5.40.0)(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.2.0)(typescript@5.4.5)(viem@2.10.3(bufferutil@4.0.8)(typescript@5.4.5)(zod@3.23.8))(zod@3.23.8))(bufferutil@4.0.8)(react-dom@18.2.0(react@18.2.0))(react-i18next@14.1.2(i18next@22.5.1)(react-dom@18.2.0(react@18.2.0))(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.2.0))(react@18.2.0))(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.2.0))(react@18.2.0)(rollup@4.18.0)(typescript@5.4.5)(viem@2.10.3(bufferutil@4.0.8)(typescript@5.4.5)(zod@3.23.8))(zod@3.23.8)
+      '@wagmi/core': 2.9.7(@tanstack/query-core@5.40.0)(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.2.0)(typescript@5.4.5)(viem@2.10.3(bufferutil@4.0.8)(typescript@5.4.5)(zod@3.23.8))(zod@3.23.8)
       '@walletconnect/ethereum-provider': 2.13.0(@react-native-async-storage/async-storage@1.23.1(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.2.0)))(bufferutil@4.0.8)(react@18.2.0)
       '@web3modal/polyfills': 4.2.2
       '@web3modal/scaffold': 4.2.2(@react-native-async-storage/async-storage@1.23.1(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.2.0)))(react@18.2.0)
@@ -13926,6 +14267,8 @@ snapshots:
   appdirsjs@1.2.7: {}
 
   application-config-path@0.1.1: {}
+
+  arg@4.1.0: {}
 
   arg@5.0.2: {}
 
@@ -14208,6 +14551,8 @@ snapshots:
   bn.js@4.12.0: {}
 
   bn.js@5.2.1: {}
+
+  boolbase@1.0.0: {}
 
   bottleneck@2.19.5: {}
 
@@ -14759,6 +15104,8 @@ snapshots:
       randombytes: 2.1.0
       randomfill: 1.0.4
 
+  crypto-es@2.1.0: {}
+
   crypto-js@4.2.0: {}
 
   crypto-random-string@1.0.0: {}
@@ -14772,6 +15119,21 @@ snapshots:
   css-in-js-utils@3.1.0:
     dependencies:
       hyphenate-style-name: 1.0.5
+
+  css-select@5.1.0:
+    dependencies:
+      boolbase: 1.0.0
+      css-what: 6.1.0
+      domhandler: 5.0.3
+      domutils: 3.1.0
+      nth-check: 2.1.1
+
+  css-tree@1.1.3:
+    dependencies:
+      mdn-data: 2.0.14
+      source-map: 0.6.1
+
+  css-what@6.1.0: {}
 
   cssesc@3.0.0: {}
 
@@ -14934,9 +15296,27 @@ snapshots:
     dependencies:
       esutils: 2.0.3
 
+  dom-serializer@2.0.0:
+    dependencies:
+      domelementtype: 2.3.0
+      domhandler: 5.0.3
+      entities: 4.5.0
+
+  domelementtype@2.3.0: {}
+
   domexception@4.0.0:
     dependencies:
       webidl-conversions: 7.0.0
+
+  domhandler@5.0.3:
+    dependencies:
+      domelementtype: 2.3.0
+
+  domutils@3.1.0:
+    dependencies:
+      dom-serializer: 2.0.0
+      domelementtype: 2.3.0
+      domhandler: 5.0.3
 
   dot-prop@5.3.0:
     dependencies:
@@ -15733,6 +16113,8 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
+  expo-eas-client@0.12.0: {}
+
   expo-file-system@17.0.1(expo@51.0.8(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(bufferutil@4.0.8)):
     dependencies:
       expo: 51.0.8(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(bufferutil@4.0.8)
@@ -15741,6 +16123,22 @@ snapshots:
     dependencies:
       expo: 51.0.8(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(bufferutil@4.0.8)
       fontfaceobserver: 2.3.0
+
+  expo-image-loader@4.7.0(expo@51.0.8(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(bufferutil@4.0.8)):
+    dependencies:
+      expo: 51.0.8(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(bufferutil@4.0.8)
+
+  expo-image-manipulator@12.0.5(expo@51.0.8(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(bufferutil@4.0.8)):
+    dependencies:
+      expo: 51.0.8(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(bufferutil@4.0.8)
+      expo-image-loader: 4.7.0(expo@51.0.8(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(bufferutil@4.0.8))
+
+  expo-image-picker@15.0.5(expo@51.0.8(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(bufferutil@4.0.8)):
+    dependencies:
+      expo: 51.0.8(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(bufferutil@4.0.8)
+      expo-image-loader: 4.7.0(expo@51.0.8(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(bufferutil@4.0.8))
+
+  expo-json-utils@0.13.1: {}
 
   expo-keep-awake@13.0.2(expo@51.0.8(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(bufferutil@4.0.8)):
     dependencies:
@@ -15756,6 +16154,14 @@ snapshots:
       invariant: 2.2.4
     transitivePeerDependencies:
       - expo
+      - supports-color
+
+  expo-manifests@0.14.3(expo@51.0.8(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(bufferutil@4.0.8)):
+    dependencies:
+      '@expo/config': 9.0.2
+      expo: 51.0.8(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(bufferutil@4.0.8)
+      expo-json-utils: 0.13.1
+    transitivePeerDependencies:
       - supports-color
 
   expo-modules-autolinking@1.11.1:
@@ -15812,12 +16218,40 @@ snapshots:
 
   expo-status-bar@1.12.1: {}
 
+  expo-structured-headers@3.8.0: {}
+
   expo-system-ui@3.0.4(expo@51.0.8(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(bufferutil@4.0.8)):
     dependencies:
       '@react-native/normalize-colors': 0.74.83
       debug: 4.3.4
       expo: 51.0.8(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(bufferutil@4.0.8)
     transitivePeerDependencies:
+      - supports-color
+
+  expo-updates-interface@0.16.2(expo@51.0.8(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(bufferutil@4.0.8)):
+    dependencies:
+      expo: 51.0.8(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(bufferutil@4.0.8)
+
+  expo-updates@0.25.15(expo@51.0.8(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(bufferutil@4.0.8)):
+    dependencies:
+      '@expo/code-signing-certificates': 0.0.5
+      '@expo/config': 9.0.2
+      '@expo/config-plugins': 8.0.4
+      '@expo/fingerprint': 0.8.0
+      '@expo/spawn-async': 1.7.2
+      arg: 4.1.0
+      chalk: 4.1.2
+      expo: 51.0.8(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(bufferutil@4.0.8)
+      expo-eas-client: 0.12.0
+      expo-manifests: 0.14.3(expo@51.0.8(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(bufferutil@4.0.8))
+      expo-structured-headers: 3.8.0
+      expo-updates-interface: 0.16.2(expo@51.0.8(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(bufferutil@4.0.8))
+      fast-glob: 3.3.2
+      fbemitter: 3.0.0
+      ignore: 5.3.1
+      resolve-from: 5.0.0
+    transitivePeerDependencies:
+      - encoding
       - supports-color
 
   expo-web-browser@13.0.3(expo@51.0.8(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(bufferutil@4.0.8)):
@@ -16339,6 +16773,11 @@ snapshots:
     dependencies:
       lru-cache: 10.2.2
 
+  html-dom-parser@5.0.8:
+    dependencies:
+      domhandler: 5.0.3
+      htmlparser2: 9.1.0
+
   html-encoding-sniffer@3.0.0:
     dependencies:
       whatwg-encoding: 2.0.0
@@ -16348,6 +16787,23 @@ snapshots:
   html-parse-stringify@3.0.1:
     dependencies:
       void-elements: 3.1.0
+
+  html-react-parser@5.1.10(@types/react@18.2.79)(react@18.2.0):
+    dependencies:
+      domhandler: 5.0.3
+      html-dom-parser: 5.0.8
+      react: 18.2.0
+      react-property: 2.0.2
+      style-to-js: 1.1.12
+    optionalDependencies:
+      '@types/react': 18.2.79
+
+  htmlparser2@9.1.0:
+    dependencies:
+      domelementtype: 2.3.0
+      domhandler: 5.0.3
+      domutils: 3.1.0
+      entities: 4.5.0
 
   http-errors@2.0.0:
     dependencies:
@@ -16460,6 +16916,8 @@ snapshots:
   inherits@2.0.4: {}
 
   ini@1.3.8: {}
+
+  inline-style-parser@0.2.3: {}
 
   inline-style-prefixer@6.0.4:
     dependencies:
@@ -17318,6 +17776,8 @@ snapshots:
 
   kleur@3.0.3: {}
 
+  kolorist@1.8.0: {}
+
   ky@1.2.4: {}
 
   language-subtag-registry@0.3.23: {}
@@ -17447,6 +17907,11 @@ snapshots:
 
   load-tsconfig@0.2.5: {}
 
+  local-pkg@0.5.0:
+    dependencies:
+      mlly: 1.7.0
+      pkg-types: 1.1.1
+
   locate-path@2.0.0:
     dependencies:
       p-locate: 2.0.0
@@ -17575,6 +18040,8 @@ snapshots:
 
   md5hex@1.0.0: {}
 
+  mdn-data@2.0.14: {}
+
   memoize-one@5.2.1: {}
 
   memoize-one@6.0.0: {}
@@ -17654,6 +18121,50 @@ snapshots:
   metro-minify-terser@0.80.9:
     dependencies:
       terser: 5.31.0
+
+  metro-react-native-babel-preset@0.77.0(@babel/core@7.24.6):
+    dependencies:
+      '@babel/core': 7.24.6
+      '@babel/plugin-proposal-async-generator-functions': 7.20.7(@babel/core@7.24.6)
+      '@babel/plugin-proposal-class-properties': 7.18.6(@babel/core@7.24.6)
+      '@babel/plugin-proposal-export-default-from': 7.24.6(@babel/core@7.24.6)
+      '@babel/plugin-proposal-nullish-coalescing-operator': 7.18.6(@babel/core@7.24.6)
+      '@babel/plugin-proposal-numeric-separator': 7.18.6(@babel/core@7.24.6)
+      '@babel/plugin-proposal-object-rest-spread': 7.20.7(@babel/core@7.24.6)
+      '@babel/plugin-proposal-optional-catch-binding': 7.18.6(@babel/core@7.24.6)
+      '@babel/plugin-proposal-optional-chaining': 7.21.0(@babel/core@7.24.6)
+      '@babel/plugin-syntax-dynamic-import': 7.8.3(@babel/core@7.24.6)
+      '@babel/plugin-syntax-export-default-from': 7.24.6(@babel/core@7.24.6)
+      '@babel/plugin-syntax-flow': 7.24.6(@babel/core@7.24.6)
+      '@babel/plugin-syntax-nullish-coalescing-operator': 7.8.3(@babel/core@7.24.6)
+      '@babel/plugin-syntax-optional-chaining': 7.8.3(@babel/core@7.24.6)
+      '@babel/plugin-transform-arrow-functions': 7.24.6(@babel/core@7.24.6)
+      '@babel/plugin-transform-async-to-generator': 7.24.6(@babel/core@7.24.6)
+      '@babel/plugin-transform-block-scoping': 7.24.6(@babel/core@7.24.6)
+      '@babel/plugin-transform-classes': 7.24.6(@babel/core@7.24.6)
+      '@babel/plugin-transform-computed-properties': 7.24.6(@babel/core@7.24.6)
+      '@babel/plugin-transform-destructuring': 7.24.6(@babel/core@7.24.6)
+      '@babel/plugin-transform-flow-strip-types': 7.24.6(@babel/core@7.24.6)
+      '@babel/plugin-transform-function-name': 7.24.6(@babel/core@7.24.6)
+      '@babel/plugin-transform-literals': 7.24.6(@babel/core@7.24.6)
+      '@babel/plugin-transform-modules-commonjs': 7.24.6(@babel/core@7.24.6)
+      '@babel/plugin-transform-named-capturing-groups-regex': 7.24.6(@babel/core@7.24.6)
+      '@babel/plugin-transform-parameters': 7.24.6(@babel/core@7.24.6)
+      '@babel/plugin-transform-react-display-name': 7.24.6(@babel/core@7.24.6)
+      '@babel/plugin-transform-react-jsx': 7.24.6(@babel/core@7.24.6)
+      '@babel/plugin-transform-react-jsx-self': 7.24.6(@babel/core@7.24.6)
+      '@babel/plugin-transform-react-jsx-source': 7.24.6(@babel/core@7.24.6)
+      '@babel/plugin-transform-runtime': 7.24.6(@babel/core@7.24.6)
+      '@babel/plugin-transform-shorthand-properties': 7.24.6(@babel/core@7.24.6)
+      '@babel/plugin-transform-spread': 7.24.6(@babel/core@7.24.6)
+      '@babel/plugin-transform-sticky-regex': 7.24.6(@babel/core@7.24.6)
+      '@babel/plugin-transform-typescript': 7.24.6(@babel/core@7.24.6)
+      '@babel/plugin-transform-unicode-regex': 7.24.6(@babel/core@7.24.6)
+      '@babel/template': 7.24.6
+      babel-plugin-transform-flow-enums: 0.0.2(@babel/core@7.24.6)
+      react-refresh: 0.4.3
+    transitivePeerDependencies:
+      - supports-color
 
   metro-resolver@0.80.9: {}
 
@@ -18031,6 +18542,10 @@ snapshots:
       path-key: 4.0.0
 
   npm@10.8.0: {}
+
+  nth-check@2.1.1:
+    dependencies:
+      boolbase: 1.0.0
 
   nullthrows@1.1.1: {}
 
@@ -18619,6 +19134,10 @@ snapshots:
     dependencies:
       react: 18.2.0
 
+  react-hook-form@7.51.5(react@18.2.0):
+    dependencies:
+      react: 18.2.0
+
   react-i18next@14.1.2(i18next@22.5.1)(react-dom@18.2.0(react@18.2.0))(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.2.0))(react@18.2.0):
     dependencies:
       '@babel/runtime': 7.24.6
@@ -18638,6 +19157,11 @@ snapshots:
   react-is@17.0.2: {}
 
   react-is@18.3.1: {}
+
+  react-native-collapsible@1.6.1(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.2.79)(bufferutil@4.0.8)(react@18.2.0))(react@18.2.0):
+    dependencies:
+      react: 18.2.0
+      react-native: 0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.2.79)(bufferutil@4.0.8)(react@18.2.0)
 
   react-native-fs@2.20.0(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.2.79)(bufferutil@4.0.8)(react@18.2.0)):
     dependencies:
@@ -18666,6 +19190,20 @@ snapshots:
       react: 18.2.0
       react-fast-compare: 3.2.2
       shallowequal: 1.1.0
+
+  react-native-iconify@1.0.2(@babel/core@7.24.6)(@types/react@18.2.79)(react-native-svg@15.2.0(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.2.79)(bufferutil@4.0.8)(react@18.2.0))(react@18.2.0))(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.2.79)(bufferutil@4.0.8)(react@18.2.0))(react@18.2.0):
+    dependencies:
+      '@iconify/json': 2.2.214
+      '@iconify/utils': 2.1.23
+      html-react-parser: 5.1.10(@types/react@18.2.79)(react@18.2.0)
+      metro-react-native-babel-preset: 0.77.0(@babel/core@7.24.6)
+      react: 18.2.0
+      react-native: 0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.2.79)(bufferutil@4.0.8)(react@18.2.0)
+      react-native-svg: 15.2.0(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.2.79)(bufferutil@4.0.8)(react@18.2.0))(react@18.2.0)
+    transitivePeerDependencies:
+      - '@babel/core'
+      - '@types/react'
+      - supports-color
 
   react-native-iphone-x-helper@1.3.1(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.2.79)(bufferutil@4.0.8)(react@18.2.0)):
     dependencies:
@@ -18717,6 +19255,18 @@ snapshots:
       react-freeze: 1.0.4(react@18.2.0)
       react-native: 0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.2.79)(bufferutil@4.0.8)(react@18.2.0)
       warn-once: 0.1.1
+
+  react-native-svg@15.2.0(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.2.79)(bufferutil@4.0.8)(react@18.2.0))(react@18.2.0):
+    dependencies:
+      css-select: 5.1.0
+      css-tree: 1.1.3
+      react: 18.2.0
+      react-native: 0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.2.79)(bufferutil@4.0.8)(react@18.2.0)
+
+  react-native-toast-message@2.2.0(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.2.79)(bufferutil@4.0.8)(react@18.2.0))(react@18.2.0):
+    dependencies:
+      react: 18.2.0
+      react-native: 0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.2.79)(bufferutil@4.0.8)(react@18.2.0)
 
   react-native-url-polyfill@2.0.0(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.2.79)(bufferutil@4.0.8)(react@18.2.0)):
     dependencies:
@@ -18896,7 +19446,11 @@ snapshots:
       - utf-8-validate
     optional: true
 
+  react-property@2.0.2: {}
+
   react-refresh@0.14.2: {}
+
+  react-refresh@0.4.3: {}
 
   react-shallow-renderer@16.15.0(react@18.2.0):
     dependencies:
@@ -18990,6 +19544,14 @@ snapshots:
       esprima: 4.0.1
       source-map: 0.6.1
       tslib: 2.6.2
+
+  recyclerlistview@4.2.0(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.2.79)(bufferutil@4.0.8)(react@18.2.0))(react@18.2.0):
+    dependencies:
+      lodash.debounce: 4.0.8
+      prop-types: 15.8.1
+      react: 18.2.0
+      react-native: 0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.2.79)(bufferutil@4.0.8)(react@18.2.0)
+      ts-object-utils: 0.0.5
 
   reflect.getprototypeof@1.0.6:
     dependencies:
@@ -19628,6 +20190,14 @@ snapshots:
 
   structured-headers@0.4.1: {}
 
+  style-to-js@1.1.12:
+    dependencies:
+      style-to-object: 1.0.6
+
+  style-to-object@1.0.6:
+    dependencies:
+      inline-style-parser: 0.2.3
+
   styled-jsx@5.1.1(react@18.2.0):
     dependencies:
       client-only: 0.0.1
@@ -19882,6 +20452,8 @@ snapshots:
 
   ts-interface-checker@0.1.13: {}
 
+  ts-object-utils@0.0.5: {}
+
   tsconfig-paths@3.15.0:
     dependencies:
       '@types/json5': 0.0.29
@@ -19896,6 +20468,8 @@ snapshots:
       strip-bom: 3.0.0
 
   tslib@1.14.1: {}
+
+  tslib@2.4.0: {}
 
   tslib@2.6.2: {}
 
@@ -19950,6 +20524,13 @@ snapshots:
       turbo-linux-arm64: 1.13.3
       turbo-windows-64: 1.13.3
       turbo-windows-arm64: 1.13.3
+
+  twrnc@4.2.0(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.2.79)(bufferutil@4.0.8)(react@18.2.0)):
+    dependencies:
+      react-native: 0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.2.79)(bufferutil@4.0.8)(react@18.2.0)
+      tailwindcss: 3.4.3
+    transitivePeerDependencies:
+      - ts-node
 
   type-check@0.4.0:
     dependencies:
@@ -20160,6 +20741,10 @@ snapshots:
       punycode: 1.4.1
       qs: 6.12.1
 
+  use-debounce@9.0.3(react@18.2.0):
+    dependencies:
+      react: 18.2.0
+
   use-latest-callback@0.1.9(react@18.2.0):
     dependencies:
       react: 18.2.0
@@ -20352,11 +20937,11 @@ snapshots:
       - utf-8-validate
       - zod
 
-  wagmi@2.8.7(@react-native-async-storage/async-storage@1.23.1(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.2.0)))(@tanstack/query-core@5.38.0)(@tanstack/react-query@5.39.0(react@18.2.0))(@types/react@18.3.3)(bufferutil@4.0.8)(react-dom@18.2.0(react@18.2.0))(react-i18next@14.1.2(i18next@22.5.1)(react-dom@18.2.0(react@18.2.0))(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.2.0))(react@18.2.0))(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.2.0))(react@18.2.0)(rollup@4.18.0)(typescript@5.4.5)(viem@2.10.3(bufferutil@4.0.8)(typescript@5.4.5)(zod@3.23.8))(zod@3.23.8):
+  wagmi@2.8.7(@react-native-async-storage/async-storage@1.23.1(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.2.0)))(@tanstack/query-core@5.40.0)(@tanstack/react-query@5.40.0(react@18.2.0))(@types/react@18.3.3)(bufferutil@4.0.8)(react-dom@18.2.0(react@18.2.0))(react-i18next@14.1.2(i18next@22.5.1)(react-dom@18.2.0(react@18.2.0))(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.2.0))(react@18.2.0))(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.2.0))(react@18.2.0)(rollup@4.18.0)(typescript@5.4.5)(viem@2.10.3(bufferutil@4.0.8)(typescript@5.4.5)(zod@3.23.8))(zod@3.23.8):
     dependencies:
-      '@tanstack/react-query': 5.39.0(react@18.2.0)
-      '@wagmi/connectors': 4.3.9(@react-native-async-storage/async-storage@1.23.1(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.2.0)))(@wagmi/core@2.9.7(@tanstack/query-core@5.38.0)(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.2.0)(typescript@5.4.5)(viem@2.10.3(bufferutil@4.0.8)(typescript@5.4.5)(zod@3.23.8))(zod@3.23.8))(bufferutil@4.0.8)(react-dom@18.2.0(react@18.2.0))(react-i18next@14.1.2(i18next@22.5.1)(react-dom@18.2.0(react@18.2.0))(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.2.0))(react@18.2.0))(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.2.0))(react@18.2.0)(rollup@4.18.0)(typescript@5.4.5)(viem@2.10.3(bufferutil@4.0.8)(typescript@5.4.5)(zod@3.23.8))(zod@3.23.8)
-      '@wagmi/core': 2.9.7(@tanstack/query-core@5.38.0)(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.2.0)(typescript@5.4.5)(viem@2.10.3(bufferutil@4.0.8)(typescript@5.4.5)(zod@3.23.8))(zod@3.23.8)
+      '@tanstack/react-query': 5.40.0(react@18.2.0)
+      '@wagmi/connectors': 4.3.9(@react-native-async-storage/async-storage@1.23.1(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.2.0)))(@wagmi/core@2.9.7(@tanstack/query-core@5.40.0)(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.2.0)(typescript@5.4.5)(viem@2.10.3(bufferutil@4.0.8)(typescript@5.4.5)(zod@3.23.8))(zod@3.23.8))(bufferutil@4.0.8)(react-dom@18.2.0(react@18.2.0))(react-i18next@14.1.2(i18next@22.5.1)(react-dom@18.2.0(react@18.2.0))(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.2.0))(react@18.2.0))(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.2.0))(react@18.2.0)(rollup@4.18.0)(typescript@5.4.5)(viem@2.10.3(bufferutil@4.0.8)(typescript@5.4.5)(zod@3.23.8))(zod@3.23.8)
+      '@wagmi/core': 2.9.7(@tanstack/query-core@5.40.0)(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.2.0)(typescript@5.4.5)(viem@2.10.3(bufferutil@4.0.8)(typescript@5.4.5)(zod@3.23.8))(zod@3.23.8)
       react: 18.2.0
       use-sync-external-store: 1.2.0(react@18.2.0)
       viem: 2.10.3(bufferutil@4.0.8)(typescript@5.4.5)(zod@3.23.8)

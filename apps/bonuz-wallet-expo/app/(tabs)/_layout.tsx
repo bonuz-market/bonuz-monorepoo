@@ -7,7 +7,9 @@ import Colors from '@/constants/Colors';
 export default function TabLayout() {
   return (
     <Tabs
-      tabBar={(properties) => <TabBar {...properties} />}
+      tabBar={(properties) => {
+        return <TabBar {...properties} />;
+      }}
       screenOptions={{
         tabBarActiveTintColor: Colors['light'].tint,
         // Disable the static render of the header on web
@@ -22,7 +24,7 @@ export default function TabLayout() {
         // }}
       />
       <Tabs.Screen
-        name="profile"
+        name="(profile)"
 
         // options={{
         //   title: 'Tab Two',
