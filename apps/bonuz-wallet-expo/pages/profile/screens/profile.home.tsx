@@ -183,7 +183,8 @@ const HeaderComponent = ({
         headerRight={
           <Pressable
             onPress={() => {}}
-            style={tw`w-13 h-13 rounded-full justify-center items-center bg-[#E9A08F]`}>
+            style={tw`w-13 h-13 rounded-full justify-center items-center bg-[#E9A08F]`}
+            hitSlop={30}>
             <Image style={tw`w-7 h-7`} source={require('@/assets/images/profile/share.png')} />
           </Pressable>
         }
@@ -192,7 +193,8 @@ const HeaderComponent = ({
           <View style={tw`flex flex-row gap-2 items-center`}>
             <Pressable
               onPress={() => {}}
-              style={tw`w-13 h-13 rounded-full justify-center items-center bg-[#E9A08F]`}>
+              style={tw`w-13 h-13 rounded-full justify-center items-center bg-[#E9A08F]`}
+              hitSlop={30}>
               <Image style={tw`w-7 h-7`} source={require('@/assets/images/profile/settings.png')} />
             </Pressable>
             <FadingView opacity={showNavBar}>
@@ -235,7 +237,8 @@ const LargeHeaderComponent: React.FC<
 
           <Pressable
             style={tw`w-8 h-8 rounded-full justify-center items-center bg-[#684FCD]`}
-            onPress={onEditPress}>
+            onPress={onEditPress}
+            hitSlop={30}>
             <Image style={tw`w-5 h-5`} source={require('@/assets/images/profile/edit.png')} />
           </Pressable>
         </View>

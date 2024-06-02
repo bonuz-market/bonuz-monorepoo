@@ -117,12 +117,13 @@ export const ProfileEdit = forwardRef<BottomSheetModal, {}>((props, bottomSheetM
           <Controller
             control={control}
             render={({ field: { onChange, onBlur, value } }) => (
-              <Ionicons
-                name={value ? 'eye-outline' : 'eye-off-outline'}
-                size={24}
-                color="white"
-                onPress={() => onChange(!value)}
-              />
+              <Pressable hitSlop={30} onPress={() => onChange(!value)}>
+                <Ionicons
+                  name={value ? 'eye-outline' : 'eye-off-outline'}
+                  size={24}
+                  color="white"
+                />
+              </Pressable>
             )}
             name={`${category}.${type}.isPublic`}
           />
@@ -369,7 +370,8 @@ export const ProfileEdit = forwardRef<BottomSheetModal, {}>((props, bottomSheetM
                 <Text style={tw`text-white text-base`}>Edit Profile</Text>
                 <Pressable
                   style={tw`absolute right-0 top-0 p-3 bg-[#5b38b6] rounded-full ml-auto`}
-                  onPress={handleSubmit(handleSave)}>
+                  onPress={handleSubmit(handleSave)}
+                  hitSlop={30}>
                   <Ionicons name="checkmark" size={20} color="#b770ff" />
                 </Pressable>
               </View>
