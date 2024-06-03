@@ -85,7 +85,8 @@ export default function Home() {
         <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="flex flex-col items-center p-10 bg-cover bg-center bg-[url('/images/first-background.svg')]">
+      <main className="flex flex-col items-center p-6 bg-cover bg-center bg-[url('/images/first-background.svg')] h-auto md:h-dvh">
+
         <nav className="w-full">
           <div className="flex gap-2 w-full z-50 mb-2 max-w-screen-xl flex flex-wrap flex-col">
             <button
@@ -128,22 +129,22 @@ export default function Home() {
             >
               <ul className="flex w-full gap-2 flex-col md:flex-row">
                 <li>
-                  <button className="w-[228px] h-[41px] rounded-border-gradient bg-custom-gradient ">
+                  <button className="w-[228px] h-[25px] rounded-border-gradient bg-custom-gradient text-sm">
                     bonuz.market #Ecosystem
                   </button>
                 </li>
                 <li>
-                  <button className="w-[208px] h-[41px] rounded-[40px] bg-custom-gradient1">
+                  <button className="w-[208px] h-[25px] rounded-[40px] bg-custom-gradient1 text-sm">
                     Whitepaper #Degen
                   </button>
                 </li>
                 <li>
-                  <button className="w-[208px] h-[41px] gap-[8px] rounded-[30px] bg-custom-gradient2">
+                  <button className="w-[208px] h-[25px] gap-[8px] rounded-[30px] bg-custom-gradient2 text-sm">
                     Documentation #Devs
                   </button>
                 </li>
                 <li>
-                  <button className="w-[208px] h-[41px] gap-[8px] rounded-[30px] bg-custom-gradient2">
+                  <button className="w-[208px] h-[25px] gap-[8px] rounded-[30px] bg-custom-gradient2 text-sm">
                     Bonuz Wallet
                   </button>
                 </li>
@@ -152,21 +153,21 @@ export default function Home() {
           </div>
         </nav>
 
-        <div className="relative z-[100] pb-[13px] rounded-[40px] w-full flex flex-col px-[5px] py-[5px] md:px-[75px] md:py-[89px]">
+        <div className="relative z-[100] pb-[13px] rounded-[40px] w-full flex flex-col px-[5px] py-[5px] md:px-[35px] md:py-[40px]">
           <div className="flex w-full flex-col md:flex-row">
             <div className="flex flex-col flex-1">
-              <div className="flex justify-between max-w-[700px] p-[10px] gap-0 rounded-[30px] bg-gradient-to-r from-[#0e2875] to-[#4b2ea2] via-[#4b2ea2] flex-col flex-col md:flex-row md:p-[46px]">
+              <div className="flex justify-between max-w-[700px] p-[10px] gap-0 rounded-[30px] bg-gradient-to-r from-[#0e2875] to-[#4b2ea2] via-[#4b2ea2] flex-col flex-col md:flex-row md:p-[16px]">
                 <div>
-                  <div className=" h-[268px] gap-[16px] w-full md:w-[213px]">
+                  <div className="gap-[16px] w-full md:w-[213px]">
                     <div className="flex w-full justify-center mb-[30px]">
                       <Image
                         src={walletAvatar}
                         alt="walletAvatar"
-                        width={140}
-                        height={140}
+                        width={100}
+                        height={100}
                       />
                     </div>
-                    <div className="h-[112px] px-[16px] gap-[12px] w-full md:w-[213px]">
+                    <div className="h-[82px] px-[16px] gap-[12px] w-full md:w-[213px] text-sm">
                       <p className="text-center">Santiago Bob</p>
                       <p className="text-center">@bob</p>
                       <div className="flex h-[40px] p-[8px_10px] gap-[12px] rounded-[12px] w-full justify-center md:w-[200px]">
@@ -195,7 +196,7 @@ export default function Home() {
                   {profileData.map((data, index) => (
                     <div
                       key={index}
-                      className="flex h-[64px] p-[12px] gap-[30px] rounded-[24px] items-center justify-between w-full md:w-[361px]"
+                      className="flex h-[44px] p-[12px] gap-[30px] rounded-[24px] items-center justify-between w-full md:w-[361px]"
                     >
                       <div className="flex gap-2 items-center">
                         <Image
@@ -218,18 +219,18 @@ export default function Home() {
                 </div>
               </div>
               <div>
-                <div className="max-w-[510px] top-[548px] left-[142px] gap-[24px] mt-[5rem]">
-                  <p className="font-space-grotesk font-bold leading-[61.6px] tracking-[-0.08em] text-left text-white text-[40px] md:text-[56px]">
+                <div className="max-w-[510px] mt-[2rem]">
+                  <p className="font-space-grotesk font-medium tracking-[-0.08em] text-left text-white text-[20px] md:text-[36px]">
                     Exclusive BRC-721 Social ID Airdrop
                   </p>
-                  <p className="font-inter font-normal leading-[24px] tracking-[-0.4px] text-left text-white opacity-60 mt-[24px] text-[12px] md:text-[16px]">
+                  <p className="font-inter font-normal leading-[24px] tracking-[-0.4px] text-left text-white opacity-60 text-[10px] md:text-[12px]">
                     Get Your exclusive 2-char, 3-char or 4-char letter Bonuz
                     username and secure your spot for the next round of quests
                     coming soon! We will mint BTC username similar to lens
                     powered by the bonuz ecosystem!
                   </p>
                 </div>
-                <button className="h-[51px] gap-[8px] rounded-[30px] bg-custom-gradient-mint my-[29px] w-full md:w-[330px]">
+                <button className="h-[21px] gap-[8px] rounded-[30px] text-sm bg-custom-gradient-mint my-[9px] w-full md:w-[230px]">
                   Mint for 0.00011 $BTC
                 </button>
               </div>
@@ -237,7 +238,7 @@ export default function Home() {
             <div className="flex flex-col flex-1 items-center">
               <div
                 id="controls-carousel"
-                className="relative w-full w-[550px] h-[330px] flex justify-center"
+                className="relative w-full w-[350px] h-[200px] flex justify-center"
                 data-carousel="static"
               >
                 <button
@@ -269,9 +270,8 @@ export default function Home() {
                   {frames.map((frame, index) => (
                     <div
                       key={index}
-                      className={`duration-700 ease-in-out ${
-                        index === currentIndex ? "block" : "hidden"
-                      }`}
+                      className={`duration-700 ease-in-out ${index === currentIndex ? "block" : "hidden"
+                        }`}
                       data-carousel-item={
                         index === currentIndex ? "active" : undefined
                       }
@@ -313,44 +313,44 @@ export default function Home() {
                 </button>
               </div>
               <div>
-                <h2 className="h-[68px] mt-[62px] font-inter font-bold text-[28px] leading-[34px] text-center tracking-[-0.4px] text-white self-stretch md:w-[360px]">
+                <h2 className="mt-[62px] font-inter font-bold text-[20px] text-center text-white self-stretch md:w-[360px]">
                   Connect to Apps & Dapps using your Wallet
                 </h2>
-                <p className="h-[48px] mt-10 font-inter font-normal text-[16px] leading-[24px] text-center tracking-[-0.4px] text-white opacity-60 self-stretch md:w-[360px]">
+                <p className="font-inter font-normal text-[16px] text-center text-white opacity-60 self-stretch md:w-[360px]">
                   Seamlessly access and use your favorite Web3 applications
                   directly from your wallet interface
                 </p>
               </div>
-              <div className="mt-[55px] flex gap-[24px] flex-col justify-center md:flex-row w-full">
-                <button className="flex items-center justify-center gap-[4px] isolate h-[56px] bg-white rounded-[16px] w-full md:w-[172.63px]">
+              <div className="mt-[25px] flex gap-[24px] flex-col justify-center md:flex-row w-full">
+                <button className="flex items-center justify-center gap-[4px] isolate h-[36px] bg-white rounded-[16px] w-full md:w-[172.63px]">
                   <Image
                     src={GoogleIcon}
                     alt="GoogleIcon"
-                    width={32}
-                    height={36}
+                    width={22}
+                    height={26}
                   />
                   <div>
-                    <p className="text-start text-black text-[12px] font-normal">
+                    <p className="text-start text-black text-[10px] font-normal">
                       Download on the
                     </p>
-                    <p className="text-start text-black text-[22px] font-semibold">
+                    <p className="text-start text-black text-[12px] font-semibold">
                       App Store
                     </p>
                   </div>
                 </button>
 
-                <button className="flex items-center justify-center gap-[4px] isolate h-[56px] bg-white rounded-[16px] w-full md:w-[172.63px]">
+                <button className="flex items-center justify-center gap-[4px] isolate h-[36px] bg-white rounded-[16px] w-full md:w-[172.63px]">
                   <Image
                     src={GoogleIcon}
                     alt="GoogleIcon"
-                    width={32}
-                    height={36}
+                    width={22}
+                    height={26}
                   />
                   <div>
-                    <p className="text-start text-black text-[12px] font-normal">
+                    <p className="text-start text-black text-[10px] font-normal">
                       GET IT ON{" "}
                     </p>
-                    <p className="text-start text-black text-[22px] font-semibold">
+                    <p className="text-start text-black text-[12px] font-semibold">
                       Google Play
                     </p>
                   </div>
@@ -359,7 +359,7 @@ export default function Home() {
             </div>
             <hr className="flex w-full mt-2 md:hidden" />
           </div>
-          <hr className="flex w-[98%]" />
+          <hr className="flex w-[100%]" />
           <div className="flex justify-between items-center mt-[28px] flex-col md:flex-row md: gap-2">
             <p className="font-[26px] hidden md:flex">bonuz</p>
             <div
@@ -372,7 +372,7 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="mt-16 w-full h-[48px] flex justify-between items-center justify-center p-3 pt-0 gap-2 rounded-[30px] border-2 pb-0 pt-0 border-[#9651FF]">
+        <div className="w-full flex justify-between items-center justify-center py-1 px-3 gap-2 rounded-[30px] border-2 border-[#9651FF]">
           <Image src={searchIcon} width={24} height={24} alt="search" />
           <input
             name="search"
@@ -383,12 +383,13 @@ export default function Home() {
           />
           <Image
             src={cancleIcon}
-            width={30}
-            height={30}
+            width={25}
+            height={25}
             alt="cancle"
             className="cursor-pointer"
           />
         </div>
+
       </main>
     </>
   );
