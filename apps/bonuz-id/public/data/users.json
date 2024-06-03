@@ -1,0 +1,38 @@
+[
+  {
+    "createdAt": "2024-03-16T00:37:04.552Z",
+    "handle": "mende",
+    "id": 8,
+    "isCurrentConnection": false,
+    "smartAccountAddress": "0x1D3BC9cd90329722FCe2573Fd8AfB6c5c9E132E2",
+    "updatedAt": "2024-05-29T00:54:54.520Z",
+    "walletAddress": "0x27BAC13134497D4c29F8907da753803c64e63511"
+  },
+  {
+    "createdAt": "2024-03-16T00:37:04.552Z",
+    "handle": "jc",
+    "id": 8,
+    "isCurrentConnection": false,
+    "smartAccountAddress": "0x1D3BC9cd90329722FCe2573Fd8AfB6c5c9E132E2",
+    "updatedAt": "2024-05-29T00:54:54.520Z",
+    "walletAddress": "0x27BAC13134497D4c29F8907da753803c64e63511"
+  },
+  {
+    "createdAt": "2024-03-16T00:37:04.552Z",
+    "handle": "mostafa",
+    "id": 8,
+    "isCurrentConnection": false,
+    "smartAccountAddress": "0x1D3BC9cd90329722FCe2573Fd8AfB6c5c9E132E2",
+    "updatedAt": "2024-05-29T00:54:54.520Z",
+    "walletAddress": "0x27BAC13134497D4c29F8907da753803c64e63511"
+  },
+  {
+    "createdAt": "2024-03-16T00:37:04.552Z",
+    "handle": "jason",
+    "id": 8,
+    "isCurrentConnection": false,
+    "smartAccountAddress": "0x1D3BC9cd90329722FCe2573Fd8AfB6c5c9E132E2",
+    "updatedAt": "2024-05-29T00:54:54.520Z",
+    "walletAddress": "0x27BAC13134497D4c29F8907da753803c64e63511"
+  }
+]
