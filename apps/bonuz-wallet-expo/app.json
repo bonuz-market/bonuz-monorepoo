@@ -12,7 +12,9 @@
       "resizeMode": "contain",
       "backgroundColor": "#0C0B19"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": false,
       "bundleIdentifier": "market.bonuz.app",
@@ -26,7 +28,9 @@
         "NSPrivacyAccessedAPITypes": [
           {
             "NSPrivacyAccessedAPIType": "NSPrivacyAccessedAPICategoryUserDefaults",
-            "NSPrivacyAccessedAPITypeReasons": ["CA92.1"]
+            "NSPrivacyAccessedAPITypeReasons": [
+              "CA92.1"
+            ]
           }
         ]
       }
@@ -42,14 +46,20 @@
       "intentFilters": [
         {
           "action": "VIEW",
-          "category": ["BROWSABLE", "DEFAULT"],
+          "category": [
+            "BROWSABLE",
+            "DEFAULT"
+          ],
           "data": {
             "scheme": "wc"
           }
         },
         {
           "action": "VIEW",
-          "category": ["BROWSABLE", "DEFAULT"],
+          "category": [
+            "BROWSABLE",
+            "DEFAULT"
+          ],
           "data": {
             "scheme": "bonuzapp"
           }
@@ -59,7 +69,11 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "plugins": ["expo-router", "expo-secure-store", "expo-font"],
+    "plugins": [
+      "expo-router",
+      "expo-secure-store",
+      "expo-font"
+    ],
     "experiments": {
       "typedRoutes": true
     },
@@ -68,7 +82,19 @@
         "clientId": "BCZyEo3y-o9dn5RxCk4bfqbVFP9K1D4eKZBGVtpJ25kIK1iE6UiSlVKTqj2wJMancY7LQiiL4151GhprqIukOi4"
       },
       "backendUrl": "https://bonuz-admin-wts46rwpca-ey.a.run.app",
-      "nftStorageToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweDdmRWYzNmYwOTU2ZjM3OTY1RmRlRDI0OTcxMERlQ2U0MjE4YmZlNTEiLCJpc3MiOiJuZnQtc3RvcmFnZSIsImlhdCI6MTY5MDU0ODI5MzQ0OCwibmFtZSI6IkJvbnV6IFdlYiBBcHAifQ.odJ-TxYjLV8wbtCF_oxP8gH5hebEuG6keGtqUN0K6Dg"
+      "nftStorageToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweDdmRWYzNmYwOTU2ZjM3OTY1RmRlRDI0OTcxMERlQ2U0MjE4YmZlNTEiLCJpc3MiOiJuZnQtc3RvcmFnZSIsImlhdCI6MTY5MDU0ODI5MzQ0OCwibmFtZSI6IkJvbnV6IFdlYiBBcHAifQ.odJ-TxYjLV8wbtCF_oxP8gH5hebEuG6keGtqUN0K6Dg",
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "c86716fd-de0d-4f8f-8e4e-2939ab2d0080"
+      }
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/c86716fd-de0d-4f8f-8e4e-2939ab2d0080"
     }
   }
 }
