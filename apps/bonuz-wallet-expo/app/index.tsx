@@ -228,9 +228,10 @@ export default function Home() {
                     borderWidth: 2,
                     borderColor: '#2f48b6',
                     height: 48,
+                    color: 'white',
                   }}
                   placeholder="Enter your email"
-                  placeholderTextColor={'rgba(255, 255, 255, 0.6)'}
+                  placeholderTextColor={'rgba(255, 255, 255, 0.3)'}
                   value={email}
                   onChangeText={setEmail}
                 />

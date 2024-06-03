@@ -35,6 +35,16 @@ interface LinkInputProps {
   control: Control<User>;
 }
 const LinkInput = ({ type, link, category, control }: LinkInputProps) => {
+  const getPlaceholderText = (
+    type: LinkInputProps['type'],
+    category: LinkInputProps['category'],
+  ) => {
+    if (category === 'wallets') {
+      return `Enter your ${type} address...`;
+    }
+
+    return `Enter your ${type} handle...`;
+  };
   return (
     <View style={tw`flex flex-row gap-2 px-2 w-full items-center bg-[#2b3ca3] rounded-lg`}>
       <View>{getIcon(type, 'normal')}</View>
@@ -45,8 +55,8 @@ const LinkInput = ({ type, link, category, control }: LinkInputProps) => {
             {category === 'socials' && <Text style={tw`text-white text-sm font-medium`}>@</Text>}
             <BottomSheetTextInput
               style={tw`flex-1 bg-[#2b3ca3] rounded-lg h-12 text-white`}
-              placeholder={`Enter your ${type} handle...`}
-              placeholderTextColor={'rgba(255, 255, 255, 0.6)'}
+              placeholder={getPlaceholderText(type, category)}
+              placeholderTextColor={'rgba(255, 255, 255, 0.3)'}
               value={value}
               onChangeText={onChange}
             />
@@ -162,7 +172,7 @@ export const ProfileEdit = forwardRef<BottomSheetModal, {}>((props, bottomSheetM
               <BottomSheetTextInput
                 style={tw`w-full px-4 bg-[#2b3ca3] rounded-lg h-12 text-white`}
                 placeholder="Enter your name..."
-                placeholderTextColor={'rgba(255, 255, 255, 0.6)'}
+                placeholderTextColor={'rgba(255, 255, 255, 0.3)'}
                 value={value}
                 onChangeText={onChange}
               />
@@ -183,7 +193,7 @@ export const ProfileEdit = forwardRef<BottomSheetModal, {}>((props, bottomSheetM
               <BottomSheetTextInput
                 style={tw`w-full px-4 bg-[#2b3ca3] rounded-lg h-12 text-white`}
                 placeholder="Enter a username..."
-                placeholderTextColor={'rgba(255, 255, 255, 0.6)'}
+                placeholderTextColor={'rgba(255, 255, 255, 0.3)'}
                 value={value}
                 onChangeText={onChange}
               />
