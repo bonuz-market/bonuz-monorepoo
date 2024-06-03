@@ -1,16 +1,17 @@
 import { Ionicons } from '@expo/vector-icons';
 import {
   BottomSheetModal,
-  BottomSheetModalProvider,
   BottomSheetSectionList,
+  BottomSheetTextInput,
 } from '@gorhom/bottom-sheet';
+import { useHeaderHeight } from '@react-navigation/elements';
 import * as ImageManipulator from 'expo-image-manipulator';
 import * as ImagePicker from 'expo-image-picker';
 import { LinearGradient } from 'expo-linear-gradient';
 import { HTTPError } from 'ky';
 import { forwardRef, useCallback, useImperativeHandle, useMemo, useRef, useState } from 'react';
-import { Controller, SubmitHandler, useForm } from 'react-hook-form';
-import { Image, Pressable, Text, TextInput, View } from 'react-native';
+import { Control, Controller, SubmitHandler, useForm } from 'react-hook-form';
+import { Image, Pressable, Text, View } from 'react-native';
 import Toast from 'react-native-toast-message';
 import tw from 'twrnc';
 
@@ -26,6 +27,45 @@ import { useUiStore } from '@/store/ui';
 import { isNotEmpty } from '@/utils/object';
 
 import { getIcon } from '../profile.config';
+
+interface LinkInputProps {
+  type: string;
+  link: Link;
+  category: 'socials' | 'wallets' | 'messagingApps' | 'decentralizedIdentifiers';
+  control: Control<User>;
+}
+const LinkInput = ({ type, link, category, control }: LinkInputProps) => {
+  return (
+    <View style={tw`flex flex-row gap-2 px-2 w-full items-center bg-[#2b3ca3] rounded-lg`}>
+      <View>{getIcon(type, 'normal')}</View>
+      <Controller
+        control={control}
+        render={({ field: { onChange, onBlur, value } }) => (
+          <>
+            {category === 'socials' && <Text style={tw`text-white text-sm font-medium`}>@</Text>}
+            <BottomSheetTextInput
+              style={tw`flex-1 bg-[#2b3ca3] rounded-lg h-12 text-white`}
+              placeholder={`Enter your ${type} handle...`}
+              placeholderTextColor={'rgba(255, 255, 255, 0.6)'}
+              value={value}
+              onChangeText={onChange}
+            />
+          </>
+        )}
+        name={`${category}.${type}.handle`}
+      />
+      <Controller
+        control={control}
+        render={({ field: { onChange, onBlur, value } }) => (
+          <Pressable hitSlop={30} onPress={() => onChange(!value)}>
+            <Ionicons name={value ? 'eye-outline' : 'eye-off-outline'} size={24} color="white" />
+          </Pressable>
+        )}
+        name={`${category}.${type}.isPublic`}
+      />
+    </View>
+  );
+};
 
 export const ProfileEdit = forwardRef<BottomSheetModal, {}>((props, bottomSheetModalRef) => {
   const _bottomSheetModalRef = useRef<BottomSheetModal>(null);
@@ -87,52 +127,6 @@ export const ProfileEdit = forwardRef<BottomSheetModal, {}>((props, bottomSheetM
     () => {},
   );
 
-  const renderLinkInput = useCallback(
-    (
-      type: string,
-      link: Link,
-      category: 'socials' | 'wallets' | 'messagingApps' | 'decentralizedIdentifiers',
-    ) => {
-      return (
-        <View style={tw`flex flex-row gap-2 px-2 w-full items-center bg-[#2b3ca3] rounded-lg`}>
-          <View>{getIcon(type, 'normal')}</View>
-          <Controller
-            control={control}
-            render={({ field: { onChange, onBlur, value } }) => (
-              <>
-                {category === 'socials' && (
-                  <Text style={tw`text-white text-sm font-medium`}>@</Text>
-                )}
-                <TextInput
-                  style={tw`flex-1 bg-[#2b3ca3] rounded-lg h-12 text-white`}
-                  placeholder={`Enter your ${type} handle...`}
-                  placeholderTextColor={'rgba(255, 255, 255, 0.6)'}
-                  value={value}
-                  onChangeText={onChange}
-                />
-              </>
-            )}
-            name={`${category}.${type}.handle`}
-          />
-          <Controller
-            control={control}
-            render={({ field: { onChange, onBlur, value } }) => (
-              <Pressable hitSlop={30} onPress={() => onChange(!value)}>
-                <Ionicons
-                  name={value ? 'eye-outline' : 'eye-off-outline'}
-                  size={24}
-                  color="white"
-                />
-              </Pressable>
-            )}
-            name={`${category}.${type}.isPublic`}
-          />
-        </View>
-      );
-    },
-    [control],
-  );
-
   const profilePictureInput = useMemo(() => {
     return (
       <View style={tw`flex flex-col gap-1 items-center`}>
@@ -165,7 +159,7 @@ export const ProfileEdit = forwardRef<BottomSheetModal, {}>((props, bottomSheetM
               required: true,
             }}
             render={({ field: { onChange, onBlur, value } }) => (
-              <TextInput
+              <BottomSheetTextInput
                 style={tw`w-full px-4 bg-[#2b3ca3] rounded-lg h-12 text-white`}
                 placeholder="Enter your name..."
                 placeholderTextColor={'rgba(255, 255, 255, 0.6)'}
@@ -186,7 +180,7 @@ export const ProfileEdit = forwardRef<BottomSheetModal, {}>((props, bottomSheetM
               required: true,
             }}
             render={({ field: { onChange, onBlur, value } }) => (
-              <TextInput
+              <BottomSheetTextInput
                 style={tw`w-full px-4 bg-[#2b3ca3] rounded-lg h-12 text-white`}
                 placeholder="Enter a username..."
                 placeholderTextColor={'rgba(255, 255, 255, 0.6)'}
@@ -331,119 +325,133 @@ export const ProfileEdit = forwardRef<BottomSheetModal, {}>((props, bottomSheetM
     [setIsTabBarHidden],
   );
 
+  const headerHeight = useHeaderHeight();
+
   if (!isNotEmpty(user)) {
     return;
   }
 
   return (
-    <BottomSheetModalProvider>
-      <BottomSheetModal
-        backgroundStyle={tw`bg-[#4B2EA2]`}
-        ref={_bottomSheetModalRef}
-        handleIndicatorStyle={{
-          backgroundColor: '#905CFF',
-          top: 10,
-          height: 5,
-          width: 50,
-        }}
-        style={{ flex: 1 }}
-        index={0}
-        snapPoints={snapPoints}
-        onAnimate={handleAnimate}
-        onDismiss={() => {
-          reset();
-        }}
-        backdropComponent={CustomBackdrop}>
-        <LinearGradient colors={['#4B2EA2', '#0E2875']} style={tw`flex-1`}>
-          <BottomSheetSectionList<any, any>
-            contentContainerStyle={{ padding: 20, flexGrow: 1 }}
-            ListHeaderComponent={
-              <View style={tw`flex flex-row items-center justify-center w-full relative h-10`}>
-                <Pressable
-                  style={tw`absolute left-0 top-0 p-3 bg-[#5b38b6] rounded-full ml-auto`}
-                  onPress={() => {
-                    _bottomSheetModalRef.current?.dismiss();
-                    reset();
-                  }}>
-                  <Ionicons name="close" size={20} color="#b770ff" />
-                </Pressable>
-                <Text style={tw`text-white text-base`}>Edit Profile</Text>
-                <Pressable
-                  style={tw`absolute right-0 top-0 p-3 bg-[#5b38b6] rounded-full ml-auto`}
-                  onPress={handleSubmit(handleSave)}
-                  hitSlop={30}>
-                  <Ionicons name="checkmark" size={20} color="#b770ff" />
-                </Pressable>
-              </View>
-            }
-            sections={[
-              {
-                title: '',
-                renderItem: () => profilePictureInput,
-                id: 'profilePicture',
-                data: [0],
-              },
-              {
-                title: '',
-                id: 'nameAndHandle',
-                renderItem: () => nameAndHandleInput,
-                data: [1],
-              },
-              {
-                title: 'Social Media Accounts',
-                data: Object.entries(userData?.socials ?? {}).map(([type, link]) => ({
+    <BottomSheetModal
+      backgroundStyle={tw`bg-[#4B2EA2]`}
+      ref={_bottomSheetModalRef}
+      handleIndicatorStyle={{
+        backgroundColor: '#905CFF',
+        top: 10,
+        height: 5,
+        width: 50,
+      }}
+      index={0}
+      snapPoints={snapPoints}
+      onAnimate={handleAnimate}
+      onDismiss={() => {
+        reset();
+      }}
+      keyboardBlurBehavior="restore"
+      enableDynamicSizing={false}
+      backdropComponent={CustomBackdrop}>
+      <LinearGradient colors={['#4B2EA2', '#0E2875']} style={tw`flex-1`}>
+        <BottomSheetSectionList<any, any>
+          contentContainerStyle={{ padding: 20, flexGrow: 1 }}
+          ListHeaderComponent={
+            <View style={tw`flex flex-row items-center justify-center w-full relative h-10`}>
+              <Pressable
+                style={tw`absolute left-0 top-0 p-3 bg-[#5b38b6] rounded-full ml-auto`}
+                onPress={() => {
+                  _bottomSheetModalRef.current?.dismiss();
+                  reset();
+                }}>
+                <Ionicons name="close" size={20} color="#b770ff" />
+              </Pressable>
+              <Text style={tw`text-white text-base`}>Edit Profile</Text>
+              <Pressable
+                style={tw`absolute right-0 top-0 p-3 bg-[#5b38b6] rounded-full ml-auto`}
+                onPress={handleSubmit(handleSave)}
+                hitSlop={30}>
+                <Ionicons name="checkmark" size={20} color="#b770ff" />
+              </Pressable>
+            </View>
+          }
+          sections={[
+            {
+              title: '',
+              renderItem: () => profilePictureInput,
+              id: 'profilePicture',
+              data: [0],
+            },
+            {
+              title: '',
+              id: 'nameAndHandle',
+              renderItem: () => nameAndHandleInput,
+              data: [1],
+            },
+            {
+              title: 'Social Media Accounts',
+              data: Object.entries(userData?.socials ?? {}).map(([type, link]) => ({
+                type,
+                link,
+              })),
+              renderItem: ({ item }: any) => (
+                <LinkInput type={item.type} link={item.link} category="socials" control={control} />
+              ),
+            },
+            {
+              title: 'Messaging Apps',
+              data: Object.entries(userData?.messagingApps ?? {}).map(([type, link]) => ({
+                type,
+                link,
+              })),
+              renderItem: ({ item }: any) => (
+                <LinkInput
+                  type={item.type}
+                  link={item.link}
+                  category="messagingApps"
+                  control={control}
+                />
+              ),
+            },
+            {
+              title: 'Wallets',
+              data: Object.entries(userData?.wallets ?? {}).map(([type, link]) => ({
+                type,
+                link,
+              })),
+              renderItem: ({ item }: any) => (
+                <LinkInput type={item.type} link={item.link} category="wallets" control={control} />
+              ),
+            },
+            {
+              title: 'Decentralized Identifiers',
+              data: Object.entries(userData?.decentralizedIdentifiers ?? {}).map(
+                ([type, link]) => ({
                   type,
                   link,
-                })),
-                renderItem: ({ item }: any) => renderLinkInput(item.type, item.link, 'socials'),
-              },
-              {
-                title: 'Messaging Apps',
-                data: Object.entries(userData?.messagingApps ?? {}).map(([type, link]) => ({
-                  type,
-                  link,
-                })),
-                renderItem: ({ item }: any) =>
-                  renderLinkInput(item.type, item.link, 'messagingApps'),
-              },
-              {
-                title: 'Wallets',
-                data: Object.entries(userData?.wallets ?? {}).map(([type, link]) => ({
-                  type,
-                  link,
-                })),
-                renderItem: ({ item }: any) => renderLinkInput(item.type, item.link, 'wallets'),
-              },
-              {
-                title: 'Decentralized Identifiers',
-                data: Object.entries(userData?.decentralizedIdentifiers ?? {}).map(
-                  ([type, link]) => ({
-                    type,
-                    link,
-                  }),
-                ),
-                renderItem: ({ item }: any) =>
-                  renderLinkInput(item.type, item.link, 'decentralizedIdentifiers'),
-              },
-            ]}
-            initialNumToRender={10}
-            removeClippedSubviews={true}
-            keyExtractor={(item, index) => {
-              return index.toString();
-            }}
-            stickyHeaderHiddenOnScroll={false}
-            stickySectionHeadersEnabled={false}
-            renderSectionHeader={({ section }) =>
-              section.title && (
-                <Text style={tw`text-white text-sm font-medium`}>{section.title}</Text>
-              )
-            }
-            ItemSeparatorComponent={() => <View style={tw`h-4`} />}
-            SectionSeparatorComponent={() => <View style={tw`h-4`} />}
-          />
-        </LinearGradient>
-      </BottomSheetModal>
-    </BottomSheetModalProvider>
+                }),
+              ),
+              renderItem: ({ item }: any) => (
+                <LinkInput
+                  type={item.type}
+                  link={item.link}
+                  category="decentralizedIdentifiers"
+                  control={control}
+                />
+              ),
+            },
+          ]}
+          initialNumToRender={10}
+          keyExtractor={(item, index) => {
+            return index.toString();
+          }}
+          stickyHeaderHiddenOnScroll={false}
+          stickySectionHeadersEnabled={false}
+          renderSectionHeader={({ section }) =>
+            section.title && <Text style={tw`text-white text-sm font-medium`}>{section.title}</Text>
+          }
+          ItemSeparatorComponent={() => <View style={tw`h-4`} />}
+          SectionSeparatorComponent={() => <View style={tw`h-4`} />}
+        />
+      </LinearGradient>
+    </BottomSheetModal>
   );
 });
 

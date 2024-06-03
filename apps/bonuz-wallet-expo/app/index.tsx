@@ -1,4 +1,9 @@
-import { BottomSheetModal, BottomSheetModalProvider } from '@gorhom/bottom-sheet';
+import {
+  BottomSheetModal,
+  BottomSheetModalProvider,
+  BottomSheetTextInput,
+  BottomSheetView,
+} from '@gorhom/bottom-sheet';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Redirect, useRouter } from 'expo-router';
 import React, { useCallback, useMemo, useRef, useState } from 'react';
@@ -9,7 +14,6 @@ import {
   ImageBackground,
   StyleSheet,
   Text,
-  TextInput,
   TouchableOpacity,
   View,
 } from 'react-native';
@@ -18,6 +22,7 @@ import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
+import tw from 'twrnc';
 
 import { loginParams, useLogin } from '@/hooks/useLogin';
 import { useUserStore } from '@/store';
@@ -34,11 +39,8 @@ export default function Home() {
 
   const scrollViewReference = useRef<FlatList>(null);
   const bottomSheetModalReference = useRef<BottomSheetModal>(null);
-  const snapPoints = useMemo(() => ['50%', '60%'], []);
+  const snapPoints = useMemo(() => ['65%'], []);
 
-  const handleSheetChanges = useCallback(() => {
-    // console.log("handleSheetChanges", index);
-  }, []);
   const handlePresentModalPress = useCallback(() => {
     bottomSheetModalReference.current?.present();
   }, []);
@@ -166,76 +168,81 @@ export default function Home() {
         backgroundStyle={{ backgroundColor: 'transparent' }}
         ref={bottomSheetModalReference}
         handleIndicatorStyle={styles.indicator}
-        index={1}
+        index={0}
         snapPoints={snapPoints}
-        onChange={handleSheetChanges}>
-        <LinearGradient
-          colors={['#0E2875', '#4B2EA2']}
-          style={{
-            flex: 1,
-            borderTopLeftRadius: 25,
-            borderTopRightRadius: 25,
-            alignItems: 'center',
-          }}>
-          <Text style={styles.signUp}>Sign Up</Text>
-          <Image
-            source={require('@/assets/images/logo.png')}
-            style={styles.logo}
-            resizeMode="contain"
-          />
-          <TouchableOpacity
-            onPress={() => handleLogin({ provider: 'google' })}
-            style={[styles.button, styles.buttonSocial]}>
+        keyboardBlurBehavior="restore">
+        <BottomSheetView style={tw`flex-1`}>
+          <LinearGradient
+            colors={['#0E2875', '#4B2EA2']}
+            style={{
+              flex: 1,
+              borderTopLeftRadius: 25,
+              borderTopRightRadius: 25,
+              alignItems: 'center',
+            }}>
+            <Text style={styles.signUp}>Sign Up</Text>
             <Image
-              source={require('@/assets/images/google.png')}
-              style={styles.icon}
+              source={require('@/assets/images/logo.png')}
+              style={styles.logo}
               resizeMode="contain"
             />
-            <Text style={styles.buttonText}>Sign Up with Google</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => handleLogin({ provider: 'apple' })}
-            style={styles.button}>
-            <Image
-              source={require('@/assets/images/apple.png')}
-              style={styles.icon}
-              resizeMode="contain"
-            />
-            <Text style={styles.buttonText}>Sign Up with Apple</Text>
-          </TouchableOpacity>
-
-          <View style={{ width: wp(90) }}>
-            <View style={{ flexDirection: 'row', alignItems: 'center', marginVertical: 16 }}>
-              <View style={{ flex: 1, height: 1, backgroundColor: '#2b34a0' }} />
-              <Text style={{ color: 'white', marginHorizontal: 10 }}>or</Text>
-              <View style={{ flex: 1, height: 1, backgroundColor: '#2b34a0' }} />
-            </View>
-
-            <View style={{ flexDirection: 'column', gap: 8 }}>
-              <Text style={{ color: 'white', fontSize: 16 }}>Email</Text>
-              <TextInput
-                style={{
-                  backgroundColor: '#2b3ca3',
-                  borderRadius: 12,
-                  padding: 12,
-                  width: '100%',
-                  borderWidth: 2,
-                  borderColor: '#2f48b6',
-                  height: 48,
-                }}
-                placeholder="Enter your email"
-                placeholderTextColor={'rgba(255, 255, 255, 0.6)'}
-                value={email}
-                onChangeText={setEmail}
-              />
-            </View>
             <TouchableOpacity
-              onPress={() => handleLogin({ provider: 'email', email, onLoginComplete: () => {} })}
-              style={[styles.button, { marginTop: 16 }]}>
-              <Text style={styles.buttonText}>Sign Up</Text>
+              onPress={() => handleLogin({ provider: 'google' })}
+              style={[styles.button, styles.buttonSocial]}>
+              <Image
+                source={require('@/assets/images/google.png')}
+                style={styles.icon}
+                resizeMode="contain"
+              />
+              <Text style={styles.buttonText}>Sign Up with Google</Text>
             </TouchableOpacity>
-          </View>
-        </LinearGradient>
+            <TouchableOpacity
+              onPress={() => handleLogin({ provider: 'apple' })}
+              style={styles.button}>
+              <Image
+                source={require('@/assets/images/apple.png')}
+                style={styles.icon}
+                resizeMode="contain"
+              />
+              <Text style={styles.buttonText}>Sign Up with Apple</Text>
+            </TouchableOpacity>
+
+            <View
+              style={{
+                width: wp(90),
+              }}>
+              <View style={{ flexDirection: 'row', alignItems: 'center', marginVertical: 16 }}>
+                <View style={{ flex: 1, height: 1, backgroundColor: '#2b34a0' }} />
+                <Text style={{ color: 'white', marginHorizontal: 10 }}>or</Text>
+                <View style={{ flex: 1, height: 1, backgroundColor: '#2b34a0' }} />
+              </View>
+
+              <View style={{ flexDirection: 'column', gap: 8 }}>
+                <Text style={{ color: 'white', fontSize: 16 }}>Email</Text>
+                <BottomSheetTextInput
+                  style={{
+                    backgroundColor: '#2b3ca3',
+                    borderRadius: 12,
+                    padding: 12,
+                    width: '100%',
+                    borderWidth: 2,
+                    borderColor: '#2f48b6',
+                    height: 48,
+                  }}
+                  placeholder="Enter your email"
+                  placeholderTextColor={'rgba(255, 255, 255, 0.6)'}
+                  value={email}
+                  onChangeText={setEmail}
+                />
+              </View>
+              <TouchableOpacity
+                onPress={() => handleLogin({ provider: 'email', email, onLoginComplete: () => {} })}
+                style={[styles.button, { marginTop: 16 }]}>
+                <Text style={styles.buttonText}>Sign Up</Text>
+              </TouchableOpacity>
+            </View>
+          </LinearGradient>
+        </BottomSheetView>
       </BottomSheetModal>
     </BottomSheetModalProvider>
   );
