@@ -85,7 +85,7 @@ export default function Home() {
         <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="flex flex-col items-center p-6 bg-cover bg-center bg-[url('/images/first-background.svg')] h-auto md:h-dvh">
+      <main className="flex flex-col items-center p-6 bg-cover bg-center bg-[url('/images/first-background.svg')] h-auto gap-[3rem] md:h-dvh lg:gap-0 xl:gap-[3rem] 2xl:gap-0">
         <nav className="w-full">
           <div className="flex gap-2 w-full z-50 mb-2 max-w-screen-xl flex flex-wrap flex-col">
             <button
@@ -151,7 +151,7 @@ export default function Home() {
             </div>
           </div>
         </nav>
-        <div className="relative z-[100] pb-[13px] rounded-[40px] w-full flex flex-col px-[5px] py-[5px] md:px-[25px] md:py-[35px] bg-[url('/images/background.png')]">
+        <div className="relative z-[100] pb-[13px] rounded-[40px] w-full flex flex-col px-[15px] py-[15px] md:px-[25px] md:py-[35px] lg:py-[20px] bg-[url('/images/background.png')]">
           <div className="flex w-full flex-col md:flex-row">
             <div className="flex flex-col flex-1">
               <div className="flex justify-between max-w-[700px] p-[10px] gap-0 rounded-[30px] bg-gradient-to-r from-[#0e2875] to-[#4b2ea2] via-[#4b2ea2] flex-col flex-col md:flex-row md:p-[16px]">
@@ -236,7 +236,7 @@ export default function Home() {
             <div className="flex flex-col flex-1 items-center">
               <div
                 id="controls-carousel"
-                className="relative w-full w-[350px] h-[200px] flex justify-center"
+                className="relative w-[350px] h-[200px] flex justify-center"
                 data-carousel="static"
               >
                 <button
@@ -311,16 +311,16 @@ export default function Home() {
                 </button>
               </div>
               <div>
-                <h2 className="mt-[62px] font-inter font-bold text-[20px] text-center text-white self-stretch md:w-[360px]">
+                <h2 className="mt-[62px] font-inter font-bold text-[20px] text-center text-white w-[300px] md:w-[360px]">
                   Connect to Apps & Dapps using your Wallet
                 </h2>
-                <p className="font-inter font-normal text-[16px] text-center text-white opacity-60 self-stretch md:w-[360px]">
+                <p className="font-inter font-normal text-[16px] text-center text-white opacity-60 w-[300px] md:w-[360px]">
                   Seamlessly access and use your favorite Web3 applications
                   directly from your wallet interface
                 </p>
               </div>
               <div className="mt-[25px] flex gap-[24px] flex-col justify-center md:flex-row w-full">
-                <button className="flex items-center justify-center gap-[4px] isolate h-[36px] bg-white rounded-[16px] w-full md:w-[172.63px]">
+                <button className="flex items-center justify-center gap-[4px] isolate h-[36px] bg-white rounded-[16px] w-full md:w-[172.63px] lg:w-[150px]">
                   <Image
                     src={GoogleIcon}
                     alt="GoogleIcon"
@@ -337,7 +337,7 @@ export default function Home() {
                   </div>
                 </button>
 
-                <button className="flex items-center justify-center gap-[4px] isolate h-[36px] bg-white rounded-[16px] w-full md:w-[172.63px]">
+                <button className="flex items-center justify-center gap-[4px] isolate h-[36px] bg-white rounded-[16px] w-full md:w-[172.63px] lg:w-[150px]">
                   <Image
                     src={GoogleIcon}
                     alt="GoogleIcon"

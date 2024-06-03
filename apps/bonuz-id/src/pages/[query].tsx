@@ -136,7 +136,7 @@ export default function SearchPage() {
   };
 
   return (
-    <div className="bg-[url('/images/third-baackground.svg')] bg-center flex w-full h-[100vh] flex-col px-7 pb-6 bg-cover">
+    <div className="bg-[url('/images/third-baackground.svg')] bg-center flex w-full h-auto md:h-[100vh] lg:h-auto xl:h-[100vh] flex-col px-7 pb-6 bg-cover">
       <div className="flex justify-between  h-[56px] items-center flex-col rounded-b-[30px] bg-opacity-5 md:flex-row gap-0 md:gap-2 px-8 bg-[#a2a2a20a]">
         <p className="font-[26px] hidden md:flex">bonuz</p>
         <div
@@ -148,7 +148,7 @@ export default function SearchPage() {
         </button>
       </div>
 
-      <div className="mt-4 w-full h-[30px] flex justify-between items-center justify-center p-3 pt-0 gap-2 rounded-[30px] border-2 pb-0 border-[#9651FF]">
+      <div className="mt-2 w-full h-[30px] flex justify-between items-center justify-center p-3 pt-0 gap-2 rounded-[30px] border-2 pb-0 border-[#9651FF]">
         <Image src={searchIcon} width={20} height={20} alt="search" />
         <input
           name="search"
@@ -196,7 +196,7 @@ export default function SearchPage() {
               ))}
             </div>
           </div>
-          <div className="pt-4">
+          <div className="pt-2">
             <p className="text-[16px] leading-[30px] font-normal">
               Real-World D/Apps
             </p>
@@ -234,8 +234,8 @@ export default function SearchPage() {
                   99+
                 </span>
               </div>
-              <div className="flex flex-col md:flex-row gap-4 mr-[10%]">
-                <div className="rounded-[30px] bg-[#a2a2a20a] p-4 h-[165px] w-[300px] md:w-[450px] flex flex-row gap-4 justify-center items-center flex-1">
+              <div className="flex flex-col md:flex-row gap-4 mr-[6%]">
+                <div className="rounded-[30px] bg-[#a2a2a20a] p-4 h-[165px] w-[300px] md:w-[320px] flex flex-row gap-4 justify-center items-center flex-1">
                   <Image
                     src={staticFace}
                     width={107}
@@ -250,7 +250,7 @@ export default function SearchPage() {
                     </button>
                   </div>
                 </div>
-                <div className="rounded-[30px] bg-[#a2a2a20a] p-4 h-[165px] w-[300px] md:w-[450px] flex flex-row gap-4 justify-center items-center flex-1">
+                <div className="rounded-[30px] bg-[#a2a2a20a] p-4 h-[165px] w-[300px] md:w-[320px] flex flex-row gap-4 justify-center items-center flex-1">
                   <Image
                     src={staticFace}
                     width={107}
