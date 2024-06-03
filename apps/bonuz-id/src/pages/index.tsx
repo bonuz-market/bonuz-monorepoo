@@ -374,7 +374,7 @@ export default function Home() {
           <input
             name="search"
             className="w-full outline-none bg-transparent font-inter text-base font-normal leading-6 tracking-tight text-left border-none"
-            defaultValue="Search"
+            placeholder="Search"
             onChange={(e) => setSearchQuery(e.target.value)}
             onKeyDown={handleKeyDown}
           />

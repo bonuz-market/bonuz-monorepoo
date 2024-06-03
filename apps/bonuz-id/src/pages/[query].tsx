@@ -136,31 +136,31 @@ export default function SearchPage() {
   };
 
   return (
-    <div className="bg-[url('/images/third-baackground.svg')] bg-center flex w-full min-h-screen flex-col px-7 pb-6 bg-cover">
+    <div className="bg-[url('/images/third-baackground.svg')] bg-center flex w-full h-[100vh] flex-col px-7 pb-6 bg-cover">
       <div className="flex justify-between  h-[56px] items-center flex-col rounded-b-[30px] bg-opacity-5 md:flex-row gap-0 md:gap-2 px-8 bg-[#a2a2a20a]">
         <p className="font-[26px] hidden md:flex">bonuz</p>
         <div
           className="w-[25px] h-[25px] md:w-[30px] md:h-[30px] bg-[url('/icons/up-icon.png')] rounded-[50px] bg-center flex justify-center items-center cursor-pointer"
           onClick={() => router.push("/")}
         />
-        <button className="rounded-[30px] px-[8px] bg-custom-gradient-mint text-[15px] md:text-[16px]">
+        <button className="rounded-[30px] px-[8px] bg-custom-gradient-mint text-[12px] md:text-[14px]">
           Connect Bonuz On-Chain Social ID
         </button>
       </div>
 
-      <div className="mt-4 w-full h-[48px] flex justify-between items-center justify-center p-3 pt-0 gap-2 rounded-[30px] border-2 pb-0 border-[#9651FF]">
-        <Image src={searchIcon} width={24} height={24} alt="search" />
+      <div className="mt-4 w-full h-[30px] flex justify-between items-center justify-center p-3 pt-0 gap-2 rounded-[30px] border-2 pb-0 border-[#9651FF]">
+        <Image src={searchIcon} width={20} height={20} alt="search" />
         <input
           name="search"
           className="w-full outline-none bg-transparent font-inter text-base font-normal leading-6 tracking-tight text-left border-none"
-          defaultValue="Search"
+          placeholder="Search"
           onChange={(e) => setSearchQuery(e.target.value)}
           onKeyDown={handleKeyDown}
         />
         <Image
           src={cancleIcon}
-          width={30}
-          height={30}
+          width={20}
+          height={20}
           alt="cancle"
           className="cursor-pointer"
         />
@@ -169,19 +169,19 @@ export default function SearchPage() {
       <div className="flex flex-col md:flex-row mt-4 gap-[42px]">
         <div className="flex flex-col gap-2 flex-1">
           <div>
-            <p className="text-[22px] leading-[30px] font-normal">
+            <p className="text-[16px] leading-[30px] font-normal">
               Digital D/Apps
             </p>
-            <div className="flex flex-col gap-[8px] pt-6">
+            <div className="flex flex-col gap-1 pt-2">
               {digitalDappData.map((data, index) => (
                 <div
                   key={index}
-                  className="flex flex-row p-2 gap-4 max-w-[360px] bg-[#a2a2a20a] rounded-[16px] justify-between font-inter text-base font-normal leading-6 tracking-tight text-left px-[16px] py-[12px]"
+                  className="flex flex-row p-2 gap-4 max-w-[360px] bg-[#a2a2a20a] rounded-[16px] justify-between font-inter text-base font-normal leading-6 tracking-tight text-left px-[16px] py-[8px]"
                 >
-                  <div className="flex flex-row gap-2 text-[16px] justify-center items-center">
+                  <div className="flex flex-row gap-2 text-[14px] justify-center items-center">
                     <p>{data.label}</p>
                     {data.count !== "" && (
-                      <div className="flex w-[32px] h-[20px] rounded-[50px] bg-[url('/images/third-baackground.svg')] text-center justify-center items-center text-[13px]">
+                      <div className="flex w-[32px] h-[20px] rounded-[50px] bg-[url('/images/third-baackground.svg')] text-center justify-center items-center text-[12px]">
                         {data.count}
                       </div>
                     )}
@@ -196,17 +196,17 @@ export default function SearchPage() {
               ))}
             </div>
           </div>
-          <div className="pt-6">
-            <p className="text-[22px] leading-[30px] font-normal">
+          <div className="pt-4">
+            <p className="text-[16px] leading-[30px] font-normal">
               Real-World D/Apps
             </p>
-            <div className="flex flex-col gap-2 pt-6">
+            <div className="flex flex-col gap-1 pt-2">
               {realWorldData.map((data, index) => (
                 <div
                   key={index}
-                  className="flex flex-row p-2 gap-4 max-w-[360px] bg-[#a2a2a20a] rounded-[16px] justify-between font-inter text-base font-normal leading-6 tracking-tight text-left px-[16px] py-[12px]"
+                  className="flex flex-row p-2 gap-4 max-w-[360px] bg-[#a2a2a20a] rounded-[16px] justify-between font-inter text-base font-normal leading-6 tracking-tight text-left px-[16px] py-[8px]"
                 >
-                  <div className="flex flex-row gap-2 text-[16px] justify-center items-center">
+                  <div className="flex flex-row gap-2 text-[14px] justify-center items-center">
                     <p>{data.label}</p>
                     {data.count !== "" && (
                       <div className="flex w-[32px] h-[20px] rounded-[50px] bg-[url('/images/third-baackground.svg')] text-center justify-center items-center text-[13px]">
@@ -266,110 +266,6 @@ export default function SearchPage() {
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
-          <div className="flex flex-col bg-gradient-border mt-10 p-2 rounded-[25px]">
-            <div className="grid flex-row gap-4 grid-cols-1 md:grid-cols-2">
-              {sliderData.map((data, index) => (
-                <div
-                  key={index}
-                  className="rounded-[30px] bg-[#a2a2a20a] p-4 h-[165px] w-[300px] md:w-[450px] flex flex-col gap-4 justify-center items-center"
-                >
-                  <div className="flex flex-row gap-2 justify-between w-full">
-                    <div className="flex flex-row justify-center items-center gap-2">
-                      <p>{data.topic}</p>
-                      {data.count !== "" && (
-                        <div className="flex w-[32px] h-[20px] rounded-[50px] bg-[#a2a2a20a] text-center justify-center items-center text-[13px]">
-                          {data.count}
-                        </div>
-                      )}
-                    </div>
-                    {data.status === "true" && (
-                      <div className="flex w-[75px] h-[25px] rounded-[50px] bg-[url('/images/third-baackground.svg')] text-center justify-center items-center text-[13px] cursor-pointer">
-                        View All
-                      </div>
-                    )}
-                  </div>
-                  <div
-                    id="controls-carousel"
-                    className="relative w-full w-[250px] h-[130px] flex justify-center"
-                    data-carousel="static"
-                  >
-                    <button
-                      type="button"
-                      className="top-0 start-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
-                      data-carousel-prev
-                      onClick={handlePrev}
-                    >
-                      <span className="inline-flex items-center justify-center w-10 h-10 rounded-full">
-                        <svg
-                          className="w-4 h-4 text-white  rtl:rotate-180"
-                          aria-hidden="true"
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 6 10"
-                        >
-                          <path
-                            stroke="currentColor"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="2"
-                            d="M5 1 1 5l4 4"
-                          />
-                        </svg>
-                        <span className="sr-only">Previous</span>
-                      </span>
-                    </button>
-
-                    <div className="relative overflow-hidden rounded-lg h-[100%] w-[100%] flex items-center justify-center">
-                      {data.images.map((frame, index1) => (
-                        <div
-                          key={index1}
-                          className={`duration-700 ease-in-out ${
-                            index1 === currentIndex ? "block" : "hidden"
-                          }`}
-                          data-carousel-item={
-                            index1 === currentIndex ? "active" : undefined
-                          }
-                        >
-                          <Image
-                            src={frame.url}
-                            alt={`Frame ${index + 1}`}
-                            width={138}
-                            height={70}
-                          />
-                        </div>
-                      ))}
-                    </div>
-
-                    <button
-                      type="button"
-                      className="top-0 end-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
-                      data-carousel-next
-                      onClick={handleNext}
-                    >
-                      <span className="inline-flex items-center justify-center w-10 h-10 rounded-full">
-                        <svg
-                          className="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180"
-                          aria-hidden="true"
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 6 10"
-                        >
-                          <path
-                            stroke="currentColor"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="2"
-                            d="m1 9 4-4-4-4"
-                          />
-                        </svg>
-                        <span className="sr-only">Next</span>
-                      </span>
-                    </button>
-                  </div>
-                </div>
-              ))}
             </div>
           </div>
         </div>
