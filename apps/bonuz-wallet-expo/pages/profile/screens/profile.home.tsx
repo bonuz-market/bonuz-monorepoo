@@ -224,24 +224,19 @@ const LargeHeaderComponent: React.FC<
         },
         tw`flex flex-col px-0 bg-transparent gap-0 pb-0`,
       ]}>
-      <BlurView
-        intensity={Platform.OS === 'ios' ? 25 : 10}
-        tint={Platform.OS === 'ios' ? 'light' : 'dark'}
-        experimentalBlurMethod="dimezisBlurView"
-        style={tw`px-4 pt-7 pb-5`}>
-        <View style={tw.style(`flex flex-row justify-between`)}>
-          <View style={tw`flex flex-col gap-1`}>
-            <Text style={tw`text-[28px] font-bold text-white`}>{data?.name}</Text>
-            <Text style={tw`text-[#ffffff99] text-xs`}>@{data?.handle}</Text>
-          </View>
-
-          <Pressable
-            style={tw`w-8 h-8 rounded-full justify-center items-center bg-[#684FCD]`}
-            onPress={onEditPress}
-            hitSlop={30}>
-            <Image style={tw`w-5 h-5`} source={require('@/assets/images/profile/edit.png')} />
-          </Pressable>
+      <View style={tw.style(`flex flex-row justify-between px-4 pt-7 pb-5`)}>
+        <View style={tw`flex flex-col gap-1`}>
+          <Text style={tw`text-[28px] font-bold text-white`}>{data?.name}</Text>
+          <Text style={tw`text-[#ffffff99] text-xs`}>@{data?.handle}</Text>
         </View>
+
+        <Pressable
+          style={tw`w-8 h-8 rounded-full justify-center items-center bg-[#684FCD]`}
+          onPress={onEditPress}
+          hitSlop={30}>
+          <Image style={tw`w-5 h-5`} source={require('@/assets/images/profile/edit.png')} />
+        </Pressable>
+      </View>
       </BlurView>
     </LargeHeader>
   );
@@ -540,39 +535,40 @@ export const ProfileHome = () => {
   return (
     <>
       <LinearGradient colors={['#4B2EA2', '#0E2875']} style={tw`flex-1`}>
-        <SectionListWithHeaders
-          HeaderComponent={(props) => (
-            <HeaderComponent {...props} data={data!} onEditPress={onEditPress} />
-          )}
-          LargeHeaderComponent={(props) => (
-            <LargeHeaderComponent {...props} data={data!} onEditPress={onEditPress} />
-          )}
-          sections={[{ data: [0] }]}
-          // Disabling auto fix scroll since the header is quite large and we want to
-          // allow the user to scroll it partially to view content.
-          disableAutoFixScroll
-          // We ignore safe areas since we want the banner to apply the safe area more granularly
-          // to each header. This will allow the banner to maintain a full width, while adjusting
-          // other relevant components to respect the safe area.
-          ignoreLeftSafeArea
-          ignoreRightSafeArea
-          headerFadeInThreshold={0.2}
-          disableLargeHeaderFadeAnim
-          contentContainerStyle={[{ paddingBottom: bottom }]}
-          renderItem={() => (
-            <BlurView
-              intensity={Platform.OS === 'ios' ? 25 : 10}
-              tint={Platform.OS === 'ios' ? 'light' : 'dark'}
-              experimentalBlurMethod="dimezisBlurView">
+        <BlurView
+          intensity={Platform.OS === 'ios' ? 25 : 10}
+          tint={Platform.OS === 'ios' ? 'light' : 'dark'}
+          experimentalBlurMethod="dimezisBlurView"
+          style={[tw`flex-1`]}>
+          <SectionListWithHeaders
+            HeaderComponent={(props) => (
+              <HeaderComponent {...props} data={data!} onEditPress={onEditPress} />
+            )}
+            LargeHeaderComponent={(props) => (
+              <LargeHeaderComponent {...props} data={data!} onEditPress={onEditPress} />
+            )}
+            sections={[{ data: [0] }]}
+            // Disabling auto fix scroll since the header is quite large and we want to
+            // allow the user to scroll it partially to view content.
+            disableAutoFixScroll
+            // We ignore safe areas since we want the banner to apply the safe area more granularly
+            // to each header. This will allow the banner to maintain a full width, while adjusting
+            // other relevant components to respect the safe area.
+            ignoreLeftSafeArea
+            ignoreRightSafeArea
+            headerFadeInThreshold={0.2}
+            disableLargeHeaderFadeAnim
+            // contentContainerStyle={[{ paddingBottom: tabBarHeight + bottom }]}
+            renderItem={() => (
               <Accordion
                 sections={sections}
                 activeSections={activeSections}
                 onAccordionChange={onAccordionChange}
               />
-            </BlurView>
-          )}
-          stickySectionHeadersEnabled
-        />
+            )}
+            stickySectionHeadersEnabled
+          />
+        </BlurView>
       </LinearGradient>
       {!isLoading && <ProfileEdit ref={bottomModalRef} />}
     </>
