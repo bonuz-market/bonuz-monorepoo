@@ -86,7 +86,6 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="flex flex-col items-center p-6 bg-cover bg-center bg-[url('/images/first-background.svg')] h-auto md:h-dvh">
-
         <nav className="w-full">
           <div className="flex gap-2 w-full z-50 mb-2 max-w-screen-xl flex flex-wrap flex-col">
             <button
@@ -152,7 +151,6 @@ export default function Home() {
             </div>
           </div>
         </nav>
-
         <div className="relative z-[100] pb-[13px] rounded-[40px] w-full flex flex-col px-[5px] py-[5px] md:px-[25px] md:py-[35px] bg-[url('/images/background.png')]">
           <div className="flex w-full flex-col md:flex-row">
             <div className="flex flex-col flex-1">
@@ -371,7 +369,6 @@ export default function Home() {
             </button>
           </div>
         </div>
-
         <div className="w-full mt-2 flex justify-between items-center justify-center py-1 px-3 gap-2 rounded-[30px] border-2 border-[#9651FF]">
           <Image src={searchIcon} width={24} height={24} alt="search" />
           <input
@@ -389,7 +386,6 @@ export default function Home() {
             className="cursor-pointer"
           />
         </div>
-
       </main>
     </>
   );
