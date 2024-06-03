@@ -7,7 +7,6 @@ import {
 } from '@codeherence/react-native-header';
 import { Ionicons } from '@expo/vector-icons';
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
-import { useNavigation } from '@react-navigation/native';
 import { BlurView } from 'expo-blur';
 import { LinearGradient } from 'expo-linear-gradient';
 // import { Image } from 'expo-image';
@@ -34,6 +33,7 @@ import tw from 'twrnc';
 import { Accordion, Section } from '@/components/Accordion/Accordion';
 import { SocialItem } from '@/components/SocialItem/SocialItem';
 import { SocialIdUser } from '@/entities';
+import { useBottomTabBarMargin } from '@/hooks/useBottomTabBarHeight';
 import { useQueryGetUserProfileAndSocialLinks } from '@/services/blockchain/bonuz/useSocialId';
 
 import { getIcon } from '../profile.config';
@@ -80,7 +80,6 @@ const HeaderComponent = ({
   showNavBar,
   scrollY,
   data,
-  onEditPress,
 }: ScrollHeaderProps & { data: SocialIdUser; onEditPress: () => void }) => {
   const { left, right } = useSafeAreaInsets();
   const { width, height } = useWindowDimensions();
@@ -237,13 +236,12 @@ const LargeHeaderComponent: React.FC<
           <Image style={tw`w-5 h-5`} source={require('@/assets/images/profile/edit.png')} />
         </Pressable>
       </View>
-      </BlurView>
     </LargeHeader>
   );
 };
 
 export const ProfileHome = () => {
-  const { bottom } = useSafeAreaInsets();
+  const tabBarMargin = useBottomTabBarMargin();
 
   const { data, isLoading } = useQueryGetUserProfileAndSocialLinks();
 
@@ -558,7 +556,7 @@ export const ProfileHome = () => {
             ignoreRightSafeArea
             headerFadeInThreshold={0.2}
             disableLargeHeaderFadeAnim
-            // contentContainerStyle={[{ paddingBottom: tabBarHeight + bottom }]}
+            contentContainerStyle={[{ paddingBottom: tabBarMargin }]}
             renderItem={() => (
               <Accordion
                 sections={sections}

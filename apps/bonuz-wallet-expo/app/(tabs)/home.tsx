@@ -10,13 +10,15 @@ import {
 import HomeCarousel from '@/components/HomeCarousel';
 import { StatusBarHeight } from '@/components/StatusbarHeight';
 import { Text, View } from '@/components/Themed';
+import { useBottomTabBarMargin } from '@/hooks/useBottomTabBarHeight';
 
 export default function Home() {
   const [yourItemIndex, setYourItemIndex] = useState(0);
   const [eventIndex, setEventIndex] = useState(0);
+  const tabBarMargin = useBottomTabBarMargin();
   let yourItemsArray = [0, 1, 2];
   return (
-    <LinearGradient colors={['#4B2EA2', '#0E2875']} style={styles.container}>
+    <LinearGradient colors={['#4B2EA2', '#0E2875']} style={[styles.container]}>
       <StatusBar backgroundColor={'#5137B1'} />
       <View style={[styles.header, { paddingTop: StatusBarHeight() }]}>
         <View style={styles.headerImageWrap}>
@@ -44,7 +46,9 @@ export default function Home() {
           />
         </View>
       </View>
-      <ScrollView contentContainerStyle={{ paddingBottom: 100 }} style={styles.scrollContainer}>
+      <ScrollView
+        contentContainerStyle={{ paddingBottom: tabBarMargin }}
+        style={styles.scrollContainer}>
         <HomeCarousel
           title={'Your Items'}
           badgeCount={99}
