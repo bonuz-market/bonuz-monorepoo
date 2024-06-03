@@ -153,7 +153,7 @@ export default function Home() {
           </div>
         </nav>
 
-        <div className="relative z-[100] pb-[13px] rounded-[40px] w-full flex flex-col px-[5px] py-[5px] md:px-[35px] md:py-[40px]">
+        <div className="relative z-[100] pb-[13px] rounded-[40px] w-full flex flex-col px-[5px] py-[5px] md:px-[35px] md:py-[35px] bg-[url('/images/background.png')]">
           <div className="flex w-full flex-col md:flex-row">
             <div className="flex flex-col flex-1">
               <div className="flex justify-between max-w-[700px] p-[10px] gap-0 rounded-[30px] bg-gradient-to-r from-[#0e2875] to-[#4b2ea2] via-[#4b2ea2] flex-col flex-col md:flex-row md:p-[16px]">
@@ -372,7 +372,7 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="w-full flex justify-between items-center justify-center py-1 px-3 gap-2 rounded-[30px] border-2 border-[#9651FF]">
+        <div className="w-full mt-2 flex justify-between items-center justify-center py-1 px-3 gap-2 rounded-[30px] border-2 border-[#9651FF]">
           <Image src={searchIcon} width={24} height={24} alt="search" />
           <input
             name="search"
