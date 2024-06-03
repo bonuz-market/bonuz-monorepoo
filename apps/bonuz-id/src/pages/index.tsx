@@ -151,7 +151,7 @@ export default function Home() {
             </div>
           </div>
         </nav>
-        <div className="relative z-[100] pb-[13px] rounded-[40px] w-full flex flex-col px-[15px] py-[15px] md:px-[25px] md:py-[35px] lg:py-[20px] bg-[url('/images/background.png')]">
+        <div className="relative z-[100] pb-[13px] rounded-[40px] w-full flex bg-cover flex-col px-[15px] py-[15px] md:px-[25px] md:py-[35px] lg:py-[20px] bg-[url('/images/background.png')]">
           <div className="flex w-full flex-col md:flex-row">
             <div className="flex flex-col flex-1">
               <div className="flex justify-between max-w-[700px] p-[10px] gap-0 rounded-[30px] bg-gradient-to-r from-[#0e2875] to-[#4b2ea2] via-[#4b2ea2] flex-col flex-col md:flex-row md:p-[16px]">
