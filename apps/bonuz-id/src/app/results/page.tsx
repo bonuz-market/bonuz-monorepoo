@@ -7,6 +7,8 @@ import axios from 'axios'
 import { ChangeEvent } from 'react'
 import { cn } from '@/lib/utils'
 
+import checkboxIcon from "../../../public/icons/checkBox-icon.svg";
+
 const digitalDappData = [
   { label: 'ON-CHain Engagement Airdrops', count: '96+' },
   { label: 'Education Certificates', count: '99+' },
@@ -178,89 +180,89 @@ export default function SearchPage() {
   }
 
   return (
-    <div className="bg-[url('/images/third-baackground.svg')] bg-center flex w-full min-h-screen flex-col px-7 pb-6 bg-cover">
-      <div className='flex justify-between  h-[56px] items-center flex-col rounded-b-[30px] bg-opacity-5 md:flex-row gap-0 md:gap-2 px-8 bg-[#a2a2a20a]'>
-        <p className='font-[26px] hidden md:flex'>bonuz</p>
+    <div className="bg-[url('/images/third-baackground.svg')] bg-center flex w-full h-auto md:h-[100vh] lg:h-auto xl:h-[100vh] flex-col px-7 pb-6 bg-cover">
+      <div className="flex justify-between  h-[56px] items-center flex-col rounded-b-[30px] bg-opacity-5 md:flex-row gap-0 md:gap-2 px-8 bg-[#a2a2a20a]">
+        <p className="font-[26px] hidden md:flex">bonuz</p>
         <div
           className="w-[25px] h-[25px] md:w-[30px] md:h-[30px] bg-[url('/icons/up-icon.png')] rounded-[50px] bg-center flex justify-center items-center cursor-pointer"
-          onClick={() => router.push('/')}
+          onClick={() => router.push("/")}
         />
-        <button className='rounded-[30px] px-[8px] bg-custom-gradient-mint text-[15px] md:text-[16px]'>
+        <button className="rounded-[30px] px-[8px] bg-custom-gradient-mint text-[12px] md:text-[14px]">
           Connect Bonuz On-Chain Social ID
         </button>
       </div>
 
-      <div className='mt-4 w-full h-[48px] flex justify-between items-center justify-center p-3 pt-0 gap-2 rounded-[30px] border-2 pb-0 border-[#9651FF]'>
-        <Image src={'/icons/search.svg'} width={24} height={24} alt='search' />
+      <div className="mt-2 w-full h-[30px] flex justify-between items-center justify-center p-3 pt-0 gap-2 rounded-[30px] border-2 pb-0 border-[#9651FF]">
+        <Image src={'/icons/search.svg'} width={20} height={20} alt="search" />
         <input
-          name='search'
-          className='w-full outline-none bg-transparent font-inter text-base font-normal leading-6 tracking-tight text-left border-none'
-          placeholder='Search'
-          value={searchQuery}
-          // onChange={(e) => setSearchQuery(e.target.value)}
-          onChange={handleChange}
+          name="search"
+          className="w-full outline-none bg-transparent font-inter text-base font-normal leading-6 tracking-tight text-left border-none"
+          placeholder="Search"
+          onChange={(e) => setSearchQuery(e.target.value)}
           onKeyDown={handleKeyDown}
         />
         <Image
-          src={'/icons/arrow-cancle.png'}
-          width={30}
-          height={30}
-          alt='cancle'
-          className='cursor-pointer'
+          src={'/icons/search.svg'}
+          width={20}
+          height={20}
+          alt="cancle"
+          className="cursor-pointer"
         />
       </div>
 
       <div className='flex flex-col md:flex-row mt-4 gap-[42px]'>
-        <div className='flex flex-col gap-2 flex-1'>
+        <div className="flex flex-col gap-2 flex-1">
           <div>
-            <p className='text-[22px] leading-[30px] font-normal'>
+            <p className="text-[16px] leading-[30px] font-normal">
               Digital D/Apps
             </p>
-            <div className='flex flex-col gap-[8px] pt-6'>
+            <div className="flex flex-col gap-1 pt-2">
               {digitalDappData.map((data, index) => (
                 <div
                   key={index}
-                  className='flex flex-row p-2 gap-4 max-w-[360px] bg-[#a2a2a20a] rounded-[16px] justify-between font-inter text-base font-normal leading-6 tracking-tight text-left px-[16px] py-[12px]'>
-                  <div className='flex flex-row gap-2 text-[16px] justify-center items-center'>
+                  className="flex flex-row p-2 gap-4 max-w-[360px] bg-[#a2a2a20a] rounded-[16px] justify-between font-inter text-base font-normal leading-6 tracking-tight text-left px-[16px] py-[8px]"
+                >
+                  <div className="flex flex-row gap-2 text-[14px] justify-center items-center">
                     <p>{data.label}</p>
-                    {data.count !== '' && (
-                      <div className="flex w-[32px] h-[20px] rounded-[50px] bg-[url('/images/third-baackground.svg')] text-center justify-center items-center text-[13px]">
+                    {data.count !== "" && (
+                      <div className="flex w-[32px] h-[20px] rounded-[50px] bg-[url('/images/third-baackground.svg')] text-center justify-center items-center text-[12px]">
                         {data.count}
                       </div>
                     )}
                   </div>
                   <Image
-                    src={'/icons/checkBox-icon.svg'}
+                    src={checkboxIcon}
                     width={20}
                     height={20}
-                    alt='checkbox_icon'
+                    alt="checkbox_icon"
                   />
                 </div>
               ))}
             </div>
           </div>
-          <div className='pt-6'>
-            <p className='text-[22px] leading-[30px] font-normal'>
+          <div className="pt-2">
+            <p className="text-[16px] leading-[30px] font-normal">
               Real-World D/Apps
             </p>
-            <div className='flex flex-col gap-2 pt-6'>
+            <div className="flex flex-col gap-1 pt-2">
               {realWorldData.map((data, index) => (
                 <div
                   key={index}
-                  className='flex flex-row p-2 gap-4 max-w-[360px] bg-[#a2a2a20a] rounded-[16px] justify-between font-inter text-base font-normal leading-6 tracking-tight text-left px-[16px] py-[12px]'>
-                  <div className='flex flex-row gap-2 text-[16px] justify-center items-center'>
+                  className="flex flex-row p-2 gap-4 max-w-[360px] bg-[#a2a2a20a] rounded-[16px] justify-between font-inter text-base font-normal leading-6 tracking-tight text-left px-[16px] py-[8px]"
+                >
+                  <div className="flex flex-row gap-2 text-[14px] justify-center items-center">
                     <p>{data.label}</p>
-                    {data.count !== '' && (
+                    {data.count !== "" && (
                       <div className="flex w-[32px] h-[20px] rounded-[50px] bg-[url('/images/third-baackground.svg')] text-center justify-center items-center text-[13px]">
                         {data.count}
                       </div>
                     )}
                   </div>
                   <Image
-                    src={'/icons/checkBox-icon.svg'}
+                    src={checkboxIcon}
                     width={20}
                     height={20}
-                    alt='checkbox_icon'
+                    alt="checkbox_icon"
                   />
                 </div>
               ))}
