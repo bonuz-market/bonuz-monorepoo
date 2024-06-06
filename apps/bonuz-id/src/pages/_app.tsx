@@ -2,7 +2,7 @@ import "@/styles/globals.css";
 import { createWeb3Modal, defaultWagmiConfig } from "@web3modal/wagmi/react";
 
 import { WagmiConfig } from "wagmi";
-import type { AppProps } from "next/app";
+import AppProps from "next/app";
 import { useEffect, useState } from "react";
 import {
 	arbitrum,
