@@ -19,8 +19,8 @@ const TabBar = ({ state, descriptors, navigation }: any) => {
   return (
     <LinearGradient
       colors={['#263d9F1F', '#475CB41F']}
-      style={[tw`flex-row absolute bottom-4 rounded-full`, { marginHorizontal: width * 0.2 }]}>
-      <BlurView intensity={15} style={[tw`flex-1 flex-row rounded-full`]}>
+      style={[tw`flex-row absolute bottom-4 overflow-hidden`, { marginHorizontal: width * 0.2 }]}>
+      <BlurView intensity={35} style={[tw`flex-1 flex-row rounded-full`]}>
         {state.routes.map((route: any, index: number) => {
           const { options } = descriptors[route.key];
           const label =
@@ -51,14 +51,16 @@ const TabBar = ({ state, descriptors, navigation }: any) => {
                   borderRadius: 100,
                   padding: wp(2.5),
                 }}>
-                <Image
-                  style={styles.image}
-                  source={
-                    label === 'home'
-                      ? require('@/assets/images/home.png')
-                      : require('@/assets/images/profile.png')
-                  }
-                />
+                {label === 'home' && (
+                  <Image style={styles.image} source={require('@/assets/images/home.png')} />
+                )}
+                {label === '(qrscreen)' && (
+                  <Image style={styles.qrImage} source={require('@/assets/images/qr.png')} />
+                )}
+
+                {label === '(profile)' && (
+                  <Image style={styles.image} source={require('@/assets/images/profile.png')} />
+                )}
               </LinearGradient>
             </Pressable>
           );
@@ -94,6 +96,10 @@ const styles = StyleSheet.create({
   image: {
     width: wp(7),
     height: wp(7),
+  },
+  qrImage: {
+    width: wp(14),
+    height: wp(14),
   },
 });
 
