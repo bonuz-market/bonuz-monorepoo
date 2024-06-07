@@ -1,13 +1,11 @@
 // Learn more https://docs.expo.dev/guides/monorepos
-// eslint-disable-next-line unicorn/import-style
-import { join, resolve } from 'node:path';
-
-import { getDefaultConfig } from 'expo/metro-config';
-import { FileStore } from 'metro-cache';
+const { getDefaultConfig } = require('expo/metro-config');
+const { FileStore } = require('metro-cache');
+const path = require('node:path');
 
 // eslint-disable-next-line no-undef
 const projectRoot = __dirname;
-const workspaceRoot = resolve(projectRoot, '../..');
+const workspaceRoot = path.resolve(projectRoot, '../..');
 
 const config = getDefaultConfig(projectRoot);
 
@@ -15,8 +13,8 @@ const config = getDefaultConfig(projectRoot);
 config.watchFolders = [workspaceRoot];
 // #2 - Try resolving with project modules first, then workspace modules
 config.resolver.nodeModulesPaths = [
-  resolve(projectRoot, 'node_modules'),
-  resolve(workspaceRoot, 'node_modules'),
+  path.resolve(projectRoot, 'node_modules'),
+  path.resolve(workspaceRoot, 'node_modules'),
 ];
 
 config.resolver = {
@@ -27,8 +25,6 @@ config.resolver = {
   stream: require.resolve('stream-browserify'),
   assert: require.resolve('assert'),
 };
-
-config.resolver.sourceExts.push('mjs');
 
 config.resolver.extraNodeModules = {
   ...config.resolver.extraNodeModules,
@@ -43,7 +39,7 @@ config.resolver.extraNodeModules = {
 // Use turborepo to restore the cache when possible
 config.cacheStores = [
   new FileStore({
-    root: join(projectRoot, 'node_modules', '.cache', 'metro'),
+    root: path.join(projectRoot, 'node_modules', '.cache', 'metro'),
   }),
 ];
 
@@ -54,4 +50,4 @@ config.transformer.getTransformOptions = () => ({
   },
 });
 
-export default config;
+module.exports = config;
