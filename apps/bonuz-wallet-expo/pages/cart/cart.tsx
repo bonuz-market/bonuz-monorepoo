@@ -1,14 +1,7 @@
 import { LinearGradient } from 'expo-linear-gradient';
 import { useRouter } from 'expo-router';
 import React from 'react';
-import {
-  Image,
-  ImageBackground,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  TouchableOpacity,
-} from 'react-native';
+import { Image, ScrollView, StatusBar, StyleSheet, TouchableOpacity } from 'react-native';
 import { RFPercentage } from 'react-native-responsive-fontsize';
 import {
   heightPercentageToDP as hp,
@@ -18,11 +11,6 @@ import {
 import { StatusBarHeight } from '@/components/StatusbarHeight';
 import { Text, View } from '@/components/Themed';
 import { useBottomTabBarMargin } from '@/hooks/useBottomTabBarHeight';
-
-const walletMockData = {
-  address: '0x71A0...6a6a',
-  balance: '13,941,41',
-};
 
 export default function Cart() {
   const tabBarMargin = useBottomTabBarMargin();
@@ -62,46 +50,24 @@ export default function Cart() {
       </View>
 
       <ScrollView
-        contentContainerStyle={{
-          display: 'flex',
-          paddingBottom: tabBarMargin,
-        }}
+        contentContainerStyle={{ paddingBottom: tabBarMargin }}
         style={styles.scrollContainer}>
-        <ImageBackground
-          source={require('@/assets/images/cart/walletBackground.png')}
-          style={styles.carousel}>
-          <View style={styles.walletContainer}>
-            <Text style={styles.walletTitle}>Main Wallet</Text>
-            <Text style={styles.walletBalance}>{walletMockData.address}</Text>
-            <View style={styles.walletBalanceSection}>
-              <Text style={styles.voucher}>$ {walletMockData.balance}</Text>
-              <Image style={styles.eyeIcon} source={require('@/assets/images/cart/eyeIcon.png')} />
+        <LinearGradient colors={['#F14375', '#F67640']} style={styles.carousel}>
+          <View style={styles.rewardContainer}>
+            <View style={styles.reward}>
+              <Image
+                style={styles.rewardImage}
+                source={require('@/assets/images/home/rewards.png')}
+              />
             </View>
-            <View style={styles.optionSection}>
-              <View style={styles.subOptionSection}>
-                <Image
-                  style={styles.optionIcon}
-                  source={require('@/assets/images/cart/receive.png')}
-                />
-                <Text style={styles.optionText}>Receive</Text>
-              </View>
-              <View style={styles.subOptionSection}>
-                <Image
-                  style={styles.optionIcon}
-                  source={require('@/assets/images/cart/swap.png')}
-                />
-                <Text style={styles.optionText}>Swap</Text>
-              </View>
-              <View style={styles.subOptionSection}>
-                <Image
-                  style={styles.optionIcon}
-                  source={require('@/assets/images/cart/send.png')}
-                />
-                <Text style={styles.optionText}>Send</Text>
-              </View>
-            </View>
+            <Text style={styles.voucher}>Vouchers</Text>
+            <Text style={styles.subVoucher}>2 Items</Text>
           </View>
-        </ImageBackground>
+          <Image
+            style={styles.yourItemsImage}
+            source={require('@/assets/images/home/yourItems.png')}
+          />
+        </LinearGradient>
       </ScrollView>
     </LinearGradient>
   );
@@ -124,9 +90,6 @@ const styles = StyleSheet.create({
   cartLogo: {
     display: 'flex',
     backgroundColor: 'transparent',
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
   },
   cartTitle: {
     fontSize: 20,
@@ -141,8 +104,6 @@ const styles = StyleSheet.create({
     height: '100%',
     gap: 4,
     marginTop: 4,
-    justifyContent: 'center',
-    alignItems: 'center',
   },
   worldIcon: {
     width: 20,
@@ -156,12 +117,6 @@ const styles = StyleSheet.create({
   headerLogo: {
     width: wp(22),
     height: wp(6),
-  },
-  eyeIcon: {
-    width: 24,
-    height: 24,
-    justifyContent: 'center',
-    alignItems: 'center',
   },
   headerImage: {
     width: wp(6),
@@ -229,69 +184,31 @@ const styles = StyleSheet.create({
     height: '100%',
     width: wp(90),
     borderRadius: wp(7),
-    left: wp(5),
+    left: -wp(10),
     flexDirection: 'row',
-    overflow: 'hidden',
   },
   info: {
     width: wp(7),
     height: wp(7),
     marginRight: wp(5),
   },
-  optionSection: {
-    display: 'flex',
-    flex: 1,
-    backgroundColor: 'transparent',
-    flexDirection: 'row',
-    padding: wp(4),
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    gap: wp(18),
-  },
-  subOptionSection: {
-    backgroundColor: 'transparent',
-    alignItems: 'center',
-    textAlign: 'center',
-    gap: 2,
-  },
-  optionIcon: {
-    width: 54,
-    height: 54,
-  },
-  optionText: {
-    color: '#FFFFFF',
-    fontSize: 13,
-    fontWeight: 'normal',
-  },
-  walletContainer: {
+  rewardContainer: {
     backgroundColor: 'transparent',
     width: '50%',
     height: '100%',
     padding: wp(5),
   },
   reward: {
-    backgroundColor: 'transparent',
+    backgroundColor: '#f67868',
+    width: wp(20),
+    height: wp(20),
+    borderRadius: wp(10),
     justifyContent: 'center',
     alignItems: 'center',
   },
   rewardImage: {
     width: wp(14),
     height: wp(14),
-  },
-  walletTitle: {
-    fontSize: RFPercentage(2.8),
-    color: 'white',
-    fontWeight: 'bold',
-  },
-  walletBalanceSection: {
-    backgroundColor: 'transparent',
-    flex: 1,
-    flexDirection: 'row',
-  },
-  walletBalance: {
-    fontSize: RFPercentage(2),
-    color: 'white',
-    fontWeight: 'normal',
   },
   voucher: {
     fontSize: RFPercentage(2.7),
