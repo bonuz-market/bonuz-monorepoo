@@ -1,6 +1,6 @@
 import { LinearGradient } from 'expo-linear-gradient';
 import { useRouter } from 'expo-router';
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Image,
   ImageBackground,
@@ -16,6 +16,7 @@ import {
 } from 'react-native-responsive-screen';
 
 import { StatusBarHeight } from '@/components/StatusbarHeight';
+// import SwitchButton from '@/components/SwtichButton';
 import { Text, View } from '@/components/Themed';
 import { useBottomTabBarMargin } from '@/hooks/useBottomTabBarHeight';
 
@@ -24,9 +25,53 @@ const walletMockData = {
   balance: '13,941,41',
 };
 
+const coinDatas = [
+  {
+    id: 1,
+    avatar: require('@/assets/images/cart/ethereum.png'),
+    name: 'Ethereum',
+    network: '',
+    tokenAmount: '3.3461',
+    tokenPrice: '$4,141.25',
+  },
+  {
+    id: 2,
+    avatar: require('@/assets/images/cart/usdc.png'),
+    name: 'USDC',
+    network: 'Polygon',
+    tokenAmount: '3,941.81',
+    tokenPrice: '~$3,941.81',
+  },
+  {
+    id: 3,
+    avatar: require('@/assets/images/cart/bitcoin.png'),
+    name: 'Bitcoin',
+    network: '',
+    tokenAmount: '0.1906',
+    tokenPrice: '~$3,277.53',
+  },
+  {
+    id: 4,
+    avatar: require('@/assets/images/cart/bnb.png'),
+    name: 'BNB',
+    network: '',
+    tokenAmount: '5.0998',
+    tokenPrice: '~$1,423.87',
+  },
+  {
+    id: 5,
+    avatar: require('@/assets/images/cart/solana.png'),
+    name: 'Solana',
+    network: '',
+    tokenAmount: '1,602.98',
+    tokenPrice: '~$1,21.2.81',
+  },
+];
 export default function Cart() {
   const tabBarMargin = useBottomTabBarMargin();
   const { navigate } = useRouter();
+
+  const [isEnabled, setEnabled] = useState(false);
 
   return (
     <LinearGradient colors={['#4B2EA2', '#0E2875']} style={[styles.container]}>
@@ -103,6 +148,21 @@ export default function Cart() {
           </View>
         </ImageBackground>
       </ScrollView>
+
+      {/* <View>
+        <SwitchButton value={isEnabled} onValueChange={setEnabled} />
+      </View> */}
+      <View style={styles.tokenContainer}>
+        {coinDatas.map((coindata, index) => (
+          <View key={coindata.id || index} style={styles.tokenListSection}>
+            <Image style={styles.headerImage} source={coindata.avatar} />
+            <Text>{coindata.name}</Text>
+            {coindata.network !== '' && <Text>{coindata.network}</Text>}
+            <Text>{coindata.tokenAmount}</Text>
+            <Text>{coindata.tokenPrice}</Text>
+          </View>
+        ))}
+      </View>
     </LinearGradient>
   );
 }
@@ -167,6 +227,10 @@ const styles = StyleSheet.create({
     width: wp(6),
     height: wp(5),
   },
+  tokenImage: {
+    width: wp(3),
+    height: hp(3),
+  },
   searchImage: {
     width: wp(7),
     height: wp(7),
@@ -175,6 +239,11 @@ const styles = StyleSheet.create({
   downImage: {
     width: 10,
     height: 5.83,
+  },
+  tokenListSection: {
+    backgroundColor: 'transparent',
+    display: 'flex',
+    flexDirection: 'row',
   },
   headerImageWrap: {
     width: wp(12),
@@ -327,5 +396,11 @@ const styles = StyleSheet.create({
   scrollContainer: {
     flex: 1,
     marginTop: hp(4),
+    backgroundColor: 'transparent',
+  },
+  tokenContainer: {
+    flex: 1,
+    marginTop: hp(1),
+    backgroundColor: 'transparent',
   },
 });
