@@ -1,6 +1,7 @@
+/* eslint-disable sonarjs/no-all-duplicated-branches */
 import { LinearGradient } from 'expo-linear-gradient';
 import { useRouter } from 'expo-router';
-import React, { useState } from 'react';
+import React from 'react';
 import {
   Image,
   ImageBackground,
@@ -14,14 +15,23 @@ import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
+import tw from 'twrnc';
+import { useShallow } from 'zustand/react/shallow';
 
 import { StatusBarHeight } from '@/components/StatusbarHeight';
 // import SwitchButton from '@/components/SwtichButton';
 import { Text, View } from '@/components/Themed';
+import { useUserStore } from '@/store';
+import { isNotEmpty } from '@/utils/object';
 
 const walletMockData = {
   address: '0x71A0...6a6a',
   balance: '13,941,41',
+};
+
+const defaultWalletData = {
+  address: '0x00...0000',
+  balance: '0',
 };
 
 const coinDatas = [
@@ -110,37 +120,45 @@ const coinDatas = [
 export default function Cart() {
   const { navigate } = useRouter();
 
+  const { auth, user } = useUserStore(
+    useShallow((store) => ({
+      auth: store.auth,
+      user: store.user,
+    })),
+  );
+
   // const [isEnabled, setEnabled] = useState(false);
 
   return (
-    <LinearGradient colors={['#4B2EA2', '#0E2875']} style={[styles.container]}>
+    <LinearGradient colors={['#4B2EA2', '#0E2875']} style={tw`flex-1`}>
       <StatusBar backgroundColor={'#5137B1'} />
-      <View style={[styles.header, { paddingTop: StatusBarHeight() }]}>
+      <View
+        style={[
+          tw`flex flex-row justify-between items-center bg-[#5137B1] px-4 h-4/25 rounded-b-[10]`,
+          { paddingTop: StatusBarHeight() },
+        ]}>
         <TouchableOpacity onPress={() => navigate('/home')}>
-          <View style={styles.headerImageWrap}>
-            <Image
-              style={styles.headerImage}
-              source={require('@/assets/images/cart/leftIcon.png')}
-            />
+          <View style={tw`w-[54px] h-[54px] rounded-full bg-[#684FCD] justify-center items-center`}>
+            <Image style={tw`w-[30px]`} source={require('@/assets/images/cart/leftIcon.png')} />
           </View>
         </TouchableOpacity>
-        <View style={styles.cartLogo}>
-          <Text style={styles.cartTitle}>Smart Wallet</Text>
-          <View style={styles.networkSection}>
+        <View style={tw`flex bg-transparent justify-center items-center`}>
+          <Text style={tw`text-[20px] text-white font-semibold`}>Smart Wallet</Text>
+          <View style={tw`flex-row bg-transparent gap-2 pt-1 items-center`}>
             <Image
-              style={styles.worldIcon}
+              style={tw`w-[20px] h-[20px]`}
               source={require('@/assets/images/cart/worldIcon.png')}
             />
-            <Text style={styles.caption}>All Networks</Text>
-            <Image style={styles.downImage} source={require('@/assets/images/cart/downIcon.png')} />
+            <Text style={tw`text-[14px] font-medium text-white`}>All Networks</Text>
+            <Image
+              style={tw`w-[10px] h-[5.83px]`}
+              source={require('@/assets/images/cart/downIcon.png')}
+            />
           </View>
         </View>
         <TouchableOpacity onPress={() => navigate('/cart')}>
-          <View style={styles.headerImageWrap}>
-            <Image
-              style={styles.headerImage}
-              source={require('@/assets/images/cart/compassIcon.png')}
-            />
+          <View style={tw`w-[54px] h-[54px] rounded-full bg-[#684FCD] justify-center items-center`}>
+            <Image style={tw`w-[30px]`} source={require('@/assets/images/cart/compassIcon.png')} />
           </View>
         </TouchableOpacity>
       </View>
@@ -149,342 +167,102 @@ export default function Cart() {
         contentContainerStyle={{
           display: 'flex',
         }}
-        style={styles.scrollContainer}>
+        style={tw`flex-1 mt-[30] bg-transparent`}>
         <ImageBackground
           source={require('@/assets/images/cart/walletBackground.png')}
-          style={styles.carousel}>
-          <View style={styles.walletContainer}>
-            <Text style={styles.walletTitle}>Main Wallet</Text>
-            <Text style={styles.walletBalance}>{walletMockData.address}</Text>
-            <View style={styles.walletBalanceSection}>
-              <Text style={styles.voucher}>$ {walletMockData.balance}</Text>
-              <Image style={styles.eyeIcon} source={require('@/assets/images/cart/eyeIcon.png')} />
-            </View>
-            <View style={styles.optionSection}>
-              <View style={styles.subOptionSection}>
-                <Image
-                  style={styles.optionIcon}
-                  source={require('@/assets/images/cart/receive.png')}
-                />
-                <Text style={styles.optionText}>Receive</Text>
+          style={tw`h-full w-9/10 rounded-3xl left-2/20 flex-row overflow-hidden`}>
+          <View style={tw`w-full bg-transparent p-5 h-full`}>
+            {isNotEmpty(auth) && isNotEmpty(user) ? (
+              <View style={tw`bg-transparent`}>
+                <Text style={tw`font-semibold text-[18px] text-white`}>Main Wallet</Text>
+                <Text style={tw`font-medium text-[14px] text-white`}>{walletMockData.address}</Text>
+                <View style={tw`bg-transparent flex-1 flex-row items-center gap-2`}>
+                  <Text style={tw`text-[20px] text-white font-semibold`}>
+                    ${walletMockData.balance}
+                  </Text>
+                  <Image
+                    style={tw`w-[20.11px] h-[14px]`}
+                    source={require('@/assets/images/cart/eyeIcon.png')}
+                  />
+                </View>
               </View>
-              <View style={styles.subOptionSection}>
-                <Image
-                  style={styles.optionIcon}
-                  source={require('@/assets/images/cart/swap.png')}
-                />
-                <Text style={styles.optionText}>Swap</Text>
+            ) : (
+              <View style={tw`bg-transparent`}>
+                <Text style={tw`font-semibold text-[18px] text-white`}>Main Wallet</Text>
+                <Text style={tw`font-medium text-[14px] text-white mt-1`}>
+                  {defaultWalletData.address}
+                </Text>
+                <View style={tw`bg-transparent flex-1 flex-row items-center gap-2 mt-4`}>
+                  <Text style={tw`text-[20px] text-white font-semibold`}>
+                    ${defaultWalletData.balance}
+                  </Text>
+                  <Image
+                    style={tw`w-[20.11px] h-[14px]`}
+                    source={require('@/assets/images/cart/eyeIcon.png')}
+                  />
+                </View>
               </View>
-              <View style={styles.subOptionSection}>
-                <Image
-                  style={styles.optionIcon}
-                  source={require('@/assets/images/cart/send.png')}
-                />
-                <Text style={styles.optionText}>Send</Text>
+            )}
+            <View style={tw`flex flex-row bg-transparent justify-between pt-6 px-8`}>
+              <View style={tw`bg-transparent items-center text-center gap-2`}>
+                <Image style={tw`w-[54px]`} source={require('@/assets/images/cart/receive.png')} />
+                <Text style={tw`text-[13px] text-white font-medium`}>Receive</Text>
+              </View>
+              <View style={tw`bg-transparent items-center text-center gap-2`}>
+                <Image style={tw`w-[54px]`} source={require('@/assets/images/cart/swap.png')} />
+                <Text style={tw`text-[13px] text-white font-medium`}>Swap</Text>
+              </View>
+              <View style={tw`bg-transparent items-center text-center gap-2`}>
+                <Image style={tw`w-[54px]`} source={require('@/assets/images/cart/send.png')} />
+                <Text style={tw`text-[13px] text-white font-medium`}>Send</Text>
               </View>
             </View>
           </View>
         </ImageBackground>
       </ScrollView>
 
-      {/* <View>
-        <SwitchButton value={isEnabled} onValueChange={setEnabled} />
-      </View> */}
-
-      <ScrollView style={styles.tokenContainer}>
-        {coinDatas.map((coindata, index) => (
-          <View key={coindata.id || index} style={styles.tokenListSection}>
-            <View style={styles.tokenTitleSection}>
-              <Image style={styles.tokenImage} source={coindata.avatar} />
-              <View style={styles.tokenNameSection}>
-                <Text style={styles.tokenText}>{coindata.name}</Text>
-                {coindata.network !== '' && (
-                  <Text style={styles.tokenNetworkSection}>{coindata.network}</Text>
-                )}
+      {isNotEmpty(auth) && isNotEmpty(user) ? (
+        <ScrollView style={tw`bg-transparent flex-1`}>
+          {coinDatas.map((coindata, index) => (
+            <View key={index} style={tw`bg-transparent flex-row justify-between p-3`}>
+              <View style={tw`bg-transparent flex flex-row items-center gap-2`}>
+                <Image source={coindata.avatar} />
+                <View style={tw`bg-transparent`}>
+                  <Text style={tw`text-[16px] text-white font-semibold`}>{coindata.name}</Text>
+                  {coindata.network !== '' && (
+                    <Text
+                      style={tw`text-[12px] font-normal text-white bg-[#3953FF] px-2 rounded-2`}>
+                      {coindata.network}
+                    </Text>
+                  )}
+                </View>
+              </View>
+              <View style={tw`bg-transparent`}>
+                <Text>{coindata.tokenAmount}</Text>
+                <Text>{coindata.tokenPrice}</Text>
               </View>
             </View>
-            <View style={styles.tokenPriceSection}>
-              <Text style={styles.tokenText}>{coindata.tokenAmount}</Text>
-              <Text style={styles.tokenSubline}>{coindata.tokenPrice}</Text>
+          ))}
+        </ScrollView>
+      ) : (
+        <ScrollView style={tw`mx-5`}>
+          <View
+            style={tw`bg-transparent flex flex-row items-center justify-between bg-[#373BA1] p-3 rounded-4`}>
+            <View style={tw`bg-transparent flex flex-row gap-4`}>
+              <View style={tw`w-[50px] bg-[#2F1385] rounded-2`} />
+              <View style={tw`bg-transparent gap-2`}>
+                <Text style={tw`text-[20px] font-bold text-[#FFFFFF]`}>Login to continue</Text>
+                <Text style={tw`text-[13px] font-normal text-[#FFFFFF]`}>
+                  Generate Keyless MFC Wallet
+                </Text>
+              </View>
+            </View>
+            <View style={tw`bg-transparent`}>
+              <Image source={require('@/assets/images/cart/rightIcon.png')} />
             </View>
           </View>
-        ))}
-      </ScrollView>
+        </ScrollView>
+      )}
     </LinearGradient>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  header: {
-    flexDirection: 'row',
-    paddingHorizontal: wp(5),
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    backgroundColor: '#5137B1',
-    height: hp(16),
-    borderBottomRightRadius: wp(10),
-    borderBottomLeftRadius: wp(10),
-  },
-  cartLogo: {
-    display: 'flex',
-    backgroundColor: 'transparent',
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  cartTitle: {
-    fontSize: 20,
-    color: '#FFFFFF',
-    fontWeight: 600,
-  },
-  networkSection: {
-    flexDirection: 'row',
-    backgroundColor: 'transparent',
-    gap: 4,
-    paddingTop: wp(2),
-    alignItems: 'center',
-  },
-  worldIcon: {
-    width: 20,
-    height: 20,
-  },
-  downImage: {
-    width: 10,
-    height: 5.83,
-  },
-  caption: {
-    fontSize: 14,
-    fontWeight: 500,
-    color: '#FFFFFF',
-  },
-  headerLogo: {
-    width: wp(22),
-    height: wp(6),
-  },
-  eyeIcon: {
-    width: 24,
-    height: 24,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  headerImage: {
-    width: wp(6),
-    height: wp(5),
-  },
-  tokenImage: {
-    width: 44,
-    height: 44,
-  },
-  tokenText: {
-    fontSize: 16,
-    color: '#FFFFFF',
-    fontWeight: 600,
-  },
-  tokenSubline: {
-    fontSize: 14,
-    fontWeight: 400,
-    color: '#FFFFFF',
-  },
-  searchImage: {
-    width: wp(7),
-    height: wp(7),
-    marginRight: wp(2),
-  },
-  tokenListSection: {
-    backgroundColor: 'transparent',
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    textAlign: 'center',
-    alignItems: 'center',
-    paddingTop: wp(2),
-    margin: wp(2),
-  },
-  tokenTitleSection: {
-    backgroundColor: 'transparent',
-    display: 'flex',
-    flexDirection: 'row',
-    gap: wp(2),
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  tokenNameSection: {
-    backgroundColor: 'transparent',
-    alignItems: 'center',
-  },
-  tokenNetworkSection: {
-    fontSize: 12,
-    backgroundColor: '#3952FE',
-    color: '#FFFFFF',
-    padding: 2,
-    borderRadius: 4,
-  },
-  tokenPriceSection: {
-    backgroundColor: 'transparent',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  headerImageWrap: {
-    width: wp(12),
-    height: wp(12),
-    borderRadius: wp(6),
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#684FCD',
-  },
-  badge: {
-    backgroundColor: 'red',
-    position: 'absolute',
-    top: 0,
-    left: wp(8),
-    borderRadius: 50,
-    width: wp(9),
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: hp(2.5),
-  },
-  badgeText: {
-    fontSize: RFPercentage(1.5),
-    color: 'white',
-    fontWeight: 'bold',
-  },
-  searchContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: 'transparent',
-    marginVertical: hp(2),
-    paddingHorizontal: wp(5),
-    justifyContent: 'space-between',
-  },
-  search: {
-    paddingHorizontal: wp(2),
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#5F42BE',
-    width: wp(75),
-    height: wp(12),
-    borderRadius: 100,
-    borderWidth: 2,
-    borderColor: '#7651CD',
-  },
-  input: {
-    fontSize: RFPercentage(2),
-    fontWeight: '400',
-    color: 'white',
-    width: wp(60),
-  },
-  carousel: {
-    height: '100%',
-    width: wp(90),
-    borderRadius: wp(7),
-    left: wp(5),
-    flexDirection: 'row',
-    overflow: 'hidden',
-  },
-  info: {
-    width: wp(7),
-    height: wp(7),
-    marginRight: wp(5),
-  },
-  optionSection: {
-    display: 'flex',
-    flex: 1,
-    backgroundColor: 'transparent',
-    flexDirection: 'row',
-    padding: wp(4),
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    gap: wp(18),
-  },
-  subOptionSection: {
-    backgroundColor: 'transparent',
-    alignItems: 'center',
-    textAlign: 'center',
-    gap: 2,
-  },
-  optionIcon: {
-    width: 54,
-    height: 54,
-  },
-  optionText: {
-    color: '#FFFFFF',
-    fontSize: 13,
-    fontWeight: 'normal',
-  },
-  walletContainer: {
-    backgroundColor: 'transparent',
-    width: '50%',
-    height: '100%',
-    padding: wp(5),
-  },
-  reward: {
-    backgroundColor: 'transparent',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  rewardImage: {
-    width: wp(14),
-    height: wp(14),
-  },
-  walletTitle: {
-    fontSize: RFPercentage(2.8),
-    color: 'white',
-    fontWeight: 'bold',
-  },
-  walletBalanceSection: {
-    backgroundColor: 'transparent',
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 2,
-  },
-  walletBalance: {
-    fontSize: RFPercentage(2),
-    color: 'white',
-    fontWeight: 'normal',
-  },
-  voucher: {
-    fontSize: RFPercentage(2.7),
-    color: 'white',
-    fontWeight: 'bold',
-    marginTop: hp(1.5),
-    marginBottom: hp(1),
-  },
-  subVoucher: {
-    fontSize: RFPercentage(2.2),
-    color: 'white',
-  },
-  yourItemsImage: {
-    width: wp(40),
-    height: hp(25),
-    resizeMode: 'contain',
-  },
-  viewAll: {
-    backgroundColor: '#63ADEF30',
-    marginRight: wp(5),
-    borderRadius: 100,
-    paddingHorizontal: wp(3),
-    paddingVertical: hp(0.3),
-  },
-  viewAllText: {
-    fontSize: RFPercentage(1.8),
-    color: 'white',
-    fontWeight: '600',
-  },
-  eventContainer: {
-    marginTop: hp(2),
-  },
-  scrollContainer: {
-    flex: 1,
-    marginTop: hp(4),
-    backgroundColor: 'transparent',
-  },
-  tokenContainer: {
-    flex: 1,
-    backgroundColor: 'transparent',
-    margin: wp(5),
-  },
-});
