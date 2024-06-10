@@ -1,3 +1,4 @@
+/* eslint-disable unicorn/consistent-function-scoping */
 /* eslint-disable sonarjs/no-all-duplicated-branches */
 import { LinearGradient } from 'expo-linear-gradient';
 import { useRouter } from 'expo-router';
@@ -9,6 +10,7 @@ import { useShallow } from 'zustand/react/shallow';
 import { StatusBarHeight } from '@/components/StatusbarHeight';
 import SwitchButton from '@/components/SwtichButton';
 import { Text, View } from '@/components/Themed';
+import WalletUnConnected from '@/components/WalletUnConnected';
 import { useUserStore } from '@/store';
 import { isNotEmpty } from '@/utils/object';
 
@@ -18,6 +20,7 @@ interface TokenData {
   balance: number;
   quote: number;
 }
+
 interface WalletDataProps {
   id: number;
   avatar: any;
@@ -27,11 +30,22 @@ interface WalletDataProps {
   tokenPrice: string;
 }
 
+interface NftDataProps {
+  id: number;
+  avatar: any;
+  name: string;
+  description: string;
+}
+
 export default function Cart() {
   const { navigate } = useRouter();
   const [value, setValue] = useState(false);
   const [walletData, setWalletData] = useState<WalletDataProps[]>([]);
+  const [walletNftData, setWalletNftData] = useState<NftDataProps[]>([]);
+
   const [tokenData, setTokenData] = useState<TokenData[]>([]);
+  const [nftData, setNftData] = useState<any[]>([]);
+
 
   const [walletAddress, setWalletAddress] = useState<string>('0x00...00000');
   const [totalBalance, setTotalBalance] = useState<string>('0');
@@ -46,25 +60,27 @@ export default function Cart() {
 
   useEffect(() => {
     if (wallet && wallet.address) {
+      setWalletData([]);
+      setWalletNftData([]);
       setWalletAddress(shortenWalletAddress(wallet.address));
-      if (value === false) {
-        fetch(
-          'https://admin.bonuz.xyz/api/users/wallet/0x0e004bE8F05D53f5E09f61EAAc2acE5314E3438f/balance',
-        ) // Replace with your API URL
-          .then((response) => response.json())
-          .then((data: TokenData[]) => {
-            setTokenData(data.data.tokens);
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-      } else {
-      }
+      const url =
+        value === false
+          ? `https://admin.bonuz.xyz/api/users/wallet/${wallet.address}/balance`
+          : `https://admin.bonuz.xyz/api/users/wallet/${wallet.address}/nfts`;
+      fetch(url) // Replace with your API URL
+        .then((response) => response.json())
+        .then((data: TokenData[]) => {
+          if (value === false) setTokenData(data.data.tokens);
+          else setNftData(data.data.nfts);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     }
   }, [value, wallet]);
 
   useEffect(() => {
-    if (tokenData.length > 0) {
+    if (tokenData.length > 0 && value === false) {
       let sum = 0,
         dataArray: React.SetStateAction<WalletDataProps[]> = [];
       tokenData.map((token, index) => {
@@ -81,10 +97,21 @@ export default function Cart() {
       setTotalBalance(Number(sum).toFixed(2));
       setWalletData(dataArray);
     }
-  }, [tokenData]);
+    if (nftData.length > 0 && value === true) {
+      let dataArray: React.SetStateAction<NftDataProps[]> = [];
+      nftData.map((data, index) => {
+        dataArray.push({
+          id: index + 1,
+          avatar: { uri: data.content.preview.url },
+          name: data.name,
+          description: shortenDiscription(data.description),
+        });
+      });
+      console.log(dataArray);
+      setWalletNftData(dataArray);
+    }
+  }, [tokenData, nftData, value]);
 
-
-  // eslint-disable-next-line unicorn/consistent-function-scoping
   function shortenWalletAddress(walletAddress: string) {
     if (!walletAddress || walletAddress.length < 10) {
       return walletAddress; // If the address is too short, return as is
@@ -97,6 +124,18 @@ export default function Cart() {
     const suffix = walletAddress.slice(-suffixLength);
 
     return `${prefix}...${suffix}`;
+  }
+
+  function shortenDiscription(description: string) {
+    if (!description || description.length < 50) {
+      return description; // If the address is too short, return as is
+    }
+
+    const prefixLength = 50; // Number of characters to keep from the start
+
+    const prefix = description.slice(0, prefixLength);
+
+    return `${prefix}...`;
   }
 
   return (
@@ -120,10 +159,12 @@ export default function Cart() {
               source={require('@/assets/images/cart/worldIcon.png')}
             />
             <Text style={tw`text-[14px] font-medium text-white`}>All Networks</Text>
-            <Image
-              style={tw`w-[10px] h-[5.83px]`}
-              source={require('@/assets/images/cart/downIcon.png')}
-            />
+            <TouchableOpacity onPress={() => console.log('asfdasf')}>
+              <Image
+                style={tw`w-[10px] h-[5.83px] items-center`}
+                source={require('@/assets/images/cart/downIcon.png')}
+              />
+            </TouchableOpacity>
           </View>
         </View>
         <TouchableOpacity onPress={() => navigate('/cart')}>
@@ -178,48 +219,66 @@ export default function Cart() {
             <SwitchButton value={value} onValueChange={setValue} title1="Crypt" title2="NFTs" />
           </View>
           <ScrollView style={tw`bg-transparent flex-1`}>
-            {walletData.map((coindata, index) => (
-              <View key={index} style={tw`bg-transparent flex-row justify-between p-3 mx-5`}>
-                <View style={tw`bg-transparent flex flex-row items-center gap-2`}>
-                  <Image style={tw`w-[30px] h-[30px]`} source={coindata.avatar} />
-                  <View style={tw`bg-transparent`}>
-                    <Text style={tw`text-[16px] text-white font-semibold`}>{coindata.name}</Text>
-                    {coindata.network !== '' && (
-                      <Text
-                        style={tw`text-[12px] font-normal text-white bg-[#3953FF] px-2 rounded-2`}>
-                        {coindata.network}
-                      </Text>
-                    )}
+            {value === false ? (
+              <>
+                {walletData.length > 0 ? (
+                  walletData.map((coindata, index) => (
+                    <View key={index} style={tw`bg-transparent flex-row justify-between p-3 mx-5`}>
+                      <View style={tw`bg-transparent flex flex-row items-center gap-2`}>
+                        <Image style={tw`w-[30px] h-[30px]`} source={coindata.avatar} />
+                        <View style={tw`bg-transparent`}>
+                          <Text style={tw`text-[16px] text-white font-semibold`}>{coindata.name}</Text>
+                          {coindata.network !== '' && (
+                            <Text
+                              style={tw`text-[12px] font-normal text-white bg-[#3953FF] px-2 rounded-2`}>
+                              {coindata.network}
+                            </Text>
+                          )}
+                        </View>
+                      </View>
+                      <View style={tw`bg-transparent items-end`}>
+                        <Text style={tw`text-white text-[16px] font-semibold`}>
+                          {coindata.tokenAmount}
+                        </Text>
+                        <Text style={tw`text-white text-[14px] font-normal`}>{coindata.tokenPrice}</Text>
+                      </View>
+                    </View>
+                  ))
+                ) : (
+                  <View style={tw`bg-transparent flex-row justify-center p-3 mx-5 items-center`}>
+                    <Text style={tw`text-white text-[30px]`}>No Item</Text>
                   </View>
-                </View>
-                <View style={tw`bg-transparent items-end`}>
-                  <Text style={tw`text-white text-[16px] font-semibold`}>
-                    {coindata.tokenAmount}
-                  </Text>
-                  <Text style={tw`text-white text-[14px] font-normal`}>{coindata.tokenPrice}</Text>
-                </View>
-              </View>
-            ))}
+                )}
+              </>
+            ) : (
+              <>
+                {walletNftData.length > 0 ? (
+                  walletNftData.map((coindata, index) => (
+                    <View key={index} style={tw`bg-transparent flex-row justify-between p-3 mx-5`}>
+                      <View style={tw`bg-transparent flex flex-row items-center gap-2`}>
+                        <Image style={tw`w-[80px] h-[80px]`} source={coindata.avatar} />
+                        <View style={tw`bg-transparent`}>
+                          <Text style={tw`text-[16px] text-white font-semibold`}>
+                            {coindata.name}
+                          </Text>
+                          <Text style={tw`text-[12px] font-normal text-white`}>
+                            {coindata.description}
+                          </Text>
+                        </View>
+                      </View>
+                    </View>
+                  ))
+                ) : (
+                  <View style={tw`bg-transparent flex-row justify-center p-3 mx-5 items-center`}>
+                    <Text style={tw`text-white text-[30px]`}>No Item</Text>
+                  </View>
+                )}
+              </>
+            )}
           </ScrollView>
         </View>
       ) : (
-        <ScrollView style={tw`mx-5`}>
-          <View
-            style={tw`bg-transparent flex flex-row items-center justify-between bg-[#373BA1] p-3 mx-5 rounded-4`}>
-            <View style={tw`bg-transparent flex flex-row gap-4`}>
-              <View style={tw`w-[50px] bg-[#2F1385] rounded-2`} />
-              <View style={tw`bg-transparent gap-2`}>
-                <Text style={tw`text-[20px] font-bold text-[#FFFFFF]`}>Login to continue</Text>
-                <Text style={tw`text-[13px] font-normal text-[#FFFFFF]`}>
-                  Generate Keyless MFC Wallet
-                </Text>
-              </View>
-            </View>
-            <View style={tw`bg-transparent`}>
-              <Image source={require('@/assets/images/cart/rightIcon.png')} />
-            </View>
-          </View>
-        </ScrollView>
+        <WalletUnConnected />
       )}
     </LinearGradient>
   );
