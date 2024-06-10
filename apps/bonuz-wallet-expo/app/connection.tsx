@@ -97,7 +97,7 @@ export default function Connection() {
       {/* <View>
         <SwitchButton value={isEnabled} onValueChange={setEnabled} />
       </View> */}
-      <View style={styles.tokenContainer}>
+      <ScrollView style={styles.tokenContainer}>
         {coinDatas.map((coindata, index) => (
           <View style={styles.connectionSection} key={coindata.id || index}>
             <StatusBar backgroundColor={'#5137B1'} />
@@ -109,13 +109,15 @@ export default function Connection() {
                   <Text style={styles.tokenNetworkSection}>{coindata.network}</Text>
                 </View>
               </View>
-              <View style={styles.tokenPriceSection}>
-                <Image source={require('@/assets/images/connection/leftUpArrow.png')} />
-              </View>
+              <TouchableOpacity onPress={() => navigate('/connection')}>
+                <View style={styles.tokenPriceSection}>
+                  <Image source={require('@/assets/images/connection/leftUpArrow.png')} />
+                </View>
+              </TouchableOpacity>
             </View>
           </View>
         ))}
-      </View>
+      </ScrollView>
     </LinearGradient>
   );
 }
@@ -207,6 +209,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#4837AE',
     padding: wp(4),
     borderRadius: 20,
+    marginTop: wp(4),
   },
   connectionListSection: {
     backgroundColor: 'transparent',
