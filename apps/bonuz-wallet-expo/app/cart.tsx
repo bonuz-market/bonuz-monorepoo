@@ -7,9 +7,11 @@ import { Image, ImageBackground, ScrollView, StatusBar, TouchableOpacity } from 
 import tw from 'twrnc';
 import { useShallow } from 'zustand/react/shallow';
 
+import NftInfoSection from '@/components/NftInfo';
 import { StatusBarHeight } from '@/components/StatusbarHeight';
 import SwitchButton from '@/components/SwtichButton';
 import { Text, View } from '@/components/Themed';
+import TokenInfoSection from '@/components/TokenInfo';
 import WalletUnConnected from '@/components/WalletUnConnected';
 import { useUserStore } from '@/store';
 import { isNotEmpty } from '@/utils/object';
@@ -50,6 +52,8 @@ export default function Cart() {
   const [walletAddress, setWalletAddress] = useState<string>('0x00...00000');
   const [totalBalance, setTotalBalance] = useState<string>('0');
 
+  const [loading, setLoading] = useState(false);
+
   const { auth, user, wallet } = useUserStore(
     useShallow((store) => ({
       auth: store.auth,
@@ -60,13 +64,14 @@ export default function Cart() {
 
   useEffect(() => {
     if (wallet && wallet.address) {
+      setLoading(true);
       setWalletData([]);
       setWalletNftData([]);
       setWalletAddress(shortenWalletAddress(wallet.address));
       const url =
         value === false
-          ? `https://admin.bonuz.xyz/api/users/wallet/${wallet.address}/balance`
-          : `https://admin.bonuz.xyz/api/users/wallet/${wallet.address}/nfts`;
+          ? `https://admin.bonuz.xyz/api/users/wallet/0x0e004bE8F05D53f5E09f61EAAc2acE5314E3438f/balance`
+          : `https://admin.bonuz.xyz/api/users/wallet/0xAD1d94036FE8F1Caa6c51A310ae7667dA76d6A58/nfts`;
       fetch(url) // Replace with your API URL
         .then((response) => response.json())
         .then((data: TokenData[]) => {
@@ -96,6 +101,7 @@ export default function Cart() {
       });
       setTotalBalance(Number(sum).toFixed(2));
       setWalletData(dataArray);
+      setLoading(false);
     }
     if (nftData.length > 0 && value === true) {
       let dataArray: React.SetStateAction<NftDataProps[]> = [];
@@ -107,8 +113,8 @@ export default function Cart() {
           description: shortenDiscription(data.description),
         });
       });
-      console.log(dataArray);
       setWalletNftData(dataArray);
+      setLoading(false);
     }
   }, [tokenData, nftData, value]);
 
@@ -127,11 +133,11 @@ export default function Cart() {
   }
 
   function shortenDiscription(description: string) {
-    if (!description || description.length < 50) {
+    if (!description || description.length < 55) {
       return description; // If the address is too short, return as is
     }
 
-    const prefixLength = 50; // Number of characters to keep from the start
+    const prefixLength = 55; // Number of characters to keep from the start
 
     const prefix = description.slice(0, prefixLength);
 
@@ -216,64 +222,13 @@ export default function Cart() {
       {isNotEmpty(auth) && isNotEmpty(user) ? (
         <View style={tw`flex-1 bg-transparent mt-[-130]`}>
           <View style={tw`mx-5 bg-transparent mb-5`}>
-            <SwitchButton value={value} onValueChange={setValue} title1="Crypt" title2="NFTs" />
+            <SwitchButton value={value} onValueChange={setValue} title1="Crypto" title2="NFTs" />
           </View>
           <ScrollView style={tw`bg-transparent flex-1`}>
             {value === false ? (
-              <>
-                {walletData.length > 0 ? (
-                  walletData.map((coindata, index) => (
-                    <View key={index} style={tw`bg-transparent flex-row justify-between p-3 mx-5`}>
-                      <View style={tw`bg-transparent flex flex-row items-center gap-2`}>
-                        <Image style={tw`w-[30px] h-[30px]`} source={coindata.avatar} />
-                        <View style={tw`bg-transparent`}>
-                          <Text style={tw`text-[16px] text-white font-semibold`}>{coindata.name}</Text>
-                          {coindata.network !== '' && (
-                            <Text
-                              style={tw`text-[12px] font-normal text-white bg-[#3953FF] px-2 rounded-2`}>
-                              {coindata.network}
-                            </Text>
-                          )}
-                        </View>
-                      </View>
-                      <View style={tw`bg-transparent items-end`}>
-                        <Text style={tw`text-white text-[16px] font-semibold`}>
-                          {coindata.tokenAmount}
-                        </Text>
-                        <Text style={tw`text-white text-[14px] font-normal`}>{coindata.tokenPrice}</Text>
-                      </View>
-                    </View>
-                  ))
-                ) : (
-                  <View style={tw`bg-transparent flex-row justify-center p-3 mx-5 items-center`}>
-                    <Text style={tw`text-white text-[30px]`}>No Item</Text>
-                  </View>
-                )}
-              </>
+              <TokenInfoSection value={walletData} loadingStatus={loading} />
             ) : (
-              <>
-                {walletNftData.length > 0 ? (
-                  walletNftData.map((coindata, index) => (
-                    <View key={index} style={tw`bg-transparent flex-row justify-between p-3 mx-5`}>
-                      <View style={tw`bg-transparent flex flex-row items-center gap-2`}>
-                        <Image style={tw`w-[80px] h-[80px]`} source={coindata.avatar} />
-                        <View style={tw`bg-transparent`}>
-                          <Text style={tw`text-[16px] text-white font-semibold`}>
-                            {coindata.name}
-                          </Text>
-                          <Text style={tw`text-[12px] font-normal text-white`}>
-                            {coindata.description}
-                          </Text>
-                        </View>
-                      </View>
-                    </View>
-                  ))
-                ) : (
-                  <View style={tw`bg-transparent flex-row justify-center p-3 mx-5 items-center`}>
-                    <Text style={tw`text-white text-[30px]`}>No Item</Text>
-                  </View>
-                )}
-              </>
+              <NftInfoSection value={walletNftData} loadingStatus={loading} />
             )}
           </ScrollView>
         </View>
