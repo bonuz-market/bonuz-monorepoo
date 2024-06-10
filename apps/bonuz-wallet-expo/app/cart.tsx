@@ -83,7 +83,7 @@ export default function Cart() {
             />
           </View>
         </TouchableOpacity>
-        <View style={[styles.cartLogo, { paddingTop: StatusBarHeight() }]}>
+        <View style={styles.cartLogo}>
           <Text style={styles.cartTitle}>Smart Wallet</Text>
           <View style={styles.networkSection}>
             <Image
@@ -199,11 +199,11 @@ const styles = StyleSheet.create({
     fontWeight: 600,
   },
   networkSection: {
-    flex: 1,
     flexDirection: 'row',
     backgroundColor: 'transparent',
     gap: 4,
     paddingTop: wp(2),
+    alignItems: 'center',
   },
   worldIcon: {
     width: 20,
