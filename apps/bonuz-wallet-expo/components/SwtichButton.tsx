@@ -11,7 +11,6 @@ export default function SwitchButton(props: {
     const { value, onValueChange, title1, title2 } = props;
     const toggleSwitch = () => {
         const newValue = !value;
-        console.log(newValue);
         onValueChange(newValue);
     };
 
