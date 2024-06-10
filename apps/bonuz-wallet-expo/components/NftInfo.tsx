@@ -10,6 +10,7 @@ interface NftDataProps {
     avatar: any;
     name: string;
     description: string;
+    date: string;
 }
 
 export default function NftInfoSection(props: { value: any; loadingStatus: boolean }) {
@@ -35,7 +36,7 @@ export default function NftInfoSection(props: { value: any; loadingStatus: boole
                                         <Text style={tw`text-[12px] font-normal text-white`}>
                                             {coindata.description}
                                         </Text>
-
+                                        <Text style={tw`text-[12px] font-normal text-white`}>{coindata.date}</Text>
                                     </View>
                                 </View>
                             </View>

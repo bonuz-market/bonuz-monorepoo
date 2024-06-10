@@ -14,8 +14,10 @@ import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
+import tw from 'twrnc';
 
 import { StatusBarHeight } from '@/components/StatusbarHeight';
+import SwitchButton from '@/components/SwtichButton';
 // import SwitchButton from '@/components/SwtichButton';
 import { Text, View } from '@/components/Themed';
 
@@ -63,54 +65,61 @@ const coinDatas = [
 ];
 export default function Connection() {
   const { navigate } = useRouter();
-
-  // const [isEnabled, setEnabled] = useState(false);
+  const [value, setValue] = useState<boolean>(true);
 
   return (
-    <LinearGradient colors={['#4B2EA2', '#0E2875']} style={[styles.container]}>
+    <LinearGradient colors={['#4B2EA2', '#0E2875']} style={tw`flex-1`}>
       <StatusBar backgroundColor={'#5137B1'} />
-      <View style={[styles.header, { paddingTop: StatusBarHeight() }]}>
+      <View
+        style={[
+          tw`flex flex-row justify-between items-center bg-[#5137B1] px-4 h-4/25 rounded-b-[10]`,
+          { paddingTop: StatusBarHeight() },
+        ]}>
         <TouchableOpacity onPress={() => navigate('/home')}>
-          <View style={styles.headerImageWrap}>
-            <Image
-              style={styles.headerImage}
-              source={require('@/assets/images/cart/leftIcon.png')}
-            />
+          <View style={tw`w-[54px] h-[54px] rounded-full bg-[#684FCD] justify-center items-center`}>
+            <Image style={tw`w-[30px]`} source={require('@/assets/images/cart/leftIcon.png')} />
           </View>
         </TouchableOpacity>
-        <View style={styles.connectionLogo}>
-          <Text style={styles.connectionTitle}>Social</Text>
+        <View style={tw`flex bg-transparent justify-center items-center`}>
+          <Text style={tw`text-[20px] text-white font-semibold`}>Social</Text>
         </View>
-        <TouchableOpacity onPress={() => navigate('/connection')}>
-          <View style={styles.headerImageWrap}>
-            <View style={styles.badge}>
-              <Text style={styles.badgeText}>3</Text>
+        <TouchableOpacity onPress={() => navigate('/cart')}>
+          <View style={tw`w-[54px] h-[54px] rounded-full bg-[#684FCD] justify-center items-center`}>
+            <View
+              style={tw`bg-[#FF3B30] absolute top-[-1] left-9 w-[20px] rounded-full justify-center items-center`}>
+              <Text style={tw`text-[13px] text-white font-semibold`}>3</Text>
             </View>
             <Image
-              style={styles.headerImage}
+              style={tw`w-[30px]`}
               source={require('@/assets/images/connection/messageIcon.png')}
             />
           </View>
         </TouchableOpacity>
       </View>
 
-      {/* <View>
-        <SwitchButton value={isEnabled} onValueChange={setEnabled} />
-      </View> */}
-      <ScrollView style={styles.tokenContainer}>
+      <View style={tw`bg-transparent mx-5 mt-10`}>
+        <SwitchButton
+          value={value}
+          onValueChange={setValue}
+          title1="Lens.xys Feed"
+          title2="My Connections"
+        />
+      </View>
+
+      <ScrollView style={tw`bg-transparent m-5 gap-10`}>
         {coinDatas.map((coindata, index) => (
-          <View style={styles.connectionSection} key={coindata.id || index}>
+          <View style={tw`bg-[#4837AE] p-4 rounded-3xl mt-3`} key={coindata.id || index}>
             <StatusBar backgroundColor={'#5137B1'} />
-            <View style={styles.connectionListSection}>
-              <View style={styles.tokenTitleSection}>
-                <Image style={styles.tokenImage} source={coindata.avatar} />
-                <View style={styles.tokenNameSection}>
-                  <Text style={styles.tokenText}>{coindata.name}</Text>
-                  <Text style={styles.tokenNetworkSection}>{coindata.network}</Text>
+            <View style={tw`bg-transparent flex flex-row justify-between text-center items-center`}>
+              <View style={tw`bg-transparent flex flex-row gap-2 justify-center items-center`}>
+                <Image style={tw`w-16 h-16`} source={coindata.avatar} />
+                <View style={tw`bg-transparent`}>
+                  <Text style={tw`text-[20px] font-semibold text-white`}>{coindata.name}</Text>
+                  <Text style={tw`text-[16px] font-normal text-white`}>{coindata.network}</Text>
                 </View>
               </View>
               <TouchableOpacity onPress={() => navigate('/connection')}>
-                <View style={styles.tokenPriceSection}>
+                <View style={tw`bg-transparent`}>
                   <Image source={require('@/assets/images/connection/leftUpArrow.png')} />
                 </View>
               </TouchableOpacity>
@@ -121,289 +130,3 @@ export default function Connection() {
     </LinearGradient>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  header: {
-    flexDirection: 'row',
-    paddingHorizontal: wp(5),
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    backgroundColor: '#5137B1',
-    height: hp(16),
-    borderBottomRightRadius: wp(10),
-    borderBottomLeftRadius: wp(10),
-  },
-  connectionLogo: {
-    display: 'flex',
-    backgroundColor: 'transparent',
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  connectionTitle: {
-    fontSize: 22,
-    color: '#FFFFFF',
-    fontWeight: 400,
-  },
-  networkSection: {
-    flex: 1,
-    flexDirection: 'row',
-    backgroundColor: 'transparent',
-    width: '100%',
-    height: '100%',
-    gap: 4,
-    marginTop: 4,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  worldIcon: {
-    width: 20,
-    height: 20,
-  },
-  caption: {
-    fontSize: 14,
-    fontWeight: 500,
-    color: '#FFFFFF',
-  },
-  headerLogo: {
-    width: wp(22),
-    height: wp(6),
-  },
-  eyeIcon: {
-    width: 24,
-    height: 24,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  headerImage: {
-    width: wp(6),
-    height: wp(5),
-  },
-  tokenImage: {
-    width: 44,
-    height: 44,
-  },
-  tokenText: {
-    fontSize: 16,
-    color: '#FFFFFF',
-    fontWeight: 600,
-  },
-  tokenSubline: {
-    fontSize: 14,
-    fontWeight: 400,
-    color: '#FFFFFF',
-  },
-  searchImage: {
-    width: wp(7),
-    height: wp(7),
-    marginRight: wp(2),
-  },
-  downImage: {
-    width: 10,
-    height: 5.83,
-  },
-  connectionSection: {
-    backgroundColor: '#4837AE',
-    padding: wp(4),
-    borderRadius: 20,
-    marginTop: wp(4),
-  },
-  connectionListSection: {
-    backgroundColor: 'transparent',
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    textAlign: 'center',
-    alignItems: 'center',
-  },
-  tokenTitleSection: {
-    backgroundColor: 'transparent',
-    display: 'flex',
-    flexDirection: 'row',
-    gap: wp(2),
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  tokenNameSection: {
-    backgroundColor: 'transparent',
-    fontSize: 20,
-    fontWeight: 600,
-  },
-  tokenNetworkSection: {
-    fontSize: 13,
-    fontWeight: 400,
-    color: '#FFFFFF',
-    padding: 2,
-    borderRadius: 4,
-  },
-  tokenPriceSection: {
-    backgroundColor: 'transparent',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  headerImageWrap: {
-    width: wp(12),
-    height: wp(12),
-    borderRadius: wp(6),
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#684FCD',
-  },
-  badge: {
-    backgroundColor: 'red',
-    position: 'absolute',
-    top: 0,
-    left: wp(8),
-    borderRadius: 50,
-    width: wp(5),
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: hp(2.5),
-  },
-  badgeText: {
-    fontSize: RFPercentage(1.5),
-    color: 'white',
-    fontWeight: 'bold',
-  },
-  searchContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: 'transparent',
-    marginVertical: hp(2),
-    paddingHorizontal: wp(5),
-    justifyContent: 'space-between',
-  },
-  search: {
-    paddingHorizontal: wp(2),
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#5F42BE',
-    width: wp(75),
-    height: wp(12),
-    borderRadius: 100,
-    borderWidth: 2,
-    borderColor: '#7651CD',
-  },
-  input: {
-    fontSize: RFPercentage(2),
-    fontWeight: '400',
-    color: 'white',
-    width: wp(60),
-  },
-  carousel: {
-    height: '100%',
-    width: wp(90),
-    borderRadius: wp(7),
-    left: wp(5),
-    flexDirection: 'row',
-    overflow: 'hidden',
-  },
-  info: {
-    width: wp(7),
-    height: wp(7),
-    marginRight: wp(5),
-  },
-  optionSection: {
-    display: 'flex',
-    flex: 1,
-    backgroundColor: 'transparent',
-    flexDirection: 'row',
-    padding: wp(4),
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    gap: wp(18),
-  },
-  subOptionSection: {
-    backgroundColor: 'transparent',
-    alignItems: 'center',
-    textAlign: 'center',
-    gap: 2,
-  },
-  optionIcon: {
-    width: 54,
-    height: 54,
-  },
-  optionText: {
-    color: '#FFFFFF',
-    fontSize: 13,
-    fontWeight: 'normal',
-  },
-  walletContainer: {
-    backgroundColor: 'transparent',
-    width: '50%',
-    height: '100%',
-    padding: wp(5),
-  },
-  reward: {
-    backgroundColor: 'transparent',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  rewardImage: {
-    width: wp(14),
-    height: wp(14),
-  },
-  walletTitle: {
-    fontSize: RFPercentage(2.8),
-    color: 'white',
-    fontWeight: 'bold',
-  },
-  walletBalanceSection: {
-    backgroundColor: 'transparent',
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 2,
-  },
-  walletBalance: {
-    fontSize: RFPercentage(2),
-    color: 'white',
-    fontWeight: 'normal',
-  },
-  voucher: {
-    fontSize: RFPercentage(2.7),
-    color: 'white',
-    fontWeight: 'bold',
-    marginTop: hp(1.5),
-    marginBottom: hp(1),
-  },
-  subVoucher: {
-    fontSize: RFPercentage(2.2),
-    color: 'white',
-  },
-  yourItemsImage: {
-    width: wp(40),
-    height: hp(25),
-    resizeMode: 'contain',
-  },
-  viewAll: {
-    backgroundColor: '#63ADEF30',
-    marginRight: wp(5),
-    borderRadius: 100,
-    paddingHorizontal: wp(3),
-    paddingVertical: hp(0.3),
-  },
-  viewAllText: {
-    fontSize: RFPercentage(1.8),
-    color: 'white',
-    fontWeight: '600',
-  },
-  eventContainer: {
-    marginTop: hp(2),
-  },
-  scrollContainer: {
-    flex: 1,
-    marginTop: hp(4),
-    backgroundColor: 'transparent',
-  },
-  tokenContainer: {
-    flex: 1,
-    marginTop: hp(1),
-    backgroundColor: 'transparent',
-    margin: wp(5),
-    gap: 10,
-  },
-});
