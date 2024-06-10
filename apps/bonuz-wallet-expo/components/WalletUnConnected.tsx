@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, Image, ScrollView } from 'react-native';
+import { Image, ScrollView, Text, View } from 'react-native';
 import tw from 'twrnc';
 
 export default function WalletUnConnected() {
