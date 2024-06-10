@@ -47,25 +47,26 @@ export default function Home() {
   const onboardingData = [
     {
       image: require('@/assets/images/onboardingOne.png'),
-      title: 'Welcome to your On-chain Social Wallet',
+      title: `Welcome to Your On-Chain Social Smart Wallet`,
       description:
-        'Add your social media links to your profile so new friends can easily connect to you',
+        'Add Your Social Media Links to Your Profile so New Friends can Easily Connect to You!',
+      // capitalize the first letter of each word
     },
     {
       image: require('@/assets/images/onboardingTwo.png'),
-      title: 'Make new friends while exploring new events',
-      description: 'Use QR-code to add a new connections',
+      title: 'Make New Friends while Exploring New Events',
+      description: 'Use QR code to add New Connections!',
     },
     {
       image: require('@/assets/images/onboardingThree.png'),
-      title: 'Earn exclusive rewards by participating in challenges',
-      description: 'Secure vouchers, discounts, certificates and more from Bonuz partners',
+      title: 'Earn Exclusive Rewards & Airdrops',
+      description: 'Participate in Challenge to Earn Vouchers, Discounts, Certificates and More!',
     },
     {
       image: require('@/assets/images/onboardingFour.png'),
-      title: 'Connect to Apps & Dapps using your wallet',
+      title: 'Explore & Connect to Apps & Dapps',
       description:
-        'Seamlessly access and use your favorite Web3 applications directly from the integrated wallet interface',
+        'Seamlessly Access Your Favorite Web3 Applications Directly from the Integrated Wallet',
     },
   ];
 
@@ -88,7 +89,7 @@ export default function Home() {
     if (activeIndex === 0) {
       return 'Continue';
     } else if (activeIndex === 3) {
-      return 'Connect Decentralized ID';
+      return 'Connect Bonuz ID';
     } else {
       return 'Next';
     }
