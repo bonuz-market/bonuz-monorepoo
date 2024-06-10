@@ -65,7 +65,48 @@ const coinDatas = [
     tokenAmount: '1,602.98',
     tokenPrice: '~$1,21.2.81',
   },
+  {
+    id: 6,
+    avatar: require('@/assets/images/cart/ethereum.png'),
+    name: 'Ethereum',
+    network: '',
+    tokenAmount: '3.3461',
+    tokenPrice: '~$4,141.25',
+  },
+  {
+    id: 7,
+    avatar: require('@/assets/images/cart/usdc.png'),
+    name: 'USDC',
+    network: 'Polygon',
+    tokenAmount: '3,941.81',
+    tokenPrice: '~$3,941.81',
+  },
+  {
+    id: 8,
+    avatar: require('@/assets/images/cart/bitcoin.png'),
+    name: 'Bitcoin',
+    network: '',
+    tokenAmount: '0.1906',
+    tokenPrice: '~$3,277.53',
+  },
+  {
+    id: 9,
+    avatar: require('@/assets/images/cart/bnb.png'),
+    name: 'BNB',
+    network: '',
+    tokenAmount: '5.0998',
+    tokenPrice: '~$1,423.87',
+  },
+  {
+    id: 10,
+    avatar: require('@/assets/images/cart/solana.png'),
+    name: 'Solana',
+    network: '',
+    tokenAmount: '1,602.98',
+    tokenPrice: '~$1,21.2.81',
+  },
 ];
+
 export default function Cart() {
   const { navigate } = useRouter();
 
@@ -149,7 +190,8 @@ export default function Cart() {
       {/* <View>
         <SwitchButton value={isEnabled} onValueChange={setEnabled} />
       </View> */}
-      <View style={styles.tokenContainer}>
+
+      <ScrollView style={styles.tokenContainer}>
         {coinDatas.map((coindata, index) => (
           <View key={coindata.id || index} style={styles.tokenListSection}>
             <View style={styles.tokenTitleSection}>
@@ -167,7 +209,7 @@ export default function Cart() {
             </View>
           </View>
         ))}
-      </View>
+      </ScrollView>
     </LinearGradient>
   );
 }
@@ -258,6 +300,8 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     textAlign: 'center',
     alignItems: 'center',
+    paddingTop: wp(2),
+    margin: wp(2),
   },
   tokenTitleSection: {
     backgroundColor: 'transparent',
@@ -440,9 +484,7 @@ const styles = StyleSheet.create({
   },
   tokenContainer: {
     flex: 1,
-    marginTop: hp(1),
     backgroundColor: 'transparent',
     margin: wp(5),
-    gap: 10,
   },
 });
