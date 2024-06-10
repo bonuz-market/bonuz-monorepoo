@@ -1,19 +1,7 @@
 import { LinearGradient } from 'expo-linear-gradient';
 import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
-import {
-  Image,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  TextInput,
-  TouchableOpacity,
-} from 'react-native';
-import { RFPercentage } from 'react-native-responsive-fontsize';
-import {
-  heightPercentageToDP as hp,
-  widthPercentageToDP as wp,
-} from 'react-native-responsive-screen';
+import { Image, ScrollView, StatusBar, TextInput, TouchableOpacity } from 'react-native';
 import tw from 'twrnc';
 
 import HomeCarousel from '@/components/HomeCarousel';
@@ -87,7 +75,7 @@ export default function Home() {
           item={
             <LinearGradient
               colors={['#F14375', '#F67640']}
-              style={tw`h-full w-9/10 rounded-3xl flex flex-row left-[-43px] items-center`}>
+              style={tw`h-full w-full rounded-3xl flex flex-row left-[-43px] items-center`}>
               <View style={tw`bg-transparent w-1/2 h-full p-6`}>
                 <View style={tw`bg-[#f67868] w-23 h-23 rounded-full justify-center items-center`}>
                   <Image
