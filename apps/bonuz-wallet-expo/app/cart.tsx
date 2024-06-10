@@ -133,11 +133,11 @@ export default function Cart() {
   }
 
   function shortenDiscription(description: string) {
-    if (!description || description.length < 55) {
+    if (!description || description.length < 52) {
       return description; // If the address is too short, return as is
     }
 
-    const prefixLength = 55; // Number of characters to keep from the start
+    const prefixLength = 52; // Number of characters to keep from the start
 
     const prefix = description.slice(0, prefixLength);
 
