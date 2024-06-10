@@ -2,6 +2,9 @@ import React from 'react';
 import { Image, Text, View } from 'react-native';
 import tw from 'twrnc';
 
+import LoadingSection from './LoadingSection';
+import NoItemSection from './NoItemSection';
+
 interface WalletDataProps {
     id: number;
     avatar: any;
@@ -17,9 +20,7 @@ export default function TokenInfoSection(props: { value: any; loadingStatus: any
     return (
         <>
             {loadingStatus === true ? (
-                <View style={tw`bg-transparent flex-row justify-center p-3 mx-5 items-center`}>
-                    <Text style={tw`text-white text-[30px]`}>Loading...</Text>
-                </View>
+                <LoadingSection />
             ) : (
                 <>
                     {value.length > 0 ? (
@@ -43,9 +44,7 @@ export default function TokenInfoSection(props: { value: any; loadingStatus: any
                             </View>
                         ))
                     ) : (
-                        <View style={tw`bg-transparent flex-row justify-center p-3 mx-5 items-center`}>
-                            <Text style={tw`text-white text-[30px]`}>No Item</Text>
-                        </View>
+                        <NoItemSection />
                     )}
                 </>
             )
