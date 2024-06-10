@@ -19,54 +19,49 @@ import { StatusBarHeight } from '@/components/StatusbarHeight';
 // import SwitchButton from '@/components/SwtichButton';
 import { Text, View } from '@/components/Themed';
 
-const walletMockData = {
-  address: '0x71A0...6a6a',
-  balance: '13,941,41',
-};
-
 const coinDatas = [
   {
     id: 1,
-    avatar: require('@/assets/images/cart/ethereum.png'),
-    name: 'Ethereum',
-    network: '',
+    avatar: require('@/assets/images/connection/connection1.png'),
+    name: 'JeanCalude',
+    network: '@mende (mende.lens)',
     tokenAmount: '3.3461',
     tokenPrice: '~$4,141.25',
   },
   {
     id: 2,
-    avatar: require('@/assets/images/cart/usdc.png'),
-    name: 'USDC',
-    network: 'Polygon',
+    avatar: require('@/assets/images/connection/connection2.png'),
+    name: 'Andre Goldner',
+    network: '@Louie5',
     tokenAmount: '3,941.81',
     tokenPrice: '~$3,941.81',
   },
   {
     id: 3,
-    avatar: require('@/assets/images/cart/bitcoin.png'),
-    name: 'Bitcoin',
-    network: '',
+    avatar: require('@/assets/images/connection/connection3.png'),
+    name: 'Daniel Hettinger',
+    network: '@Hipolito',
     tokenAmount: '0.1906',
     tokenPrice: '~$3,277.53',
   },
   {
     id: 4,
-    avatar: require('@/assets/images/cart/bnb.png'),
-    name: 'BNB',
-    network: '',
+    avatar: require('@/assets/images/connection/connection4.png'),
+    name: 'Dominic Stamm',
+    network: '@Carmelo',
     tokenAmount: '5.0998',
     tokenPrice: '~$1,423.87',
   },
   {
     id: 5,
-    avatar: require('@/assets/images/cart/solana.png'),
-    name: 'Solana',
-    network: '',
+    avatar: require('@/assets/images/connection/connection5.png'),
+    name: 'Harriet Volkman',
+    network: '@Angus',
     tokenAmount: '1,602.98',
     tokenPrice: '~$1,21.2.81',
   },
 ];
-export default function Cart() {
+export default function Connection() {
   const { navigate } = useRouter();
 
   // const [isEnabled, setEnabled] = useState(false);
@@ -83,87 +78,40 @@ export default function Cart() {
             />
           </View>
         </TouchableOpacity>
-        <View style={[styles.cartLogo, { paddingTop: StatusBarHeight() }]}>
-          <Text style={styles.cartTitle}>Smart Wallet</Text>
-          <View style={styles.networkSection}>
-            <Image
-              style={styles.worldIcon}
-              source={require('@/assets/images/cart/worldIcon.png')}
-            />
-            <Text style={styles.caption}>All Networks</Text>
-            <Image style={styles.downImage} source={require('@/assets/images/cart/downIcon.png')} />
-          </View>
+        <View style={styles.connectionLogo}>
+          <Text style={styles.connectionTitle}>Social</Text>
         </View>
-        <TouchableOpacity onPress={() => navigate('/cart')}>
+        <TouchableOpacity onPress={() => navigate('/connection')}>
           <View style={styles.headerImageWrap}>
+            <View style={styles.badge}>
+              <Text style={styles.badgeText}>3</Text>
+            </View>
             <Image
               style={styles.headerImage}
-              source={require('@/assets/images/cart/compassIcon.png')}
+              source={require('@/assets/images/connection/messageIcon.png')}
             />
           </View>
         </TouchableOpacity>
       </View>
-
-      <ScrollView
-        contentContainerStyle={{
-          display: 'flex',
-        }}
-        style={styles.scrollContainer}>
-        <ImageBackground
-          source={require('@/assets/images/cart/walletBackground.png')}
-          style={styles.carousel}>
-          <View style={styles.walletContainer}>
-            <Text style={styles.walletTitle}>Main Wallet</Text>
-            <Text style={styles.walletBalance}>{walletMockData.address}</Text>
-            <View style={styles.walletBalanceSection}>
-              <Text style={styles.voucher}>$ {walletMockData.balance}</Text>
-              <Image style={styles.eyeIcon} source={require('@/assets/images/cart/eyeIcon.png')} />
-            </View>
-            <View style={styles.optionSection}>
-              <View style={styles.subOptionSection}>
-                <Image
-                  style={styles.optionIcon}
-                  source={require('@/assets/images/cart/receive.png')}
-                />
-                <Text style={styles.optionText}>Receive</Text>
-              </View>
-              <View style={styles.subOptionSection}>
-                <Image
-                  style={styles.optionIcon}
-                  source={require('@/assets/images/cart/swap.png')}
-                />
-                <Text style={styles.optionText}>Swap</Text>
-              </View>
-              <View style={styles.subOptionSection}>
-                <Image
-                  style={styles.optionIcon}
-                  source={require('@/assets/images/cart/send.png')}
-                />
-                <Text style={styles.optionText}>Send</Text>
-              </View>
-            </View>
-          </View>
-        </ImageBackground>
-      </ScrollView>
 
       {/* <View>
         <SwitchButton value={isEnabled} onValueChange={setEnabled} />
       </View> */}
       <View style={styles.tokenContainer}>
         {coinDatas.map((coindata, index) => (
-          <View key={coindata.id || index} style={styles.tokenListSection}>
-            <View style={styles.tokenTitleSection}>
-              <Image style={styles.tokenImage} source={coindata.avatar} />
-              <View style={styles.tokenNameSection}>
-                <Text style={styles.tokenText}>{coindata.name}</Text>
-                {coindata.network !== '' && (
+          <View style={styles.connectionSection} key={coindata.id || index}>
+            <StatusBar backgroundColor={'#5137B1'} />
+            <View style={styles.connectionListSection}>
+              <View style={styles.tokenTitleSection}>
+                <Image style={styles.tokenImage} source={coindata.avatar} />
+                <View style={styles.tokenNameSection}>
+                  <Text style={styles.tokenText}>{coindata.name}</Text>
                   <Text style={styles.tokenNetworkSection}>{coindata.network}</Text>
-                )}
+                </View>
               </View>
-            </View>
-            <View style={styles.tokenPriceSection}>
-              <Text style={styles.tokenText}>{coindata.tokenAmount}</Text>
-              <Text style={styles.tokenSubline}>{coindata.tokenPrice}</Text>
+              <View style={styles.tokenPriceSection}>
+                <Image source={require('@/assets/images/connection/leftUpArrow.png')} />
+              </View>
             </View>
           </View>
         ))}
@@ -186,32 +134,32 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: wp(10),
     borderBottomLeftRadius: wp(10),
   },
-  cartLogo: {
+  connectionLogo: {
     display: 'flex',
     backgroundColor: 'transparent',
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },
-  cartTitle: {
-    fontSize: 20,
+  connectionTitle: {
+    fontSize: 22,
     color: '#FFFFFF',
-    fontWeight: 600,
+    fontWeight: 400,
   },
   networkSection: {
     flex: 1,
     flexDirection: 'row',
     backgroundColor: 'transparent',
+    width: '100%',
+    height: '100%',
     gap: 4,
-    paddingTop: wp(2),
+    marginTop: 4,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   worldIcon: {
     width: 20,
     height: 20,
-  },
-  downImage: {
-    width: 10,
-    height: 5.83,
   },
   caption: {
     fontSize: 14,
@@ -251,7 +199,16 @@ const styles = StyleSheet.create({
     height: wp(7),
     marginRight: wp(2),
   },
-  tokenListSection: {
+  downImage: {
+    width: 10,
+    height: 5.83,
+  },
+  connectionSection: {
+    backgroundColor: '#4837AE',
+    padding: wp(4),
+    borderRadius: 20,
+  },
+  connectionListSection: {
     backgroundColor: 'transparent',
     display: 'flex',
     flexDirection: 'row',
@@ -269,11 +226,12 @@ const styles = StyleSheet.create({
   },
   tokenNameSection: {
     backgroundColor: 'transparent',
-    alignItems: 'center',
+    fontSize: 20,
+    fontWeight: 600,
   },
   tokenNetworkSection: {
-    fontSize: 12,
-    backgroundColor: '#3952FE',
+    fontSize: 13,
+    fontWeight: 400,
     color: '#FFFFFF',
     padding: 2,
     borderRadius: 4,
@@ -297,7 +255,7 @@ const styles = StyleSheet.create({
     top: 0,
     left: wp(8),
     borderRadius: 50,
-    width: wp(9),
+    width: wp(5),
     justifyContent: 'center',
     alignItems: 'center',
     height: hp(2.5),
