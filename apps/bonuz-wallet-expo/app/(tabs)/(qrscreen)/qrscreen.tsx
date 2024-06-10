@@ -1,4 +1,5 @@
 import { LinearGradient } from 'expo-linear-gradient';
+import React from 'react';
 import { Image, TouchableOpacity } from 'react-native';
 import tw from 'twrnc';
 import { useShallow } from 'zustand/react/shallow';
