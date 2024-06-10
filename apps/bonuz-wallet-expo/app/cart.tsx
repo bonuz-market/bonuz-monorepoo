@@ -203,15 +203,24 @@ export default function Cart() {
 
             <View style={tw`flex flex-row bg-transparent justify-between pt-6 px-8`}>
               <View style={tw`bg-transparent items-center text-center gap-2`}>
-                <Image style={tw`w-[54px]`} source={require('@/assets/images/cart/receive.png')} />
+                <TouchableOpacity>
+                  <Image
+                    style={tw`w-[54px]`}
+                    source={require('@/assets/images/cart/receive.png')}
+                  />
+                </TouchableOpacity>
                 <Text style={tw`text-[13px] text-white font-medium`}>Receive</Text>
               </View>
               <View style={tw`bg-transparent items-center text-center gap-2`}>
-                <Image style={tw`w-[54px]`} source={require('@/assets/images/cart/swap.png')} />
+                <TouchableOpacity>
+                  <Image style={tw`w-[54px]`} source={require('@/assets/images/cart/swap.png')} />
+                </TouchableOpacity>
                 <Text style={tw`text-[13px] text-white font-medium`}>Swap</Text>
               </View>
               <View style={tw`bg-transparent items-center text-center gap-2`}>
-                <Image style={tw`w-[54px]`} source={require('@/assets/images/cart/send.png')} />
+                <TouchableOpacity>
+                  <Image style={tw`w-[54px]`} source={require('@/assets/images/cart/send.png')} />
+                </TouchableOpacity>
                 <Text style={tw`text-[13px] text-white font-medium`}>Send</Text>
               </View>
             </View>
@@ -219,22 +228,24 @@ export default function Cart() {
         </ImageBackground>
       </ScrollView>
 
-      {isNotEmpty(auth) && isNotEmpty(user) ? (
-        <View style={tw`flex-1 bg-transparent mt-[-130]`}>
-          <View style={tw`mx-5 bg-transparent mb-5`}>
-            <SwitchButton value={value} onValueChange={setValue} title1="Crypto" title2="NFTs" />
+      {
+        isNotEmpty(auth) && isNotEmpty(user) ? (
+          <View style={tw`flex-1 bg-transparent mt-[-130]`}>
+            <View style={tw`mx-5 bg-transparent mb-5`}>
+              <SwitchButton value={value} onValueChange={setValue} title1="Crypto" title2="NFTs" />
+            </View>
+            <ScrollView style={tw`bg-transparent flex-1`}>
+              {value === false ? (
+                <TokenInfoSection value={walletData} loadingStatus={loading} />
+              ) : (
+                <NftInfoSection value={walletNftData} loadingStatus={loading} />
+              )}
+            </ScrollView>
           </View>
-          <ScrollView style={tw`bg-transparent flex-1`}>
-            {value === false ? (
-              <TokenInfoSection value={walletData} loadingStatus={loading} />
-            ) : (
-              <NftInfoSection value={walletNftData} loadingStatus={loading} />
-            )}
-          </ScrollView>
-        </View>
-      ) : (
-        <WalletUnConnected />
-      )}
-    </LinearGradient>
+        ) : (
+          <WalletUnConnected />
+        )
+      }
+    </LinearGradient >
   );
 }
