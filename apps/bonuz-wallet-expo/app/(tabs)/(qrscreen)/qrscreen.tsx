@@ -9,7 +9,7 @@ import { ProfileHome } from '@/pages/profile/screens';
 import { useUserStore } from '@/store';
 import { isNotEmpty } from '@/utils/object';
 
-export default function QrScreen() {
+export default function Qrscreen() {
     const { auth, user } = useUserStore(
         useShallow((store) => ({
             auth: store.auth,

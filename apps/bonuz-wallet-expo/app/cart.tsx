@@ -18,7 +18,6 @@ import {
 import { StatusBarHeight } from '@/components/StatusbarHeight';
 // import SwitchButton from '@/components/SwtichButton';
 import { Text, View } from '@/components/Themed';
-import { useBottomTabBarMargin } from '@/hooks/useBottomTabBarHeight';
 
 const walletMockData = {
   address: '0x71A0...6a6a',
@@ -32,7 +31,7 @@ const coinDatas = [
     name: 'Ethereum',
     network: '',
     tokenAmount: '3.3461',
-    tokenPrice: '$4,141.25',
+    tokenPrice: '~$4,141.25',
   },
   {
     id: 2,
@@ -68,10 +67,9 @@ const coinDatas = [
   },
 ];
 export default function Cart() {
-  const tabBarMargin = useBottomTabBarMargin();
   const { navigate } = useRouter();
 
-  const [isEnabled, setEnabled] = useState(false);
+  // const [isEnabled, setEnabled] = useState(false);
 
   return (
     <LinearGradient colors={['#4B2EA2', '#0E2875']} style={[styles.container]}>
@@ -109,7 +107,6 @@ export default function Cart() {
       <ScrollView
         contentContainerStyle={{
           display: 'flex',
-          paddingBottom: tabBarMargin,
         }}
         style={styles.scrollContainer}>
         <ImageBackground
@@ -155,11 +152,19 @@ export default function Cart() {
       <View style={styles.tokenContainer}>
         {coinDatas.map((coindata, index) => (
           <View key={coindata.id || index} style={styles.tokenListSection}>
-            <Image style={styles.headerImage} source={coindata.avatar} />
-            <Text>{coindata.name}</Text>
-            {coindata.network !== '' && <Text>{coindata.network}</Text>}
-            <Text>{coindata.tokenAmount}</Text>
-            <Text>{coindata.tokenPrice}</Text>
+            <View style={styles.tokenTitleSection}>
+              <Image style={styles.tokenImage} source={coindata.avatar} />
+              <View style={styles.tokenNameSection}>
+                <Text style={styles.tokenText}>{coindata.name}</Text>
+                {coindata.network !== '' && (
+                  <Text style={styles.tokenNetworkSection}>{coindata.network}</Text>
+                )}
+              </View>
+            </View>
+            <View style={styles.tokenPriceSection}>
+              <Text style={styles.tokenText}>{coindata.tokenAmount}</Text>
+              <Text style={styles.tokenSubline}>{coindata.tokenPrice}</Text>
+            </View>
           </View>
         ))}
       </View>
@@ -228,8 +233,18 @@ const styles = StyleSheet.create({
     height: wp(5),
   },
   tokenImage: {
-    width: wp(3),
-    height: hp(3),
+    width: 44,
+    height: 44,
+  },
+  tokenText: {
+    fontSize: 16,
+    color: '#FFFFFF',
+    fontWeight: 600,
+  },
+  tokenSubline: {
+    fontSize: 14,
+    fontWeight: 400,
+    color: '#FFFFFF',
   },
   searchImage: {
     width: wp(7),
@@ -244,6 +259,33 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
     display: 'flex',
     flexDirection: 'row',
+    justifyContent: 'space-between',
+    textAlign: 'center',
+    alignItems: 'center',
+  },
+  tokenTitleSection: {
+    backgroundColor: 'transparent',
+    display: 'flex',
+    flexDirection: 'row',
+    gap: wp(2),
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  tokenNameSection: {
+    backgroundColor: 'transparent',
+    alignItems: 'center',
+  },
+  tokenNetworkSection: {
+    fontSize: 12,
+    backgroundColor: '#3952FE',
+    color: '#FFFFFF',
+    padding: 2,
+    borderRadius: 4,
+  },
+  tokenPriceSection: {
+    backgroundColor: 'transparent',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   headerImageWrap: {
     width: wp(12),
@@ -356,6 +398,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
     flex: 1,
     flexDirection: 'row',
+    alignItems: 'center',
+    gap: 2,
   },
   walletBalance: {
     fontSize: RFPercentage(2),
@@ -402,5 +446,7 @@ const styles = StyleSheet.create({
     flex: 1,
     marginTop: hp(1),
     backgroundColor: 'transparent',
+    margin: wp(5),
+    gap: 10,
   },
 });
