@@ -14,6 +14,7 @@ import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
+import tw from 'twrnc';
 
 import HomeCarousel from '@/components/HomeCarousel';
 import { StatusBarHeight } from '@/components/StatusbarHeight';
@@ -28,63 +29,77 @@ export default function Home() {
 
   let yourItemsArray = [0, 1, 2];
   return (
-    <LinearGradient colors={['#4B2EA2', '#0E2875']} style={[styles.container]}>
+    <LinearGradient colors={['#4B2EA2', '#0E2875']} style={tw`flex-1`}>
       <StatusBar backgroundColor={'#5137B1'} />
-      <View style={[styles.header, { paddingTop: StatusBarHeight() }]}>
+      <View
+        style={[
+          tw`flex flex-row justify-between items-center bg-[#5137B1] px-4 h-4/25 rounded-b-[10]`,
+          { paddingTop: StatusBarHeight() },
+        ]}>
         <TouchableOpacity onPress={() => navigate('/connection')}>
-          <View style={styles.headerImageWrap}>
-            <View style={styles.badge}>
-              <Text style={styles.badgeText}>99+</Text>
+          <View style={tw`w-[54px] h-[54px] rounded-full bg-[#684FCD] justify-center items-center`}>
+            <View
+              style={tw`bg-[#FF3B30] absolute top-[-1] left-9 w-[20px] rounded-full justify-center items-center`}>
+              <Text style={tw`text-[12px] text-white font-semibold`}>7</Text>
             </View>
             <Image
-              style={styles.headerImage}
+              style={tw`w-[30px] h-[30px]`}
               source={require('@/assets/images/home/profile.png')}
             />
           </View>
         </TouchableOpacity>
-        <Image style={styles.headerLogo} source={require('@/assets/images/home/logo.png')} />
+        <Image style={tw`w-33 h-9`} source={require('@/assets/images/home/logo.png')} />
         <TouchableOpacity onPress={() => navigate('/cart')}>
-          <View style={styles.headerImageWrap}>
-            <Image style={styles.headerImage} source={require('@/assets/images/home/cart.png')} />
+          <View style={tw`w-[54px] h-[54px] rounded-full bg-[#684FCD] justify-center items-center`}>
+            <Image
+              style={tw`w-[30px] h-[30px]`}
+              source={require('@/assets/images/home/cart.png')}
+            />
           </View>
         </TouchableOpacity>
       </View>
 
-      <View style={styles.searchContainer}>
-        <View style={styles.headerImageWrap}>
-          <Image style={styles.headerImage} source={require('@/assets/images/home/filter.png')} />
+      <View style={tw`flex flex-row items-center bg-transparent mx-5 py-5 justify-between`}>
+        <View style={tw`w-[54px] h-[54px] rounded-full bg-[#684FCD] justify-center items-center`}>
+          <Image
+            style={tw`w-[30px] h-[30px]`}
+            source={require('@/assets/images/home/filter.png')}
+          />
         </View>
-        <View style={styles.search}>
-          <Image style={styles.searchImage} source={require('@/assets/images/home/search.png')} />
+        <View
+          style={tw`py-2 flex flex-row items-center bg-[#5F42BE] w-83 h-12 rounded-full border-2 border-[#7651CD]`}>
+          <Image style={tw`w-7 h-7 mr-2`} source={require('@/assets/images/home/search.png')} />
           <TextInput
             placeholderTextColor={'#BAB3E2'}
             placeholder="Search events, shops, communities..."
-            style={styles.input}
+            style={tw`text-[16px] font-normal text-white w-80`}
           />
         </View>
       </View>
-      <ScrollView
-        contentContainerStyle={{ paddingBottom: tabBarMargin }}
-        style={styles.scrollContainer}>
+      <ScrollView contentContainerStyle={{ paddingBottom: tabBarMargin }} style={tw`flex-1`}>
         <HomeCarousel
           title={'Your Items'}
           badgeCount={99}
-          right={<Image style={styles.info} source={require('@/assets/images/home/info.png')} />}
+          right={
+            <Image style={tw`w-7 h-7 mr-5`} source={require('@/assets/images/home/info.png')} />
+          }
           data={yourItemsArray}
           item={
-            <LinearGradient colors={['#F14375', '#F67640']} style={styles.carousel}>
-              <View style={styles.rewardContainer}>
-                <View style={styles.reward}>
+            <LinearGradient
+              colors={['#F14375', '#F67640']}
+              style={tw`h-full w-9/10 rounded-3xl flex flex-row left-[-43px] items-center`}>
+              <View style={tw`bg-transparent w-1/2 h-full p-6`}>
+                <View style={tw`bg-[#f67868] w-23 h-23 rounded-full justify-center items-center`}>
                   <Image
-                    style={styles.rewardImage}
+                    style={tw`w-16 h-16`}
                     source={require('@/assets/images/home/rewards.png')}
                   />
                 </View>
-                <Text style={styles.voucher}>Vouchers</Text>
-                <Text style={styles.subVoucher}>2 Items</Text>
+                <Text style={tw`text-[20px] text-white font-bold mt-3 mb-1`}>Vouchers</Text>
+                <Text style={tw`text-[16px] text-white`}>2 Items</Text>
               </View>
               <Image
-                style={styles.yourItemsImage}
+                style={tw`w-45 h-9/10`}
                 source={require('@/assets/images/home/yourItems.png')}
               />
             </LinearGradient>
@@ -97,27 +112,29 @@ export default function Home() {
           end={[0.6, 0.4]}
           start={[0.8, 0.7]}
           badgeCount={99}
-          style={styles.eventContainer}
+          style={tw`mt-3`}
           right={
-            <View style={styles.viewAll}>
-              <Text style={styles.viewAllText}>View All</Text>
+            <View style={tw`bg-[#63ADEF30] mr-5 rounded-xl py-1 px-3`}>
+              <Text style={tw`text-[14px] text-white font-semibold`}>View All</Text>
             </View>
           }
           data={yourItemsArray}
           item={
-            <LinearGradient colors={['#F14375', '#F67640']} style={styles.carousel}>
-              <View style={styles.rewardContainer}>
-                <View style={styles.reward}>
+            <LinearGradient
+              colors={['#F14375', '#F67640']}
+              style={tw`h-full w-9/10 rounded-3xl flex flex-row left-[-43px] items-center`}>
+              <View style={tw`bg-transparent w-1/2 h-full p-6`}>
+                <View style={tw`bg-[#f67868] w-23 h-23 rounded-full justify-center items-center`}>
                   <Image
-                    style={styles.rewardImage}
+                    style={tw`w-16 h-16`}
                     source={require('@/assets/images/home/rewards.png')}
                   />
                 </View>
-                <Text style={styles.voucher}>Vouchers</Text>
-                <Text style={styles.subVoucher}>2 Items</Text>
+                <Text style={tw`text-[20px] text-white font-bold mt-3 mb-1`}>Vouchers</Text>
+                <Text style={tw`text-[16px] text-white`}>2 Items</Text>
               </View>
               <Image
-                style={styles.yourItemsImage}
+                style={tw`w-45 h-9/10`}
                 source={require('@/assets/images/home/yourItems.png')}
               />
             </LinearGradient>
@@ -130,27 +147,29 @@ export default function Home() {
           end={[0.6, 0.4]}
           start={[0.8, 0.7]}
           badgeCount={99}
-          style={styles.eventContainer}
+          style={tw`mt-3`}
           right={
-            <View style={styles.viewAll}>
-              <Text style={styles.viewAllText}>View All</Text>
+            <View style={tw`bg-[#63ADEF30] mr-5 rounded-xl py-1 px-3`}>
+              <Text style={tw`text-[14px] text-white font-semibold`}>View All</Text>
             </View>
           }
           data={yourItemsArray}
           item={
-            <LinearGradient colors={['#F14375', '#F67640']} style={styles.carousel}>
-              <View style={styles.rewardContainer}>
-                <View style={styles.reward}>
+            <LinearGradient
+              colors={['#F14375', '#F67640']}
+              style={tw`h-full w-9/10 rounded-3xl flex flex-row left-[-43px] items-center`}>
+              <View style={tw`bg-transparent w-1/2 h-full p-6`}>
+                <View style={tw`bg-[#f67868] w-23 h-23 rounded-full justify-center items-center`}>
                   <Image
-                    style={styles.rewardImage}
+                    style={tw`w-16 h-16`}
                     source={require('@/assets/images/home/rewards.png')}
                   />
                 </View>
-                <Text style={styles.voucher}>Vouchers</Text>
-                <Text style={styles.subVoucher}>2 Items</Text>
+                <Text style={tw`text-[20px] text-white font-bold mt-3 mb-1`}>Vouchers</Text>
+                <Text style={tw`text-[16px] text-white`}>2 Items</Text>
               </View>
               <Image
-                style={styles.yourItemsImage}
+                style={tw`w-45 h-9/10`}
                 source={require('@/assets/images/home/yourItems.png')}
               />
             </LinearGradient>
@@ -162,145 +181,3 @@ export default function Home() {
     </LinearGradient>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  header: {
-    flexDirection: 'row',
-    paddingHorizontal: wp(5),
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    backgroundColor: '#5137B1',
-    height: hp(16),
-    borderBottomRightRadius: wp(10),
-    borderBottomLeftRadius: wp(10),
-  },
-  headerLogo: {
-    width: wp(22),
-    height: wp(6),
-  },
-  headerImage: {
-    width: wp(6),
-    height: wp(5),
-  },
-  searchImage: {
-    width: wp(7),
-    height: wp(7),
-    marginRight: wp(2),
-  },
-  headerImageWrap: {
-    width: wp(12),
-    height: wp(12),
-    borderRadius: wp(6),
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#684FCD',
-  },
-  badge: {
-    backgroundColor: 'red',
-    position: 'absolute',
-    top: 0,
-    left: wp(8),
-    borderRadius: 50,
-    width: wp(9),
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: hp(2.5),
-  },
-  badgeText: {
-    fontSize: RFPercentage(1.5),
-    color: 'white',
-    fontWeight: 'bold',
-  },
-  searchContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: 'transparent',
-    marginVertical: hp(2),
-    paddingHorizontal: wp(5),
-    justifyContent: 'space-between',
-  },
-  search: {
-    paddingHorizontal: wp(2),
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#5F42BE',
-    width: wp(75),
-    height: wp(12),
-    borderRadius: 100,
-    borderWidth: 2,
-    borderColor: '#7651CD',
-  },
-  input: {
-    fontSize: RFPercentage(2),
-    fontWeight: '400',
-    color: 'white',
-    width: wp(60),
-  },
-  carousel: {
-    height: '100%',
-    width: wp(90),
-    borderRadius: wp(7),
-    left: -wp(10),
-    flexDirection: 'row',
-  },
-  info: {
-    width: wp(7),
-    height: wp(7),
-    marginRight: wp(5),
-  },
-  rewardContainer: {
-    backgroundColor: 'transparent',
-    width: '50%',
-    height: '100%',
-    padding: wp(5),
-  },
-  reward: {
-    backgroundColor: '#f67868',
-    width: wp(20),
-    height: wp(20),
-    borderRadius: wp(10),
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  rewardImage: {
-    width: wp(14),
-    height: wp(14),
-  },
-  voucher: {
-    fontSize: RFPercentage(2.7),
-    color: 'white',
-    fontWeight: 'bold',
-    marginTop: hp(1.5),
-    marginBottom: hp(1),
-  },
-  subVoucher: {
-    fontSize: RFPercentage(2.2),
-    color: 'white',
-  },
-  yourItemsImage: {
-    width: wp(40),
-    height: hp(25),
-    resizeMode: 'contain',
-  },
-  viewAll: {
-    backgroundColor: '#63ADEF30',
-    marginRight: wp(5),
-    borderRadius: 100,
-    paddingHorizontal: wp(3),
-    paddingVertical: hp(0.3),
-  },
-  viewAllText: {
-    fontSize: RFPercentage(1.8),
-    color: 'white',
-    fontWeight: '600',
-  },
-  eventContainer: {
-    marginTop: hp(2),
-  },
-  scrollContainer: {
-    flex: 1,
-  },
-});
