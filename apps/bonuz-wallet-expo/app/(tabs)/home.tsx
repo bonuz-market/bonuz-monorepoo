@@ -31,12 +31,17 @@ export default function Home() {
     <LinearGradient colors={['#4B2EA2', '#0E2875']} style={[styles.container]}>
       <StatusBar backgroundColor={'#5137B1'} />
       <View style={[styles.header, { paddingTop: StatusBarHeight() }]}>
-        <View style={styles.headerImageWrap}>
-          <View style={styles.badge}>
-            <Text style={styles.badgeText}>99+</Text>
+        <TouchableOpacity onPress={() => navigate('/connection')}>
+          <View style={styles.headerImageWrap}>
+            <View style={styles.badge}>
+              <Text style={styles.badgeText}>99+</Text>
+            </View>
+            <Image
+              style={styles.headerImage}
+              source={require('@/assets/images/home/profile.png')}
+            />
           </View>
-          <Image style={styles.headerImage} source={require('@/assets/images/home/profile.png')} />
-        </View>
+        </TouchableOpacity>
         <Image style={styles.headerLogo} source={require('@/assets/images/home/logo.png')} />
         <TouchableOpacity onPress={() => navigate('/cart')}>
           <View style={styles.headerImageWrap}>
