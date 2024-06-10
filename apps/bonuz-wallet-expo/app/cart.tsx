@@ -37,6 +37,7 @@ interface NftDataProps {
   avatar: any;
   name: string;
   description: string;
+  date: string;
 }
 
 export default function Cart() {
@@ -105,12 +106,13 @@ export default function Cart() {
     }
     if (nftData.length > 0 && value === true) {
       let dataArray: React.SetStateAction<NftDataProps[]> = [];
-      nftData.map((data, index) => {
+      nftData.map((data: any, index: number) => {
         dataArray.push({
           id: index + 1,
           avatar: { uri: data.content.preview.url },
-          name: data.name,
-          description: shortenDiscription(data.description),
+          name: shortenDiscription(data.name, 36),
+          description: shortenDiscription(data.description, 52),
+          date: convertDate(data.last_transferred_at),
         });
       });
       setWalletNftData(dataArray);
@@ -132,18 +134,38 @@ export default function Cart() {
     return `${prefix}...${suffix}`;
   }
 
-  function shortenDiscription(description: string) {
-    if (!description || description.length < 52) {
+  function shortenDiscription(description: string, prefixLength: number) {
+    if (!description || description.length < prefixLength) {
       return description; // If the address is too short, return as is
     }
-
-    const prefixLength = 52; // Number of characters to keep from the start
 
     const prefix = description.slice(0, prefixLength);
 
     return `${prefix}...`;
   }
 
+  function convertDate(timestamp: string) {
+    const date = new Date(timestamp);
+    const months = [
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dec',
+    ];
+    const month = months[date.getMonth()];
+    const day = date.getDate();
+    const year = date.getFullYear();
+
+    return `${month} ${day}, ${year}`;
+  }
   return (
     <LinearGradient colors={['#4B2EA2', '#0E2875']} style={tw`flex-1`}>
       <StatusBar backgroundColor={'#5137B1'} />
@@ -227,25 +249,22 @@ export default function Cart() {
           </View>
         </ImageBackground>
       </ScrollView>
-
-      {
-        isNotEmpty(auth) && isNotEmpty(user) ? (
-          <View style={tw`flex-1 bg-transparent mt-[-130]`}>
-            <View style={tw`mx-5 bg-transparent mb-5`}>
-              <SwitchButton value={value} onValueChange={setValue} title1="Crypto" title2="NFTs" />
-            </View>
-            <ScrollView style={tw`bg-transparent flex-1`}>
-              {value === false ? (
-                <TokenInfoSection value={walletData} loadingStatus={loading} />
-              ) : (
-                <NftInfoSection value={walletNftData} loadingStatus={loading} />
-              )}
-            </ScrollView>
+      {isNotEmpty(auth) && isNotEmpty(user) ? (
+        <View style={tw`flex-1 bg-transparent mt-[-130]`}>
+          <View style={tw`mx-5 bg-transparent mb-5`}>
+            <SwitchButton value={value} onValueChange={setValue} title1="Crypto" title2="NFTs" />
           </View>
-        ) : (
-          <WalletUnConnected />
-        )
-      }
-    </LinearGradient >
+          <ScrollView style={tw`bg-transparent flex-1`}>
+            {value === false ? (
+              <TokenInfoSection value={walletData} loadingStatus={loading} />
+            ) : (
+              <NftInfoSection value={walletNftData} loadingStatus={loading} />
+            )}
+          </ScrollView>
+        </View>
+      ) : (
+        <WalletUnConnected />
+      )}
+    </LinearGradient>
   );
 }
