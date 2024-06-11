@@ -30,3 +30,11 @@ export const createUser = async (userData: {
     })
     .json<UserDb>();
 };
+
+export const getUserConnections = async () => {
+  return backendClient.get(`api/users/me/connections`).json<UserDb[]>();
+};
+
+export const removeUserConnection = async (userId: number) => {
+  return backendClient.delete(`api/users/me/connections/${userId}`);
+};
