@@ -72,7 +72,7 @@ export default function Cart() {
       const url =
         value === false
           ? `https://admin.bonuz.xyz/api/users/wallet/0x0e004bE8F05D53f5E09f61EAAc2acE5314E3438f/balance`
-          : `https://admin.bonuz.xyz/api/users/wallet/0xAD1d94036FE8F1Caa6c51A310ae7667dA76d6A58/nfts`;
+          : `https://admin.bonuz.xyz/api/users/wallet/${wallet.address}/nfts`;
       fetch(url) // Replace with your API URL
         .then((response) => response.json())
         .then((data: TokenData[]) => {
@@ -195,7 +195,7 @@ export default function Cart() {
             </TouchableOpacity>
           </View>
         </View>
-        <TouchableOpacity onPress={() => navigate('/cart')}>
+        <TouchableOpacity onPress={() => navigate('/explore')}>
           <View style={tw`w-[54px] h-[54px] rounded-full bg-[#684FCD] justify-center items-center`}>
             <Image style={tw`w-[30px]`} source={require('@/assets/images/cart/compassIcon.png')} />
           </View>
