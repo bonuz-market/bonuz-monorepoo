@@ -7,6 +7,7 @@ import { Image, ImageBackground, ScrollView, StatusBar, TouchableOpacity } from 
 import tw from 'twrnc';
 import { useShallow } from 'zustand/react/shallow';
 
+import ActivityInfoSection from '@/components/ActivityInfo';
 import NftInfoSection from '@/components/NftInfo';
 import { StatusBarHeight } from '@/components/StatusbarHeight';
 import SwitchButton from '@/components/SwtichButton';
@@ -40,14 +41,27 @@ interface NftDataProps {
   date: string;
 }
 
+interface TransactionDataProps {
+  id: number;
+  senderAddress: string;
+  receiverAddress: string;
+  tokenAmount: string;
+  transferAmount: string;
+  tokenName: string;
+  tokenSymbol: string;
+  date: string;
+}
+
 export default function Cart() {
   const { navigate } = useRouter();
-  const [value, setValue] = useState(false);
+  const [value, setValue] = useState<string>('Crypto');
   const [walletData, setWalletData] = useState<WalletDataProps[]>([]);
   const [walletNftData, setWalletNftData] = useState<NftDataProps[]>([]);
+  const [walletTransactionData, setWalletTransactionData] = useState<TransactionDataProps[]>([]);
 
   const [tokenData, setTokenData] = useState<TokenData[]>([]);
   const [nftData, setNftData] = useState<any[]>([]);
+  const [activityData, setActivityData] = useState<any[]>([]);
 
   const [walletAddress, setWalletAddress] = useState<string>('0x00...00000');
   const [totalBalance, setTotalBalance] = useState<string>('0');
@@ -68,15 +82,27 @@ export default function Cart() {
       setWalletData([]);
       setWalletNftData([]);
       setWalletAddress(shortenWalletAddress(wallet.address));
-      const url =
-        value === false
-          ? `https://admin.bonuz.xyz/api/users/wallet/0x0e004bE8F05D53f5E09f61EAAc2acE5314E3438f/balance`
-          : `https://admin.bonuz.xyz/api/users/wallet/${wallet.address}/nfts`;
+      let url = `https://admin.bonuz.xyz/api/users/wallet/0x0e004bE8F05D53f5E09f61EAAc2acE5314E3438f/balance`;
+      if (value === 'NFTs') url = `https://admin.bonuz.xyz/api/users/wallet/${wallet.address}/nfts`;
+      if (value === 'Activity')
+        url = `https://admin.bonuz.xyz/api/users/wallet/0x0e004bE8F05D53f5E09f61EAAc2acE5314E3438f/transactions`;
       fetch(url) // Replace with your API URL
         .then((response) => response.json())
         .then((data: TokenData[]) => {
-          if (value === false) setTokenData(data.data.tokens);
-          else setNftData(data.data.nfts);
+          switch (value) {
+            case 'Crypto': {
+              setTokenData(data.data.tokens);
+              break;
+            }
+            case 'NFTs': {
+              setNftData(data.data.nfts);
+              break;
+            }
+            case 'Activity': {
+              setActivityData(data.data.transactions);
+              break;
+            }
+          }
         })
         .catch((error) => {
           console.log(error);
@@ -85,7 +111,7 @@ export default function Cart() {
   }, [value, wallet]);
 
   useEffect(() => {
-    if (tokenData.length > 0 && value === false) {
+    if (tokenData.length > 0 && value === 'Crypto') {
       let sum = 0,
         dataArray: React.SetStateAction<WalletDataProps[]> = [];
       tokenData.map((token, index) => {
@@ -103,7 +129,7 @@ export default function Cart() {
       setWalletData(dataArray);
       setLoading(false);
     }
-    if (nftData.length > 0 && value === true) {
+    if (nftData.length > 0 && value === 'NFTs') {
       let dataArray: React.SetStateAction<NftDataProps[]> = [];
       nftData.map((data: any, index: number) => {
         dataArray.push({
@@ -117,7 +143,25 @@ export default function Cart() {
       setWalletNftData(dataArray);
       setLoading(false);
     }
-  }, [tokenData, nftData, value]);
+    if (activityData.length > 0 && value === 'Activity') {
+      console.log('started');
+      let dataArray: React.SetStateAction<TransactionDataProps[]> = [];
+      activityData.map((data: any, index: number) => {
+        dataArray.push({
+          id: index + 1,
+          senderAddress: shortenWalletAddress(data.from),
+          receiverAddress: shortenWalletAddress(data.to),
+          tokenAmount: parseFloat(Number(data.value).toPrecision(15)).toString(),
+          transferAmount: '~$' + Number(data.quote).toFixed(2),
+          tokenName: data.name,
+          tokenSymbol: data.symbol,
+          date: convertDate(data.timestamp),
+        });
+      });
+      setWalletTransactionData(dataArray);
+      setLoading(false);
+    }
+  }, [tokenData, nftData, activityData, value]);
 
   function shortenWalletAddress(walletAddress: string) {
     if (!walletAddress || walletAddress.length < 10) {
@@ -238,12 +282,6 @@ export default function Cart() {
                 </TouchableOpacity>
                 <Text style={tw`text-[13px] text-white font-medium`}>Swap</Text>
               </View>
-              <View style={tw`bg-transparent items-center text-center gap-2`}>
-                <TouchableOpacity>
-                  <Image style={tw`w-[54px]`} source={require('@/assets/images/cart/send.png')} />
-                </TouchableOpacity>
-                <Text style={tw`text-[13px] text-white font-medium`}>Send</Text>
-              </View>
             </View>
           </View>
         </ImageBackground>
@@ -251,13 +289,17 @@ export default function Cart() {
       {isNotEmpty(auth) && isNotEmpty(user) ? (
         <View style={tw`flex-1 bg-transparent mt-[-130]`}>
           <View style={tw`mx-5 bg-transparent mb-5`}>
-            <SwitchButton value={value} onValueChange={setValue} title1="Crypto" title2="NFTs" />
+            <SwitchButton
+              value={value}
+              onValueChange={setValue}
+              titleList={['Crypto', 'NFTs', 'Activity']}
+            />
           </View>
           <ScrollView style={tw`bg-transparent flex-1`}>
-            {value === false ? (
-              <TokenInfoSection value={walletData} loadingStatus={loading} />
-            ) : (
-              <NftInfoSection value={walletNftData} loadingStatus={loading} />
+            {value === 'Crypto' && <TokenInfoSection value={walletData} loadingStatus={loading} />}
+            {value === 'NFTs' && <NftInfoSection value={walletNftData} loadingStatus={loading} />}
+            {value === 'Activity' && (
+              <ActivityInfoSection value={walletTransactionData} loadingStatus={loading} />
             )}
           </ScrollView>
         </View>
