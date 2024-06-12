@@ -49,7 +49,6 @@ export default function Cart() {
   const [tokenData, setTokenData] = useState<TokenData[]>([]);
   const [nftData, setNftData] = useState<any[]>([]);
 
-
   const [walletAddress, setWalletAddress] = useState<string>('0x00...00000');
   const [totalBalance, setTotalBalance] = useState<string>('0');
 
