@@ -45,11 +45,11 @@ interface TransactionDataProps {
   id: number;
   senderAddress: string;
   receiverAddress: string;
-  tokenAmount: string;
   transferAmount: string;
   tokenName: string;
   tokenSymbol: string;
   date: string;
+  explorerUrl: string;
 }
 
 export default function Cart() {
@@ -151,11 +151,11 @@ export default function Cart() {
           id: index + 1,
           senderAddress: shortenWalletAddress(data.from),
           receiverAddress: shortenWalletAddress(data.to),
-          tokenAmount: parseFloat(Number(data.value).toPrecision(15)).toString(),
           transferAmount: '~$' + Number(data.quote).toFixed(2),
           tokenName: data.name,
           tokenSymbol: data.symbol,
           date: convertDate(data.timestamp),
+          explorerUrl: data.explorerUrl,
         });
       });
       setWalletTransactionData(dataArray);
