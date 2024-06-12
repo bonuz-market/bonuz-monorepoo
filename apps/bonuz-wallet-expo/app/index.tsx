@@ -147,7 +147,7 @@ export default function Home() {
             onMomentumScrollEnd={(event: any) => {
               const index = Math.floor(
                 Math.floor(event.nativeEvent.contentOffset.x) /
-                  Math.floor(event.nativeEvent.layoutMeasurement.width),
+                Math.floor(event.nativeEvent.layoutMeasurement.width),
               );
               setActiveIndex(index);
             }}
@@ -237,7 +237,7 @@ export default function Home() {
                 />
               </View>
               <TouchableOpacity
-                onPress={() => handleLogin({ provider: 'email', email, onLoginComplete: () => {} })}
+                onPress={() => handleLogin({ provider: 'email', email, onLoginComplete: () => { } })}
                 style={[styles.button, { marginTop: 16 }]}>
                 <Text style={styles.buttonText}>Sign Up</Text>
               </TouchableOpacity>

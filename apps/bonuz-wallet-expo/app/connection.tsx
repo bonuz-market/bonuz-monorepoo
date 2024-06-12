@@ -1,24 +1,11 @@
 import { LinearGradient } from 'expo-linear-gradient';
 import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
-import {
-  Image,
-  ImageBackground,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  TouchableOpacity,
-} from 'react-native';
-import { RFPercentage } from 'react-native-responsive-fontsize';
-import {
-  heightPercentageToDP as hp,
-  widthPercentageToDP as wp,
-} from 'react-native-responsive-screen';
+import { Image, ScrollView, StatusBar, TouchableOpacity } from 'react-native';
 import tw from 'twrnc';
 
 import { StatusBarHeight } from '@/components/StatusbarHeight';
 import SwitchButton from '@/components/SwtichButton';
-// import SwitchButton from '@/components/SwtichButton';
 import { Text, View } from '@/components/Themed';
 
 const coinDatas = [
@@ -65,7 +52,7 @@ const coinDatas = [
 ];
 export default function Connection() {
   const { navigate } = useRouter();
-  const [value, setValue] = useState<boolean>(true);
+  const [value, setValue] = useState<string>('Lens.xys Feed');
 
   return (
     <LinearGradient colors={['#4B2EA2', '#0E2875']} style={tw`flex-1`}>
@@ -101,8 +88,7 @@ export default function Connection() {
         <SwitchButton
           value={value}
           onValueChange={setValue}
-          title1="Lens.xys Feed"
-          title2="My Connections"
+          titleList={['Lens.xys Feed', 'My Connections']}
         />
       </View>
 

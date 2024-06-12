@@ -9,7 +9,6 @@ export default function SwitchButton(props: {
 }) {
     const { value, onValueChange, titleList } = props;
     const toggleSwitch = (title: string) => {
-        // const newValue = !value;
         onValueChange(title);
     };
 
@@ -20,7 +19,8 @@ export default function SwitchButton(props: {
                     key={index}
                     onPress={() => toggleSwitch(title)}
                     style={[
-                        tw`w-1/3 h-full rounded-full justify-center items-center`,
+                        tw`h-full rounded-full justify-center items-center`,
+                        { width: `${100 / titleList.length}%` },
                         value !== title ? tw`bg-transparent` : tw`bg-white`,
                     ]}>
                     <Text style={[tw`font-semibold text-[16px]`, value !== title ? tw`text-white` : tw`text-black`]}>
