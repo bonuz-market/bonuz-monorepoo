@@ -9,6 +9,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { BlurView } from 'expo-blur';
 import { LinearGradient } from 'expo-linear-gradient';
+import { Link } from 'expo-router';
 // import { Image } from 'expo-image';
 import React, { useCallback, useMemo, useRef, useState } from 'react';
 import {
@@ -190,12 +191,16 @@ const HeaderComponent = ({
         headerRightStyle={[tw`pl-3`, { paddingLeft: Math.max(right, ROOT_HORIZONTAL_PADDING) }]}
         headerLeft={
           <View style={tw`flex flex-row gap-2 items-center`}>
-            <Pressable
-              onPress={() => {}}
-              style={tw`w-13 h-13 rounded-full justify-center items-center bg-[#E9A08F]`}
-              hitSlop={30}>
-              <Image style={tw`w-7 h-7`} source={require('@/assets/images/profile/settings.png')} />
-            </Pressable>
+            <Link href="/settings" asChild>
+              <Pressable
+                style={tw`w-13 h-13 rounded-full justify-center items-center bg-[#E9A08F]`}
+                hitSlop={30}>
+                <Image
+                  style={tw`w-7 h-7`}
+                  source={require('@/assets/images/profile/settings.png')}
+                />
+              </Pressable>
+            </Link>
             <FadingView opacity={showNavBar}>
               <Text style={tw`text-base font-bold text-white`}>{data?.name}</Text>
               <Text style={tw`text-[#ffffff99] text-xs`}>@{data?.handle}</Text>
