@@ -1,5 +1,3 @@
-/* eslint-disable unicorn/consistent-function-scoping */
-/* eslint-disable sonarjs/no-all-duplicated-branches */
 import { BottomSheetModal, BottomSheetModalProvider, BottomSheetView } from '@gorhom/bottom-sheet';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useRouter } from 'expo-router';
@@ -14,10 +12,11 @@ import { StatusBarHeight } from '@/components/StatusbarHeight';
 import SwitchButton from '@/components/SwtichButton';
 import { Text, View } from '@/components/Themed';
 import TokenInfoSection from '@/components/TokenInfo';
+import WalletTypesSection from '@/components/WalletTypesSection';
 import WalletUnConnected from '@/components/WalletUnConnected';
 import { useUserStore } from '@/store';
+import { chainByChainId } from '@/store/smartAccounts';
 import { isNotEmpty } from '@/utils/object';
-import WalletTypesSection from '@/components/WalletTypesSection';
 
 interface TokenData {
   logoURI: string;
@@ -128,6 +127,7 @@ export default function Cart() {
 
   useEffect(() => {
     if (wallet && wallet.address) {
+      console.log("chainByChainId:", chainByChainId)
       setLoading(true);
       setWalletData([]);
       setWalletNftData([]);
@@ -213,11 +213,10 @@ export default function Cart() {
   }, [tokenData, nftData, activityData, value]);
 
   const handleNext = () => {
-    console.log('clicked');
     return handlePresentModalPress();
   };
 
-  function shortenWalletAddress(walletAddress: string) {
+  const shortenWalletAddress = (walletAddress: string) => {
     if (!walletAddress || walletAddress.length < 10) {
       return walletAddress; // If the address is too short, return as is
     }
@@ -231,7 +230,7 @@ export default function Cart() {
     return `${prefix}...${suffix}`;
   }
 
-  function shortenDiscription(description: string, prefixLength: number) {
+  const shortenDiscription = (description: string, prefixLength: number) => {
     if (!description || description.length < prefixLength) {
       return description; // If the address is too short, return as is
     }

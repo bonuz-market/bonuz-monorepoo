@@ -97,7 +97,6 @@ export default function Home() {
   const handleLogin = async (params: loginParams) => {
     try {
       await login(params);
-      console.log('Login', params);
     } catch (error) {
       console.error('Error Login', error);
     }
@@ -113,7 +112,6 @@ export default function Home() {
     );
   };
 
-  console.log('state.auth', state.auth);
 
   const [email, setEmail] = useState('');
 

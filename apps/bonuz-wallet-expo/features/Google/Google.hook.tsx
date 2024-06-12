@@ -41,8 +41,6 @@ export const useGoogleLogin = () => {
     });
     const walletAddress = getWalletAddress(web3auth.privKey);
 
-    console.log('walletAddress', walletAddress);
-
     const { message: messageToSign } = await getVerificationMessage(walletAddress);
 
     const sdk = await setSmartAccountSdk(web3auth.privKey, { withCache: false });
