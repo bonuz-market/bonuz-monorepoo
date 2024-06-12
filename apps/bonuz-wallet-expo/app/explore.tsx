@@ -61,14 +61,14 @@ const exploreMockUpData = [
     title: 'QuestN',
     description: 'Complete quests and get rewards',
     image_url: require('@/assets/images/explore/Event5.png'),
-    type: 'Featured',
+    type: 'My Favourites',
   },
   {
     id: 7,
     title: 'Swat Economy',
     description: 'Walk into crypto',
     image_url: require('@/assets/images/explore/Event6.png'),
-    type: 'Featured',
+    type: 'My Favourites',
   },
 ];
 export default function Explore() {
@@ -78,9 +78,9 @@ export default function Explore() {
     useState<exploreDataProps[]>(exploreMockUpData);
 
   useEffect(() => {
-    setFilteredExploreData(exploreMockUpData.filter((item) => item.type === option[clickFlag - 1]));
-    if (option[clickFlag - 1] === 'Featured') setFilteredExploreData(exploreMockUpData);
-  }, [clickFlag]);
+    const selectedOption = option[clickFlag - 1];
+    setFilteredExploreData(exploreMockUpData.filter((item) => item.type === selectedOption));
+  }, [clickFlag, exploreMockUpData]);
 
   return (
     <LinearGradient colors={['#4B2EA2', '#0E2875']} style={tw`flex-1`}>
@@ -113,23 +113,25 @@ export default function Explore() {
         </TouchableOpacity>
       </View>
 
-      <ScrollView
-        contentContainerStyle={{
-          display: 'flex',
-          flexDirection: 'row',
-          gap: 20,
-        }}
-        style={tw`flex-1 mt-[30] bg-transparent px-5`}>
-        {option.map((data: any, index: number) => (
-          <ExploreOptionButton
-            key={index}
-            index={index + 1}
-            value={data}
-            clickFlag={clickFlag}
-            setClickFlag={setClickFlag}
-          />
-        ))}
-      </ScrollView>
+      <View style={tw`flex-1 mt-5 bg-transparent mx-5`}>
+        <ScrollView
+          horizontal
+          contentContainerStyle={{
+            display: 'flex',
+            gap: 20,
+            flexDirection: 'row',
+          }}>
+          {option.map((data: any, index: number) => (
+            <ExploreOptionButton
+              key={index}
+              index={index + 1}
+              value={data}
+              clickFlag={clickFlag}
+              setClickFlag={setClickFlag}
+            />
+          ))}
+        </ScrollView>
+      </View>
 
       <ScrollView style={tw`bg-transparent flex-1 mt-[-500px]`}>
         <ExploreInfoSection value={filteredExploredata} loadingStatus={false} />
