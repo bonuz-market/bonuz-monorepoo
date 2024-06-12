@@ -1,3 +1,4 @@
+/* eslint-disable unicorn/consistent-function-scoping */
 import { BottomSheetModal, BottomSheetModalProvider, BottomSheetView } from '@gorhom/bottom-sheet';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useRouter } from 'expo-router';
@@ -16,6 +17,7 @@ import WalletTypesSection from '@/components/WalletTypesSection';
 import WalletUnConnected from '@/components/WalletUnConnected';
 import { useUserStore } from '@/store';
 import { chainByChainId } from '@/store/smartAccounts';
+import { walletTypes } from '@/store/walletTypes';
 import { isNotEmpty } from '@/utils/object';
 
 interface TokenData {
@@ -53,44 +55,6 @@ interface TransactionDataProps {
   explorerUrl: string;
 }
 
-const walletTypes = [
-  {
-    id: 1,
-    name: 'Smart Wallet',
-    walletIcon: '',
-  },
-  {
-    id: 2,
-    name: 'EOA Wallet',
-    walletIcon: '',
-  },
-  {
-    id: 3,
-    name: 'Tron Wallet',
-    walletIcon: '',
-  },
-  {
-    id: 4,
-    name: 'Bitcoin Wallet',
-    walletIcon: '',
-  },
-  {
-    id: 5,
-    name: 'Solana Wallet',
-    walletIcon: '',
-  },
-  {
-    id: 6,
-    name: 'Ton Wallet',
-    walletIcon: '',
-  },
-  {
-    id: 7,
-    name: 'Doge Wallet',
-    walletIcon: '',
-  },
-];
-
 export default function Cart() {
   const { navigate } = useRouter();
   const [value, setValue] = useState<string>('Crypto');
@@ -112,7 +76,6 @@ export default function Cart() {
 
   const [walletType, setWalletType] = useState<string>('Smart Wallet');
 
-
   const handlePresentModalPress = useCallback(() => {
     bottomSheetModalReference.current?.present();
   }, []);
@@ -127,7 +90,7 @@ export default function Cart() {
 
   useEffect(() => {
     if (wallet && wallet.address) {
-      console.log("chainByChainId:", chainByChainId)
+      console.log('chainByChainId:', chainByChainId);
       setLoading(true);
       setWalletData([]);
       setWalletNftData([]);
@@ -138,7 +101,7 @@ export default function Cart() {
         url = `https://admin.bonuz.xyz/api/users/wallet/0x0e004bE8F05D53f5E09f61EAAc2acE5314E3438f/transactions`;
       fetch(url) // Replace with your API URL
         .then((response) => response.json())
-        .then((data: TokenData[]) => {
+        .then((data: any) => {
           switch (value) {
             case 'Crypto': {
               setTokenData(data.data.tokens);
@@ -228,7 +191,7 @@ export default function Cart() {
     const suffix = walletAddress.slice(-suffixLength);
 
     return `${prefix}...${suffix}`;
-  }
+  };
 
   const shortenDiscription = (description: string, prefixLength: number) => {
     if (!description || description.length < prefixLength) {
@@ -238,9 +201,9 @@ export default function Cart() {
     const prefix = description.slice(0, prefixLength);
 
     return `${prefix}...`;
-  }
+  };
 
-  function convertDate(timestamp: string) {
+  const convertDate = (timestamp: string) => {
     const date = new Date(timestamp);
     const months = [
       'Jan',
@@ -261,7 +224,8 @@ export default function Cart() {
     const year = date.getFullYear();
 
     return `${month} ${day}, ${year}`;
-  }
+  };
+
   return (
     <BottomSheetModalProvider>
       <LinearGradient colors={['#4B2EA2', '#0E2875']} style={tw`flex-1`}>
