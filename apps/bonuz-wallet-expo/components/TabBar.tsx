@@ -54,7 +54,7 @@ const TabBar = ({ state, descriptors, navigation }: any) => {
                 {label === 'home' && (
                   <Image style={styles.image} source={require('@/assets/images/home.png')} />
                 )}
-                {label === '(qrscreen)' && (
+                {label === '(scan)' && (
                   <Image style={styles.qrImage} source={require('@/assets/images/qr.png')} />
                 )}
 

@@ -19,7 +19,7 @@ export default function TabLayout() {
           headerShown: false,
         }}>
         <Tabs.Screen name="home" />
-        <Tabs.Screen name="(qrscreen)" />
+        <Tabs.Screen name="(scan)" />
         <Tabs.Screen name="(profile)" />
       </Tabs>
     </BottomSheetModalProvider>
