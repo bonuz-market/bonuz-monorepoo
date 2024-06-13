@@ -33,6 +33,7 @@
     },
     "android": {
       "versionCode": 31127,
+      "permissions": ["INTERNET"],
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptiveIcon.png",
         "backgroundColor": "#ffffff"

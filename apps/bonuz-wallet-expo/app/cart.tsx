@@ -1,5 +1,6 @@
 /* eslint-disable unicorn/consistent-function-scoping */
 import { BottomSheetModal, BottomSheetModalProvider, BottomSheetView } from '@gorhom/bottom-sheet';
+import axios from 'axios';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useRouter } from 'expo-router';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
@@ -91,38 +92,45 @@ export default function Cart() {
   );
 
   useEffect(() => {
-    if (wallet && wallet.address) {
-      // console.log('chainByChainId:', chainByChainId);
-      setLoading(true);
-      setWalletData([]);
-      setWalletNftData([]);
-      setWalletAddress(shortenWalletAddress(wallet.address));
-      let url = `https://admin.bonuz.xyz/api/users/wallet/0x0e004bE8F05D53f5E09f61EAAc2acE5314E3438f/balance`;
-      if (value === 'NFTs') url = `https://admin.bonuz.xyz/api/users/wallet/${wallet.address}/nfts`;
-      if (value === 'Activity')
-        url = `https://admin.bonuz.xyz/api/users/wallet/0x0e004bE8F05D53f5E09f61EAAc2acE5314E3438f/transactions`;
-      fetch(url) // Replace with your API URL
-        .then((response) => response.json())
-        .then((data: any) => {
+    const fetchData = async () => {
+      if (wallet && wallet.address) {
+        // console.log('chainByChainId:', chainByChainId);
+        setLoading(true);
+        setWalletData([]);
+        setWalletNftData([]);
+        setWalletAddress(shortenWalletAddress(wallet.address));
+        let url = `https://admin.bonuz.xyz/api/users/wallet/0x0e004bE8F05D53f5E09f61EAAc2acE5314E3438f/balance`;
+        if (value === 'NFTs')
+          url = `https://admin.bonuz.xyz/api/users/wallet/${wallet.address}/nfts`;
+        if (value === 'Activity')
+          url = `https://admin.bonuz.xyz/api/users/wallet/0x0e004bE8F05D53f5E09f61EAAc2acE5314E3438f/transactions`;
+        console.log('fetch url:', url);
+        try {
+          const response = await axios.get(url);
+          console.log('data:', response.data);
           switch (value) {
             case 'Crypto': {
-              setTokenData(data.data.tokens);
+              setTokenData(response.data.data.tokens);
               break;
             }
             case 'NFTs': {
-              setNftData(data.data.nfts);
+              setNftData(response.data.data.nfts);
               break;
             }
             case 'Activity': {
-              setActivityData(data.data.transactions);
+              setActivityData(response.data.data.transactions);
               break;
             }
+            default: {
+              console.log('Unknown value:', value);
+            }
           }
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    }
+        } catch (error) {
+          console.log('fetch error:', error);
+        }
+      }
+    };
+    fetchData();
   }, [value, wallet]);
 
   useEffect(() => {
@@ -258,9 +266,9 @@ export default function Cart() {
                 options={['All Networks', 'option 2']}
                 dropdownStyle={tw`bg-[#5137B1] w-26 border-1 top-[-30px]`}
                 defaultValue={'All Networks'}
-                onSelect={() => setNetwork(value)}>
+                onSelect={(value: string) => setNetwork(value)}>
                 <View style={tw`bg-transparent flex gap-2 flex-row justify-center items-center`}>
-                  <Text style={tw`text-[14px] font-medium text-white`}>All Networks</Text>
+                  <Text style={tw`text-[14px] font-medium text-white`}>{network}</Text>
                   <Image
                     style={tw`w-[10px] h-[5.83px] items-center`}
                     source={require('@/assets/images/cart/downIcon.png')}
