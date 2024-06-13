@@ -7,10 +7,14 @@ export const getUserInfo = async () => {
   return backendClient.get(`api/users/me`).json<UserDb>();
 };
 
-export const getUserByHandle = async (handle: string, accessToken?: string) => {
+export const getUserByHandle = async (handle: string) => {
   const res = await backendClient.get(`api/users/${handle}`);
 
-  return res.json<UserDb>();
+  return res.json<
+    UserDb & {
+      isCurrentConnection: boolean;
+    }
+  >();
 };
 
 export const updateUserInfo = async (userInfo: any) => {
@@ -35,6 +39,14 @@ export const getUserConnections = async () => {
   return backendClient.get(`api/users/me/connections`).json<UserDb[]>();
 };
 
+export const addUserConnection = async (userId: number) => {
+  return backendClient
+    .post(`api/users/me/connections`, {
+      json: { targetUserId: userId },
+    })
+    .json();
+};
+
 export const removeUserConnection = async (userId: number) => {
-  return backendClient.delete(`api/users/me/connections/${userId}`);
+  return backendClient.delete(`api/users/me/connections/${userId}`).json();
 };
