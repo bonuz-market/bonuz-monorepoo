@@ -22,9 +22,7 @@ export default function WalletTypesSection(props: {
             {walletTypes.map((value: walletProps, index: number) => (
                 <TouchableOpacity key={index} onPress={() => toggleSwitch(value.name)}>
                     <View style={tw`flex bg-[#3835A6] p-5 rounded-3xl mb-5`}>
-                        <Text style={tw`text-white text-[20px]`}>
-                            {value.name}
-                        </Text>
+                        <Text style={tw`text-white text-[20px]`}>{value.name}</Text>
                     </View>
                 </TouchableOpacity>
             ))}

@@ -4,6 +4,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { useRouter } from 'expo-router';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Image, ImageBackground, ScrollView, StatusBar, TouchableOpacity } from 'react-native';
+import ModalDropdown from 'react-native-modal-dropdown';
 import tw from 'twrnc';
 import { useShallow } from 'zustand/react/shallow';
 
@@ -62,6 +63,7 @@ export default function Cart() {
   const [walletNftData, setWalletNftData] = useState<NftDataProps[]>([]);
   const [walletTransactionData, setWalletTransactionData] = useState<TransactionDataProps[]>([]);
 
+  const [network, setNetwork] = useState<string>('All Networks');
   const [tokenData, setTokenData] = useState<TokenData[]>([]);
   const [nftData, setNftData] = useState<any[]>([]);
   const [activityData, setActivityData] = useState<any[]>([]);
@@ -90,7 +92,7 @@ export default function Cart() {
 
   useEffect(() => {
     if (wallet && wallet.address) {
-      console.log('chainByChainId:', chainByChainId);
+      // console.log('chainByChainId:', chainByChainId);
       setLoading(true);
       setWalletData([]);
       setWalletNftData([]);
@@ -250,13 +252,28 @@ export default function Cart() {
                 style={tw`w-[20px] h-[20px]`}
                 source={require('@/assets/images/cart/worldIcon.png')}
               />
-              <Text style={tw`text-[14px] font-medium text-white`}>All Networks</Text>
-              <TouchableOpacity onPress={() => console.log('asfdasf')}>
+              {/* <Text style={tw`text-[14px] font-medium text-white`}>All Networks</Text> */}
+              <ModalDropdown
+                textStyle={tw`text-[14px] font-medium text-white`}
+                options={['All Networks', 'option 2']}
+                dropdownStyle={tw`bg-[#5137B1] w-26 border-1 top-[-30px]`}
+                defaultValue={'All Networks'}
+                onSelect={() => setNetwork(value)}>
+                <View style={tw`bg-transparent flex gap-2 flex-row justify-center items-center`}>
+                  <Text style={tw`text-[14px] font-medium text-white`}>All Networks</Text>
+                  <Image
+                    style={tw`w-[10px] h-[5.83px] items-center`}
+                    source={require('@/assets/images/cart/downIcon.png')}
+                  />
+                </View>
+              </ModalDropdown>
+
+              {/* <TouchableOpacity onPress={() => console.log('asfdasf')}>
                 <Image
                   style={tw`w-[10px] h-[5.83px] items-center`}
                   source={require('@/assets/images/cart/downIcon.png')}
                 />
-              </TouchableOpacity>
+              </TouchableOpacity> */}
             </View>
           </View>
           <TouchableOpacity onPress={() => navigate('/explore')}>
