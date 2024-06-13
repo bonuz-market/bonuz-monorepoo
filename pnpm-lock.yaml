@@ -155,7 +155,7 @@ importers:
         version: 14.0.2
       '@gorhom/bottom-sheet':
         specifier: ^4.6.3
-        version: 4.6.3(@types/react@18.2.79)(react-native-gesture-handler@2.16.2(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.2.79)(bufferutil@4.0.8)(react@18.2.0))(react@18.2.0))(react-native-reanimated@3.10.1(@babel/core@7.24.6)(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.2.79)(bufferutil@4.0.8)(react@18.2.0))(react@18.2.0))(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.2.79)(bufferutil@4.0.8)(react@18.2.0))(react@18.2.0)
+        version: 4.6.3(@types/react-native@0.70.19)(@types/react@18.2.79)(react-native-gesture-handler@2.16.2(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.2.79)(bufferutil@4.0.8)(react@18.2.0))(react@18.2.0))(react-native-reanimated@3.10.1(@babel/core@7.24.6)(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.2.79)(bufferutil@4.0.8)(react@18.2.0))(react@18.2.0))(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.2.79)(bufferutil@4.0.8)(react@18.2.0))(react@18.2.0)
       '@react-navigation/native':
         specifier: ^6.1.17
         version: 6.1.17(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.2.79)(bufferutil@4.0.8)(react@18.2.0))(react@18.2.0)
@@ -177,9 +177,6 @@ importers:
       assert:
         specifier: ^2.1.0
         version: 2.1.0
-      axios:
-        specifier: ^1.7.2
-        version: 1.7.2
       browserify-zlib:
         specifier: ^0.2.0
         version: 0.2.0
@@ -273,6 +270,9 @@ importers:
       react-native-linear-gradient:
         specifier: ^2.8.3
         version: 2.8.3(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.2.79)(bufferutil@4.0.8)(react@18.2.0))(react@18.2.0)
+      react-native-modal-dropdown:
+        specifier: ^1.0.2
+        version: 1.0.2
       react-native-reanimated:
         specifier: ~3.10.1
         version: 3.10.1(@babel/core@7.24.6)(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.2.79)(bufferutil@4.0.8)(react@18.2.0))(react@18.2.0)
@@ -328,6 +328,9 @@ importers:
       '@types/react':
         specifier: ~18.2.79
         version: 18.2.79
+      '@types/react-native-modal-dropdown':
+        specifier: ^1.0.5
+        version: 1.0.5
       eslint:
         specifier: ^8.57.0
         version: 8.57.0
@@ -2902,6 +2905,12 @@ packages:
   '@types/react-dom@18.3.0':
     resolution: {integrity: sha512-EhwApuTmMBmXuFOikhQLIBUn6uFg81SwLMOAUgodJF14SOBOCMdU04gDoYi0WOJJHD144TL32z4yDqCW3dnkQg==}
 
+  '@types/react-native-modal-dropdown@1.0.5':
+    resolution: {integrity: sha512-cwD3uZGrd9jUqHzG/pQSrXqRbgz6VvpGrDCDLAl/XfO9jXOpubfWJ8HpLbdyDd4hRpSj+oAZ4pEmNvk5y9n4Sg==}
+
+  '@types/react-native@0.70.19':
+    resolution: {integrity: sha512-c6WbyCgWTBgKKMESj/8b4w+zWcZSsCforson7UdXtXMecG3MxCinYi6ihhrHVPyUrVzORsvEzK8zg32z4pK6Sg==}
+
   '@types/react@18.2.52':
     resolution: {integrity: sha512-E/YjWh3tH+qsLKaUzgpZb5AY0ChVa+ZJzF7ogehVILrFpdQk6nC/WXOv0bfFEABbXbgNxLBGU7IIZByPKb6eBw==}
 
@@ -3646,9 +3655,6 @@ packages:
   axe-core@4.7.0:
     resolution: {integrity: sha512-M0JtH+hlOL5pLQwHOLNYZaXuhqmvS8oExsqB1SBYgA4Dk7u/xx+YdGHXaK5pyUfed5mYXdlYiphWq3G8cRi5JQ==}
     engines: {node: '>=4'}
-
-  axios@1.7.2:
-    resolution: {integrity: sha512-2A8QhOMrbomlDuiLeK9XibIBzuHeRcqqNOHp0Cyp5EoJ1IFDh+XZH3A6BkXtv0K4gFGCI0Y4BM7B1wOEi0Rmgw==}
 
   axobject-query@3.2.1:
     resolution: {integrity: sha512-jsyHu61e6N4Vbz/v18DHwWYKK0bSWLqn47eeDSKPB7m8tqMHF9YJ+mhIk2lVteyZrY8tnSj/jHOv4YiTCuCJgg==}
@@ -5160,15 +5166,6 @@ packages:
   flow-parser@0.237.1:
     resolution: {integrity: sha512-PUeG8GQLmrv49vEcFcag7mriJvVs7Yyegnv1DGskvcokhP8UyqWsLV0KoTQ1iAW3ePVUIGUc3MFfBaXwz9MmIg==}
     engines: {node: '>=0.4.0'}
-
-  follow-redirects@1.15.6:
-    resolution: {integrity: sha512-wWN62YITEaOpSK584EZXJafH1AGpO8RVgElfkuXbTOrPX4fIfOyEpW/CsiNd8JdYrAoOvafRTOEnvsO++qCqFA==}
-    engines: {node: '>=4.0'}
-    peerDependencies:
-      debug: '*'
-    peerDependenciesMeta:
-      debug:
-        optional: true
 
   fontfaceobserver@2.3.0:
     resolution: {integrity: sha512-6FPvD/IVyT4ZlNe7Wcn5Fb/4ChigpucKYSvD6a+0iMoLn2inpo711eyIcKjmDtE5XNcgAkSH9uN/nfAeZzHEfg==}
@@ -7450,9 +7447,6 @@ packages:
   proxy-compare@2.5.1:
     resolution: {integrity: sha512-oyfc0Tx87Cpwva5ZXezSp5V9vht1c7dZBhvuV/y3ctkgMVUmiAGDVeeB0dKhGSyT0v1ZTEQYpe/RXlBVBNuCLA==}
 
-  proxy-from-env@1.1.0:
-    resolution: {integrity: sha512-D+zkORCbA9f1tdWRK0RaCR3GPv50cMxcrz4X8k5LTSUD1Dkw47mKJEZQNunItRTkWwgtaUSo1RVFRIG9ZXiFYg==}
-
   psl@1.9.0:
     resolution: {integrity: sha512-E/ZsdU4HLs/68gYzgGTkMicWTLPdAftJLfJFlLUAAKZGkStNU72sZjT66SnMDVOfOWY/YAoiD7Jxa9iHvngcag==}
 
@@ -7636,6 +7630,9 @@ packages:
     peerDependencies:
       react: '*'
       react-native: '*'
+
+  react-native-modal-dropdown@1.0.2:
+    resolution: {integrity: sha512-X13RbwoQdaOb9Ffi7fjRVwh9OXauXIJhum0uXGzYZLMyoCQ5yt5cxf27P/YZbdh80Fb7bdPx6vTA4PTpUK2WDQ==}
 
   react-native-reanimated-carousel@3.5.1:
     resolution: {integrity: sha512-9BBQV6JAYSQm2lV7MFtT4mzapXmW4IZO6s38gfiJL84Jg23ivGB1UykcNQauKgtHyhtW2NuZJzItb1s42lM+hA==}
@@ -10979,7 +10976,7 @@ snapshots:
 
   '@floating-ui/utils@0.2.2': {}
 
-  '@gorhom/bottom-sheet@4.6.3(@types/react@18.2.79)(react-native-gesture-handler@2.16.2(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.2.79)(bufferutil@4.0.8)(react@18.2.0))(react@18.2.0))(react-native-reanimated@3.10.1(@babel/core@7.24.6)(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.2.79)(bufferutil@4.0.8)(react@18.2.0))(react@18.2.0))(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.2.79)(bufferutil@4.0.8)(react@18.2.0))(react@18.2.0)':
+  '@gorhom/bottom-sheet@4.6.3(@types/react-native@0.70.19)(@types/react@18.2.79)(react-native-gesture-handler@2.16.2(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.2.79)(bufferutil@4.0.8)(react@18.2.0))(react@18.2.0))(react-native-reanimated@3.10.1(@babel/core@7.24.6)(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.2.79)(bufferutil@4.0.8)(react@18.2.0))(react@18.2.0))(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.2.79)(bufferutil@4.0.8)(react@18.2.0))(react@18.2.0)':
     dependencies:
       '@gorhom/portal': 1.0.14(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.2.79)(bufferutil@4.0.8)(react@18.2.0))(react@18.2.0)
       invariant: 2.2.4
@@ -10989,6 +10986,7 @@ snapshots:
       react-native-reanimated: 3.10.1(@babel/core@7.24.6)(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.2.79)(bufferutil@4.0.8)(react@18.2.0))(react@18.2.0)
     optionalDependencies:
       '@types/react': 18.2.79
+      '@types/react-native': 0.70.19
 
   '@gorhom/portal@1.0.14(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.2.79)(bufferutil@4.0.8)(react@18.2.0))(react@18.2.0)':
     dependencies:
@@ -12811,6 +12809,15 @@ snapshots:
       '@types/react': 18.3.3
     optional: true
 
+  '@types/react-native-modal-dropdown@1.0.5':
+    dependencies:
+      '@types/react': 18.3.3
+      '@types/react-native': 0.70.19
+
+  '@types/react-native@0.70.19':
+    dependencies:
+      '@types/react': 18.3.3
+
   '@types/react@18.2.52':
     dependencies:
       '@types/prop-types': 15.7.12
@@ -14441,14 +14448,6 @@ snapshots:
       possible-typed-array-names: 1.0.0
 
   axe-core@4.7.0: {}
-
-  axios@1.7.2:
-    dependencies:
-      follow-redirects: 1.15.6
-      form-data: 4.0.0
-      proxy-from-env: 1.1.0
-    transitivePeerDependencies:
-      - debug
 
   axobject-query@3.2.1:
     dependencies:
@@ -16463,8 +16462,6 @@ snapshots:
   flow-enums-runtime@0.0.6: {}
 
   flow-parser@0.237.1: {}
-
-  follow-redirects@1.15.6: {}
 
   fontfaceobserver@2.3.0: {}
 
@@ -19057,8 +19054,6 @@ snapshots:
 
   proxy-compare@2.5.1: {}
 
-  proxy-from-env@1.1.0: {}
-
   psl@1.9.0: {}
 
   public-encrypt@4.0.3:
@@ -19247,6 +19242,10 @@ snapshots:
     dependencies:
       react: 18.2.0
       react-native: 0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.2.79)(bufferutil@4.0.8)(react@18.2.0)
+
+  react-native-modal-dropdown@1.0.2:
+    dependencies:
+      prop-types: 15.8.1
 
   react-native-reanimated-carousel@3.5.1(react-native-gesture-handler@2.16.2(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.2.79)(bufferutil@4.0.8)(react@18.2.0))(react@18.2.0))(react-native-reanimated@3.10.1(@babel/core@7.24.6)(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.2.79)(bufferutil@4.0.8)(react@18.2.0))(react@18.2.0))(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.2.79)(bufferutil@4.0.8)(react@18.2.0))(react@18.2.0):
     dependencies:

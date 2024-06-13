@@ -1,6 +1,5 @@
 /* eslint-disable unicorn/consistent-function-scoping */
 import { BottomSheetModal, BottomSheetModalProvider, BottomSheetView } from '@gorhom/bottom-sheet';
-import axios from 'axios';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useRouter } from 'expo-router';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
@@ -92,45 +91,48 @@ export default function Cart() {
   );
 
   useEffect(() => {
-    const fetchData = async () => {
-      if (wallet && wallet.address) {
-        // console.log('chainByChainId:', chainByChainId);
-        setLoading(true);
-        setWalletData([]);
-        setWalletNftData([]);
-        setWalletAddress(shortenWalletAddress(wallet.address));
-        let url = `https://admin.bonuz.xyz/api/users/wallet/0x0e004bE8F05D53f5E09f61EAAc2acE5314E3438f/balance`;
-        if (value === 'NFTs')
-          url = `https://admin.bonuz.xyz/api/users/wallet/${wallet.address}/nfts`;
-        if (value === 'Activity')
-          url = `https://admin.bonuz.xyz/api/users/wallet/0x0e004bE8F05D53f5E09f61EAAc2acE5314E3438f/transactions`;
-        console.log('fetch url:', url);
-        try {
-          const response = await axios.get(url);
-          console.log('data:', response.data);
+    if (wallet && wallet.address) {
+      // console.log('chainByChainId:', chainByChainId);
+      setLoading(true);
+      setWalletData([]);
+      setWalletNftData([]);
+      setWalletAddress(shortenWalletAddress(wallet.address));
+      let url = `https://admin.bonuz.xyz/api/users/wallet/0x0e004bE8F05D53f5E09f61EAAc2acE5314E3438f/balance`;
+      if (value === 'NFTs') url = `https://admin.bonuz.xyz/api/users/wallet/${wallet.address}/nfts`;
+      if (value === 'Activity')
+        url = `https://admin.bonuz.xyz/api/users/wallet/0x0e004bE8F05D53f5E09f61EAAc2acE5314E3438f/transactions`;
+      console.log('fetch url:', url);
+      fetch(url) // Replace with your API URL
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+          return response.json();
+        })
+        .then((data: any) => {
           switch (value) {
             case 'Crypto': {
-              setTokenData(response.data.data.tokens);
+              console.log('data:', data);
+              setTokenData(data.data.tokens);
               break;
             }
             case 'NFTs': {
-              setNftData(response.data.data.nfts);
+              setNftData(data.data.nfts);
               break;
             }
             case 'Activity': {
-              setActivityData(response.data.data.transactions);
+              setActivityData(data.data.transactions);
               break;
             }
             default: {
               console.log('Unknown value:', value);
             }
           }
-        } catch (error) {
+        })
+        .catch((error) => {
           console.log('fetch error:', error);
-        }
-      }
-    };
-    fetchData();
+        });
+    }
   }, [value, wallet]);
 
   useEffect(() => {
