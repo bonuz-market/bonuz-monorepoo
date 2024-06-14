@@ -9,23 +9,27 @@ import {
   Link,
   MessagingAppType,
   SocialAccount,
+  SocialIdUser,
   SUPPORTED_PLATFORMS,
   User,
   WalletType,
 } from '@/entities';
 import { Wallet } from '@/entities/wallet';
-import { getUserInfo, updateUserInfo } from '@/services/backend';
+import { getUserConnections, getUserInfo, updateUserInfo } from '@/services/backend';
 import { useUserStore } from '@/store';
 import { viemPublicClients } from '@/store/smartAccounts';
 
 import { uploadImageToIPFS } from '../nftStorage';
 import { socialIdAbi } from './abi';
 import { SOCIAL_ID_ADDRESS, SOCIAL_ID_CHAIN_ID } from './bonuz.config';
+import { GET_USER_PROFILES_BY_HANDLES } from './subgraphs/socialId/socialId.queries';
+import { socialIdSubgraphApolloClient } from './subgraphs/socialId/socialId.subgraph';
+import { SocialIdSubGraphResponse } from './subgraphs/socialId/socialId.types';
 
-const getPublicData = (link: string) => ({
-  link: link?.startsWith('p_') ? link.slice(2) : '',
-  isPublic: !!link?.startsWith('p_'),
-});
+// const getPublicData = (link: string) => ({
+//   link: link?.startsWith('p_') ? link.slice(2) : '',
+//   isPublic: !!link?.startsWith('p_'),
+// });
 
 /** 
    // ! IF YOU GET ERROR WHILE CALLING THE FUNCTION 
