@@ -90,7 +90,7 @@ export default function Explore() {
           tw`flex flex-row justify-between items-center bg-[#5137B1] px-4 h-4/25 rounded-b-[10]`,
           { paddingTop: StatusBarHeight() },
         ]}>
-        <TouchableOpacity onPress={() => navigate('/cart')}>
+        <TouchableOpacity onPress={() => navigate('/wallet')}>
           <View style={tw`w-[54px] h-[54px] rounded-full bg-[#684FCD] justify-center items-center`}>
             <Image style={tw`w-[30px]`} source={require('@/assets/images/explore/leftIcon.png')} />
           </View>

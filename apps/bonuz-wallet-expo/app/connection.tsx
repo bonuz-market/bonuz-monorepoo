@@ -23,10 +23,8 @@ export default function Connection() {
 
   const bottomModalRef = useRef<BottomSheetModal>(null);
 
-  const [value, setValue] = useState<boolean>(true);
+  const [value, setValue] = useState<string>('Lens.xys Feed');
   const { data, isRefetching, isLoading, refetch } = useUserConnections();
-
-  // const [isEnabled, setEnabled] = useState(false);
 
   const handleConnectionPress = (data: any) => {
     bottomModalRef.current?.present(data);
@@ -50,7 +48,7 @@ export default function Connection() {
           <View style={tw`flex bg-transparent justify-center items-center`}>
             <Text style={tw`text-[20px] text-white font-semibold`}>Social</Text>
           </View>
-          <TouchableOpacity onPress={() => navigate('/cart')}>
+          <TouchableOpacity onPress={() => navigate('/wallet')}>
             <View
               style={tw`w-[54px] h-[54px] rounded-full bg-[#684FCD] justify-center items-center`}>
               <View
@@ -69,8 +67,7 @@ export default function Connection() {
           <SwitchButton
             value={value}
             onValueChange={setValue}
-            title1="Lens.xys Feed"
-            title2="My Connections"
+            titleList={['Lens.xys Feed', 'My Connections']}
           />
         </View>
 

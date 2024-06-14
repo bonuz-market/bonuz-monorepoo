@@ -37,7 +37,7 @@ export default function Home() {
           </View>
         </TouchableOpacity>
         <Image style={tw`w-33 h-9`} source={require('@/assets/images/home/logo.png')} />
-        <TouchableOpacity onPress={() => navigate('/cart')}>
+        <TouchableOpacity onPress={() => navigate('/wallet')}>
           <View style={tw`w-[54px] h-[54px] rounded-full bg-[#684FCD] justify-center items-center`}>
             <Image
               style={tw`w-[30px] h-[30px]`}

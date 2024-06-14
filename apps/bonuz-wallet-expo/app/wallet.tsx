@@ -4,7 +4,6 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { useRouter } from 'expo-router';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Image, ImageBackground, ScrollView, StatusBar, TouchableOpacity } from 'react-native';
-// import ModalDropdown from 'react-native-modal-dropdown';
 import tw from 'twrnc';
 import { useShallow } from 'zustand/react/shallow';
 
@@ -17,9 +16,12 @@ import { Text, View } from '@/components/Themed';
 import TokenInfoSection from '@/components/TokenInfo';
 import WalletTypesSection from '@/components/WalletTypesSection';
 import WalletUnConnected from '@/components/WalletUnConnected';
+import { WalletSheet } from '@/pages/wallet/sheets';
+import { useUserWalletDatas } from '@/services/blockchain/bonuz/useSocialId';
 import { useUserStore } from '@/store';
 import { networkTypes, walletTypes } from '@/store/walletTypes';
 import { isNotEmpty } from '@/utils/object';
+import { truncateAddress } from '@/utils/wallet';
 
 interface TokenData {
   logoURI: string;
@@ -60,7 +62,7 @@ interface TransactionDataProps {
   explorerUrl: string;
 }
 
-export default function Cart() {
+export default function Wallet() {
   const { navigate } = useRouter();
   const [value, setValue] = useState<string>('Crypto');
   const [walletData, setWalletData] = useState<WalletDataProps[]>([]);
@@ -84,6 +86,8 @@ export default function Cart() {
 
   const [currentSection, setCurrentSection] = useState<string>('wallet');
 
+  const { data, isRefetching, isLoading, refetch } = useUserWalletDatas();
+
   const handlePresentModalPress = useCallback(() => {
     bottomSheetModalReference.current?.present();
   }, []);
@@ -105,7 +109,7 @@ export default function Cart() {
       setLoading(true);
       setWalletData([]);
       setWalletNftData([]);
-      setWalletAddress(shortenWalletAddress(wallet.address));
+      setWalletAddress(truncateAddress(wallet.address));
       const url = buildUrl(value, networkType, wallet.address);
       fetch(url) // Replace with your API URL
         .then((response) => {
@@ -170,7 +174,7 @@ export default function Cart() {
           name: data.name,
           description: data.description,
           date: convertDate(data.last_transferred_at),
-          contract_address: shortenWalletAddress(data.contract_address),
+          contract_address: truncateAddress(data.contract_address),
           token_Id: data.token_id,
           interface: data.interfaces[0],
           openseaUrl: data.external_url,
@@ -183,8 +187,8 @@ export default function Cart() {
       activityData.map((data: any, index: number) => {
         dataArray.push({
           id: index + 1,
-          senderAddress: shortenWalletAddress(data.from),
-          receiverAddress: shortenWalletAddress(data.to),
+          senderAddress: truncateAddress(data.from),
+          receiverAddress: truncateAddress(data.to),
           transferAmount: '~$' + Number(data.quote).toFixed(2),
           tokenName: data.name,
           tokenSymbol: data.symbol,
@@ -199,20 +203,6 @@ export default function Cart() {
   const handleNext = (section: string) => {
     setCurrentSection(section);
     return handlePresentModalPress();
-  };
-
-  const shortenWalletAddress = (walletAddress: string) => {
-    if (!walletAddress || walletAddress.length < 10) {
-      return walletAddress; // If the address is too short, return as is
-    }
-
-    const prefixLength = 5; // Number of characters to keep from the start
-    const suffixLength = 4; // Number of characters to keep from the end
-
-    const prefix = walletAddress.slice(0, prefixLength);
-    const suffix = walletAddress.slice(-suffixLength);
-
-    return `${prefix}...${suffix}`;
   };
 
   const convertDate = (timestamp: string) => {
