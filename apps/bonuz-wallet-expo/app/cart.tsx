@@ -43,6 +43,10 @@ interface NftDataProps {
   name: string;
   description: string;
   date: string;
+  contract_address: string;
+  token_Id: string;
+  interface: string;
+  openseaUrl: string;
 }
 
 interface TransactionDataProps {
@@ -163,9 +167,13 @@ export default function Cart() {
         dataArray.push({
           id: index + 1,
           avatar: { uri: data.content.preview.url },
-          name: shortenDiscription(data.name, 36),
-          description: shortenDiscription(data.description, 52),
+          name: data.name,
+          description: data.description,
           date: convertDate(data.last_transferred_at),
+          contract_address: shortenWalletAddress(data.contract_address),
+          token_Id: data.token_id,
+          interface: data.interfaces[0],
+          openseaUrl: data.external_url,
         });
       });
       setWalletNftData(dataArray);
@@ -205,16 +213,6 @@ export default function Cart() {
     const suffix = walletAddress.slice(-suffixLength);
 
     return `${prefix}...${suffix}`;
-  };
-
-  const shortenDiscription = (description: string, prefixLength: number) => {
-    if (!description || description.length < prefixLength) {
-      return description; // If the address is too short, return as is
-    }
-
-    const prefix = description.slice(0, prefixLength);
-
-    return `${prefix}...`;
   };
 
   const convertDate = (timestamp: string) => {

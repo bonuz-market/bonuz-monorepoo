@@ -1,10 +1,12 @@
+/* eslint-disable unicorn/consistent-function-scoping */
+/* eslint-disable prettier/prettier */
+import { useNavigation, useRouter } from 'expo-router';
 import React from 'react';
 import { Image, Text, TouchableOpacity, View } from 'react-native';
 import tw from 'twrnc';
 
 import LoadingSection from './LoadingSection';
 import NoItemSection from './NoItemSection';
-import { useRouter } from 'expo-router';
 
 interface NftDataProps {
     id: number;
@@ -12,14 +14,27 @@ interface NftDataProps {
     name: string;
     description: string;
     date: string;
+    contract_address: string;
+    token_Id: string;
+    interface: string;
 }
 
 export default function NftInfoSection(props: { value: any; loadingStatus: boolean }) {
     const { value, loadingStatus } = props;
-    const { navigate } = useRouter();
+    const navigation = useNavigation();
 
     const onPressEvent = (index: number) => {
         console.log('index:', index);
+    };
+
+    const shortenDiscription = (description: string, prefixLength: number) => {
+        if (!description || description.length < prefixLength) {
+            return description; // If the address is too short, return as is
+        }
+
+        const prefix = description.slice(0, prefixLength);
+
+        return `${prefix}...`;
     };
 
     return (
@@ -34,7 +49,7 @@ export default function NftInfoSection(props: { value: any; loadingStatus: boole
                                 key={index}
                                 onPress={() => {
                                     onPressEvent(index + 1);
-                                    navigate('/nfts');
+                                    navigation.navigate('nfts', { paramName: nftData });
                                 }}
                             >
                                 <View
@@ -43,10 +58,10 @@ export default function NftInfoSection(props: { value: any; loadingStatus: boole
                                         <Image style={tw`w-[80px] h-[80px]`} source={nftData.avatar} />
                                         <View style={tw`bg-transparent w-78/100 flex flex-col gap-2`}>
                                             <Text style={tw`text-[16px] text-white font-semibold flex-wrap`}>
-                                                {nftData.name}
+                                                {shortenDiscription(nftData.name, 36)}
                                             </Text>
                                             <Text style={tw`text-[12px] font-normal text-white`}>
-                                                {nftData.description}
+                                                {shortenDiscription(nftData.description, 52)}
                                             </Text>
                                             <Text style={tw`text-[12px] font-normal text-white`}>{nftData.date}</Text>
                                         </View>
