@@ -39,7 +39,7 @@ export default function Nfts(props: { nftDatasdf: any }) {
             <Text style={tw`text-[20px] text-[#FFFFFF] font-semibold tracking-wider`}>
               NFT Details
             </Text>
-          </View>c
+          </View>
           <TouchableOpacity onPress={() => navigate('/explore')}>
             <View
               style={tw`w-[54px] h-[54px] rounded-full bg-[#684FCD] justify-center items-center`}>
