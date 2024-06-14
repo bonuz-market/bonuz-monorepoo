@@ -4,11 +4,12 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { useRouter } from 'expo-router';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Image, ImageBackground, ScrollView, StatusBar, TouchableOpacity } from 'react-native';
-import ModalDropdown from 'react-native-modal-dropdown';
+// import ModalDropdown from 'react-native-modal-dropdown';
 import tw from 'twrnc';
 import { useShallow } from 'zustand/react/shallow';
 
 import ActivityInfoSection from '@/components/ActivityInfo';
+import NetworkTypesSection from '@/components/NetworkTypesSection';
 import NftInfoSection from '@/components/NftInfo';
 import { StatusBarHeight } from '@/components/StatusbarHeight';
 import SwitchButton from '@/components/SwtichButton';
@@ -17,8 +18,7 @@ import TokenInfoSection from '@/components/TokenInfo';
 import WalletTypesSection from '@/components/WalletTypesSection';
 import WalletUnConnected from '@/components/WalletUnConnected';
 import { useUserStore } from '@/store';
-import { chainByChainId } from '@/store/smartAccounts';
-import { walletTypes } from '@/store/walletTypes';
+import { networkTypes, walletTypes } from '@/store/walletTypes';
 import { isNotEmpty } from '@/utils/object';
 
 interface TokenData {
@@ -63,7 +63,6 @@ export default function Cart() {
   const [walletNftData, setWalletNftData] = useState<NftDataProps[]>([]);
   const [walletTransactionData, setWalletTransactionData] = useState<TransactionDataProps[]>([]);
 
-  const [network, setNetwork] = useState<string>('All Networks');
   const [tokenData, setTokenData] = useState<TokenData[]>([]);
   const [nftData, setNftData] = useState<any[]>([]);
   const [activityData, setActivityData] = useState<any[]>([]);
@@ -77,9 +76,16 @@ export default function Cart() {
   const snapPoints = useMemo(() => ['80%'], []);
 
   const [walletType, setWalletType] = useState<string>('Smart Wallet');
+  const [networkType, setNetworkType] = useState<number>(0);
+
+  const [currentSection, setCurrentSection] = useState<string>('wallet');
 
   const handlePresentModalPress = useCallback(() => {
     bottomSheetModalReference.current?.present();
+  }, []);
+
+  const handleDismissModalPress = useCallback(() => {
+    bottomSheetModalReference.current?.dismiss();
   }, []);
 
   const { auth, user, wallet } = useUserStore(
@@ -91,17 +97,12 @@ export default function Cart() {
   );
 
   useEffect(() => {
-    if (wallet && wallet.address) {
-      // console.log('chainByChainId:', chainByChainId);
+    if (wallet.address) {
       setLoading(true);
       setWalletData([]);
       setWalletNftData([]);
       setWalletAddress(shortenWalletAddress(wallet.address));
-      let url = `https://admin.bonuz.xyz/api/users/wallet/0x0e004bE8F05D53f5E09f61EAAc2acE5314E3438f/balance`;
-      if (value === 'NFTs') url = `https://admin.bonuz.xyz/api/users/wallet/${wallet.address}/nfts`;
-      if (value === 'Activity')
-        url = `https://admin.bonuz.xyz/api/users/wallet/0x0e004bE8F05D53f5E09f61EAAc2acE5314E3438f/transactions`;
-      console.log('fetch url:', url);
+      const url = buildUrl(value, networkType, wallet.address);
       fetch(url) // Replace with your API URL
         .then((response) => {
           if (!response.ok) {
@@ -112,16 +113,18 @@ export default function Cart() {
         .then((data: any) => {
           switch (value) {
             case 'Crypto': {
-              console.log('data:', data);
               setTokenData(data.data.tokens);
+              setLoading(false);
               break;
             }
             case 'NFTs': {
               setNftData(data.data.nfts);
+              setLoading(false);
               break;
             }
             case 'Activity': {
               setActivityData(data.data.transactions);
+              setLoading(false);
               break;
             }
             default: {
@@ -131,9 +134,10 @@ export default function Cart() {
         })
         .catch((error) => {
           console.log('fetch error:', error);
+          setLoading(false);
         });
     }
-  }, [value, wallet]);
+  }, [value, wallet, networkType]);
 
   useEffect(() => {
     if (tokenData.length > 0 && value === 'Crypto') {
@@ -152,7 +156,6 @@ export default function Cart() {
       });
       setTotalBalance(Number(sum).toFixed(2));
       setWalletData(dataArray);
-      setLoading(false);
     }
     if (nftData.length > 0 && value === 'NFTs') {
       let dataArray: React.SetStateAction<NftDataProps[]> = [];
@@ -166,7 +169,6 @@ export default function Cart() {
         });
       });
       setWalletNftData(dataArray);
-      setLoading(false);
     }
     if (activityData.length > 0 && value === 'Activity') {
       let dataArray: React.SetStateAction<TransactionDataProps[]> = [];
@@ -183,11 +185,11 @@ export default function Cart() {
         });
       });
       setWalletTransactionData(dataArray);
-      setLoading(false);
     }
   }, [tokenData, nftData, activityData, value]);
 
-  const handleNext = () => {
+  const handleNext = (section: string) => {
+    setCurrentSection(section);
     return handlePresentModalPress();
   };
 
@@ -238,6 +240,25 @@ export default function Cart() {
     return `${month} ${day}, ${year}`;
   };
 
+  const buildUrl = (value: string, networkType: number, walletAddress: string) => {
+    let baseUrl = 'https://admin.bonuz.xyz/api/users/wallet';
+
+    let endpoint = `/balance`;
+    if (value === 'NFTs') {
+      endpoint = `/nfts`;
+    } else if (value === 'Activity') {
+      endpoint = `/transactions`;
+    }
+
+    let url = `${baseUrl}/${walletAddress}${endpoint}`;
+
+    if (networkType !== 0) {
+      url += `?chainId=${networkTypes[networkType].chainId}`;
+    }
+
+    return url;
+  };
+
   return (
     <BottomSheetModalProvider>
       <LinearGradient colors={['#4B2EA2', '#0E2875']} style={tw`flex-1`}>
@@ -254,37 +275,24 @@ export default function Cart() {
             </View>
           </TouchableOpacity>
           <View style={tw`flex bg-transparent justify-center items-center`}>
-            <TouchableOpacity onPress={() => handleNext()}>
+            <TouchableOpacity onPress={() => handleNext('wallet')}>
               <Text style={tw`text-[20px] text-white font-semibold`}>{walletType} 🔽</Text>
             </TouchableOpacity>
-            <View style={tw`flex-row bg-transparent gap-2 pt-1 items-center`}>
-              <Image
-                style={tw`w-[20px] h-[20px]`}
-                source={require('@/assets/images/cart/worldIcon.png')}
-              />
-              {/* <Text style={tw`text-[14px] font-medium text-white`}>All Networks</Text> */}
-              <ModalDropdown
-                textStyle={tw`text-[14px] font-medium text-white`}
-                options={['All Networks', 'option 2']}
-                dropdownStyle={tw`bg-[#5137B1] w-26 border-1 top-[-30px]`}
-                defaultValue={'All Networks'}
-                onSelect={(value: string) => setNetwork(value)}>
-                <View style={tw`bg-transparent flex gap-2 flex-row justify-center items-center`}>
-                  <Text style={tw`text-[14px] font-medium text-white`}>{network}</Text>
-                  <Image
-                    style={tw`w-[10px] h-[5.83px] items-center`}
-                    source={require('@/assets/images/cart/downIcon.png')}
-                  />
-                </View>
-              </ModalDropdown>
-
-              {/* <TouchableOpacity onPress={() => console.log('asfdasf')}>
+            <TouchableOpacity onPress={() => handleNext('network')}>
+              <View style={tw`flex-row bg-transparent gap-2 pt-1 items-center`}>
+                <Image
+                  style={tw`w-[20px] h-[20px]`}
+                  source={require('@/assets/images/cart/worldIcon.png')}
+                />
+                <Text style={tw`text-[14px] font-medium text-white`}>
+                  {networkTypes[networkType].network}
+                </Text>
                 <Image
                   style={tw`w-[10px] h-[5.83px] items-center`}
                   source={require('@/assets/images/cart/downIcon.png')}
                 />
-              </TouchableOpacity> */}
-            </View>
+              </View>
+            </TouchableOpacity>
           </View>
           <TouchableOpacity onPress={() => navigate('/explore')}>
             <View
@@ -370,7 +378,19 @@ export default function Cart() {
           <BottomSheetView style={tw`flex-1`}>
             <LinearGradient colors={['#4B2EA2', '#0E2875']} style={tw`flex-1`}>
               <ScrollView style={tw`bg-transparent flex-1`}>
-                <WalletTypesSection walletTypes={walletTypes} setWalletType={setWalletType} />
+                {currentSection === 'wallet' ? (
+                  <WalletTypesSection
+                    walletTypes={walletTypes}
+                    setWalletType={setWalletType}
+                    dismissModal={handleDismissModalPress}
+                  />
+                ) : (
+                  <NetworkTypesSection
+                    networkTypes={networkTypes}
+                    setNetworkType={setNetworkType}
+                    dismissModal={handleDismissModalPress}
+                  />
+                )}
               </ScrollView>
             </LinearGradient>
           </BottomSheetView>

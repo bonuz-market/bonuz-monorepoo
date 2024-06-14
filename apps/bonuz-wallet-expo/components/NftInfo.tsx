@@ -16,6 +16,10 @@ interface NftDataProps {
 export default function NftInfoSection(props: { value: any; loadingStatus: boolean }) {
     const { value, loadingStatus } = props;
 
+    const onPressEvent = (index: number) => {
+        console.log('index:', index);
+    };
+
     return (
         <>
             {loadingStatus === true ? (
@@ -24,7 +28,7 @@ export default function NftInfoSection(props: { value: any; loadingStatus: boole
                 <>
                     {value.length > 0 ? (
                         value.map((coindata: NftDataProps, index: number) => (
-                            <TouchableOpacity key={index} onPress={() => console.log('clicked')}>
+                            <TouchableOpacity key={index} onPress={() => onPressEvent(index + 1)}>
                                 <View
                                     style={tw`bg-transparent flex-row justify-between p-3 mx-5 mt-3 mb-3 bg-[#291167] rounded-xl`}>
                                     <View style={tw`bg-transparent flex flex-row items-center gap-2`}>
