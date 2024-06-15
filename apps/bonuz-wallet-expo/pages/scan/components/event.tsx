@@ -21,14 +21,32 @@ export const Event = ({ data }: EventProps) => {
       />
       <Tabs tabs={['Details', 'Quests', 'Agenda']} value={activeTab} onValueChange={setActiveTab} />
       {activeTab === 'Details' ? (
-        <Markdown
-          style={{
-            text: {
-              color: 'white',
-            },
-          }}>
-          {data.description}
-        </Markdown>
+        <View style={tw`flex-1 flex-col gap-4`}>
+          <View style={tw`flex-1 gap-2`}>
+            <Text style={tw`text-white text-xl font-semibold`}>Event Info</Text>
+            <View style={tw`flex-col gap-1`}>
+              <View style={tw`flex-row justify-between`}>
+                <Text style={tw`text-white text-lg`}>Start Date</Text>
+                <Text style={tw`text-white text-base`}>{data.startDate.toLocaleDateString()}</Text>
+              </View>
+              <View style={tw`flex-row gap-2 justify-between`}>
+                <Text style={tw`text-white text-lg`}>End Date</Text>
+                <Text style={tw`text-white text-base`}>{data.endDate.toLocaleDateString()}</Text>
+              </View>
+            </View>
+          </View>
+          <View style={tw`flex-1`}>
+            <Text style={tw`text-white text-xl font-semibold`}>Description</Text>
+            <Markdown
+              style={{
+                text: {
+                  color: 'white',
+                },
+              }}>
+              {data.description}
+            </Markdown>
+          </View>
+        </View>
       ) : activeTab === 'Quests' ? (
         <View style={tw`flex-col gap-2`}>
           <Text style={tw`text-white text-xl font-semibold`}>Challenges Info</Text>
