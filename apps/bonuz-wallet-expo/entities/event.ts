@@ -1,4 +1,5 @@
 interface Quest {
+  id: number;
   title: string;
   description: string;
   image: {
@@ -15,6 +16,7 @@ interface CheckIn {
 }
 
 export interface Event {
+  id: number;
   title: string;
   description: string;
   image: {

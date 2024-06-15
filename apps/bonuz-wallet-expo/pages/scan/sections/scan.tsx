@@ -1,6 +1,6 @@
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { useIsFocused } from '@react-navigation/native';
-import { useMutation } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import { BarcodeScanningResult, CameraView, useCameraPermissions } from 'expo-camera';
 import { useEffect, useRef, useState } from 'react';
 import { Button, ImageBackground, Text, View } from 'react-native';
@@ -8,8 +8,7 @@ import QRCode from 'react-native-qrcode-svg';
 import tw from 'twrnc';
 
 import { Tabs } from '@/components/Tabs';
-import { ConnectionSheet } from '@/pages/connections/sheets';
-import { addUserConnection, removeUserConnection } from '@/services/backend';
+import { getEventById } from '@/services/backend/events.service';
 import { useQueryGetUserProfileAndSocialLinksByHandle } from '@/services/blockchain/bonuz/useSocialId';
 import { useUserStore } from '@/store';
 import { isNotEmpty } from '@/utils/object';
@@ -25,8 +24,14 @@ export const ScanQrCode = ({ isActive }: { isActive: boolean }) => {
   const [scannedUserHandle, setScannedUserHandle] = useState<string>();
   const [eventId, setEventId] = useState<number>();
 
-  const { data, isLoading, refetch } = useQueryGetUserProfileAndSocialLinksByHandle({
+  const { data, refetch } = useQueryGetUserProfileAndSocialLinksByHandle({
     handle: scannedUserHandle,
+  });
+
+  const { data: event, isLoading: isEventLoading } = useQuery({
+    queryKey: ['events', eventId],
+    queryFn: ({ queryKey }) => getEventById(queryKey[1] as number),
+    enabled: !!eventId,
   });
 
   const userBottomModalRef = useRef<BottomSheetModal>(null);
@@ -36,14 +41,13 @@ export const ScanQrCode = ({ isActive }: { isActive: boolean }) => {
     if (data && scannedUserHandle) {
       userBottomModalRef.current?.present(data);
     }
-    if (eventId) {
+
+    if (eventId && event) {
       eventBottomModalRef.current?.present({
-        data: {
-          id: eventId,
-        },
+        data: event,
       });
     }
-  }, [data, eventId, scannedUserHandle]);
+  }, [data, event, eventId, scannedUserHandle]);
 
   const handleRemoveConnection = async () => {
     await refetch();
@@ -142,7 +146,7 @@ export const ScanQrCode = ({ isActive }: { isActive: boolean }) => {
         ref={eventBottomModalRef}
         onCheckIn={() => setEventId(undefined)}
         onDismiss={() => setEventId(undefined)}
-        isLoading={isLoading}
+        isLoading={isEventLoading}
       />
     </>
   );

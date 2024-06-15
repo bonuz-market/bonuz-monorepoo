@@ -2,27 +2,19 @@ import { BottomSheetFooter, BottomSheetModal } from '@gorhom/bottom-sheet';
 import { useMutation } from '@tanstack/react-query';
 import { BlurView } from 'expo-blur';
 import { LinearGradient } from 'expo-linear-gradient';
-import { forwardRef, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
+import { forwardRef, useImperativeHandle, useMemo, useRef } from 'react';
 import { ActivityIndicator, Image, Platform, Pressable, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import tw from 'twrnc';
 
 import { CustomBackdrop } from '@/components/sheets/Backdrop';
-import { removeUserConnection } from '@/services/backend';
+import { Event } from '@/entities/event';
+import { checkInEvent } from '@/services/backend/events.service';
 
 interface EventSheetContentProps {
-  data: any;
+  data: Event;
   handleCheckInPress: () => void;
 }
-
-const _data = {
-  title: 'Event Title',
-  description:
-    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, molestie ipsum et, ultricies nunc. Nulla facilisi. Sed nec nunc nec purus feugiat, molestie ipsum et, ultricies nunc. Nulla facilisi. Sed nec nunc nec purus feugiat, molestie ipsum et, ultricies nunc. Nulla facilisi. Sed nec nunc nec purus feugiat, molestie ipsum et, ultricies nunc. Nulla facilisi. Sed nec nunc nec purus feugiat, molestie ipsum et, ultricies nunc. Nulla facilisi. Sed nec nunc nec purus feugiat, molestie ipsum et, ultricies nunc. Nulla facilisi. Sed nec nunc nec purus feugiat, molestie ipsum et, ultricies nunc. Nulla facilisi. Sed nec nunc nec purus feugiat, molestie ipsum et, ultricies nunc. Nulla facilisi. Sed nec nunc nec purus feugiat, molestie ipsum et, ultricies nunc. Nulla facilisi. Sed nec nunc nec purus feugiat, molestie ipsum et, ultricies nunc. Nulla facilisi.',
-  image: {
-    url: 'https://plus.unsplash.com/premium_photo-1688678097425-00bba1629e32?q=80&w=1416&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-  },
-};
 
 const EventSheetContent = ({ data, handleCheckInPress }: EventSheetContentProps) => {
   return (
@@ -61,7 +53,7 @@ export const EventSheet = forwardRef<BottomSheetModal, EventSheetProps>(
 
     const { mutateAsync: checkIn, isPending } = useMutation({
       mutationKey: ['checkIn'],
-      mutationFn: async (eventId: number) => removeUserConnection(eventId),
+      mutationFn: async (eventId: number) => checkInEvent(eventId),
       onSuccess: onCheckIn,
     });
 
@@ -128,12 +120,8 @@ export const EventSheet = forwardRef<BottomSheetModal, EventSheetProps>(
                 <ActivityIndicator size="large" color="white" />
               </View>
             );
-          eventIdRef.current = data?.data.id;
-          return (
-            <>
-              <EventSheetContent data={_data} handleCheckInPress={handleCheckIn} />
-            </>
-          );
+          eventIdRef.current = data.data.id;
+          return <EventSheetContent data={data.data} handleCheckInPress={handleCheckIn} />;
         }}
       </BottomSheetModal>
     );

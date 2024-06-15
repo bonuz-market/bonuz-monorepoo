@@ -12,6 +12,7 @@ interface UserState {
   user: User;
   wallet: Wallet;
   auth: Auth;
+  events: number[];
 }
 
 interface PersistedState {
@@ -19,7 +20,7 @@ interface PersistedState {
   setHasHydrated: (state: boolean) => void;
 }
 
-type UserStore = UserState | { user: {}; wallet: {}; auth: {} };
+type UserStore = UserState | { user: {}; wallet: {}; auth: {}; events: number[] };
 
 interface UserStoreActions {
   setUser: (user: Partial<User>) => void;
@@ -28,7 +29,7 @@ interface UserStoreActions {
   clear: () => void;
 }
 
-const initialState = { user: {}, wallet: {}, auth: {} };
+const initialState = { user: {}, wallet: {}, auth: {}, events: [] };
 
 export const useUserStore = create<UserStore & (UserStoreActions & PersistedState)>()(
   persist(
@@ -61,11 +62,18 @@ export const useUserStore = create<UserStore & (UserStoreActions & PersistedStat
           },
         }));
       },
+      setEvents: (events: number[]) => {
+        set((state) => ({
+          ...state,
+          events,
+        }));
+      },
       clear: () => {
         set({
           user: {},
           wallet: {},
           auth: {},
+          events: [],
         });
       },
 
