@@ -64,6 +64,7 @@
     "react-native-gesture-handler": "~2.16.2",
     "react-native-iconify": "^1.0.2",
     "react-native-linear-gradient": "^2.8.3",
+    "react-native-markdown-display": "^7.0.2",
     "react-native-qrcode-svg": "^6.3.1",
     "react-native-reanimated": "~3.10.1",
     "react-native-reanimated-carousel": "^3.5.1",

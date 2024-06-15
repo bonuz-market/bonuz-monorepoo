@@ -14,26 +14,36 @@ import { useQueryGetUserProfileAndSocialLinksByHandle } from '@/services/blockch
 import { useUserStore } from '@/store';
 import { isNotEmpty } from '@/utils/object';
 
+import { EventSheet } from '../sheets/event';
 import { UserSheet } from '../sheets/user';
 
-const QRCODE_BASE_URL = 'https://app.bonuz.xyz/users';
+const QRCODE_BASE_URL = 'https://app.bonuz.xyz';
 export const ScanQrCode = ({ isActive }: { isActive: boolean }) => {
   const [activeTab, setActiveTab] = useState<'My QR Code' | 'Scan'>('My QR Code');
   const user = useUserStore((state) => state.user);
 
   const [scannedUserHandle, setScannedUserHandle] = useState<string>();
+  const [eventId, setEventId] = useState<number>();
 
   const { data, isLoading, refetch } = useQueryGetUserProfileAndSocialLinksByHandle({
     handle: scannedUserHandle,
   });
 
-  const bottomModalRef = useRef<BottomSheetModal>(null);
+  const userBottomModalRef = useRef<BottomSheetModal>(null);
+  const eventBottomModalRef = useRef<BottomSheetModal>(null);
 
   useEffect(() => {
     if (data && scannedUserHandle) {
-      bottomModalRef.current?.present(data);
+      userBottomModalRef.current?.present(data);
     }
-  }, [data, scannedUserHandle]);
+    if (eventId) {
+      eventBottomModalRef.current?.present({
+        data: {
+          id: eventId,
+        },
+      });
+    }
+  }, [data, eventId, scannedUserHandle]);
 
   const handleRemoveConnection = async () => {
     await refetch();
@@ -49,11 +59,16 @@ export const ScanQrCode = ({ isActive }: { isActive: boolean }) => {
   const handleBarcodeScanned = (scanResult: BarcodeScanningResult) => {
     console.log(scanResult.data);
 
-    if (scanResult.data.startsWith(QRCODE_BASE_URL)) {
-      const handle = scanResult.data.replace(QRCODE_BASE_URL + '/', '');
+    if (scanResult.data.startsWith(`${QRCODE_BASE_URL}/users`)) {
+      const handle = scanResult.data.replace(`${QRCODE_BASE_URL}/users/`, '');
 
       setScannedUserHandle(handle);
-      bottomModalRef.current?.present();
+      userBottomModalRef.current?.present();
+    } else if (scanResult.data.startsWith(`${QRCODE_BASE_URL}/events`)) {
+      const eventId = scanResult.data.replace(`${QRCODE_BASE_URL}/events/`, '');
+
+      setEventId(Number(eventId));
+      eventBottomModalRef.current?.present();
     }
 
     setActiveTab('My QR Code');
@@ -118,10 +133,16 @@ export const ScanQrCode = ({ isActive }: { isActive: boolean }) => {
         <Text style={tw`text-white text-base opacity-60`}>Use NFC</Text>
       </View>
       <UserSheet
-        ref={bottomModalRef}
+        ref={userBottomModalRef}
         onRemoveConnection={handleRemoveConnection}
         onAddConnection={handleAddConnection}
         onDismiss={() => setScannedUserHandle(undefined)}
+      />
+      <EventSheet
+        ref={eventBottomModalRef}
+        onCheckIn={() => setEventId(undefined)}
+        onDismiss={() => setEventId(undefined)}
+        isLoading={isLoading}
       />
     </>
   );
