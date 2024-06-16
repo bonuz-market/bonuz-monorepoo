@@ -4,6 +4,7 @@ import { BlurView } from 'expo-blur';
 import { LinearGradient } from 'expo-linear-gradient';
 import { forwardRef, useImperativeHandle, useMemo, useRef } from 'react';
 import { ActivityIndicator, Image, Platform, Pressable, Text, View } from 'react-native';
+import Markdown from 'react-native-markdown-display';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import tw from 'twrnc';
 
@@ -29,7 +30,14 @@ const EventSheetContent = ({ data, handleCheckInPress }: EventSheetContentProps)
       </View>
       <View style={tw`p-4`}>
         <Text style={tw`text-white text-lg font-semibold`}>{data.title}</Text>
-        <Text style={tw`text-white text-base mt-2`}>{data.description}</Text>
+        <Markdown
+          style={{
+            text: {
+              color: 'white',
+            },
+          }}>
+          {data.description}
+        </Markdown>
       </View>
     </View>
   );

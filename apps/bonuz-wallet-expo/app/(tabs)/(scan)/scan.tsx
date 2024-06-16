@@ -3,6 +3,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import React from 'react';
 import { View } from 'react-native';
 import tw from 'twrnc';
+import { useShallow } from 'zustand/react/shallow';
 
 import { Accordion } from '@/components/Accordion/Accordion';
 import { Text } from '@/components/Themed';
@@ -13,12 +14,23 @@ import { useUserStore } from '@/store';
 
 export default function Scan() {
   const [activeSections, setActiveSections] = React.useState<number[]>([0]);
-  const checkedInEvents = useUserStore((state) => state.events);
+  const { checkedInEvents, removeEvent } = useUserStore(
+    useShallow((state) => ({
+      checkedInEvents: state.events,
+      removeEvent: state.removeEvent,
+    })),
+  );
+
+  console.log(checkedInEvents);
 
   const { data } = useQuery({
-    queryKey: ['events', checkedInEvents],
+    queryKey: ['events', checkedInEvents, checkedInEvents.join('-')],
     queryFn: ({ queryKey }) => getEventsByIds(queryKey[1] as number[]),
   });
+
+  const handleCheckOut = (eventId: number) => {
+    removeEvent(eventId);
+  };
 
   return (
     <LinearGradient colors={['#4B2EA2', '#0E2875']} style={tw`flex-1 items-center w-full`}>
@@ -36,19 +48,9 @@ export default function Scan() {
               titleComponent: (
                 <Text style={tw`text-white text-xl font-semibold`}>{event.title}</Text>
               ),
-              renderContent: <Event data={event} />,
+              renderContent: <Event data={event} onCheckOut={() => handleCheckOut(event.id)} />,
               index: index + 1,
             })),
-
-            {
-              titleComponent: <Text style={tw`text-white text-xl font-semibold`}>Section 1</Text>,
-              renderContent: (
-                <Text style={tw`text-white text-lg`}>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing
-                </Text>
-              ),
-              index: 2,
-            },
           ]}
           onAccordionChange={(sections) => setActiveSections(sections)}
         />

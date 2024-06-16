@@ -19,7 +19,10 @@ import { UserSheet } from '../sheets/user';
 const QRCODE_BASE_URL = 'https://app.bonuz.xyz';
 export const ScanQrCode = ({ isActive }: { isActive: boolean }) => {
   const [activeTab, setActiveTab] = useState<'My QR Code' | 'Scan'>('My QR Code');
-  const user = useUserStore((state) => state.user);
+  const { user, addEvent } = useUserStore((state) => ({
+    user: state.user,
+    addEvent: state.addEvent,
+  }));
 
   const [scannedUserHandle, setScannedUserHandle] = useState<string>();
   const [eventId, setEventId] = useState<number>();
@@ -43,9 +46,7 @@ export const ScanQrCode = ({ isActive }: { isActive: boolean }) => {
     }
 
     if (eventId && event) {
-      eventBottomModalRef.current?.present({
-        data: event,
-      });
+      eventBottomModalRef.current?.present(event);
     }
   }, [data, event, eventId, scannedUserHandle]);
 
@@ -76,6 +77,10 @@ export const ScanQrCode = ({ isActive }: { isActive: boolean }) => {
     }
 
     setActiveTab('My QR Code');
+  };
+  const handleEventCheckIn = () => {
+    addEvent(eventId!);
+    setEventId(undefined);
   };
 
   useEffect(() => {
@@ -144,7 +149,7 @@ export const ScanQrCode = ({ isActive }: { isActive: boolean }) => {
       />
       <EventSheet
         ref={eventBottomModalRef}
-        onCheckIn={() => setEventId(undefined)}
+        onCheckIn={handleEventCheckIn}
         onDismiss={() => setEventId(undefined)}
         isLoading={isEventLoading}
       />

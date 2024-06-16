@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Image, Text, View } from 'react-native';
+import { Image, Pressable, Text, View } from 'react-native';
 import Markdown from 'react-native-markdown-display';
 import tw from 'twrnc';
 
@@ -8,10 +8,12 @@ import { Event as EventEntity } from '@/entities/event';
 
 interface EventProps {
   data: Omit<EventEntity, 'checkIns' | 'type'>;
+  onCheckOut: () => void;
 }
 
-export const Event = ({ data }: EventProps) => {
+export const Event = ({ data, onCheckOut }: EventProps) => {
   const [activeTab, setActiveTab] = useState<'Details' | 'Quests' | 'Agenda'>('Quests');
+
   return (
     <View style={tw`flex gap-2`}>
       <Image
@@ -46,6 +48,11 @@ export const Event = ({ data }: EventProps) => {
               {data.description}
             </Markdown>
           </View>
+          <Pressable
+            style={tw`bg-red-600 rounded-[20px] p-2 flex-1 items-center`}
+            onPress={onCheckOut}>
+            <Text style={tw`text-white text-lg font-semibold`}>Check Out</Text>
+          </Pressable>
         </View>
       ) : activeTab === 'Quests' ? (
         <View style={tw`flex-col gap-2`}>

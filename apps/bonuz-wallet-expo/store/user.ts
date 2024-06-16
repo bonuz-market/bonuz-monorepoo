@@ -26,6 +26,8 @@ interface UserStoreActions {
   setUser: (user: Partial<User>) => void;
   setWallet: (wallet: Partial<Wallet>) => void;
   setAuth: (auth: Partial<Auth>) => void;
+  addEvent: (event: number) => void;
+  removeEvent: (event: number) => void;
   clear: () => void;
 }
 
@@ -62,10 +64,16 @@ export const useUserStore = create<UserStore & (UserStoreActions & PersistedStat
           },
         }));
       },
-      setEvents: (events: number[]) => {
+      addEvent: (event: number) => {
         set((state) => ({
           ...state,
-          events,
+          events: [...state.events, event],
+        }));
+      },
+      removeEvent: (event: number) => {
+        set((state) => ({
+          ...state,
+          events: state.events.filter((e) => e !== event),
         }));
       },
       clear: () => {
