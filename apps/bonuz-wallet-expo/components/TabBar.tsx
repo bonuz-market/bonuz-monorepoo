@@ -1,13 +1,11 @@
 import { BlurView } from 'expo-blur';
 import { LinearGradient } from 'expo-linear-gradient';
 import React from 'react';
-import { Dimensions, Image, Pressable, StyleSheet } from 'react-native';
-import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
+import { Dimensions, Pressable, View } from 'react-native';
+import { Iconify } from 'react-native-iconify';
 import tw from 'twrnc';
 
 import { useUiStore } from '@/store/ui';
-
-const { width } = Dimensions.get('window');
 
 const TabBar = ({ state, descriptors, navigation }: any) => {
   const isTabBarHidden = useUiStore((state) => state.isTabBarHidden);
@@ -17,10 +15,12 @@ const TabBar = ({ state, descriptors, navigation }: any) => {
   }
 
   return (
-    <LinearGradient
-      colors={['#263d9F1F', '#475CB41F']}
-      style={[tw`flex-row absolute bottom-4 overflow-hidden`, { marginHorizontal: width * 0.2 }]}>
-      <BlurView intensity={35} style={[tw`flex-1 flex-row rounded-full`]}>
+    <View style={tw`flex-row justify-center items-center absolute bottom-4 left-0 right-0`}>
+      <BlurView
+        intensity={35}
+        style={[
+          tw`flex-row gap-[30px] justify-center items-center overflow-hidden px-4 py-3 rounded-full`,
+        ]}>
         {state.routes.map((route: any, index: number) => {
           const { options } = descriptors[route.key];
           const label =
@@ -44,63 +44,27 @@ const TabBar = ({ state, descriptors, navigation }: any) => {
           };
 
           return (
-            <Pressable onPress={onPress} key={index} style={[styles.mainItemContainer]}>
+            <Pressable onPress={onPress} key={index} style={tw`items-center`}>
               <LinearGradient
                 colors={isFocused ? ['#0E2875', '#4B2EA2'] : ['transparent', 'transparent']}
-                style={{
-                  borderRadius: 100,
-                  padding: wp(2.5),
-                }}>
+                style={tw`p-3 rounded-full`}>
                 {label === 'home' && (
-                  <Image style={styles.image} source={require('@/assets/images/home.png')} />
+                  <Iconify icon="fluent:home-20-regular" color="#fff" size={28} />
                 )}
                 {label === '(scan)' && (
-                  <Image style={styles.qrImage} source={require('@/assets/images/qr.png')} />
+                  <Iconify icon="iconamoon:scanner-thin" color="#fff" size={28} />
                 )}
 
                 {label === '(profile)' && (
-                  <Image style={styles.image} source={require('@/assets/images/profile.png')} />
+                  <Iconify icon="ph:user-circle-light" color="#fff" size={28} />
                 )}
               </LinearGradient>
             </Pressable>
           );
         })}
       </BlurView>
-    </LinearGradient>
+    </View>
   );
 };
-
-const styles = StyleSheet.create({
-  mainContainer: {
-    flexDirection: 'row',
-    position: 'absolute',
-    bottom: 25,
-    borderRadius: 100,
-    marginHorizontal: width * 0.2,
-  },
-  mainItemContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginVertical: wp(3),
-    borderRadius: 1,
-    shadowColor: '#E79413',
-    shadowOffset: {
-      width: 0,
-      height: 7,
-    },
-    shadowOpacity: 0.41,
-    shadowRadius: 9.11,
-    // elevation: 4,
-  },
-  image: {
-    width: wp(7),
-    height: wp(7),
-  },
-  qrImage: {
-    width: wp(14),
-    height: wp(14),
-  },
-});
 
 export default TabBar;
