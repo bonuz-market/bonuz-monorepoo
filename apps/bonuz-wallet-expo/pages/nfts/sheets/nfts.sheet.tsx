@@ -2,7 +2,6 @@
 /* eslint-disable prettier/prettier */
 import { BottomSheetModal, BottomSheetView } from '@gorhom/bottom-sheet';
 import { LinearGradient } from 'expo-linear-gradient';
-import { Link } from 'expo-router';
 import React, {
     forwardRef,
     useCallback,
@@ -10,7 +9,7 @@ import React, {
     useMemo,
     useRef,
 } from 'react';
-import { Image, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Image, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import tw from 'twrnc';
 
 interface NftDataProps {
@@ -51,33 +50,38 @@ export const NftsSheet = forwardRef<BottomSheetModal, NftsSheetProps>(
                     snapPoints={snapPoints}>
                     <BottomSheetView style={tw`flex-1`}>
                         <LinearGradient colors={['#4B2EA2', '#0E2875']} style={tw`flex-1`}>
-                            <View
-                                style={tw`bg-transparent flex-col justify-between p-3 mx-5 mt-3 mb-3 bg-[#291167] rounded-xl`}>
-                                <View style={tw`bg-transparent items-center`}>
-                                    <Image style={tw`w-[200px] h-[260px]`} source={nftData.avatar} />
-                                </View>
-                                <Text style={tw`text-[#FFFFFF] font-bold text-[16px] mt-3`}>{nftData.name}</Text>
-                                <View>
-                                    <View style={tw`bg-transparent mx-5 mt-6`}>
-                                        <Text style={tw`text-white text-[14px] font-medium`}>Enter wallet address</Text>
-                                        <View
-                                            style={tw`py-2 px-2 flex flex-row items-center bg-[#040D5B] mt-2 w-full h-10 rounded-md`}>
-                                            <TextInput
-                                                placeholderTextColor={'#BAB3E2'}
-                                                placeholder="Enter address"
-                                                style={tw`text-[16px] font-normal text-white w-80`}
-                                            />
+                            <ScrollView
+                                contentContainerStyle={{
+                                    display: 'flex',
+                                }}>
+                                <View
+                                    style={tw`bg-transparent flex-col justify-between p-3 mx-5 mt-3 mb-3 bg-[#291167] rounded-xl`}>
+                                    <View style={tw`bg-transparent items-center`}>
+                                        <Image style={tw`w-[200px] h-[260px]`} source={nftData.avatar} />
+                                    </View>
+                                    <Text style={tw`text-[#FFFFFF] font-bold text-[16px] mt-3`}>{nftData.name}</Text>
+                                    <View>
+                                        <View style={tw`bg-transparent mx-5 mt-6`}>
+                                            <Text style={tw`text-white text-[14px] font-medium`}>Enter wallet address</Text>
+                                            <View
+                                                style={tw`py-2 px-2 flex flex-row items-center bg-[#040D5B] mt-2 w-full h-10 rounded-md`}>
+                                                <TextInput
+                                                    placeholderTextColor={'#BAB3E2'}
+                                                    placeholder="Enter address"
+                                                    style={tw`text-[16px] font-normal text-white w-80`}
+                                                />
+                                            </View>
+                                            <TouchableOpacity onPress={() => console.log("clicked")}>
+                                                <LinearGradient
+                                                    colors={['#5137B1', '#291167']}
+                                                    style={tw`bg-transparent mt-3 p-3 justify-center items-center rounded-md`}>
+                                                    <Text style={tw`text-white text-[16px]`}>Send</Text>
+                                                </LinearGradient>
+                                            </TouchableOpacity>
                                         </View>
-                                        <TouchableOpacity onPress={() => console.log("clicked")}>
-                                            <LinearGradient
-                                                colors={['#5137B1', '#291167']}
-                                                style={tw`bg-transparent mt-3 p-3 justify-center items-center rounded-md`}>
-                                                <Text style={tw`text-white text-[16px]`}>Send</Text>
-                                            </LinearGradient>
-                                        </TouchableOpacity>
                                     </View>
                                 </View>
-                            </View>
+                            </ScrollView>
                         </LinearGradient>
                     </BottomSheetView>
                 </BottomSheetModal>

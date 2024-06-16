@@ -4,7 +4,7 @@ import { useRoute } from '@react-navigation/native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Link, useRouter } from 'expo-router';
 import React, { useCallback, useRef } from 'react';
-import { Image, StatusBar, Text, TouchableOpacity, View } from 'react-native';
+import { Image, ScrollView, StatusBar, Text, TouchableOpacity, View } from 'react-native';
 import tw from 'twrnc';
 
 import { StatusBarHeight } from '@/components/StatusbarHeight';
@@ -52,43 +52,48 @@ export default function Nfts() {
             </View>
           </TouchableOpacity>
         </View>
-        <View
-          style={tw`bg-transparent flex-col justify-between p-3 mx-5 mt-3 mb-3 bg-[#291167] rounded-xl`}>
-          <Image style={tw`w-full h-[200px]`} source={paramName.avatar} />
-          <Text style={tw`text-[#FFFFFF] font-semibold text-[30px] mt-3`}>{paramName.name}</Text>
-          <Text style={tw`text-[#FFFFFF] font-semibold text-[20px] mt-3`}>Description</Text>
-          <Text style={tw`text-[#9B9AA7] text-[16px] mt-1`}>{paramName.description}</Text>
-          <View style={tw`bg-transparent mt-1 flex flex-row justify-between`}>
-            <Text style={tw`text-[#FFFFFF] text-[16px]`}>Contract</Text>
-            <Text style={tw`text-[#FFFFFF] text-[16px]`}>{paramName.contract_address}</Text>
+        <ScrollView
+          contentContainerStyle={{
+            display: 'flex',
+          }}>
+          <View
+            style={tw`bg-transparent flex-col justify-between p-3 mx-5 mt-3 mb-3 bg-[#291167] rounded-xl`}>
+            <Image style={tw`w-full h-[200px]`} source={paramName.avatar} />
+            <Text style={tw`text-[#FFFFFF] font-semibold text-[30px] mt-3`}>{paramName.name}</Text>
+            <Text style={tw`text-[#FFFFFF] font-semibold text-[20px] mt-3`}>Description</Text>
+            <Text style={tw`text-[#9B9AA7] text-[16px] mt-1`}>{paramName.description}</Text>
+            <View style={tw`bg-transparent mt-1 flex flex-row justify-between`}>
+              <Text style={tw`text-[#FFFFFF] text-[16px]`}>Contract</Text>
+              <Text style={tw`text-[#FFFFFF] text-[16px]`}>{paramName.contract_address}</Text>
+            </View>
+            <View style={tw`bg-transparent mt-1 flex flex-row justify-between`}>
+              <Text style={tw`text-[#FFFFFF] text-[16px]`}>Token ID</Text>
+              <Text style={tw`text-[#FFFFFF] text-[16px]`}>{paramName.token_Id}</Text>
+            </View>
+            <View style={tw`bg-transparent mt-1 flex flex-row justify-between`}>
+              <Text style={tw`text-[#FFFFFF] text-[16px]`}>Interface</Text>
+              <Text style={tw`text-[#FFFFFF] text-[16px]`}>{paramName.interface}</Text>
+            </View>
+            <View style={tw`bg-transparent mt-1 flex flex-row justify-between`}>
+              <Text style={tw`text-[#FFFFFF] text-[16px]`}>Minted At</Text>
+              <Text style={tw`text-[#FFFFFF] text-[16px]`}>{paramName.date}</Text>
+            </View>
+            <Link style={tw`bg-transparent mt-2`} href={paramName.openseaUrl}>
+              <Text style={tw`text-[#5B98EE] text-[16px]`}>View on Opensea</Text>
+            </Link>
+            <Text style={tw`text-[#9B9AA7] text-[16px] mt-2`}>
+              Be careful when interacting with external links
+            </Text>
           </View>
-          <View style={tw`bg-transparent mt-1 flex flex-row justify-between`}>
-            <Text style={tw`text-[#FFFFFF] text-[16px]`}>Token ID</Text>
-            <Text style={tw`text-[#FFFFFF] text-[16px]`}>{paramName.token_Id}</Text>
-          </View>
-          <View style={tw`bg-transparent mt-1 flex flex-row justify-between`}>
-            <Text style={tw`text-[#FFFFFF] text-[16px]`}>Interface</Text>
-            <Text style={tw`text-[#FFFFFF] text-[16px]`}>{paramName.interface}</Text>
-          </View>
-          <View style={tw`bg-transparent mt-1 flex flex-row justify-between`}>
-            <Text style={tw`text-[#FFFFFF] text-[16px]`}>Minted At</Text>
-            <Text style={tw`text-[#FFFFFF] text-[16px]`}>{paramName.date}</Text>
-          </View>
-          <Link style={tw`bg-transparent mt-2`} href={paramName.openseaUrl}>
-            <Text style={tw`text-[#5B98EE] text-[16px]`}>View on Opensea</Text>
-          </Link>
-          <Text style={tw`text-[#9B9AA7] text-[16px] mt-2`}>
-            Be careful when interacting with external links
-          </Text>
-        </View>
-        <TouchableOpacity onPress={handlePresentModalPress}>
-          <LinearGradient
-            colors={['#5137B1', '#291167']}
-            style={tw`bg-transparent m-5 p-3 justify-center items-center`}>
-            <Text style={tw`text-white text-[16px]`}>Send</Text>
-          </LinearGradient>
-        </TouchableOpacity>
-        <NftsSheet ref={bottomModalRef} nftData={paramName} />
+          <TouchableOpacity onPress={handlePresentModalPress}>
+            <LinearGradient
+              colors={['#5137B1', '#291167']}
+              style={tw`bg-transparent m-5 p-3 justify-center items-center`}>
+              <Text style={tw`text-white text-[16px]`}>Send</Text>
+            </LinearGradient>
+          </TouchableOpacity>
+          <NftsSheet ref={bottomModalRef} nftData={paramName} />
+        </ScrollView>
       </LinearGradient>
     </BottomSheetModalProvider>
   );
