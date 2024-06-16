@@ -66,7 +66,7 @@ export default function Home() {
       </View>
       <ScrollView contentContainerStyle={{ paddingBottom: tabBarMargin }} style={tw`flex-1`}>
         <HomeCarousel
-          title={'Your Items'}
+          title={'Events'}
           badgeCount={99}
           right={
             <Image style={tw`w-7 h-7 mr-5`} source={require('@/assets/images/home/info.png')} />
@@ -94,76 +94,6 @@ export default function Home() {
           }
           setActiveIndex={setYourItemIndex}
           activeIndex={yourItemIndex}
-        />
-        <HomeCarousel
-          title={'Events'}
-          end={[0.6, 0.4]}
-          start={[0.8, 0.7]}
-          badgeCount={99}
-          style={tw`mt-3`}
-          right={
-            <View style={tw`bg-[#63ADEF30] mr-5 rounded-xl py-1 px-3`}>
-              <Text style={tw`text-[14px] text-white font-semibold`}>View All</Text>
-            </View>
-          }
-          data={yourItemsArray}
-          item={
-            <LinearGradient
-              colors={['#F14375', '#F67640']}
-              style={tw`h-full w-9/10 rounded-3xl flex flex-row left-[-43px] items-center`}>
-              <View style={tw`bg-transparent w-1/2 h-full p-6`}>
-                <View style={tw`bg-[#f67868] w-23 h-23 rounded-full justify-center items-center`}>
-                  <Image
-                    style={tw`w-16 h-16`}
-                    source={require('@/assets/images/home/rewards.png')}
-                  />
-                </View>
-                <Text style={tw`text-[20px] text-white font-bold mt-3 mb-1`}>Vouchers</Text>
-                <Text style={tw`text-[16px] text-white`}>2 Items</Text>
-              </View>
-              <Image
-                style={tw`w-45 h-9/10`}
-                source={require('@/assets/images/home/yourItems.png')}
-              />
-            </LinearGradient>
-          }
-          setActiveIndex={setEventIndex}
-          activeIndex={eventIndex}
-        />
-        <HomeCarousel
-          title={'Food'}
-          end={[0.6, 0.4]}
-          start={[0.8, 0.7]}
-          badgeCount={99}
-          style={tw`mt-3`}
-          right={
-            <View style={tw`bg-[#63ADEF30] mr-5 rounded-xl py-1 px-3`}>
-              <Text style={tw`text-[14px] text-white font-semibold`}>View All</Text>
-            </View>
-          }
-          data={yourItemsArray}
-          item={
-            <LinearGradient
-              colors={['#F14375', '#F67640']}
-              style={tw`h-full w-9/10 rounded-3xl flex flex-row left-[-43px] items-center`}>
-              <View style={tw`bg-transparent w-1/2 h-full p-6`}>
-                <View style={tw`bg-[#f67868] w-23 h-23 rounded-full justify-center items-center`}>
-                  <Image
-                    style={tw`w-16 h-16`}
-                    source={require('@/assets/images/home/rewards.png')}
-                  />
-                </View>
-                <Text style={tw`text-[20px] text-white font-bold mt-3 mb-1`}>Vouchers</Text>
-                <Text style={tw`text-[16px] text-white`}>2 Items</Text>
-              </View>
-              <Image
-                style={tw`w-45 h-9/10`}
-                source={require('@/assets/images/home/yourItems.png')}
-              />
-            </LinearGradient>
-          }
-          setActiveIndex={setEventIndex}
-          activeIndex={eventIndex}
         />
       </ScrollView>
     </LinearGradient>
