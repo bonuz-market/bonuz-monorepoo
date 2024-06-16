@@ -1,505 +1,347 @@
-import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
-import { BottomSheetFlatList, BottomSheetFooter, BottomSheetModal } from '@gorhom/bottom-sheet';
-import { useMutation } from '@tanstack/react-query';
-import { BlurView } from 'expo-blur';
-import * as Clipboard from 'expo-clipboard';
+import { BottomSheetModal, BottomSheetView } from '@gorhom/bottom-sheet';
+import { LinearGradient } from 'expo-linear-gradient';
 import React, {
     forwardRef,
     useCallback,
+    useEffect,
     useImperativeHandle,
     useMemo,
     useRef,
     useState,
 } from 'react';
-import { ActivityIndicator, FlatList, Image, Platform, Pressable, Text, View } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { Image, ImageBackground, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import tw from 'twrnc';
+import { useShallow } from 'zustand/react/shallow';
 
-import { Accordion, Section } from '@/components/Accordion/Accordion';
-import { CustomBackdrop } from '@/components/sheets/Backdrop';
-import { SocialItem } from '@/components/SocialItem/SocialItem';
-import { SocialIdUser } from '@/entities';
-import { getIcon } from '@/pages/profile/profile.config';
-import { removeUserConnection } from '@/services/backend';
+import ActivityInfoSection from '@/components/ActivityInfo';
+import NetworkTypesSection from '@/components/NetworkTypesSection';
+import NftInfoSection from '@/components/NftInfo';
+import SwitchButton from '@/components/SwtichButton';
+import TokenInfoSection from '@/components/TokenInfo';
+import WalletTypesSection from '@/components/WalletTypesSection';
+import WalletUnConnected from '@/components/WalletUnConnected';
+import { useUserStore } from '@/store';
+import { networkTypes, walletTypes } from '@/store/walletTypes';
+import { isNotEmpty } from '@/utils/object';
 import { truncateAddress } from '@/utils/wallet';
 
-const SECTIONS = {
-    SOCIALS_MEDIA_ACCOUNTS: {
-        title: 'Social Media Accounts',
-        index: 0,
-        background: '#117EFF',
-        icon: require('@/assets/images/profile/globe.png'),
-    },
-    MESSAGING_APPS: {
-        title: 'Messaging Apps',
-        index: 1,
-        background: '#E2A612',
-        icon: require('@/assets/images/profile/message.png'),
-    },
-    WALLETS: {
-        title: 'Blockchain & Wallets',
-        index: 2,
-        background: '#8247E5',
-        icon: require('@/assets/images/profile/crypto.png'),
-    },
-    DECENTRALIZED_IDENTIFERS: {
-        title: 'Decentralized Identifiers',
-        index: 3,
-        background: '#3BAF7E',
-        icon: require('@/assets/images/profile/decentralized.png'),
-    },
-};
+interface TokenData {
+    logoURI: string;
+    symbol: string;
+    balance: number;
+    quote: number;
+}
 
-const WalletSheetContent = ({
-    data,
-    handleRemoveConnectionPress,
-}: {
-    data: {
-        data: SocialIdUser & { address: string; id: number };
-    };
-    handleRemoveConnectionPress: () => void;
-}) => {
-    const { bottom } = useSafeAreaInsets();
+interface WalletDataProps {
+    id: number;
+    avatar: any;
+    name: string;
+    network: string;
+    tokenAmount: string;
+    tokenPrice: string;
+}
 
-    const [activeSections, setActiveSections] = useState([SECTIONS.SOCIALS_MEDIA_ACCOUNTS.index]);
+interface NftDataProps {
+    id: number;
+    avatar: any;
+    name: string;
+    description: string;
+    date: string;
+    contract_address: string;
+    token_Id: string;
+    interface: string;
+    openseaUrl: string;
+}
 
-    const connection = data?.data as SocialIdUser & { address: string };
-    console.log('connection', connection);
-
-    const handleAddressCopy = useCallback(async (address: string) => {
-        await Clipboard.setStringAsync(address);
-    }, []);
-
-    const socialsSection = () => {
-        const linksFiltered = Object.values(connection.socials ?? {}).filter((link) => !!link.handle);
-
-        return {
-            index: SECTIONS.SOCIALS_MEDIA_ACCOUNTS.index,
-            titleComponent: (
-                <View style={tw`flex-row gap-4 items-center bg-transparent`}>
-                    <View
-                        style={[
-                            tw`h-10 w-10 rounded-xl justify-center items-center`,
-                            { backgroundColor: SECTIONS.SOCIALS_MEDIA_ACCOUNTS.background },
-                        ]}>
-                        <Image
-                            source={SECTIONS.SOCIALS_MEDIA_ACCOUNTS.icon}
-                            style={tw`h-7 w-7`}
-                            resizeMode="contain"
-                        />
-                    </View>
-                    <Text style={tw`text-white text-base font-medium`} numberOfLines={1}>
-                        {SECTIONS.SOCIALS_MEDIA_ACCOUNTS.title}
-                    </Text>
-                </View>
-            ),
-            renderContent: (
-                <View style={tw`bg-transparent`}>
-                    <FlatList
-                        data={linksFiltered}
-                        renderItem={({ item }) => (
-                            <SocialItem
-                                // Icon={
-                                //   getIcon(item.type, 'normal') ?? (
-                                //     <Icon as={FontAwesome} name={item.type} size={5} />
-                                //   )
-                                // }
-                                leftAddon={getIcon(item.type, 'normal')}
-                                content={
-                                    <Text style={{ fontSize: 16, color: 'white', opacity: 0.7 }}>@{item.handle}</Text>
-                                }
-                            // RightComponent={
-                            //   <HStack space={2} alignItems="center" justifyContent="center">
-                            //     {item.type === SOCIAL_ACCOUNTS.s_x && !item.isVerified && (
-                            //       <Button
-                            //         onPress={async () => {
-                            //           setIsVerifyDone(false);
-                            //           promptAsync();
-                            //         }}
-                            //         size="xs"
-                            //         colorScheme="fuchsia"
-                            //         disabled={isVerifyLoading}>
-                            //         Verify
-                            //       </Button>
-                            //     )}
-                            //     <Ionicons
-                            //       name={item.isPublic ? 'eye-outline' : 'eye-off-outline'}
-                            //       color="white"
-                            //       size={20}
-                            //     />
-                            //   </HStack>
-                            // }
-                            // isVerified={item.isVerified}
-                            />
-                        )}
-                        keyExtractor={(item) => item.type}
-                        ItemSeparatorComponent={() => (
-                            <View style={{ height: 10, backgroundColor: 'transparent' }} />
-                        )}
-                    // ListEmptyComponent={<EmptySectionMessage text="social media" />}
-                    />
-                </View>
-            ),
-        };
-    };
-
-    const walletsSection = () => {
-        const wallets = Object.values(connection.wallets ?? {}).filter((item) => !!item.handle);
-
-        return {
-            index: SECTIONS.WALLETS.index,
-            titleComponent: (
-                <View style={tw`flex-row gap-4 items-center bg-transparent`}>
-                    <View
-                        style={[
-                            tw`h-10 w-10 rounded-xl justify-center items-center`,
-                            { backgroundColor: SECTIONS.WALLETS.background },
-                        ]}>
-                        <Image source={SECTIONS.WALLETS.icon} style={tw`h-7 w-7`} resizeMode="contain" />
-                    </View>
-                    <Text style={tw`text-white text-base font-medium`} numberOfLines={1}>
-                        {SECTIONS.WALLETS.title}
-                    </Text>
-                </View>
-            ),
-            renderContent: (
-                <View style={tw`bg-transparent`}>
-                    <FlatList
-                        data={wallets}
-                        renderItem={({ item }) => (
-                            <SocialItem
-                                //   Icon={
-                                //     getIcon(item.type, 'normal') ?? (
-                                //       <Icon as={FontAwesome} name={item.type} size={5} />
-                                //     )
-                                //   }
-                                leftAddon={getIcon(item.type, 'normal')}
-                                content={
-                                    <Text style={{ fontSize: 16, color: 'white', opacity: 0.7 }}>{item.handle}</Text>
-                                }
-
-                            //   isVerified={item.isVerified}
-                            />
-                        )}
-                        keyExtractor={(item) => item.type}
-                        ItemSeparatorComponent={() => (
-                            <View style={{ height: 10, backgroundColor: 'transparent' }} />
-                        )}
-                    // ListEmptyComponent={<EmptySectionMessage text="wallets" />}
-                    />
-                </View>
-            ),
-        };
-    };
-
-    const messagingAppsSection = () => {
-        const messagingApps = Object.values(connection.messagingApps ?? {}).filter(
-            (item) => !!item.handle,
-        );
-
-        return {
-            index: SECTIONS.MESSAGING_APPS.index,
-            titleComponent: (
-                <View style={tw`flex-row gap-4 items-center bg-transparent`}>
-                    <View
-                        style={[
-                            tw`h-10 w-10 rounded-xl justify-center items-center`,
-                            { backgroundColor: SECTIONS.MESSAGING_APPS.background },
-                        ]}>
-                        <Image source={SECTIONS.MESSAGING_APPS.icon} style={tw`h-7 w-7`} resizeMode="contain" />
-                    </View>
-                    <Text style={tw`text-white text-base font-medium`} numberOfLines={1}>
-                        {SECTIONS.MESSAGING_APPS.title}
-                    </Text>
-                </View>
-            ),
-            renderContent: (
-                <View style={tw`bg-transparent`}>
-                    <FlatList
-                        data={messagingApps}
-                        renderItem={({ item }) => (
-                            <SocialItem
-                                //   Icon={
-                                //     getIcon(item.type, 'normal') ?? (
-                                //       <Icon as={FontAwesome} name={item.type} size={5} />
-                                //     )
-                                //   }
-                                leftAddon={getIcon(item.type, 'normal')}
-                                content={
-                                    <Text style={{ fontSize: 16, color: 'white', opacity: 0.7 }}>{item.handle}</Text>
-                                }
-                            //   text={item.handle}
-
-                            //   isVerified={item.isVerified}
-                            />
-                        )}
-                        keyExtractor={(item) => item.type}
-                        ItemSeparatorComponent={() => (
-                            <View style={{ height: 10, backgroundColor: 'transparent' }} />
-                        )}
-                    // ListEmptyComponent={<EmptySectionMessage text="messaging apps" />}
-                    />
-                </View>
-            ),
-        };
-    };
-
-    const othersSection = () => {
-        const others = Object.values(connection.decentralizedIdentifiers ?? {}).filter(
-            (item) => !!item.handle,
-        );
-
-        return {
-            index: SECTIONS.DECENTRALIZED_IDENTIFERS.index,
-            titleComponent: (
-                <View style={tw`flex-row gap-4 items-center bg-transparent`}>
-                    <View
-                        style={[
-                            tw`h-10 w-10 rounded-xl justify-center items-center`,
-                            { backgroundColor: SECTIONS.DECENTRALIZED_IDENTIFERS.background },
-                        ]}>
-                        <Image
-                            source={SECTIONS.DECENTRALIZED_IDENTIFERS.icon}
-                            style={tw`h-7 w-7`}
-                            resizeMode="contain"
-                        />
-                    </View>
-                    <Text style={tw`text-white text-base font-medium`} numberOfLines={1}>
-                        {SECTIONS.DECENTRALIZED_IDENTIFERS.title}
-                    </Text>
-                </View>
-            ),
-            renderContent: (
-                <View style={tw`bg-transparent`}>
-                    <FlatList
-                        data={others}
-                        renderItem={({ item }) => (
-                            <SocialItem
-                                // Icon={
-                                //   getIcon(item.type, 'normal') ?? (
-                                //     <Icon as={FontAwesome} name={item.type} size={5} />
-                                //   )
-                                // }
-                                leftAddon={getIcon(item.type, 'normal')}
-                                content={
-                                    <Text style={{ fontSize: 16, color: 'white', opacity: 0.7 }}>{item.handle}</Text>
-                                }
-
-                            // isVerified={item.isVerified}
-                            />
-                        )}
-                        keyExtractor={(item) => item.type}
-                        ItemSeparatorComponent={() => (
-                            <View style={{ height: 10, backgroundColor: 'transparent' }} />
-                        )}
-                    // ListEmptyComponent={<EmptySectionMessage text="decentralized identifiers" />}
-                    />
-                </View>
-            ),
-        };
-    };
-    const sections = () => {
-        const sections: Section[] = [
-            socialsSection(),
-            messagingAppsSection(),
-            walletsSection(),
-            othersSection(),
-        ];
-
-        return sections;
-    };
-
-    const onAccordionChange = (activeSections: number[]) => {
-        const isSingleItem = sections.length === 1;
-        if (isSingleItem) {
-            return;
-        }
-
-        setActiveSections(activeSections);
-    };
-
-    return (
-        <BottomSheetFlatList
-            data={[0]}
-            ListHeaderComponent={
-                <View style={tw`flex flex-col items-center`}>
-                    <View style={tw`relative w-full h-[350px] `}>
-                        <Image
-                            style={tw`w-full h-[350px] rounded-t-[30px] `}
-                            source={
-                                connection.profilePicture
-                                    ? { uri: connection.profilePicture }
-                                    : require('@/assets/images/profile/profile.png')
-                            }
-                        />
-                        <BlurView
-                            intensity={Platform.OS === 'ios' ? 25 : 10}
-                            tint={Platform.OS === 'ios' ? 'light' : 'dark'}
-                            experimentalBlurMethod="dimezisBlurView"
-                            style={tw.style(`absolute -bottom-2 rounded-t-full overflow-hidden w-full`)}>
-                            <View
-                                style={tw`bg-transparent h-14 flex-1 justify-center w-[100%] rounded-t-3xl items-center`}>
-                                <View style={tw`rounded-xl px-2.5 py-2 flex flex-row items-center gap-2`}>
-                                    <Ionicons name="wallet-outline" size={20} color="white" style={tw`opacity-70`} />
-                                    <Text style={tw`text-white text-sm font-semibold`}>
-                                        {truncateAddress(connection.address)}
-                                    </Text>
-                                    <Pressable onPress={() => handleAddressCopy(connection.address)} hitSlop={30}>
-                                        <Ionicons name="copy-outline" size={20} color="white" style={tw`opacity-70`} />
-                                    </Pressable>
-                                </View>
-                            </View>
-                        </BlurView>
-                    </View>
-                    <View style={tw`flex-row gap-2 items-start justify-between mt-4 w-full px-4`}>
-                        <View>
-                            <Text style={tw`text-white text-3xl font-semibold`}>{connection.name}</Text>
-                            <Text style={tw`text-white opacity-80 text-sm font-semibold`}>
-                                @{connection.handle}
-                            </Text>
-                        </View>
-                        <View style={tw`flex-row justify-start items-center`}>
-                            <Pressable
-                                onPress={handleRemoveConnectionPress}
-                                style={tw`p-2 mt-0.5 rounded-full bg-red-600`}>
-                                <MaterialCommunityIcons name="account-remove-outline" size={20} color="white" />
-                            </Pressable>
-                        </View>
-                    </View>
-                </View>
-            }
-            ListHeaderComponentStyle={tw`mb-4`}
-            ListFooterComponent={<View style={{ paddingBottom: bottom }}></View>}
-            renderItem={() => (
-                <>
-                    <Accordion
-                        sections={sections()}
-                        activeSections={activeSections}
-                        onAccordionChange={onAccordionChange}
-                    />
-                </>
-            )}
-        />
-    );
-};
+interface TransactionDataProps {
+    id: number;
+    senderAddress: string;
+    receiverAddress: string;
+    transferAmount: string;
+    tokenName: string;
+    tokenSymbol: string;
+    date: string;
+    explorerUrl: string;
+}
 
 interface WalletSheetProps {
-    onRemoveConnection: () => void;
+    walletType: string;
+    setWalletType: any;
+    networkType: number;
+    setNetworkType: any;
+    currentSection: string;
 }
 
 export const WalletSheet = forwardRef<BottomSheetModal, WalletSheetProps>(
-    ({ onRemoveConnection }, bottomSheetModalRef) => {
+    (
+        { walletType, setWalletType, networkType, setNetworkType, currentSection },
+        bottomSheetModalRef,
+    ) => {
         const _bottomSheetModalRef = useRef<BottomSheetModal>(null);
         useImperativeHandle(bottomSheetModalRef, () => _bottomSheetModalRef.current!, []);
 
-        const connectionIdRef = useRef<number>();
+        const [value, setValue] = useState<string>('Crypto');
+        const [walletData, setWalletData] = useState<WalletDataProps[]>([]);
+        const [walletNftData, setWalletNftData] = useState<NftDataProps[]>([]);
+        const [walletTransactionData, setWalletTransactionData] = useState<TransactionDataProps[]>([]);
 
-        const [shouldShowRemoveConnectionFooter, setShouldShowRemoveConnectionFooter] = useState(false);
-        const { bottom } = useSafeAreaInsets();
-        const snapPoints = useMemo(() => ['90%'], []);
+        const [tokenData, setTokenData] = useState<TokenData[]>([]);
+        const [nftData, setNftData] = useState<any[]>([]);
+        const [activityData, setActivityData] = useState<any[]>([]);
 
-        const { mutateAsync: removeConnection, isPending } = useMutation({
-            mutationKey: ['removeConnection'],
-            mutationFn: async (userId: number) => removeUserConnection(userId),
-            onSuccess: onRemoveConnection,
-        });
+        const [walletAddress, setWalletAddress] = useState<string>('0x00...00000');
+        const [totalBalance, setTotalBalance] = useState<string>('0');
 
-        const handleRemoveConnectionButtonPress = async () => {
-            setShouldShowRemoveConnectionFooter(true);
-        };
+        const [loading, setLoading] = useState(false);
 
-        const handleCancelRemoveConnection = () => {
-            setShouldShowRemoveConnectionFooter(false);
-        };
+        const snapPoints = useMemo(() => ['80%'], []);
 
-        const handleRemoveConnection = async () => {
-            if (!connectionIdRef.current) return;
-            await removeConnection(connectionIdRef.current);
+        const handleDismissModalPress = useCallback(() => {
             _bottomSheetModalRef.current?.dismiss();
+        }, []);
+
+        const { auth, user, wallet } = useUserStore(
+            useShallow((store) => ({
+                auth: store.auth,
+                user: store.user,
+                wallet: store.wallet,
+            })),
+        );
+
+        useEffect(() => {
+            if (wallet.address) {
+                setLoading(true);
+                setWalletData([]);
+                setWalletNftData([]);
+                setWalletAddress(truncateAddress(wallet.address));
+                const url = buildUrl(value, networkType, wallet.address);
+                fetch(url) // Replace with your API URL
+                    .then((response) => {
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! status: ${response.status}`);
+                        }
+                        return response.json();
+                    })
+                    .then((data: any) => {
+                        switch (value) {
+                            case 'Crypto': {
+                                setTokenData(data.data.tokens);
+                                setLoading(false);
+                                break;
+                            }
+                            case 'NFTs': {
+                                setNftData(data.data.nfts);
+                                setLoading(false);
+                                break;
+                            }
+                            case 'Activity': {
+                                setActivityData(data.data.transactions);
+                                setLoading(false);
+                                break;
+                            }
+                            default: {
+                                console.log('Unknown value:', value);
+                            }
+                        }
+                    })
+                    .catch((error) => {
+                        console.log('fetch error:', error);
+                        setLoading(false);
+                    });
+            }
+        }, [value, wallet, networkType]);
+
+        useEffect(() => {
+            if (tokenData.length > 0 && value === 'Crypto') {
+                let sum = 0,
+                    dataArray: React.SetStateAction<WalletDataProps[]> = [];
+                tokenData.map((token, index) => {
+                    dataArray.push({
+                        id: index + 1,
+                        avatar: { uri: token.logoURI },
+                        name: token.symbol,
+                        network: '',
+                        tokenAmount: Number(token.balance).toFixed(4),
+                        tokenPrice: '~$' + Number(token.quote).toFixed(2),
+                    });
+                    sum += Number(token.quote);
+                });
+                setTotalBalance(Number(sum).toFixed(2));
+                setWalletData(dataArray);
+            }
+            if (nftData.length > 0 && value === 'NFTs') {
+                let dataArray: React.SetStateAction<NftDataProps[]> = [];
+                nftData.map((data: any, index: number) => {
+                    dataArray.push({
+                        id: index + 1,
+                        avatar: { uri: data.content.preview.url },
+                        name: data.name,
+                        description: data.description,
+                        date: convertDate(data.last_transferred_at),
+                        contract_address: truncateAddress(data.contract_address),
+                        token_Id: data.token_id,
+                        interface: data.interfaces[0],
+                        openseaUrl: data.external_url,
+                    });
+                });
+                setWalletNftData(dataArray);
+            }
+            if (activityData.length > 0 && value === 'Activity') {
+                let dataArray: React.SetStateAction<TransactionDataProps[]> = [];
+                activityData.map((data: any, index: number) => {
+                    dataArray.push({
+                        id: index + 1,
+                        senderAddress: truncateAddress(data.from),
+                        receiverAddress: truncateAddress(data.to),
+                        transferAmount: '~$' + Number(data.quote).toFixed(2),
+                        tokenName: data.name,
+                        tokenSymbol: data.symbol,
+                        date: convertDate(data.timestamp),
+                        explorerUrl: data.explorerUrl,
+                    });
+                });
+                setWalletTransactionData(dataArray);
+            }
+        }, [tokenData, nftData, activityData, value]);
+
+        const convertDate = (timestamp: string) => {
+            const date = new Date(timestamp);
+            const months = [
+                'Jan',
+                'Feb',
+                'Mar',
+                'Apr',
+                'May',
+                'Jun',
+                'Jul',
+                'Aug',
+                'Sep',
+                'Oct',
+                'Nov',
+                'Dec',
+            ];
+            const month = months[date.getMonth()];
+            const day = date.getDate();
+            const year = date.getFullYear();
+
+            return `${month} ${day}, ${year}`;
+        };
+
+        const buildUrl = (value: string, networkType: number, walletAddress: string) => {
+            let baseUrl = 'https://admin.bonuz.xyz/api/users/wallet';
+
+            let endpoint = `/balance`;
+            if (value === 'NFTs') {
+                endpoint = `/nfts`;
+            } else if (value === 'Activity') {
+                endpoint = `/transactions`;
+            }
+
+            let url = `${baseUrl}/${walletAddress}${endpoint}`;
+
+            if (networkType !== 0) {
+                url += `?chainId=${networkTypes[networkType].chainId}`;
+            }
+
+            return url;
         };
 
         return (
-            <BottomSheetModal
-                backgroundStyle={tw.style(`bg-[#4B2EA2] rounded-[30px]`)}
-                ref={_bottomSheetModalRef}
-                handleComponent={() => (
-                    <View style={tw`absolute bg-transparent w-full flex items-center`}>
-                        <View style={tw`w-12 h-1.5 top-2.5 rounded-full bg-white`} />
-                    </View>
-                )}
-                footerComponent={({ animatedFooterPosition }) =>
-                    shouldShowRemoveConnectionFooter && (
-                        <BottomSheetFooter animatedFooterPosition={animatedFooterPosition}>
-                            <BlurView
-                                intensity={Platform.OS === 'ios' ? 25 : 10}
-                                tint={Platform.OS === 'ios' ? 'light' : 'dark'}
-                                experimentalBlurMethod="dimezisBlurView"
-                                style={[
-                                    tw`flex-1 overflow-hidden flex flex-row gap-4 items-center justify-between rounded-[30px] px-4`,
-                                    { paddingBottom: bottom, paddingTop: 12 },
-                                ]}>
-                                <Pressable
-                                    style={tw`rounded-full justify-center items-center`}
-                                    onPress={handleCancelRemoveConnection}>
-                                    <BlurView
-                                        intensity={Platform.OS === 'ios' ? 50 : 30}
-                                        tint={Platform.OS === 'ios' ? 'light' : 'dark'}
-                                        experimentalBlurMethod="dimezisBlurView"
-                                        style={[
-                                            tw` p-4 overflow-hidden flex flex-row gap-2 items-center justify-center rounded-[30px]`,
-                                        ]}>
-                                        <Text
-                                            style={tw.style(`text-white text-base font-semibold`, {
-                                                opacity: isPending ? 0.5 : 1,
-                                            })}>
-                                            Cancel
-                                        </Text>
-                                    </BlurView>
-                                </Pressable>
-                                <Pressable
-                                    style={tw`rounded-full justify-center items-center`}
-                                    onPress={handleRemoveConnection}
-                                    disabled={isPending}>
-                                    <BlurView
-                                        intensity={Platform.OS === 'ios' ? 50 : 30}
-                                        tint={Platform.OS === 'ios' ? 'light' : 'dark'}
-                                        experimentalBlurMethod="dimezisBlurView"
-                                        style={[
-                                            tw`w-full p-4 overflow-hidden bg-red-500 flex flex-row gap-2 items-center justify-center rounded-[30px]`,
-                                        ]}>
-                                        {isPending && <ActivityIndicator size="small" color="white" />}
-                                        <Text
-                                            style={tw.style(`text-white text-base font-semibold`, {
-                                                opacity: isPending ? 0.5 : 1,
-                                            })}>
-                                            Remove Connection
-                                        </Text>
-                                    </BlurView>
-                                </Pressable>
-                            </BlurView>
-                        </BottomSheetFooter>
+            <View style={tw`flex-1 bg-transparent`}>
+                <ScrollView
+                    contentContainerStyle={{
+                        display: 'flex',
+                    }}
+                    style={tw`flex-1 mt-[30] bg-transparent`}>
+                    <ImageBackground
+                        source={require('@/assets/images/cart/walletBackground.png')}
+                        style={tw`rounded-3xl flex-row overflow-hidden mx-5`}>
+                        <View style={tw`w-full bg-transparent p-5 h-full`}>
+                            <View style={tw`bg-transparent`}>
+                                <Text style={tw`font-semibold text-[18px] text-white`}>Main Wallet</Text>
+                                <Text style={tw`font-medium text-[14px] text-white`}>{walletAddress}</Text>
+                                <View style={tw`bg-transparent flex-1 flex-row items-center gap-2 mt-4`}>
+                                    <Text style={tw`text-[20px] text-white font-semibold`}>${totalBalance}</Text>
+                                    <Image
+                                        style={tw`w-[20.11px] h-[14px]`}
+                                        source={require('@/assets/images/cart/eyeIcon.png')}
+                                    />
+                                </View>
+                            </View>
+
+                            <View style={tw`flex flex-row bg-transparent justify-between pt-6 px-8`}>
+                                <View style={tw`bg-transparent items-center text-center gap-2`}>
+                                    <TouchableOpacity>
+                                        <Image
+                                            style={tw`w-[54px]`}
+                                            source={require('@/assets/images/cart/receive.png')}
+                                        />
+                                    </TouchableOpacity>
+                                    <Text style={tw`text-[13px] text-white font-medium`}>Receive</Text>
+                                </View>
+                                <View style={tw`bg-transparent items-center text-center gap-2`}>
+                                    <TouchableOpacity>
+                                        <Image style={tw`w-[54px]`} source={require('@/assets/images/cart/swap.png')} />
+                                    </TouchableOpacity>
+                                    <Text style={tw`text-[13px] text-white font-medium`}>Swap</Text>
+                                </View>
+                            </View>
+                        </View>
+                    </ImageBackground>
+                </ScrollView>
+                {
+                    isNotEmpty(auth) && isNotEmpty(user) ? (
+                        <View style={tw`flex-1 bg-transparent mt-[-130]`}>
+                            <View style={tw`mx-5 bg-transparent mb-5`}>
+                                <SwitchButton
+                                    value={value}
+                                    onValueChange={setValue}
+                                    titleList={['Crypto', 'NFTs', 'Activity']}
+                                />
+                            </View>
+                            <ScrollView style={tw`bg-transparent flex-1`}>
+                                {value === 'Crypto' && (
+                                    <TokenInfoSection value={walletData} loadingStatus={loading} />
+                                )}
+                                {value === 'NFTs' && <NftInfoSection value={walletNftData} loadingStatus={loading} />}
+                                {value === 'Activity' && (
+                                    <ActivityInfoSection value={walletTransactionData} loadingStatus={loading} />
+                                )}
+                            </ScrollView>
+                        </View>
+                    ) : (
+                        <WalletUnConnected />
                     )
                 }
-                onDismiss={() => setShouldShowRemoveConnectionFooter(false)}
-                index={0}
-                snapPoints={snapPoints}
-                keyboardBlurBehavior="restore"
-                enableDynamicSizing={false}
-                backdropComponent={CustomBackdrop}>
-                {(data) => {
-                    connectionIdRef.current = data?.data.id;
-                    return (
-                        <>
-                            <WalletSheetContent
-                                data={data!}
-                                handleRemoveConnectionPress={handleRemoveConnectionButtonPress}
-                            />
-                        </>
-                    );
-                }}
-            </BottomSheetModal>
+                <BottomSheetModal
+                    backgroundStyle={{ backgroundColor: 'transparent' }}
+                    ref={_bottomSheetModalRef}
+                    keyboardBlurBehavior="restore"
+                    index={0}
+                    handleIndicatorStyle={tw`bg-[#905CFF] top-3 h-1 w-10`}
+                    snapPoints={snapPoints}>
+                    <BottomSheetView style={tw`flex-1`}>
+                        <LinearGradient colors={['#4B2EA2', '#0E2875']} style={tw`flex-1`}>
+                            <ScrollView style={tw`bg-transparent flex-1`}>
+                                {currentSection === 'wallet' ? (
+                                    <WalletTypesSection
+                                        walletTypes={walletTypes}
+                                        setWalletType={setWalletType}
+                                        dismissModal={handleDismissModalPress}
+                                    />
+                                ) : (
+                                    <NetworkTypesSection
+                                        networkTypes={networkTypes}
+                                        setNetworkType={setNetworkType}
+                                        dismissModal={handleDismissModalPress}
+                                    />
+                                )}
+                            </ScrollView>
+                        </LinearGradient>
+                    </BottomSheetView>
+                </BottomSheetModal>
+            </View>
         );
-    },
-);
+    });
 
 WalletSheet.displayName = 'WalletSheet';

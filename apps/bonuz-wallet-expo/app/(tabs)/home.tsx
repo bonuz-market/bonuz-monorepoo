@@ -6,6 +6,7 @@ import tw from 'twrnc';
 
 import HomeCarousel from '@/components/HomeCarousel';
 import { StatusBarHeight } from '@/components/StatusbarHeight';
+import SwitchButton from '@/components/SwtichButton';
 import { Text, View } from '@/components/Themed';
 import { useBottomTabBarMargin } from '@/hooks/useBottomTabBarHeight';
 
@@ -14,6 +15,8 @@ export default function Home() {
   const [eventIndex, setEventIndex] = useState(0);
   const tabBarMargin = useBottomTabBarMargin();
   const { navigate } = useRouter();
+
+  const [value, setValue] = useState('Digital World');
 
   let yourItemsArray = [0, 1, 2];
   return (
@@ -47,6 +50,14 @@ export default function Home() {
         </TouchableOpacity>
       </View>
 
+      <View style={tw`bg-transparent mx-5 mt-5`}>
+        <SwitchButton
+          value={value}
+          onValueChange={setValue}
+          titleList={['Digital World', 'Real World']}
+        />
+      </View>
+
       <View style={tw`flex flex-row items-center bg-transparent mx-5 py-5 justify-between`}>
         <View style={tw`w-[54px] h-[54px] rounded-full bg-[#684FCD] justify-center items-center`}>
           <Image
@@ -59,7 +70,7 @@ export default function Home() {
           <Image style={tw`w-7 h-7 mr-2`} source={require('@/assets/images/home/search.png')} />
           <TextInput
             placeholderTextColor={'#BAB3E2'}
-            placeholder="Search events, shops, communities..."
+            placeholder="Search games, defi, gift cards"
             style={tw`text-[16px] font-normal text-white w-80`}
           />
         </View>
