@@ -17,9 +17,7 @@ export default function Nfts() {
   const bottomModalRef = useRef<BottomSheetModal>(null);
 
   const handlePresentModalPress = useCallback(() => {
-    console.log('sdf');
     bottomModalRef.current?.present();
-    console.log('bottomModalRef:', bottomModalRef);
   }, []);
 
   return (
