@@ -23,48 +23,9 @@ import TokenInfoSection from '@/components/TokenInfo';
 import WalletTypesSection from '@/components/WalletTypesSection';
 import WalletUnConnected from '@/components/WalletUnConnected';
 import { useUserStore } from '@/store';
-import { networkTypes, walletTypes } from '@/store/walletTypes';
+import { networkTypes, NftDataProps, TokenData, TransactionDataProps, WalletDataProps, walletTypes } from '@/store/walletTypes';
 import { isNotEmpty } from '@/utils/object';
 import { truncateAddress } from '@/utils/wallet';
-
-interface TokenData {
-    logoURI: string;
-    symbol: string;
-    balance: number;
-    quote: number;
-}
-
-interface WalletDataProps {
-    id: number;
-    avatar: any;
-    name: string;
-    network: string;
-    tokenAmount: string;
-    tokenPrice: string;
-}
-
-interface NftDataProps {
-    id: number;
-    avatar: any;
-    name: string;
-    description: string;
-    date: string;
-    contract_address: string;
-    token_Id: string;
-    interface: string;
-    openseaUrl: string;
-}
-
-interface TransactionDataProps {
-    id: number;
-    senderAddress: string;
-    receiverAddress: string;
-    transferAmount: string;
-    tokenName: string;
-    tokenSymbol: string;
-    date: string;
-    explorerUrl: string;
-}
 
 interface WalletSheetProps {
     walletType: string;
@@ -165,6 +126,8 @@ export const WalletSheet = forwardRef<BottomSheetModal, WalletSheetProps>(
                         network: '',
                         tokenAmount: Number(token.balance).toFixed(4),
                         tokenPrice: '~$' + Number(token.quote).toFixed(2),
+                        chainId: token.chainId,
+                        contractAddress: token.address,
                     });
                     sum += Number(token.quote);
                 });

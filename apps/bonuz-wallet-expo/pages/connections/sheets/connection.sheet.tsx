@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { BottomSheetFlatList, BottomSheetFooter, BottomSheetModal } from '@gorhom/bottom-sheet';
 import { useMutation } from '@tanstack/react-query';

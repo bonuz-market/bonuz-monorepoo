@@ -5,19 +5,10 @@ import React from 'react';
 import { Image, Text, TouchableOpacity, View } from 'react-native';
 import tw from 'twrnc';
 
+import { NftDataProps } from '@/store/walletTypes';
+
 import LoadingSection from './LoadingSection';
 import NoItemSection from './NoItemSection';
-
-interface NftDataProps {
-    id: number;
-    avatar: any;
-    name: string;
-    description: string;
-    date: string;
-    contract_address: string;
-    token_Id: string;
-    interface: string;
-}
 
 export default function NftInfoSection(props: { value: any; loadingStatus: boolean }) {
     const { value, loadingStatus } = props;

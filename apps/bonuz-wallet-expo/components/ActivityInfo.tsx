@@ -1,20 +1,12 @@
+/* eslint-disable prettier/prettier */
 import React from 'react';
 import { Image, Linking, Text, TouchableOpacity, View } from 'react-native';
 import tw from 'twrnc';
 
+import { TransactionDataProps } from '@/store/walletTypes';
+
 import LoadingSection from './LoadingSection';
 import NoItemSection from './NoItemSection';
-
-interface ActivityDataProps {
-    id: number;
-    senderAddress: string;
-    receiverAddress: string;
-    tokenAmount: string;
-    tokenName: string;
-    tokenSymbol: string;
-    date: string;
-    explorerUrl: string;
-}
 
 export default function ActivityInfoSection(props: { value: any; loadingStatus: boolean }) {
     const { value, loadingStatus } = props;
@@ -26,7 +18,7 @@ export default function ActivityInfoSection(props: { value: any; loadingStatus: 
             ) : (
                 <>
                     {value.length > 0 ? (
-                        value.map((transactionData: ActivityDataProps, index: number) => (
+                        value.map((transactionData: TransactionDataProps, index: number) => (
                             <TouchableOpacity key={index} onPress={() => Linking.openURL(transactionData.explorerUrl)}>
                                 <View
                                     style={tw`bg-transparent flex-row justify-between p-3 mx-5 mt-3 mb-3 bg-[#291167] rounded-xl`}>
