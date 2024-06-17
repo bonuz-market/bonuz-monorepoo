@@ -71,7 +71,7 @@ export const NftsSheet = forwardRef<BottomSheetModal, NftsSheetProps>(
                                                     style={tw`text-[16px] font-normal text-white w-80`}
                                                 />
                                             </View>
-                                            <TouchableOpacity onPress={() => console.log("clicked")}>
+                                            <TouchableOpacity onPress={() => { console.log("clicked"); handleDismissModalPress() }}>
                                                 <LinearGradient
                                                     colors={['#5137B1', '#291167']}
                                                     style={tw`bg-transparent mt-3 p-3 justify-center items-center rounded-md`}>
