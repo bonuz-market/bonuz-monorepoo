@@ -247,7 +247,7 @@ export const ICONS_MAPPING_SMALL = {
   [SOCIAL_ACCOUNTS.s_youmeme]: (
     <Image
       source={require('@/assets/images/platforms/youmeme.jpg')}
-      style={{ width: 32, height: 32, resizeMode: 'contain' }}
+      style={{ width: 16, height: 16, resizeMode: 'contain' }}
       alt="youmeme"
     />
   ),
@@ -268,21 +268,21 @@ export const ICONS_MAPPING_SMALL = {
   [WALLETS.w_sui]: (
     <Image
       source={require('@/assets/images/platforms/sui.png')}
-      style={{ width: 32, height: 32, resizeMode: 'contain' }}
+      style={{ width: 16, height: 16, resizeMode: 'contain' }}
       alt="sui"
     />
   ),
   [WALLETS.w_aptos]: (
     <Image
       source={require('@/assets/images/platforms/aptos.png')}
-      style={{ width: 32, height: 32, resizeMode: 'contain' }}
+      style={{ width: 16, height: 16, resizeMode: 'contain' }}
       alt="aptos"
     />
   ),
   [WALLETS.w_cosmos]: (
     <Image
       source={require('@/assets/images/platforms/cosmos.png')}
-      style={{ width: 32, height: 32, resizeMode: 'contain' }}
+      style={{ width: 16, height: 16, resizeMode: 'contain' }}
       alt="cosmos"
     />
   ),
@@ -292,28 +292,28 @@ export const ICONS_MAPPING_SMALL = {
   [WALLETS.w_lukso]: (
     <Image
       source={require('@/assets/images/platforms/lukso.png')}
-      style={{ width: 32, height: 32, resizeMode: 'contain' }}
+      style={{ width: 16, height: 16, resizeMode: 'contain' }}
       alt="lukso"
     />
   ),
   [WALLETS.w_algorand]: (
     <Image
       source={require('@/assets/images/platforms/algorand.png')}
-      style={{ width: 32, height: 32, resizeMode: 'contain' }}
+      style={{ width: 16, height: 16, resizeMode: 'contain' }}
       alt="algorand"
     />
   ),
   [WALLETS.w_tron]: (
     <Image
       source={require('@/assets/images/platforms/tron.png')}
-      style={{ width: 32, height: 32, resizeMode: 'contain' }}
+      style={{ width: 16, height: 16, resizeMode: 'contain' }}
       alt="tron"
     />
   ),
   [WALLETS.w_ton]: (
     <Image
       source={require('@/assets/images/platforms/ton.png')}
-      style={{ width: 32, height: 32, resizeMode: 'contain' }}
+      style={{ width: 16, height: 16, resizeMode: 'contain' }}
       alt="ton"
     />
   ),
@@ -325,7 +325,7 @@ export const ICONS_MAPPING_SMALL = {
   [VALIDATORS.v_lens]: (
     <Image
       source={require('@/assets/images/platforms/lens.png')}
-      style={{ width: 32, height: 32, resizeMode: 'contain' }}
+      style={{ width: 16, height: 16, resizeMode: 'contain' }}
       alt="lens"
     />
   ),
@@ -334,7 +334,7 @@ export const ICONS_MAPPING_SMALL = {
   [VALIDATORS.v_blockpassKYC]: (
     <Image
       source={require('@/assets/images/platforms/blockpass.png')}
-      style={{ width: 32, height: 32, resizeMode: 'contain' }}
+      style={{ width: 16, height: 16, resizeMode: 'contain' }}
       alt="blockpass"
     />
   ),
@@ -342,28 +342,28 @@ export const ICONS_MAPPING_SMALL = {
   [DECENTRALIZED_IDENTIFIERS.d_worldId]: (
     <Image
       source={require('@/assets/images/platforms/worldId.png')}
-      style={{ width: 32, height: 32, resizeMode: 'contain' }}
+      style={{ width: 16, height: 16, resizeMode: 'contain' }}
       alt="worldId"
     />
   ),
   [DECENTRALIZED_IDENTIFIERS.d_bnb]: (
     <Image
       source={require('@/assets/images/platforms/bnbNameService.png')}
-      style={{ width: 32, height: 32, resizeMode: 'contain' }}
+      style={{ width: 16, height: 16, resizeMode: 'contain' }}
       alt="bnbNameService"
     />
   ),
   [DECENTRALIZED_IDENTIFIERS.d_demos]: (
     <Image
       source={require('@/assets/images/platforms/demos.png')}
-      style={{ width: 32, height: 32, resizeMode: 'contain' }}
+      style={{ width: 16, height: 16, resizeMode: 'contain' }}
       alt="demos"
     />
   ),
   [DECENTRALIZED_IDENTIFIERS.d_anima]: (
     <Image
       source={require('@/assets/images/platforms/anima.png')}
-      style={{ width: 32, height: 32, resizeMode: 'contain' }}
+      style={{ width: 16, height: 16, resizeMode: 'contain' }}
       alt="anima"
     />
   ),

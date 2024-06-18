@@ -272,9 +272,14 @@ export const ProfileHome = () => {
               resizeMode="contain"
             />
           </View>
-          <Text style={tw`text-white text-base font-medium`} numberOfLines={1}>
-            {SECTIONS.SOCIALS_MEDIA_ACCOUNTS.title}
-          </Text>
+          <View style={tw`flex-col gap-1`}>
+            <Text style={tw`text-white text-base font-medium`} numberOfLines={1}>
+              {SECTIONS.SOCIALS_MEDIA_ACCOUNTS.title}
+            </Text>
+            <View style={tw`flex-row gap-1`}>
+              {linksFiltered.length > 0 && linksFiltered.map((item) => getIcon(item.type, 'small'))}
+            </View>
+          </View>
         </View>
       ),
       renderContent: (
@@ -347,9 +352,14 @@ export const ProfileHome = () => {
             ]}>
             <Image source={SECTIONS.WALLETS.icon} style={tw`h-7 w-7`} resizeMode="contain" />
           </View>
-          <Text style={tw`text-white text-base font-medium`} numberOfLines={1}>
-            {SECTIONS.WALLETS.title}
-          </Text>
+          <View style={tw`flex-col gap-1`}>
+            <Text style={tw`text-white text-base font-medium`} numberOfLines={1}>
+              {SECTIONS.WALLETS.title}
+            </Text>
+            <View style={tw`flex-row gap-1`}>
+              {wallets.length > 0 && wallets.map((item) => getIcon(item.type, 'small'))}
+            </View>
+          </View>
         </View>
       ),
       renderContent: (
@@ -402,9 +412,14 @@ export const ProfileHome = () => {
             ]}>
             <Image source={SECTIONS.MESSAGING_APPS.icon} style={tw`h-7 w-7`} resizeMode="contain" />
           </View>
-          <Text style={tw`text-white text-base font-medium`} numberOfLines={1}>
-            {SECTIONS.MESSAGING_APPS.title}
-          </Text>
+          <View style={tw`flex-col gap-1`}>
+            <Text style={tw`text-white text-base font-medium`} numberOfLines={1}>
+              {SECTIONS.MESSAGING_APPS.title}
+            </Text>
+            <View style={tw`flex-row gap-1`}>
+              {messagingApps.length > 0 && messagingApps.map((item) => getIcon(item.type, 'small'))}
+            </View>
+          </View>
         </View>
       ),
       renderContent: (
@@ -464,9 +479,14 @@ export const ProfileHome = () => {
               resizeMode="contain"
             />
           </View>
-          <Text style={tw`text-white text-base font-medium`} numberOfLines={1}>
-            {SECTIONS.DECENTRALIZED_IDENTIFERS.title}
-          </Text>
+          <View style={tw`flex-col gap-1`}>
+            <Text style={tw`text-white text-base font-medium`} numberOfLines={1}>
+              {SECTIONS.DECENTRALIZED_IDENTIFERS.title}
+            </Text>
+            <View style={tw`flex-row gap-1`}>
+              {others.length > 0 && others.map((item) => getIcon(item.type, 'small'))}
+            </View>
+          </View>
         </View>
       ),
       renderContent: (
