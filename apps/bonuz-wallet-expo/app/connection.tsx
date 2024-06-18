@@ -14,6 +14,7 @@ import tw from 'twrnc';
 
 import { StatusBarHeight } from '@/components/StatusbarHeight';
 import SwitchButton from '@/components/SwtichButton';
+import { Tabs } from '@/components/Tabs';
 import { Text, View } from '@/components/Themed';
 import { ConnectionSheet } from '@/pages/connections/sheets';
 import { useUserConnections } from '@/services/blockchain/bonuz/useSocialId';
@@ -23,12 +24,16 @@ export default function Connection() {
 
   const bottomModalRef = useRef<BottomSheetModal>(null);
 
-  const [value, setValue] = useState<boolean>(true);
+  const [activeTab, setActiveTab] = useState<'Lens.xys Feed' | 'My Connections'>('Lens.xys Feed');
   const { data, isRefetching, isLoading, refetch } = useUserConnections();
+
+  console.log(data, 'data connections');
 
   // const [isEnabled, setEnabled] = useState(false);
 
   const handleConnectionPress = (data: any) => {
+    console.log(data, 'data');
+
     bottomModalRef.current?.present(data);
   };
 
@@ -66,11 +71,10 @@ export default function Connection() {
         </View>
 
         <View style={tw`bg-transparent mx-5 mt-10`}>
-          <SwitchButton
-            value={value}
-            onValueChange={setValue}
-            title1="Lens.xys Feed"
-            title2="My Connections"
+          <Tabs
+            tabs={['Lens.xys Feed', 'My Connections']}
+            value={activeTab}
+            onValueChange={(tab) => setActiveTab(tab)}
           />
         </View>
 
