@@ -11,11 +11,13 @@ import React, {
     useRef,
     useState,
 } from 'react';
-import { Image, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Image, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import tw from 'twrnc';
 import { useShallow } from 'zustand/react/shallow';
 
 import ActivityInfoSection from '@/components/ActivityInfo';
+import ReceiveComponent from '@/components/receiveComponent';
+import SendComponent from '@/components/SendComponent';
 import { useUserStore } from '@/store';
 import { TokenDataProps, TransactionDataProps } from '@/store/walletTypes';
 import { truncateAddress } from '@/utils/wallet';
@@ -30,6 +32,7 @@ export const TokensSheet = forwardRef<BottomSheetModal, NftsSheetProps>(
         const [transactionData, setTransactionData] = useState<any[]>([]);
         const [walletTransactionData, setWalletTransactionData] = useState<TransactionDataProps[]>([]);
         const [loadingStatus, setLoadingStatus] = useState<boolean>(false);
+        const [activityType, setActivityType] = useState<string>('receive');
 
         useImperativeHandle(bottomSheetModalRef, () => _bottomSheetModalRef.current!, []);
 
@@ -37,7 +40,7 @@ export const TokensSheet = forwardRef<BottomSheetModal, NftsSheetProps>(
             useShallow((store) => ({
                 wallet: store.wallet,
             })),
-        );
+        )
 
         const snapPoints = useMemo(() => ['65%'], []);
 
@@ -45,10 +48,18 @@ export const TokensSheet = forwardRef<BottomSheetModal, NftsSheetProps>(
             _bottomSheetModalRef.current?.dismiss();
         }, []);
 
+        const handlePresentModalPress = useCallback(() => {
+            _bottomSheetModalRef.current?.present();
+        }, []);
+
+        const handleNext = (section: string) => {
+            setActivityType(section);
+            return handlePresentModalPress();
+        };
+
         useEffect(() => {
             setLoadingStatus(true);
             const url = `https://admin.bonuz.xyz/api/users/wallet/${wallet.address}/transactions?chainId=${tokenData.chainId}&contractAddress=${tokenData.contractAddress}`;
-            console.log("url:", url)
             fetch(url) // Replace with your API URL
                 .then((response) => {
                     if (!response.ok) {
@@ -57,7 +68,6 @@ export const TokensSheet = forwardRef<BottomSheetModal, NftsSheetProps>(
                     return response.json();
                 })
                 .then((data: any) => {
-                    console.log(data.data.transactions);
                     setTransactionData(data.data.transactions);
                     setLoadingStatus(false);
                 })
@@ -106,9 +116,10 @@ export const TokensSheet = forwardRef<BottomSheetModal, NftsSheetProps>(
 
             return `${month} ${day}, ${year}`;
         };
+
         return (
             <View style={tw`flex-1 bg-transparent`}>
-                <View style={tw`m-5 py-6 bg-[#291167] rounded-xl justify-center items-center`}>
+                <View style={tw`m-5 py-6 bg-[#1D0C53] rounded-xl justify-center items-center`}>
                     <View style={tw`bg-[#684FCD] p-5 rounded-full`}>
                         <Image style={tw`w-[40px] h-[40px]`} source={tokenData.avatar} />
                     </View>
@@ -123,13 +134,13 @@ export const TokensSheet = forwardRef<BottomSheetModal, NftsSheetProps>(
                     <View style={tw`flex flex-row justify-between items-center mt-3 w-full`}>
                         <TouchableOpacity
                             style={tw`justify-center items-center w-1/2`}
-                            onPress={() => console.log('receive')}>
+                            onPress={() => handleNext('receive')}>
                             <Text style={tw`text-white text-[14px] font-medium`}>Receive</Text>
                         </TouchableOpacity>
                         <View style={tw`w-full bg-[#FFFFFF] h-96/100 w-[1px]`} />
                         <TouchableOpacity
                             style={tw`justify-center items-center w-1/2`}
-                            onPress={() => console.log('send')}>
+                            onPress={() => handleNext('send')}>
                             <Text style={tw`text-white text-[14px] font-medium`}>Send</Text>
                         </TouchableOpacity>
                     </View>
@@ -143,7 +154,26 @@ export const TokensSheet = forwardRef<BottomSheetModal, NftsSheetProps>(
                     }}>
                     <ActivityInfoSection value={walletTransactionData} loadingStatus={loadingStatus} />
                 </ScrollView>
-            </View>
+                <BottomSheetModal
+                    backgroundStyle={{ backgroundColor: 'transparent' }}
+                    ref={_bottomSheetModalRef}
+                    keyboardBlurBehavior="restore"
+                    index={0}
+                    handleIndicatorStyle={tw`bg-[#905CFF] top-3 h-1 w-10`}
+                    snapPoints={snapPoints}>
+                    <BottomSheetView style={tw`flex-1`}>
+                        <LinearGradient colors={['#4B2EA2', '#0E2875']} style={tw`flex-1`}>
+                            <ScrollView style={tw`bg-transparent flex-1`}>
+                                {activityType === 'receive' ? (
+                                    <SendComponent walletAddress={wallet.address} handleDismissModalPress={handleDismissModalPress} />
+                                ) : (
+                                    <ReceiveComponent handleDismissModalPress={handleDismissModalPress} />
+                                )}
+                            </ScrollView>
+                        </LinearGradient>
+                    </BottomSheetView>
+                </BottomSheetModal>
+            </View >
         );
     }
 );
