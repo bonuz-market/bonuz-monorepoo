@@ -16,7 +16,7 @@ import tw from 'twrnc';
 import { useShallow } from 'zustand/react/shallow';
 
 import ActivityInfoSection from '@/components/ActivityInfo';
-import ReceiveComponent from '@/components/receiveComponent';
+import ReceiveComponent from '@/components/ReceiveComponent';
 import SendComponent from '@/components/SendComponent';
 import { useUserStore } from '@/store';
 import { TokenDataProps, TransactionDataProps } from '@/store/walletTypes';
@@ -165,9 +165,9 @@ export const TokensSheet = forwardRef<BottomSheetModal, NftsSheetProps>(
                         <LinearGradient colors={['#4B2EA2', '#0E2875']} style={tw`flex-1`}>
                             <ScrollView style={tw`bg-transparent flex-1`}>
                                 {activityType === 'receive' ? (
-                                    <SendComponent walletAddress={wallet.address} handleDismissModalPress={handleDismissModalPress} />
+                                    <ReceiveComponent walletAddress={wallet.address} handleDismissModalPress={handleDismissModalPress} />
                                 ) : (
-                                    <ReceiveComponent handleDismissModalPress={handleDismissModalPress} />
+                                    <SendComponent handleDismissModalPress={handleDismissModalPress} />
                                 )}
                             </ScrollView>
                         </LinearGradient>

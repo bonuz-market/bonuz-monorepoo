@@ -18,6 +18,7 @@ import { useShallow } from 'zustand/react/shallow';
 import ActivityInfoSection from '@/components/ActivityInfo';
 import NetworkTypesSection from '@/components/NetworkTypesSection';
 import NftInfoSection from '@/components/NftInfo';
+import ReceiveComponent from '@/components/ReceiveComponent';
 import SwitchButton from '@/components/SwtichButton';
 import TokenInfoSection from '@/components/TokenInfo';
 import WalletTypesSection from '@/components/WalletTypesSection';
@@ -33,11 +34,12 @@ interface WalletSheetProps {
     networkType: number;
     setNetworkType: any;
     currentSection: string;
+    handleNext: any;
 }
 
 export const WalletSheet = forwardRef<BottomSheetModal, WalletSheetProps>(
     (
-        { walletType, setWalletType, networkType, setNetworkType, currentSection },
+        { walletType, setWalletType, networkType, setNetworkType, currentSection, handleNext },
         bottomSheetModalRef,
     ) => {
         const _bottomSheetModalRef = useRef<BottomSheetModal>(null);
@@ -56,6 +58,7 @@ export const WalletSheet = forwardRef<BottomSheetModal, WalletSheetProps>(
         const [totalBalance, setTotalBalance] = useState<string>('0');
 
         const [loading, setLoading] = useState(false);
+        const [option, setOption] = useState<string>('receiveType');
 
         const snapPoints = useMemo(() => ['80%'], []);
 
@@ -236,7 +239,7 @@ export const WalletSheet = forwardRef<BottomSheetModal, WalletSheetProps>(
 
                             <View style={tw`flex flex-row bg-transparent justify-between pt-6 px-8`}>
                                 <View style={tw`bg-transparent items-center text-center gap-2`}>
-                                    <TouchableOpacity>
+                                    <TouchableOpacity onPress={() => handleNext('receive')}>
                                         <Image
                                             style={tw`w-[54px]`}
                                             source={require('@/assets/images/cart/receive.png')}
@@ -245,7 +248,7 @@ export const WalletSheet = forwardRef<BottomSheetModal, WalletSheetProps>(
                                     <Text style={tw`text-[13px] text-white font-medium`}>Receive</Text>
                                 </View>
                                 <View style={tw`bg-transparent items-center text-center gap-2`}>
-                                    <TouchableOpacity>
+                                    <TouchableOpacity onPress={() => handleNext('swap')}>
                                         <Image style={tw`w-[54px]`} source={require('@/assets/images/cart/swap.png')} />
                                     </TouchableOpacity>
                                     <Text style={tw`text-[13px] text-white font-medium`}>Swap</Text>
@@ -288,13 +291,38 @@ export const WalletSheet = forwardRef<BottomSheetModal, WalletSheetProps>(
                     <BottomSheetView style={tw`flex-1`}>
                         <LinearGradient colors={['#4B2EA2', '#0E2875']} style={tw`flex-1`}>
                             <ScrollView style={tw`bg-transparent flex-1`}>
-                                {currentSection === 'wallet' ? (
+                                {currentSection === 'wallet' && (
                                     <WalletTypesSection
                                         walletTypes={walletTypes}
                                         setWalletType={setWalletType}
                                         dismissModal={handleDismissModalPress}
                                     />
-                                ) : (
+                                )}
+                                {currentSection === 'network' && (
+                                    <NetworkTypesSection
+                                        networkTypes={networkTypes}
+                                        setNetworkType={setNetworkType}
+                                        dismissModal={handleDismissModalPress}
+                                    />
+                                )}
+                                {currentSection === 'receive' && (
+                                    <View>
+                                        <View style={tw`flex flex-row mx-10 justify-between my-5`}>
+                                            <TouchableOpacity onPress={() => setOption('receiveType')}>
+                                                <Text style={tw`text-[20px] text-white`}>Receive</Text>
+                                            </TouchableOpacity>
+                                            <TouchableOpacity onPress={() => setOption('buyType')}>
+                                                <Text style={tw`text-[20px] text-white`}>Buy</Text>
+                                            </TouchableOpacity>
+                                        </View>
+                                        {option === 'receiveType' ? (
+                                            <ReceiveComponent walletAddress={walletAddress} handleDismissModalPress={handleDismissModalPress} />
+                                        ) : (
+                                            <Text style={tw`text-center text-white text-[20px]`}>Coming Soon...</Text>
+                                        )}
+                                    </View>
+                                )}
+                                {currentSection === 'swap' && (
                                     <NetworkTypesSection
                                         networkTypes={networkTypes}
                                         setNetworkType={setNetworkType}

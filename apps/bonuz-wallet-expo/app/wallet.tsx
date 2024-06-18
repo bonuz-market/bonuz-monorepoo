@@ -82,6 +82,7 @@ export default function Wallet() {
           networkType={networkType}
           setNetworkType={setNetworkType}
           currentSection={currentSection}
+          handleNext={handleNext}
         />
       </LinearGradient>
     </BottomSheetModalProvider>
