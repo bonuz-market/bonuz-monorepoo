@@ -1,13 +1,16 @@
+import { useQuery } from '@tanstack/react-query';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
 import { Image, ScrollView, StatusBar, TextInput, TouchableOpacity } from 'react-native';
 import tw from 'twrnc';
 
+import { HomeBanner } from '@/components/HomeBanner/HomeBanner';
 import HomeCarousel from '@/components/HomeCarousel';
 import { StatusBarHeight } from '@/components/StatusbarHeight';
 import { Text, View } from '@/components/Themed';
 import { useBottomTabBarMargin } from '@/hooks/useBottomTabBarHeight';
+import { getFeaturedItems } from '@/services/backend/discovery.service';
 
 export default function Home() {
   const [yourItemIndex, setYourItemIndex] = useState(0);
@@ -15,9 +18,14 @@ export default function Home() {
   const tabBarMargin = useBottomTabBarMargin();
   const { navigate } = useRouter();
 
+  const { data: featuredItems } = useQuery({
+    queryKey: ['featuredItems'],
+    queryFn: getFeaturedItems,
+  });
+
   let yourItemsArray = [0, 1, 2];
   return (
-    <LinearGradient colors={['#4B2EA2', '#0E2875']} style={tw`flex-1`}>
+    <LinearGradient colors={['#4B2EA2', '#0E2875']} style={tw`flex-1 flex-col gap-4`}>
       <StatusBar backgroundColor={'#5137B1'} />
       <View
         style={[
@@ -47,7 +55,8 @@ export default function Home() {
         </TouchableOpacity>
       </View>
 
-      <View style={tw`flex flex-row items-center bg-transparent mx-5 py-5 justify-between`}>
+      <HomeBanner data={featuredItems ?? []} />
+      <View style={tw`flex flex-row items-center bg-transparent mx-5 justify-between`}>
         <View style={tw`w-[54px] h-[54px] rounded-full bg-[#684FCD] justify-center items-center`}>
           <Image
             style={tw`w-[30px] h-[30px]`}
