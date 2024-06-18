@@ -28,7 +28,7 @@ export default function ReceiveComponent(props: { handleDismissModalPress: any; 
                         viewBox={`0 0 256 256`}
                     />
                 </View>
-                <View style={tw`bg-trasparent flex mt-5`}>
+                <View style={tw`bg-transparent flex mt-5`}>
                     <Text style={tw`text-[16px] text-[#BBACD5]`}>Deposit Address</Text>
                     <View style={tw`bg-transparent flex flex-row justify-between items-center mt-2`}>
                         <Text style={tw`flex flex-wrap w-[250px] text-white font-semibold`}>{walletAddress}</Text>

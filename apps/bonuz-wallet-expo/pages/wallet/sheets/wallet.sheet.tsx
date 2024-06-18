@@ -316,7 +316,7 @@ export const WalletSheet = forwardRef<BottomSheetModal, WalletSheetProps>(
                                             </TouchableOpacity>
                                         </View>
                                         {option === 'receiveType' ? (
-                                            <ReceiveComponent walletAddress={walletAddress} handleDismissModalPress={handleDismissModalPress} />
+                                            <ReceiveComponent walletAddress={wallet.address} handleDismissModalPress={handleDismissModalPress} />
                                         ) : (
                                             <Text style={tw`text-center text-white text-[20px]`}>Coming Soon...</Text>
                                         )}
