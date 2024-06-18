@@ -1,8 +1,9 @@
+/* eslint-disable unicorn/no-null */
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { useIsFocused } from '@react-navigation/native';
 import { useQuery } from '@tanstack/react-query';
 import { BarcodeScanningResult, CameraView, useCameraPermissions } from 'expo-camera';
-import { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Button, ImageBackground, Text, View } from 'react-native';
 import QRCode from 'react-native-qrcode-svg';
 import tw from 'twrnc';

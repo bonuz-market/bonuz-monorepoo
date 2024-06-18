@@ -3,6 +3,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import CryptoES from 'crypto-es';
 import { ImagePickerAsset } from 'expo-image-picker';
 import { HTTPError } from 'ky';
+import { Address } from 'viem';
 
 import {
   DecentralizedIdentifiersType,
@@ -15,7 +16,12 @@ import {
   WalletType,
 } from '@/entities';
 import { Wallet } from '@/entities/wallet';
-import { getUserConnections, getUserInfo, updateUserInfo } from '@/services/backend';
+import {
+  getUserByHandle,
+  getUserConnections,
+  getUserInfo,
+  updateUserInfo,
+} from '@/services/backend';
 import { useUserStore } from '@/store';
 import { viemPublicClients } from '@/store/smartAccounts';
 
@@ -26,10 +32,10 @@ import { GET_USER_PROFILES_BY_HANDLES } from './subgraphs/socialId/socialId.quer
 import { socialIdSubgraphApolloClient } from './subgraphs/socialId/socialId.subgraph';
 import { SocialIdSubGraphResponse } from './subgraphs/socialId/socialId.types';
 
-// const getPublicData = (link: string) => ({
-//   link: link?.startsWith('p_') ? link.slice(2) : '',
-//   isPublic: !!link?.startsWith('p_'),
-// });
+const getPublicData = (link: string) => ({
+  link: link?.startsWith('p_') ? link.slice(2) : '',
+  isPublic: !!link?.startsWith('p_'),
+});
 
 /** 
    // ! IF YOU GET ERROR WHILE CALLING THE FUNCTION 
@@ -444,6 +450,88 @@ export const useQueryGetUserProfileAndSocialLinks = () => {
     },
     refetchOnMount: true,
     staleTime: 0,
+  });
+};
+
+export const useQueryGetUserProfileAndSocialLinksByHandle = ({ handle }: { handle?: string }) => {
+  const [getUsers] = useLazyApolloQuery<SocialIdSubGraphResponse>(GET_USER_PROFILES_BY_HANDLES, {
+    client: socialIdSubgraphApolloClient,
+  });
+  // console.log('userConnections');
+
+  return useQuery<SocialIdUser & { address: string; isCurrentConnection: boolean }>({
+    queryKey: ['user', handle],
+    queryFn: async () => {
+      const user = await getUserByHandle(handle!);
+
+      const { data: userData } = await getUsers({
+        variables: {
+          handles: [user.handle],
+        },
+      });
+
+      const socials = {} as Record<string, Link>;
+      const messagingApps = {} as Record<string, Link>;
+      const wallets = {} as Record<string, Link>;
+      const decentralizedIdentifiers = {} as Record<string, Link>;
+
+      const userSocialId = userData?.userProfiles[0]!;
+      // eslint-disable-next-line unicorn/no-array-reduce
+      for (const link of userSocialId.socialLinks) {
+        if (!link.link?.startsWith('p_')) {
+          continue;
+        }
+        const type = link.platform.slice(2);
+        const handle = link.link.slice(2);
+
+        if (link.platform.startsWith('s_')) {
+          socials[type] = {
+            handle: handle,
+            isPublic: true,
+            type,
+          };
+        }
+
+        if (link.platform.startsWith('m_')) {
+          messagingApps[type] = {
+            handle: handle,
+            isPublic: true,
+            type,
+          };
+        }
+
+        if (link.platform.startsWith('w_')) {
+          wallets[type] = {
+            handle: handle,
+            isPublic: true,
+            type,
+          };
+        }
+
+        if (link.platform.startsWith('d_')) {
+          decentralizedIdentifiers[type] = {
+            handle: handle,
+            isPublic: true,
+            type,
+          };
+        }
+      }
+
+      return {
+        id: user.id,
+        isCurrentConnection: user.isCurrentConnection,
+        name: userSocialId.name,
+        profilePicture: userSocialId.profileImage,
+        handle: userSocialId.handle,
+        address: userSocialId.wallet,
+        socials,
+        messagingApps,
+        wallets,
+        decentralizedIdentifiers,
+      };
+    },
+    staleTime: 0,
+    enabled: !!handle,
   });
 };
 // export const useQueryGetUserProfileAndSocialLinksByHandle = (handle: string | null) => {
@@ -1527,98 +1615,10 @@ export const useUserConnections = (options?: any) => {
     GET_USER_PROFILES_BY_HANDLES,
     { client: socialIdSubgraphApolloClient },
   );
-  // console.log('userConnections', GET_USER_PROFILES_BY_HANDLES);
+  // console.log('userConnections');
 
   return useQuery<(SocialIdUser & { address: string })[]>({
-    queryKey: ['connections'],
-    queryFn: async () => {
-      const userConnections = await getUserConnections();
-
-      console.log('userConnections', userConnections);
-
-      const handlesToFetch = userConnections.map((connection) => connection.handle);
-
-      const { data: connectionsData } = await getConnections({
-        variables: {
-          handles: handlesToFetch,
-        },
-      });
-
-      console.log('connectionsData:', connectionsData);
-
-      return connectionsData?.userProfiles.map((connection) => {
-        const socials = {} as Record<string, Link>;
-        const messagingApps = {} as Record<string, Link>;
-        const wallets = {} as Record<string, Link>;
-        const decentralizedIdentifiers = {} as Record<string, Link>;
-
-        // eslint-disable-next-line unicorn/no-array-reduce
-        for (const link of connection.socialLinks) {
-          if (!link.link?.startsWith('p_')) {
-            continue;
-          }
-          const type = link.platform.slice(2);
-          const handle = link.link.slice(2);
-
-          if (link.platform.startsWith('s_')) {
-            socials[type] = {
-              handle: handle,
-              isPublic: true,
-              type,
-            };
-          }
-
-          if (link.platform.startsWith('m_')) {
-            messagingApps[type] = {
-              handle: handle,
-              isPublic: true,
-              type,
-            };
-          }
-
-          if (link.platform.startsWith('w_')) {
-            wallets[type] = {
-              handle: handle,
-              isPublic: true,
-              type,
-            };
-          }
-
-          if (link.platform.startsWith('d_')) {
-            decentralizedIdentifiers[type] = {
-              handle: handle,
-              isPublic: true,
-              type,
-            };
-          }
-        }
-
-        return {
-          id: userConnections.find((user) => user.handle === connection.handle)?.id,
-          name: connection.name,
-          profilePicture: connection.profileImage,
-          handle: connection.handle,
-          address: connection.wallet,
-          socials,
-          messagingApps,
-          wallets,
-          decentralizedIdentifiers,
-        };
-      });
-    },
-    staleTime: 0,
-    ...options,
-  });
-};
-
-export const useUserWalletDatas = (options?: any) => {
-  const [getConnections] = useLazyApolloQuery<SocialIdSubGraphResponse>(
-    GET_USER_PROFILES_BY_HANDLES,
-    { client: socialIdSubgraphApolloClient },
-  );
-
-  return useQuery<(SocialIdUser & { address: string })[]>({
-    queryKey: ['connections'],
+    queryKey: ['userConnections'],
     queryFn: async () => {
       const userConnections = await getUserConnections();
 

@@ -14,6 +14,7 @@ import tw from 'twrnc';
 
 import { StatusBarHeight } from '@/components/StatusbarHeight';
 import SwitchButton from '@/components/SwtichButton';
+import { Tabs } from '@/components/Tabs';
 import { Text, View } from '@/components/Themed';
 import { ConnectionSheet } from '@/pages/connections/sheets';
 import { useUserConnections } from '@/services/blockchain/bonuz/useSocialId';
@@ -23,10 +24,16 @@ export default function Connection() {
 
   const bottomModalRef = useRef<BottomSheetModal>(null);
 
-  const [value, setValue] = useState<string>('Lens.xys Feed');
+  const [activeTab, setActiveTab] = useState<'Lens.xys Feed' | 'My Connections'>('Lens.xys Feed');
   const { data, isRefetching, isLoading, refetch } = useUserConnections();
 
+  console.log(data, 'data connections');
+
+  // const [isEnabled, setEnabled] = useState(false);
+
   const handleConnectionPress = (data: any) => {
+    console.log(data, 'data');
+
     bottomModalRef.current?.present(data);
   };
 
@@ -48,7 +55,7 @@ export default function Connection() {
           <View style={tw`flex bg-transparent justify-center items-center`}>
             <Text style={tw`text-[20px] text-white font-semibold`}>Social</Text>
           </View>
-          <TouchableOpacity onPress={() => navigate('/wallet')}>
+          <TouchableOpacity onPress={() => navigate('/cart')}>
             <View
               style={tw`w-[54px] h-[54px] rounded-full bg-[#684FCD] justify-center items-center`}>
               <View
@@ -64,10 +71,10 @@ export default function Connection() {
         </View>
 
         <View style={tw`bg-transparent mx-5 mt-10`}>
-          <SwitchButton
-            value={value}
-            onValueChange={setValue}
-            titleList={['Lens.xys Feed', 'My Connections']}
+          <Tabs
+            tabs={['Lens.xys Feed', 'My Connections']}
+            value={activeTab}
+            onValueChange={(tab) => setActiveTab(tab)}
           />
         </View>
 
