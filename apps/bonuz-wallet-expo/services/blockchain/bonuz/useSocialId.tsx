@@ -1,3 +1,4 @@
+/* eslint-disable unicorn/consistent-function-scoping */
 import { useLazyQuery as useLazyApolloQuery } from '@apollo/client';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import CryptoES from 'crypto-es';

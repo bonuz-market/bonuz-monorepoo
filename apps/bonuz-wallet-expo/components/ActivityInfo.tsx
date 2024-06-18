@@ -21,7 +21,7 @@ export default function ActivityInfoSection(props: { value: any; loadingStatus: 
                         value.map((transactionData: TransactionDataProps, index: number) => (
                             <TouchableOpacity key={index} onPress={() => Linking.openURL(transactionData.explorerUrl)}>
                                 <View
-                                    style={tw`bg-transparent flex-row justify-between p-3 mx-5 mt-3 mb-3 bg-[#291167] rounded-xl`}>
+                                    style={tw`bg-transparent flex-row justify-between p-3 mx-5 mt-3 mb-3 bg-[#313CA6] rounded-xl`}>
                                     <View style={tw`bg-transparent flex flex-row items-center justify-between w-full`}>
                                         <View style={tw`bg-transparent flex flex-col gap-2`}>
                                             <Text style={tw`text-[16px] text-white font-semibold flex-wrap`}>

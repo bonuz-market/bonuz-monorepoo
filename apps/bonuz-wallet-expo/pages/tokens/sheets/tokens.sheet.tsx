@@ -119,10 +119,8 @@ export const TokensSheet = forwardRef<BottomSheetModal, NftsSheetProps>(
 
         return (
             <View style={tw`flex-1 bg-transparent`}>
-                <View style={tw`m-5 py-6 bg-[#1D0C53] rounded-xl justify-center items-center`}>
-                    <View style={tw`bg-[#684FCD] p-5 rounded-full`}>
-                        <Image style={tw`w-[40px] h-[40px]`} source={tokenData.avatar} />
-                    </View>
+                <View style={tw`m-5 py-6 bg-[#4736AD] rounded-xl justify-center items-center`}>
+                    <Image style={tw`w-[60px] h-[60px]`} source={tokenData.avatar} />
                     <View style={tw`bg-transparent flex flex-row gap-2 mt-5`}>
                         <Text style={tw`text-[16px] font-semibold text-white`}>{tokenData.tokenAmount}</Text>
                         <Text style={tw`text-[16px] font-semibold text-white`}>{tokenData.name}</Text>
