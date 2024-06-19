@@ -14,6 +14,8 @@ import {
 	optimism,
 	polygon,
 } from "wagmi/chains";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 const chains = [
 	mainnet,

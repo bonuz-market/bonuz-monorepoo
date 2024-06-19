@@ -4,10 +4,20 @@ import Collapsible from "./Collapsible";
 import { hasNonEmptyLink } from '@/utils'
 import { Icon } from "@iconify/react";
 import { cn } from "@/lib/utils";
-
+import Slider from "react-slick";
 interface ProfileDataComponentProps {
     data: any;
 }
+
+const settings = {
+    className: "center",
+    centerMode: true,
+    infinite: true,
+    centerPadding: "60px",
+    slidesToShow: 3,
+    speed: 500
+};
+
 export default function ProfileDataComponent({ data }: ProfileDataComponentProps) {
     const [selectedOption, setSelectedOption] = useState<string>('On-Chain Social ID');
     const socialMedias = hasNonEmptyLink(data?.links?.socialMedias)
@@ -21,7 +31,7 @@ export default function ProfileDataComponent({ data }: ProfileDataComponentProps
         <>
             <SwitchButton selectedOption={selectedOption} setSelectedOption={setSelectedOption} title={['On-Chain Social ID', 'Items']} />
             {
-                selectedOption === 'On-Chain Social ID' && (
+                selectedOption === 'On-Chain Social ID' ? (
                     <>
                         {socialMedias && (
                             <Collapsible
@@ -311,6 +321,104 @@ export default function ProfileDataComponent({ data }: ProfileDataComponentProps
                             </Collapsible>
                         )}
                     </>
+                ) : (
+                    <div className={cn("flex overflow-hidden gap-4")}>
+                        <div
+                            className={cn(
+                                'rounded-[20px] bg-gradient-to-r from-[#009EFD] to-[#2AF598] shadow-[0px_0px_0px_0px_rgba(0,0,0,0.00),-80px_104px_53px_0px_rgba(0,0,0,0.01),-45px_59px_44px_0px_rgba(0,0,0,0.05),-20px_26px_33px_0px_rgba(0,0,0,0.09),-5px_7px_18px_0px_rgba(0,0,0,0.10)] backdrop-blur-[20px] ',
+                                'flex h-[150px] min-w-56 p-3 flex-col items-start gap-3 flex-shrink-0'
+                            )}>
+                            <div className='flex flex-col justify-center items-start py-2 bg-blend-overlay bg-neutral-400 rounded-[70px]'>
+                                <img
+                                    src='/svg/card-1-img.svg'
+                                    alt='card-1-img'
+                                    className='w-[32px]' />
+                            </div>
+                            <div className='mt-5 text-base font-semibold tracking-tight leading-6 text-white'>
+                                Lens Profiles
+                            </div>
+                            <div className='text-sm tracking-tight leading-4 text-white'>
+                                3 items
+                            </div>
+                        </div>
+                        <div
+                            className={cn(
+                                'rounded-[20px] bg-gradient-to-r from-[#FB308D] to-[#C03DD2] shadow-[0px_0px_0px_0px_rgba(0,0,0,0.00),-80px_104px_53px_0px_rgba(0,0,0,0.01),-45px_59px_44px_0px_rgba(0,0,0,0.05),-20px_26px_33px_0px_rgba(0,0,0,0.09),-5px_7px_18px_0px_rgba(0,0,0,0.10)] backdrop-blur-[20px]',
+                                'flex h-[150px] p-3 min-w-56 flex-col items-start gap-3 flex-shrink-0 '
+                            )}>
+                            <div className='flex flex-col justify-center items-start p-2 bg-zinc-800 bg-opacity-90 rounded-[70px]'>
+                                <img
+                                    src='/svg/card-2-img.svg'
+                                    alt='card-2-img'
+                                    className='w-[32px]' />
+                            </div>
+                            <div className='mt-5 text-base font-semibold tracking-tight leading-6 text-white'>
+                                Social IDs
+                            </div>
+                            <div className='text-sm tracking-tight leading-4 text-white'>
+                                14 items
+                            </div>
+                        </div>
+                        <div
+                            className={cn(
+                                'rounded-[20px] bg-gradient-to-r from-[#F67640] to-[#F14375]',
+                                'flex h-[150px] min-w-56 p-3 justify-between items-start flex-shrink-0'
+                            )}>
+                            <div className='flex flex-col flex-1'>
+                                <img
+                                    src='/svg/card-3-img.svg'
+                                    alt='card-3-img'
+                                    className='w-[32px]' />
+                                <div className='mt-2 text-base font-semibold tracking-tight leading-6 text-white'>
+                                    dVouchers{' '}
+                                </div>
+                                <div className='mt-1.5 text-sm tracking-tight leading-4 text-white'>
+                                    2 items
+                                </div>
+                            </div>
+                            <div className='flex flex-wrap flex-1 gap-1.5'>
+                                <div className='flex flex-col flex-1 items-center'>
+                                    <img src='/images/1.png' alt='image 1' />
+                                    <img src='/images/2.png' alt='image 1' />
+                                </div>
+                                <div className='flex flex-col flex-1 items-center'>
+                                    <img src='/images/3.png' alt='image 1' />
+                                    <img src='/images/4.png' alt='image 1' />
+                                </div>
+                            </div>
+                        </div>
+                        <div
+                            className={cn(
+                                'rounded-[20px] bg-gradient-to-r from-[#3D73EB] to-[#DE8FFF] shadow-[0px_0px_0px_0px_rgba(0,0,0,0.00),-80px_104px_53px_0px_rgba(0,0,0,0.01),-45px_59px_44px_0px_rgba(0,0,0,0.05),-20px_26px_33px_0px_rgba(0,0,0,0.09),-5px_7px_18px_0px_rgba(0,0,0,0.10)] backdrop-blur-[20px]',
+                                'flex h-[150px] p-3 min-w-56 items-start gap-3 flex-shrink-0 '
+                            )}>
+                            <div className='flex flex-col flex-1 py-px'>
+                                <img
+                                    src='/svg/card-4-img.svg'
+                                    alt='card-4-img'
+                                    className='w-[32px]' />
+                                <div className='mt-2 text-base font-semibold tracking-tight leading-6 text-white'>
+                                    Bonuz POPs
+                                </div>
+                                <div className='mt-1.5 text-sm tracking-tight leading-4 text-white'>
+                                    9 items
+                                </div>
+                            </div>
+                            <div className='flex flex-wrap flex-1 gap-1.5'>
+                                <div className='flex flex-col flex-1 items-center'>
+                                    <img src='/images/8.png' alt='image 1' />
+                                    <img src='/images/5.png' alt='image 1' />
+                                </div>
+                                <div className='flex flex-col flex-1 items-center text-xl font-semibold tracking-tighter leading-6 text-center text-white whitespace-nowrap'>
+                                    <img src='/images/7.png' alt='image 1' />
+                                    <img src='/images/6.png' alt='image 1' />
+                                    <div className='justify-center self-stretch px-4 py-1.5 mt-1.5 rounded-xl backdrop-blur-sm bg-white/30 '>
+                                        5+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 )
             }
         </>
