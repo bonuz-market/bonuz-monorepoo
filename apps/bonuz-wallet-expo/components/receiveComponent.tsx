@@ -12,6 +12,7 @@ export default function ReceiveComponent(props: { handleDismissModalPress: any; 
     const { handleDismissModalPress, walletAddress } = props;
 
     const handleAddressCopy = useCallback(async (address: string) => {
+        console.log("copy clicked");
         await Clipboard.setStringAsync(address);
     }, []);
 
