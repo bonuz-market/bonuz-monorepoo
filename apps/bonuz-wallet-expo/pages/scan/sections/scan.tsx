@@ -91,7 +91,7 @@ export const ScanQrCode = ({ isActive }: { isActive: boolean }) => {
 
   if (!isNotEmpty(user)) {
     // TODO: Add logged out state
-    return null;
+    return <></>;
   }
 
   if (!permission || !isFocused) {

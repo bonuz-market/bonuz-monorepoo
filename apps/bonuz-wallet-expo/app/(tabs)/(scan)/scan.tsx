@@ -24,7 +24,7 @@ export default function Scan() {
   console.log(checkedInEvents);
 
   const { data } = useQuery({
-    queryKey: ['events', checkedInEvents, checkedInEvents.join('-')],
+    queryKey: ['eventssssssss', checkedInEvents, checkedInEvents.join('-')],
     queryFn: ({ queryKey }) => getEventsByIds(queryKey[1] as number[]),
   });
 

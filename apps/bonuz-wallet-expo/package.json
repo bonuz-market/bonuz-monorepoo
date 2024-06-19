@@ -56,6 +56,7 @@
     "net": "^1.0.2",
     "os-browserify": "^0.3.0",
     "path-browserify": "^1.0.1",
+    "qs": "^6.12.1",
     "react": "18.2.0",
     "react-hook-form": "^7.51.5",
     "react-native": "0.74.1",
@@ -86,6 +87,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.24.6",
+    "@types/qs": "^6.9.15",
     "@types/react": "~18.2.79",
     "eslint": "^8.57.0",
     "eslint-config-expo": "^7.1.2",
