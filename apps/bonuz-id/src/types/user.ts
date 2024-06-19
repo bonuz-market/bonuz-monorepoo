@@ -103,3 +103,17 @@ export interface UserProfileUpdateData {
     links: string[];
   };
 }
+
+// ----------------------
+export interface CheckIns {
+  id: string;
+  createdAt: string;
+  user: {
+    id: string;
+    walletAddress: string;
+    smartAccountAddress: string;
+    handle: string;
+    createdAt: string;
+  };
+}
+

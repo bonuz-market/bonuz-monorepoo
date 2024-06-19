@@ -10,7 +10,11 @@
   "42170": {
     "BonuzSocialId": "0x3920F2C479D3C805EB89F2fdC6069dda58f4A734"
   },
-  "1116":{
+  "1116": {
     "BonuzSocialId": "0x9220070245b67130977FdF32acA4acdF6aD163cC"
+  },
+  "8453": {
+    "BonuzSocialId": "0x9220070245b67130977FdF32acA4acdF6aD163cC",
+    "BonuzTokens": "0xf13d5259421D84C56A886a6e4F18814555eEb24c"
   }
 }

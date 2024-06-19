@@ -6,8 +6,10 @@ import Image from 'next/image'
 import axios from 'axios'
 import { ChangeEvent } from 'react'
 import { cn } from '@/lib/utils'
+import { gql, useQuery } from '@apollo/client';
 
 import checkboxIcon from "../../../public/icons/checkBox-icon.svg";
+import Header from '@/components/Header'
 
 const digitalDappData = [
   { label: 'ON-CHain Engagement Airdrops', count: '96+' },
@@ -110,6 +112,34 @@ const sliderData = [
   },
 ]
 
+const GET_USER_PROFILES = gql`
+  query GetUserProfilesByHandles($handles: String!) {
+    userProfiles(where: { handle_contains: $handles }) {
+      wallet: id
+      handle
+      name
+      profileImage
+      socialLinks {
+        platform
+        link
+        lastUpdated
+      }
+    }
+  }
+`;
+
+interface GraphQLUser {
+  wallet: string
+  handle: string
+  name: string
+  profileImage: string
+  socialLinks: {
+    platform: string
+    link: string
+    lastUpdated: string
+  }
+}
+
 interface User {
   createdAt: string
   handle: string
@@ -126,7 +156,13 @@ export default function SearchPage() {
   const query = searchParams.get('query')
   const [searchQuery, setSearchQuery] = useState('')
   const [currentIndex, setCurrentIndex] = useState(0)
-  const [results, setResults] = useState<User[]>([])
+  // const [results, setResults] = useState<User[]>([])
+
+  const { data, loading, error } = useQuery(GET_USER_PROFILES, {
+    variables: { handles: searchQuery },
+  });
+
+
 
   const handlePrev = () => {
     setCurrentIndex((prevIndex) => prevIndex - 1)
@@ -142,27 +178,27 @@ export default function SearchPage() {
     }
   }, [query])
 
-  useEffect(() => {
-    const fetchData = async (searchQuery: string) => {
-      try {
-        const response = await axios.get<User[]>('/data/users.json')
-        const users = response.data
-        if (!searchQuery) {
-          setResults(users)
-          return
-        }
-        const filteredUsers = users.filter((user) =>
-          user.handle.toLowerCase().includes(searchQuery.toLowerCase())
-        )
-        setResults(filteredUsers)
-      } catch (error) {
-        console.error('Error fetching data:', error)
-      }
-    }
+  // useEffect(() => {
+  //   const fetchData = async (searchQuery: string) => {
+  //     try {
+  //       const response = await axios.get<User[]>('/data/users.json')
+  //       const users = response.data
+  //       if (!searchQuery) {
+  //         setResults(users)
+  //         return
+  //       }
+  //       const filteredUsers = users.filter((user) =>
+  //         user.handle.toLowerCase().includes(searchQuery.toLowerCase())
+  //       )
+  //       setResults(filteredUsers)
+  //     } catch (error) {
+  //       console.error('Error fetching data:', error)
+  //     }
+  //   }
 
-    // if (searchQuery && searchQuery.length >= 3) {
-    fetchData(searchQuery as string)
-  }, [searchQuery])
+  //   // if (searchQuery && searchQuery.length >= 3) {
+  //   fetchData(searchQuery as string)
+  // }, [searchQuery])
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') {
@@ -179,9 +215,12 @@ export default function SearchPage() {
     // }
   }
 
+  const results = data?.userProfiles as GraphQLUser[] || []
+  console.log("results ", results);
+
   return (
     <div className="bg-[url('/images/third-baackground.svg')] bg-center flex w-full h-auto md:h-[100vh] lg:h-auto xl:h-[100vh] flex-col px-7 pb-6 bg-cover">
-      <div className="flex justify-between  h-[56px] items-center flex-col rounded-b-[30px] bg-opacity-5 md:flex-row gap-0 md:gap-2 px-8 bg-[#a2a2a20a]">
+      {/* <div className="flex justify-between  h-[56px] items-center flex-col rounded-b-[30px] bg-opacity-5 md:flex-row gap-0 md:gap-2 px-8 bg-[#a2a2a20a]">
         <p className="font-[26px] hidden md:flex">bonuz</p>
         <div
           className="w-[25px] h-[25px] md:w-[30px] md:h-[30px] bg-[url('/icons/up-icon.png')] rounded-[50px] bg-center flex justify-center items-center cursor-pointer"
@@ -190,7 +229,9 @@ export default function SearchPage() {
         <button className="rounded-[30px] px-[8px] bg-custom-gradient-mint text-[12px] md:text-[14px]">
           Connect Bonuz On-Chain Social ID
         </button>
-      </div>
+      </div> */}
+      <Header />
+
 
       <div className="mt-2 w-full h-[30px] flex justify-between items-center justify-center p-3 pt-0 gap-2 rounded-[30px] border-2 pb-0 border-[#9651FF]">
         <Image src={'/icons/search.svg'} width={20} height={20} alt="search" />
@@ -293,20 +334,20 @@ export default function SearchPage() {
                     </div>
                   </>
                 )}
-                {results.map((user) => (
-                  <div
+                {results.map((user) => {
+
+                  return <div
                     className='rounded-[30px] bg-[#a2a2a20a] p-4 h-[165px] w-[300px] md:w-[450px] flex flex-row gap-4 justify-center items-center flex-1'
-                    key={user.id}>
-                    {/* <Image
-                      src={staticFace}
-                      width={107}
-                      height={94}
+                    key={user.wallet}>
+                    {user.profileImage ? <img
+                      src={user.profileImage}
+                      className='rounded-full w-[107px] h-[94px]'
                       alt="static-face"
-                    /> */}
+                    /> : <div className='skeleton w-32 h-32'></div>}
+
                     {/* <Skeleton className='h-20 w-20 rounded-full' /> */}
-                    <div className='skeleton w-32 h-32'></div>
                     <div className='flex flex-col w-full items-center gap-2'>
-                      <p>Name</p>
+                      <p>{user.name}</p>
                       <p>@{user.handle}</p>
                       <button className='rounded-[30px] px-[8px] h-[35px] bg-custom-gradient-mint w-full text-[12px] md:text-[16px]'
                         onClick={() => router.push(`/profile/${user.handle}`)}
@@ -315,7 +356,7 @@ export default function SearchPage() {
                       </button>
                     </div>
                   </div>
-                ))}
+                })}
               </div>
             </div>
           </div>

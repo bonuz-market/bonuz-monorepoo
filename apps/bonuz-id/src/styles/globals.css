@@ -104,3 +104,61 @@ header {
   border-color: transparent;
   mix-blend-mode: overlay;
 }
+
+
+/* https://codepen.io/GeorgePark/pen/ZoaRrV */
+/* https://codepen.io/GeorgePark/pen/EEGJEj */
+.shape-outer {
+  display: flex;
+  flex-shrink: 0;
+  height: calc(100px + 4vw);
+  width: calc(100px + 4vw);
+  background-image: linear-gradient(270.9deg, #ce09ff -2.92%, #ffa34e 99.95%);
+}
+
+.shape-inner {
+  height: calc(90px + 4vw);
+  width: calc(90px + 4vw);
+  /* background: url('https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=300&h=300&fit=crop&crop=faces') */
+  /* no-repeat center; */
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  margin: auto;
+}
+
+.shape-outer-small {
+  display: flex;
+  flex-shrink: 0;
+  height: calc(50px + 2vw);
+  width: calc(50px + 2vw);
+  background-image: linear-gradient(270.9deg, #ce09ff -2.92%, #ffa34e 99.95%);
+}
+
+.shape-inner-small {
+  height: calc(40px + 2vw);
+  width: calc(40px + 2vw);
+  /* background: url('https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=300&h=300&fit=crop&crop=faces') */
+  /* no-repeat center; */
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  margin: auto;
+}
+
+.hexagon {
+  -webkit-clip-path: polygon(
+    50% 0%,
+    100% 25%,
+    100% 75%,
+    50% 100%,
+    0% 75%,
+    0% 25%
+  );
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+}
+
+.circle {
+  -webkit-clip-path: circle(50% at 50% 50%);
+  clip-path: circle(50% at 50% 50%);
+}
