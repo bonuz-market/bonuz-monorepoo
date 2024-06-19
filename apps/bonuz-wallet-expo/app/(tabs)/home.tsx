@@ -25,7 +25,7 @@ export default function Home() {
 
   let yourItemsArray = [0, 1, 2];
   return (
-    <LinearGradient colors={['#4B2EA2', '#0E2875']} style={tw`flex-1 flex-col gap-4`}>
+    <LinearGradient colors={['#4B2EA2', '#0E2875']} style={tw`flex-1 flex-col gap-1.5`}>
       <StatusBar backgroundColor={'#5137B1'} />
       <View
         style={[

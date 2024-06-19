@@ -31,7 +31,7 @@ export const HomeBanner = ({ data }: HomeBannerProps) => {
   const autoPlay = true;
 
   return (
-    <View style={tw`h-[140px]`}>
+    <View style={tw`h-[130px]`}>
       <Carousel
         ref={ref}
         width={PAGE_WIDTH}
