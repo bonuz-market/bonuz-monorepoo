@@ -49,11 +49,10 @@ const TabBar = ({ state, descriptors, navigation }: any) => {
               distance={3}
               startColor={'rgba(255, 163, 78, 0.60)'}
               endColor={'rgba(206, 9, 255, 0.45)'}
-              paintInside={true}
-              offset={[0, 0]}
-              style={tw`rounded-[100px]`}
-              disabled={!isFocused}>
-              <Pressable onPress={onPress} key={index} style={tw`items-center`}>
+              style={tw`rounded-[28px] overflow-hidden`}
+              disabled={!isFocused}
+              key={route.key}>
+              <Pressable onPress={onPress} style={tw`items-center`}>
                 <LinearGradient
                   colors={isFocused ? ['#0E2875', '#4B2EA2'] : ['transparent', 'transparent']}
                   style={tw`p-3 rounded-full`}>
