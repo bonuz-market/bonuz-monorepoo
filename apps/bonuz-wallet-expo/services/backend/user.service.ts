@@ -1,3 +1,4 @@
+import { NFTResponse } from '@/entities/nfts';
 import { User } from '@/entities/user';
 
 import { backendClient } from './backend.config';
@@ -49,4 +50,8 @@ export const addUserConnection = async (userId: number) => {
 
 export const removeUserConnection = async (userId: number) => {
   return backendClient.delete(`api/users/me/connections/${userId}`).json();
+};
+
+export const getNftsByAddress = async (address: string) => {
+  return backendClient.get(`api/users/wallet/${address}/nfts`).json<NFTResponse>();
 };
