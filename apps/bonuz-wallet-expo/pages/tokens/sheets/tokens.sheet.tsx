@@ -18,8 +18,8 @@ import { useShallow } from 'zustand/react/shallow';
 import ActivityInfoSection from '@/components/ActivityInfo';
 import ReceiveComponent from '@/components/ReceiveComponent';
 import SendComponent from '@/components/SendComponent';
+import { TokenDataProps, TransactionDataProps } from '@/entities/wallet';
 import { useUserStore } from '@/store';
-import { TokenDataProps, TransactionDataProps } from '@/store/walletTypes';
 import { truncateAddress } from '@/utils/wallet';
 
 interface NftsSheetProps {

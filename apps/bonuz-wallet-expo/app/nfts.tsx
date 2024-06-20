@@ -56,7 +56,7 @@ export default function Nfts() {
           }}>
           <View
             style={tw`bg-transparent flex-col justify-between p-3 mx-5 mt-3 mb-3 bg-[#291167] rounded-xl`}>
-            <Image style={tw`w-full h-[200px]`} source={paramName.avatar} />
+            <Image style={tw`w-full h-[200px]`} source={{ uri: paramName.content.preview.url }} />
             <Text style={tw`text-[#FFFFFF] font-semibold text-[30px] mt-3`}>{paramName.name}</Text>
             <Text style={tw`text-[#FFFFFF] font-semibold text-[20px] mt-3`}>Description</Text>
             <Text style={tw`text-[#9B9AA7] text-[16px] mt-1`}>{paramName.description}</Text>
@@ -76,7 +76,7 @@ export default function Nfts() {
               <Text style={tw`text-[#FFFFFF] text-[16px]`}>Minted At</Text>
               <Text style={tw`text-[#FFFFFF] text-[16px]`}>{paramName.date}</Text>
             </View>
-            <Link style={tw`bg-transparent mt-2`} href={paramName.openseaUrl}>
+            <Link style={tw`bg-transparent mt-2`} href={paramName.external_url}>
               <Text style={tw`text-[#5B98EE] text-[16px]`}>View on Opensea</Text>
             </Link>
             <Text style={tw`text-[#9B9AA7] text-[16px] mt-2`}>

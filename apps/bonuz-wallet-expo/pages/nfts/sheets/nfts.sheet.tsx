@@ -12,20 +12,10 @@ import React, {
 import { Image, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import tw from 'twrnc';
 
-interface NftDataProps {
-    id: number;
-    avatar: any;
-    name: string;
-    description: string;
-    date: string;
-    contract_address: string;
-    token_Id: string;
-    interface: string;
-    openseaUrl: string;
-}
+import { NftData } from '@/entities/wallet';
 
 interface NftsSheetProps {
-    nftData: NftDataProps;
+    nftData: NftData;
 }
 
 export const NftsSheet = forwardRef<BottomSheetModal, NftsSheetProps>(
@@ -57,7 +47,7 @@ export const NftsSheet = forwardRef<BottomSheetModal, NftsSheetProps>(
                                 <View
                                     style={tw`bg-transparent flex-col justify-between p-3 mx-5 mt-3 mb-3 bg-[#291167] rounded-xl`}>
                                     <View style={tw`bg-transparent items-center`}>
-                                        <Image style={tw`w-[200px] h-[260px]`} source={nftData.avatar} />
+                                        <Image style={tw`w-[200px] h-[260px]`} source={{ uri: nftData.content.preview.url }} />
                                     </View>
                                     <Text style={tw`text-[#FFFFFF] font-bold text-[16px] mt-3`}>{nftData.name}</Text>
                                     <View>

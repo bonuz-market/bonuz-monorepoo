@@ -1,11 +1,11 @@
 /* eslint-disable unicorn/consistent-function-scoping */
 /* eslint-disable prettier/prettier */
 import { BottomSheetModal, BottomSheetModalProvider, BottomSheetView } from '@gorhom/bottom-sheet';
+import { useQuery } from '@tanstack/react-query';
 import { LinearGradient } from 'expo-linear-gradient';
 import React, {
     forwardRef,
     useCallback,
-    useEffect,
     useImperativeHandle,
     useRef,
     useState,
@@ -23,8 +23,9 @@ import SwitchButton from '@/components/SwtichButton';
 import TokenInfoSection from '@/components/TokenInfo';
 import WalletTypesSection from '@/components/WalletTypesSection';
 import WalletUnConnected from '@/components/WalletUnConnected';
+import { getActivityDataByWalletAddress, getNftDataByWalletAddress, getTokenDataByWalletAddress } from '@/services/backend/wallets.service';
 import { useUserStore } from '@/store';
-import { networkTypes, NftDataProps, TokenData, TransactionDataProps, WalletDataProps, walletTypes } from '@/store/walletTypes';
+import { networkTypes, walletTypes } from '@/store/walletTypes';
 import { isNotEmpty } from '@/utils/object';
 import { truncateAddress } from '@/utils/wallet';
 
@@ -48,16 +49,9 @@ export const WalletSheet = forwardRef<BottomSheetModal, WalletSheetProps>(
         const bottomSwapModalRef = useRef<BottomSheetModal>(null);
         useImperativeHandle(bottomSheetModalRef, () => _bottomSheetModalRef.current!, []);
 
+
         const [value, setValue] = useState<string>('Crypto');
-        const [walletData, setWalletData] = useState<WalletDataProps[]>([]);
-        const [walletNftData, setWalletNftData] = useState<NftDataProps[]>([]);
-        const [walletTransactionData, setWalletTransactionData] = useState<TransactionDataProps[]>([]);
 
-        const [tokenData, setTokenData] = useState<TokenData[]>([]);
-        const [nftData, setNftData] = useState<any[]>([]);
-        const [activityData, setActivityData] = useState<any[]>([]);
-
-        const [walletAddress, setWalletAddress] = useState<string>('0x00...00000');
         const [totalBalance, setTotalBalance] = useState<string>('0');
         const [swapNetwork, setSwapNetwork] = useState<string>(networkTypes[networkType].network);
         const [destinationNetwork, setDestinationNetwork] = useState<string>(networkTypes[networkType].network);
@@ -66,7 +60,7 @@ export const WalletSheet = forwardRef<BottomSheetModal, WalletSheetProps>(
         const [loading, setLoading] = useState(false);
 
 
-        const snapPoints = ['80%'];
+        const snapPoints = ['60%'];
         const swapSnapPoints = ['50%'];
 
         const handleDismissModalPress = useCallback(() => {
@@ -85,146 +79,16 @@ export const WalletSheet = forwardRef<BottomSheetModal, WalletSheetProps>(
             })),
         );
 
-        const convertDate = (timestamp: string) => {
-            const date = new Date(timestamp);
-            const months = [
-                'Jan',
-                'Feb',
-                'Mar',
-                'Apr',
-                'May',
-                'Jun',
-                'Jul',
-                'Aug',
-                'Sep',
-                'Oct',
-                'Nov',
-                'Dec',
-            ];
-            const month = months[date.getMonth()];
-            const day = date.getDate();
-            const year = date.getFullYear();
-
-            return `${month} ${day}, ${year}`;
-        };
-
-        const buildUrl = (value: string, networkType: number, walletAddress: string) => {
-            let baseUrl = 'https://admin.bonuz.xyz/api/users/wallet';
-
-            let endpoint = `/balance`;
-            if (value === 'NFTs') {
-                endpoint = `/nfts`;
-            } else if (value === 'Activity') {
-                endpoint = `/transactions`;
-            }
-
-            let url = `${baseUrl}/${walletAddress}${endpoint}`;
-
-            if (networkType !== 0) {
-                url += `?chainId=${networkTypes[networkType].chainId}`;
-            }
-
-            return url;
-        };
-
-        useEffect(() => {
-            if (wallet.address) {
-                setLoading(true);
-                setWalletData([]);
-                setWalletNftData([]);
-                setWalletAddress(truncateAddress(wallet.address));
-                setSwapNetwork(networkTypes[networkType].network);
-                const url = buildUrl(value, networkType, wallet.address);
-                fetch(url) // Replace with your API URL
-                    .then((response) => {
-                        if (!response.ok) {
-                            throw new Error(`HTTP error! status: ${response.status}`);
-                        }
-                        return response.json();
-                    })
-                    .then((data: any) => {
-                        switch (value) {
-                            case 'Crypto': {
-                                setTokenData(data.data.tokens);
-                                setLoading(false);
-                                break;
-                            }
-                            case 'NFTs': {
-                                setNftData(data.data.nfts);
-                                setLoading(false);
-                                break;
-                            }
-                            case 'Activity': {
-                                setActivityData(data.data.transactions);
-                                setLoading(false);
-                                break;
-                            }
-                            default: {
-                                console.log('Unknown value:', value);
-                            }
-                        }
-                    })
-                    .catch((error) => {
-                        console.log('fetch error:', error);
-                        setLoading(false);
-                    });
-            }
-        }, [value, wallet, networkType]);
-
-        useEffect(() => {
-            if (tokenData.length > 0 && value === 'Crypto') {
-                let sum = 0,
-                    dataArray: React.SetStateAction<WalletDataProps[]> = [];
-                tokenData.map((token, index) => {
-                    dataArray.push({
-                        id: index + 1,
-                        avatar: { uri: token.logoURI },
-                        name: token.symbol,
-                        network: '',
-                        tokenAmount: Number(token.balance).toFixed(4),
-                        tokenPrice: '~$' + Number(token.quote).toFixed(2),
-                        chainId: token.chainId,
-                        contractAddress: token.address,
-                    });
-                    sum += Number(token.quote);
-                });
-                setTotalBalance(Number(sum).toFixed(2));
-                setWalletData(dataArray);
-            }
-            if (nftData.length > 0 && value === 'NFTs') {
-                let dataArray: React.SetStateAction<NftDataProps[]> = [];
-                nftData.map((data: any, index: number) => {
-                    dataArray.push({
-                        id: index + 1,
-                        avatar: { uri: data.content.preview.url },
-                        name: data.name,
-                        description: data.description,
-                        date: convertDate(data.last_transferred_at),
-                        contract_address: truncateAddress(data.contract_address),
-                        token_Id: data.token_id,
-                        interface: data.interfaces[0],
-                        openseaUrl: data.external_url,
-                    });
-                });
-                setWalletNftData(dataArray);
-            }
-            if (activityData.length > 0 && value === 'Activity') {
-                let dataArray: React.SetStateAction<TransactionDataProps[]> = [];
-                activityData.map((data: any, index: number) => {
-                    dataArray.push({
-                        id: index + 1,
-                        senderAddress: truncateAddress(data.from),
-                        receiverAddress: truncateAddress(data.to),
-                        transferAmount: '~$' + Number(data.quote).toFixed(2),
-                        tokenName: data.name,
-                        tokenSymbol: data.symbol,
-                        date: convertDate(data.timestamp),
-                        explorerUrl: data.explorerUrl,
-                    });
-                });
-                setWalletTransactionData(dataArray);
-            }
-        }, [tokenData, nftData, activityData, value]);
+        const { data } = useQuery({
+            queryKey: [wallet.address, networkType, value],
+            queryFn: ({ queryKey }) => {
+                switch (queryKey[2]) {
+                    case 'Crypto': { return getTokenDataByWalletAddress(queryKey[0], queryKey[1]); }
+                    case 'NFTs': { return getNftDataByWalletAddress(queryKey[0], queryKey[1]); }
+                    case 'Activity': { return getActivityDataByWalletAddress(queryKey[0], queryKey[1]); }
+                }
+            },
+        });
 
         const handleSwapPresentModalPress = useCallback(() => {
             bottomSwapModalRef.current?.present();
@@ -241,6 +105,7 @@ export const WalletSheet = forwardRef<BottomSheetModal, WalletSheetProps>(
             else
                 setDestinationNetwork(networkString);
         }
+
         return (
             <View style={tw`flex-1 bg-transparent`}>
                 <ScrollView
@@ -254,7 +119,7 @@ export const WalletSheet = forwardRef<BottomSheetModal, WalletSheetProps>(
                         <View style={tw`w-full bg-transparent p-5 h-full`}>
                             <View style={tw`bg-transparent`}>
                                 <Text style={tw`font-semibold text-[18px] text-white`}>Main Wallet</Text>
-                                <Text style={tw`font-medium text-[14px] text-white`}>{walletAddress}</Text>
+                                <Text style={tw`font-medium text-[14px] text-white`}>{truncateAddress(wallet.address)}</Text>
                                 <View style={tw`bg-transparent flex-1 flex-row items-center gap-2 mt-4`}>
                                     <Text style={tw`text-[20px] text-white font-semibold`}>${totalBalance}</Text>
                                     <Image
@@ -296,11 +161,11 @@ export const WalletSheet = forwardRef<BottomSheetModal, WalletSheetProps>(
                             </View>
                             <ScrollView style={tw`bg-transparent flex-1`}>
                                 {value === 'Crypto' && (
-                                    <TokenInfoSection value={walletData} loadingStatus={loading} />
+                                    <TokenInfoSection value={data} loadingStatus={loading} />
                                 )}
-                                {value === 'NFTs' && <NftInfoSection value={walletNftData} loadingStatus={loading} />}
+                                {value === 'NFTs' && <NftInfoSection value={data} loadingStatus={loading} />}
                                 {value === 'Activity' && (
-                                    <ActivityInfoSection value={walletTransactionData} loadingStatus={loading} />
+                                    <ActivityInfoSection value={data} loadingStatus={loading} />
                                 )}
                             </ScrollView>
                         </View>
