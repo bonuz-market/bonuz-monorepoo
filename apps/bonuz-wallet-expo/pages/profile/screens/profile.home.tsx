@@ -608,7 +608,7 @@ export const ProfileHome = () => {
 
   const userItems = [
     {
-      gradient: ['#63ADEF', '#4E35B1'],
+      gradient: ['#F67640', '#F14375'],
       image: require('@/assets/images/home/rewards.png'),
       title: 'All Items',
       subtitle: `${nftsData?.length} Items`,
@@ -616,7 +616,7 @@ export const ProfileHome = () => {
       data: nftsData,
     },
     {
-      gradient: ['#F14375', '#F67640'],
+      gradient: ['#009EFD', '#2AF598'],
       image: require('@/assets/images/home/rewards.png'),
       title: 'Vouchers',
       subtitle: `${itemsByTokenType.VOUCHER.length} Items`,
@@ -624,7 +624,7 @@ export const ProfileHome = () => {
       data: itemsByTokenType.VOUCHER,
     },
     {
-      gradient: ['#63ADEF', '#4E35B1'],
+      gradient: ['#3D73EB', '#DE8FFF'],
       image: require('@/assets/images/home/rewards.png'),
       title: 'Memberships',
       subtitle: `${itemsByTokenType.MEMBERSHIP.length} Items`,
@@ -632,7 +632,7 @@ export const ProfileHome = () => {
       data: itemsByTokenType.MEMBERSHIP,
     },
     {
-      gradient: ['#F14375', '#F67640'],
+      gradient: ['#F6866F', '#F971A8'],
       image: require('@/assets/images/home/rewards.png'),
       title: 'Loyalty Programs',
       subtitle: `${itemsByTokenType.LOYALTY.length} Items`,
@@ -640,7 +640,7 @@ export const ProfileHome = () => {
       data: itemsByTokenType.LOYALTY,
     },
     {
-      gradient: ['#63ADEF', '#4E35B1'],
+      gradient: ['#6A34D3', '#5B17DE', '#FB308D'],
       image: require('@/assets/images/home/rewards.png'),
       title: 'Proof of Participation',
       subtitle: `${itemsByTokenType.POP.length} Items`,
@@ -648,7 +648,7 @@ export const ProfileHome = () => {
       data: itemsByTokenType.POP,
     },
     {
-      gradient: ['#63ADEF', '#4E35B1'],
+      gradient: ['#375F90', '#7335FF'],
       image: require('@/assets/images/home/rewards.png'),
       title: 'Certificates',
       subtitle: `${itemsByTokenType.LOYALTY.length} Items`,
@@ -741,14 +741,14 @@ export const ProfileHome = () => {
                     end={[0.2, 0.7]}
                     colors={['#63ADEF', '#4E35B1']}
                     style={tw`flex-1 rounded-3xl pl-[1px] pt-[1px]`}>
-                    <View style={tw`bg-[#3445b4] rounded-3xl flex-col gap-2 pt-2 pb-4`}>
+                    <View style={tw`bg-[#3445b4] rounded-3xl flex-col gap-2 pt-0 pb-4`}>
                       <ItemsCarousel data={userItems} setActiveIndex={setActiveItemIndex} />
                       <View style={tw`bg-transparent flex-col gap-4 px-4`}>
                         {Object.values(userItems)[activeItemIndex].data?.map((item) => (
                           <LinearGradient
                             key={item.token_id}
-                            colors={['#EF5772', '#CD37A1']}
-                            style={tw`w-full flex-1 pr-2 rounded-[20px] flex items-center justify-center flex-row gap-2`}>
+                            colors={['transparent', 'transparent']}
+                            style={tw`w-full flex-1 pr-2 rounded-[20px] flex items-center justify-center flex-row gap-2 bg-[#c5c5c548]`}>
                             <Image
                               style={tw`w-[82px] h-[69px]`}
                               source={{ uri: item.content.preview.url }}

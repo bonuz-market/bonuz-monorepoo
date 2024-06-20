@@ -41,10 +41,11 @@ export const ItemsCarousel = ({ data, setActiveIndex }: ItemsCarouselProps) => {
         scrollAnimationDuration={500}
         onProgressChange={progress}
         modeConfig={{
-          parallaxScrollingOffset: 100,
+          parallaxScrollingOffset: 200,
+          // parallaxAdjacentItemScale: 0.9,
         }}
         onSnapToItem={(index) => setActiveIndex(index)}
-        renderItem={({ item }) => (
+        renderItem={({ item, index }) => (
           <LinearGradient
             colors={item.gradient}
             style={tw`w-full rounded-[20px] p-3 flex items-center justify-center`}>
