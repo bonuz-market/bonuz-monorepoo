@@ -51,7 +51,7 @@ export const WalletSheet = forwardRef<BottomSheetModal, WalletSheetProps>(
         const [loading, setLoading] = useState(false);
 
 
-        const snapPoints = ['70%'];
+        const snapPoints = ['80%'];
         const swapSnapPoints = ['50%'];
 
         const handleDismissModalPress = useCallback(() => {
