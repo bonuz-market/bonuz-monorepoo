@@ -9,12 +9,14 @@ export const getTokenDataByWalletAddress = async (
   networkType: number,
   setLoading: any,
 ) => {
+  console.log('params:', walletAddress, networkType);
   if (walletAddress === undefined || networkType === undefined) return [];
   const res = await backendClient
     .get(`api/users/wallet/${walletAddress}/balance?chainId=${networkTypes[networkType].chainId}`)
     .json<{ data: TokenDataProps }>();
 
   setLoading(false);
+  console.log('data:', res.data.tokens);
   return res.data.tokens;
 };
 

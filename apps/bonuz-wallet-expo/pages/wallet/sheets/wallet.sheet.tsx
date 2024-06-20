@@ -72,12 +72,12 @@ export const WalletSheet = forwardRef<BottomSheetModal, WalletSheetProps>(
         );
 
         const { data } = useQuery({
-            queryKey: [wallet.address, networkType, value, setLoading],
+            queryKey: [wallet.address, networkType, value],
             queryFn: ({ queryKey }) => {
                 switch (queryKey[2]) {
-                    case 'Crypto': { setLoading(true); return getTokenDataByWalletAddress(queryKey[0], queryKey[1], queryKey[3]); }
-                    case 'NFTs': { setLoading(true); return getNftDataByWalletAddress(queryKey[0], queryKey[1], queryKey[3]); }
-                    case 'Activity': { setLoading(true); return getActivityDataByWalletAddress(queryKey[0], queryKey[1], queryKey[3]); }
+                    case 'Crypto': { setLoading(true); return getTokenDataByWalletAddress(queryKey[0], queryKey[1], setLoading); }
+                    case 'NFTs': { setLoading(true); return getNftDataByWalletAddress(queryKey[0], queryKey[1], setLoading); }
+                    case 'Activity': { setLoading(true); return getActivityDataByWalletAddress(queryKey[0], queryKey[1], setLoading); }
                 }
             },
         });
