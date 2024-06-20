@@ -4,7 +4,7 @@ import { Linking, Text, TouchableOpacity, View } from 'react-native';
 import tw from 'twrnc';
 
 import { TransactionData } from '@/entities/wallet';
-import { convertDate, truncateAddress } from '@/utils/wallet';
+import { convertDate, formatPrice, truncateAddress } from '@/utils/wallet';
 
 import LoadingSection from './LoadingSection';
 import NoItemSection from './NoItemSection';
@@ -40,7 +40,7 @@ export default function ActivityInfoSection(props: { value: any; loadingStatus: 
                                                     </Text>
                                                 </View>
                                                 <View style={tw`bg-transparent`}>
-                                                    <Text style={tw`text-white text-[14px] font-normal`}>{transactionData.quote}</Text>
+                                                    <Text style={tw`text-white text-[14px] font-normal`}>{formatPrice(transactionData.quote)}</Text>
                                                 </View>
                                             </View>
                                         </View>

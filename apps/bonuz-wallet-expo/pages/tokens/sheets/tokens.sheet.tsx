@@ -21,6 +21,7 @@ import SendComponent from '@/components/SendComponent';
 import { TokenData } from '@/entities/wallet';
 import { getActivityDataByTokenAddress } from '@/services/backend/wallets.service';
 import { useUserStore } from '@/store';
+import { formatPrice } from '@/utils/wallet';
 
 interface NftsSheetProps {
     tokenData: TokenData;
@@ -67,11 +68,11 @@ export const TokensSheet = forwardRef<BottomSheetModal, NftsSheetProps>(
                 <View style={tw`m-5 py-6 bg-[#4736AD] rounded-xl justify-center items-center`}>
                     <Image style={tw`w-[60px] h-[60px]`} source={{ uri: tokenData.logoURI }} />
                     <View style={tw`bg-transparent flex flex-row gap-2 mt-5`}>
-                        <Text style={tw`text-[16px] font-semibold text-white`}>{tokenData.balance}</Text>
+                        <Text style={tw`text-[16px] font-semibold text-white`}>{formatPrice(Number(tokenData.balance))}</Text>
                         <Text style={tw`text-[16px] font-semibold text-white`}>{tokenData.symbol}</Text>
                     </View>
                     <Text style={tw`text-[14px] font-medium text-[#6E6095] mt-2`}>
-                        {tokenData.quoteRate}
+                        {formatPrice(tokenData.quoteRate)}
                     </Text>
                     <View style={tw`w-full bg-[#FFFFFF] h-[1px] mt-5`} />
                     <View style={tw`flex flex-row justify-between items-center mt-3 w-full`}>

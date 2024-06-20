@@ -39,3 +39,7 @@ export const shortenDiscription = (description: string, prefixLength: number) =>
 
   return `${prefix}...`;
 };
+
+export const formatPrice = (num: number) => {
+  return Number(num.toFixed(5));
+};

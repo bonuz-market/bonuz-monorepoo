@@ -6,7 +6,7 @@ import { Image, Text, TouchableOpacity, View } from 'react-native';
 import tw from 'twrnc';
 
 import { NftData } from '@/entities/wallet';
-import { shortenDiscription } from '@/utils/wallet';
+import { convertDate, shortenDiscription } from '@/utils/wallet';
 
 import LoadingSection from './LoadingSection';
 import NoItemSection from './NoItemSection';
@@ -49,7 +49,7 @@ export default function NftInfoSection(props: { value: any; loadingStatus: boole
                                                     <Text style={tw`text-[12px] font-normal text-white`}>
                                                         {shortenDiscription(nftData.description, 52)}
                                                     </Text>
-                                                    <Text style={tw`text-[12px] font-normal text-white`}>{nftData.last_transferred_at}</Text>
+                                                    <Text style={tw`text-[12px] font-normal text-white`}>{convertDate(nftData.last_transferred_at)}</Text>
                                                 </View>
                                             </View>
                                         </View>

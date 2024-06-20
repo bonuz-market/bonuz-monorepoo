@@ -8,6 +8,7 @@ import { TokenData } from '@/entities/wallet';
 
 import LoadingSection from './LoadingSection';
 import NoItemSection from './NoItemSection';
+import { formatPrice } from '@/utils/wallet';
 
 
 export default function TokenInfoSection(props: { value: any; loadingStatus: any }) {
@@ -36,8 +37,8 @@ export default function TokenInfoSection(props: { value: any; loadingStatus: any
                                             </View>
                                         </View>
                                         <View style={tw`bg-transparent items-end`}>
-                                            <Text style={tw`text-white text-[16px] font-semibold`}>{coindata.balance}</Text>
-                                            <Text style={tw`text-white text-[14px] font-normal`}>{coindata.quote}</Text>
+                                            <Text style={tw`text-white text-[16px] font-semibold`}>{formatPrice(Number(coindata.balance))}</Text>
+                                            <Text style={tw`text-white text-[14px] font-normal`}>{formatPrice(coindata.quote)}</Text>
                                         </View>
                                     </TouchableOpacity>
                                 ))
