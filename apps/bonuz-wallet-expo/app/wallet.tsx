@@ -19,6 +19,8 @@ export default function Wallet() {
   const [walletType, setWalletType] = useState<string>('Smart Wallet');
   const [networkType, setNetworkType] = useState<number>(0);
 
+  const [option, setOption] = useState<string>('receiveType');
+
   const [currentSection, setCurrentSection] = useState<string>('wallet');
 
   const handlePresentModalPress = useCallback(() => {
@@ -27,6 +29,7 @@ export default function Wallet() {
 
   const handleNext = (section: string) => {
     setCurrentSection(section);
+    setOption(section);
     return handlePresentModalPress();
   };
 
@@ -83,6 +86,8 @@ export default function Wallet() {
           setNetworkType={setNetworkType}
           currentSection={currentSection}
           handleNext={handleNext}
+          option={option}
+          setOption={setOption}
         />
       </LinearGradient>
     </BottomSheetModalProvider>

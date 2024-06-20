@@ -1,6 +1,6 @@
 /* eslint-disable unicorn/consistent-function-scoping */
 /* eslint-disable prettier/prettier */
-import { BottomSheetModal, BottomSheetView } from '@gorhom/bottom-sheet';
+import { BottomSheetModal, BottomSheetModalProvider, BottomSheetView } from '@gorhom/bottom-sheet';
 import { LinearGradient } from 'expo-linear-gradient';
 import React, {
     forwardRef,
@@ -12,6 +12,7 @@ import React, {
     useState,
 } from 'react';
 import { Image, ImageBackground, ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import { TextInput } from 'react-native-gesture-handler';
 import tw from 'twrnc';
 import { useShallow } from 'zustand/react/shallow';
 
@@ -35,14 +36,17 @@ interface WalletSheetProps {
     setNetworkType: any;
     currentSection: string;
     handleNext: any;
+    option: string;
+    setOption: any;
 }
 
 export const WalletSheet = forwardRef<BottomSheetModal, WalletSheetProps>(
     (
-        { walletType, setWalletType, networkType, setNetworkType, currentSection, handleNext },
+        { walletType, setWalletType, networkType, setNetworkType, currentSection, handleNext, option, setOption },
         bottomSheetModalRef,
     ) => {
         const _bottomSheetModalRef = useRef<BottomSheetModal>(null);
+        const bottomSwapModalRef = useRef<BottomSheetModal>(null);
         useImperativeHandle(bottomSheetModalRef, () => _bottomSheetModalRef.current!, []);
 
         const [value, setValue] = useState<string>('Crypto');
@@ -56,14 +60,22 @@ export const WalletSheet = forwardRef<BottomSheetModal, WalletSheetProps>(
 
         const [walletAddress, setWalletAddress] = useState<string>('0x00...00000');
         const [totalBalance, setTotalBalance] = useState<string>('0');
+        const [swapNetwork, setSwapNetwork] = useState<string>(networkTypes[networkType].network);
+        const [destinationNetwork, setDestinationNetwork] = useState<string>(networkTypes[networkType].network);
 
+        const [flag, setFlag] = useState<string>('swap');
         const [loading, setLoading] = useState(false);
-        const [option, setOption] = useState<string>('receiveType');
 
-        const snapPoints = useMemo(() => ['80%'], []);
+
+        const snapPoints = ['80%'];
+        const swapSnapPoints = ['50%'];
 
         const handleDismissModalPress = useCallback(() => {
             _bottomSheetModalRef.current?.dismiss();
+        }, []);
+
+        const handleDismissSwapModalPress = useCallback(() => {
+            bottomSwapModalRef.current?.dismiss();
         }, []);
 
         const { auth, user, wallet } = useUserStore(
@@ -74,12 +86,55 @@ export const WalletSheet = forwardRef<BottomSheetModal, WalletSheetProps>(
             })),
         );
 
+        const convertDate = (timestamp: string) => {
+            const date = new Date(timestamp);
+            const months = [
+                'Jan',
+                'Feb',
+                'Mar',
+                'Apr',
+                'May',
+                'Jun',
+                'Jul',
+                'Aug',
+                'Sep',
+                'Oct',
+                'Nov',
+                'Dec',
+            ];
+            const month = months[date.getMonth()];
+            const day = date.getDate();
+            const year = date.getFullYear();
+
+            return `${month} ${day}, ${year}`;
+        };
+
+        const buildUrl = (value: string, networkType: number, walletAddress: string) => {
+            let baseUrl = 'https://admin.bonuz.xyz/api/users/wallet';
+
+            let endpoint = `/balance`;
+            if (value === 'NFTs') {
+                endpoint = `/nfts`;
+            } else if (value === 'Activity') {
+                endpoint = `/transactions`;
+            }
+
+            let url = `${baseUrl}/${walletAddress}${endpoint}`;
+
+            if (networkType !== 0) {
+                url += `?chainId=${networkTypes[networkType].chainId}`;
+            }
+
+            return url;
+        };
+
         useEffect(() => {
             if (wallet.address) {
                 setLoading(true);
                 setWalletData([]);
                 setWalletNftData([]);
                 setWalletAddress(truncateAddress(wallet.address));
+                setSwapNetwork(networkTypes[networkType].network);
                 const url = buildUrl(value, networkType, wallet.address);
                 fetch(url) // Replace with your API URL
                     .then((response) => {
@@ -172,48 +227,21 @@ export const WalletSheet = forwardRef<BottomSheetModal, WalletSheetProps>(
             }
         }, [tokenData, nftData, activityData, value]);
 
-        const convertDate = (timestamp: string) => {
-            const date = new Date(timestamp);
-            const months = [
-                'Jan',
-                'Feb',
-                'Mar',
-                'Apr',
-                'May',
-                'Jun',
-                'Jul',
-                'Aug',
-                'Sep',
-                'Oct',
-                'Nov',
-                'Dec',
-            ];
-            const month = months[date.getMonth()];
-            const day = date.getDate();
-            const year = date.getFullYear();
+        const handleSwapPresentModalPress = useCallback(() => {
+            bottomSwapModalRef.current?.present();
+        }, []);
 
-            return `${month} ${day}, ${year}`;
+        const handleSwapNext = (session: string) => {
+            setFlag(session);
+            return handleSwapPresentModalPress();
         };
 
-        const buildUrl = (value: string, networkType: number, walletAddress: string) => {
-            let baseUrl = 'https://admin.bonuz.xyz/api/users/wallet';
-
-            let endpoint = `/balance`;
-            if (value === 'NFTs') {
-                endpoint = `/nfts`;
-            } else if (value === 'Activity') {
-                endpoint = `/transactions`;
-            }
-
-            let url = `${baseUrl}/${walletAddress}${endpoint}`;
-
-            if (networkType !== 0) {
-                url += `?chainId=${networkTypes[networkType].chainId}`;
-            }
-
-            return url;
-        };
-
+        const handleNetwork = (networkString: string) => {
+            if (flag === 'swap')
+                setSwapNetwork(networkString);
+            else
+                setDestinationNetwork(networkString);
+        }
         return (
             <View style={tw`flex-1 bg-transparent`}>
                 <ScrollView
@@ -290,50 +318,225 @@ export const WalletSheet = forwardRef<BottomSheetModal, WalletSheetProps>(
                     snapPoints={snapPoints}>
                     <BottomSheetView style={tw`flex-1`}>
                         <LinearGradient colors={['#4B2EA2', '#0E2875']} style={tw`flex-1`}>
-                            <ScrollView style={tw`bg-transparent flex-1`}>
-                                {currentSection === 'wallet' && (
-                                    <WalletTypesSection
-                                        walletTypes={walletTypes}
-                                        setWalletType={setWalletType}
-                                        dismissModal={handleDismissModalPress}
-                                    />
-                                )}
-                                {currentSection === 'network' && (
-                                    <NetworkTypesSection
-                                        networkTypes={networkTypes}
-                                        setNetworkType={setNetworkType}
-                                        dismissModal={handleDismissModalPress}
-                                    />
-                                )}
-                                {currentSection === 'receive' && (
-                                    <View>
-                                        <View style={tw`flex flex-row mx-10 justify-between my-5`}>
-                                            <TouchableOpacity onPress={() => setOption('receiveType')}>
-                                                <Text style={tw`text-[20px] text-white`}>Receive</Text>
-                                            </TouchableOpacity>
-                                            <TouchableOpacity onPress={() => setOption('buyType')}>
-                                                <Text style={tw`text-[20px] text-white`}>Buy</Text>
-                                            </TouchableOpacity>
+                            <BottomSheetModalProvider>
+                                <ScrollView style={tw`bg-transparent flex-1`}>
+                                    {currentSection === 'wallet' && (
+                                        <WalletTypesSection
+                                            walletTypes={walletTypes}
+                                            setWalletType={setWalletType}
+                                            dismissModal={handleDismissModalPress}
+                                        />
+                                    )}
+                                    {currentSection === 'network' && (
+                                        <NetworkTypesSection
+                                            networkTypes={networkTypes}
+                                            setNetworkType={setNetworkType}
+                                            dismissModal={handleDismissModalPress}
+                                        />
+                                    )}
+                                    {currentSection === 'receive' && (
+                                        <View>
+                                            <View style={tw`flex flex-row mx-10 justify-between my-5`}>
+                                                <TouchableOpacity onPress={() => setOption('receive')}>
+                                                    <Text style={[tw`text-[20px] text-white p-2`, option === 'receive' && tw`border-[#EC6640] border-b-2`]}>Receive</Text>
+                                                </TouchableOpacity>
+                                                <TouchableOpacity onPress={() => setOption('buyType')}>
+                                                    <Text style={[tw`text-[20px] text-white`, option === 'buyType' && tw`border-[#EC6640] border-b-2`]}>Buy</Text>
+                                                </TouchableOpacity>
+                                            </View>
+                                            {option === 'receive' ? (
+                                                <ReceiveComponent walletAddress={wallet.address} handleDismissModalPress={handleDismissModalPress} />
+                                            ) : (
+                                                <Text style={tw`text-center text-white text-[20px]`}>Coming Soon...</Text>
+                                            )}
                                         </View>
-                                        {option === 'receiveType' ? (
-                                            <ReceiveComponent walletAddress={wallet.address} handleDismissModalPress={handleDismissModalPress} />
-                                        ) : (
-                                            <Text style={tw`text-center text-white text-[20px]`}>Coming Soon...</Text>
-                                        )}
-                                    </View>
-                                )}
-                                {currentSection === 'swap' && (
-                                    <NetworkTypesSection
-                                        networkTypes={networkTypes}
-                                        setNetworkType={setNetworkType}
-                                        dismissModal={handleDismissModalPress}
-                                    />
-                                )}
-                            </ScrollView>
+                                    )}
+                                    {currentSection === 'swap' && (
+                                        <View style={tw`flex-1`}>
+                                            <View style={tw`flex flex-row mx-10 justify-between my-5`}>
+                                                <TouchableOpacity onPress={() => setOption('swap')}>
+                                                    <Text style={[tw`text-[20px] text-white p-2`, option === 'swap' && tw`border-[#EC6640] border-b-2`]}>Swap</Text>
+                                                </TouchableOpacity>
+                                                <TouchableOpacity onPress={() => setOption('bridgeType')}>
+                                                    <Text style={[tw`text-[20px] text-white p-2`, option === 'bridgeType' && tw`border-[#EC6640] border-b-2`]}>Bridge</Text>
+                                                </TouchableOpacity>
+                                            </View>
+                                            {option === 'swap' ? (
+                                                <View style={tw`flex flex-1 mt-8 mx-5`}>
+                                                    <View style={tw`flex flex-row`}>
+                                                        <View style={tw`justify-center w-1/2`}>
+                                                            <Text style={tw`text-white text-[16px] font-semibold`}>Chain:</Text>
+                                                        </View>
+                                                        <TouchableOpacity onPress={() => handleSwapNext('swap')} style={tw`justify-between w-1/2`}>
+                                                            <View style={tw`flex justify-between flex-row items-center`}>
+                                                                <Text style={tw`text-white text-[14px] font-medium`}>{swapNetwork}</Text>
+                                                                <Image
+                                                                    style={tw`w-[10px] h-[5.83px] items-center`}
+                                                                    source={require('@/assets/images/cart/downIcon.png')}
+                                                                />
+                                                            </View>
+                                                        </TouchableOpacity>
+                                                    </View>
+                                                    <View style={tw`mt-4 bg-[#313CA6] p-2 rounded-md gap-2`}>
+                                                        <View style={tw`flex flex-row justify-between`}>
+                                                            <Text style={tw`text-white text-[14px] font-semibold`}>From</Text>
+                                                            <Text style={tw`text-white text-[14px] font-semibold`}>Balance: 0.00000 MATIC</Text>
+                                                        </View>
+                                                        <View>
+                                                            <View style={tw`px-2 bg-[#040D5C] rounded-md w-full h-[40px] flex flex-row justify-between items-center`}>
+                                                                <TextInput
+                                                                    placeholderTextColor={'#BAB3E2'}
+                                                                    placeholder="0"
+                                                                    style={tw`text-[16px] font-normal text-white px-2 bg-[#040D5C] rounded-md w-9/10 h-[40px]`}
+                                                                />
+                                                                <TouchableOpacity onPress={() => console.log('sdf')}>
+                                                                    <Text style={tw`text-[16px] text-white font-normal text-right`}>MAX</Text>
+                                                                </TouchableOpacity>
+                                                            </View>
+                                                        </View>
+                                                        <View>
+                                                            <Text style={tw`text-white text-[14px] font-semibold`}>= $0</Text>
+                                                        </View>
+                                                    </View>
+                                                    <View style={tw`w-full items-center mt-4`}>
+                                                        <Image style={tw`w-4 h-4`} source={require('@/assets/images/swap/swap.png')} />
+                                                    </View>
+                                                    <View style={tw`flex flex-row mt-4`}>
+                                                        <View style={tw`justify-center w-1/2`}>
+                                                            <Text style={tw`text-white text-[16px] font-semibold`}>Destination Chain:</Text>
+                                                        </View>
+                                                        <TouchableOpacity onPress={() => handleSwapNext('destination')} style={tw`justify-between w-1/2`}>
+                                                            <View style={tw`flex justify-between flex-row items-center`}>
+                                                                <Text style={tw`text-white text-[14px] font-medium`}>{destinationNetwork}</Text>
+                                                                <Image
+                                                                    style={tw`w-[10px] h-[5.83px] items-center`}
+                                                                    source={require('@/assets/images/cart/downIcon.png')}
+                                                                />
+                                                            </View>
+                                                        </TouchableOpacity>
+                                                    </View>
+                                                    <View style={tw`mt-4 bg-[#313CA6] p-2 rounded-md gap-2`}>
+                                                        <View style={tw`flex flex-row justify-between`}>
+                                                            <Text style={tw`text-white text-[14px] font-semibold`}>To(Quote)</Text>
+                                                        </View>
+                                                        <View>
+                                                            <Text style={tw`text-white text-[14px] font-semibold`}>0.00000</Text>
+                                                        </View>
+                                                        <View>
+                                                            <Text style={tw`text-white text-[14px] font-semibold`}>= $0</Text>
+                                                        </View>
+                                                    </View>
+                                                    <TouchableOpacity onPress={() => { handleDismissModalPress() }}>
+                                                        <LinearGradient
+                                                            colors={['#EB722E', '#F224A6']}
+                                                            style={tw`bg-transparent mt-10 p-3 justify-center items-center rounded-md`}>
+                                                            <Text style={tw`text-white text-[16px]`}>Swap</Text>
+                                                        </LinearGradient>
+                                                    </TouchableOpacity>
+                                                </View>
+                                            ) : (
+                                                <View style={tw`flex flex-1 mt-8 mx-5`}>
+                                                    <View style={tw`flex flex-row`}>
+                                                        <View style={tw`justify-center w-1/2`}>
+                                                            <Text style={tw`text-white text-[16px] font-semibold`}>Source Chain:</Text>
+                                                        </View>
+                                                        <TouchableOpacity onPress={() => handleSwapNext('swap')} style={tw`justify-between w-1/2`}>
+                                                            <View style={tw`flex justify-between flex-row items-center`}>
+                                                                <Text style={tw`text-white text-[14px] font-medium`}>{swapNetwork}</Text>
+                                                                <Image
+                                                                    style={tw`w-[10px] h-[5.83px] items-center`}
+                                                                    source={require('@/assets/images/cart/downIcon.png')}
+                                                                />
+                                                            </View>
+                                                        </TouchableOpacity>
+                                                    </View>
+                                                    <View style={tw`mt-4 bg-[#313CA6] p-2 rounded-md gap-2`}>
+                                                        <View style={tw`flex flex-row justify-between`}>
+                                                            <Text style={tw`text-white text-[14px] font-semibold`}>From</Text>
+                                                            <Text style={tw`text-white text-[14px] font-semibold`}>Balance: 0.00000 MATIC</Text>
+                                                        </View>
+                                                        <View>
+                                                            <View style={tw`px-2 bg-[#040D5C] rounded-md w-full h-[40px] flex flex-row justify-between items-center`}>
+                                                                <TextInput
+                                                                    placeholderTextColor={'#BAB3E2'}
+                                                                    placeholder="0"
+                                                                    style={tw`text-[16px] font-normal text-white px-2 bg-[#040D5C] rounded-md w-9/10 h-[40px]`}
+                                                                />
+                                                                <TouchableOpacity onPress={() => console.log('sdf')}>
+                                                                    <Text style={tw`text-[16px] text-white font-normal text-right`}>MAX</Text>
+                                                                </TouchableOpacity>
+                                                            </View>
+                                                        </View>
+                                                        <View>
+                                                            <Text style={tw`text-white text-[14px] font-semibold`}>= $0</Text>
+                                                        </View>
+                                                    </View>
+                                                    <View style={tw`w-full items-center mt-4`}>
+                                                        <Image style={tw`w-4 h-4`} source={require('@/assets/images/swap/swap.png')} />
+                                                    </View>
+                                                    <View style={tw`flex flex-row mt-4`}>
+                                                        <View style={tw`justify-center w-1/2`}>
+                                                            <Text style={tw`text-white text-[16px] font-semibold`}>Destination Chain:</Text>
+                                                        </View>
+                                                        <TouchableOpacity onPress={() => handleSwapNext('destination')} style={tw`justify-between w-1/2`}>
+                                                            <View style={tw`flex justify-between flex-row items-center`}>
+                                                                <Text style={tw`text-white text-[14px] font-medium`}>{destinationNetwork}</Text>
+                                                                <Image
+                                                                    style={tw`w-[10px] h-[5.83px] items-center`}
+                                                                    source={require('@/assets/images/cart/downIcon.png')}
+                                                                />
+                                                            </View>
+                                                        </TouchableOpacity>
+                                                    </View>
+                                                    <View style={tw`mt-4 bg-[#313CA6] p-2 rounded-md gap-2`}>
+                                                        <View style={tw`flex flex-row justify-between`}>
+                                                            <Text style={tw`text-white text-[14px] font-semibold`}>To(Quote)</Text>
+                                                        </View>
+                                                        <View>
+                                                            <Text style={tw`text-white text-[14px] font-semibold`}>0.00000</Text>
+                                                        </View>
+                                                        <View>
+                                                            <Text style={tw`text-white text-[14px] font-semibold`}>= $0</Text>
+                                                        </View>
+                                                    </View>
+                                                    <TouchableOpacity onPress={() => { handleDismissModalPress() }}>
+                                                        <LinearGradient
+                                                            colors={['#EB722E', '#F224A6']}
+                                                            style={tw`bg-transparent mt-10 p-3 justify-center items-center rounded-md`}>
+                                                            <Text style={tw`text-white text-[16px]`}>Swap</Text>
+                                                        </LinearGradient>
+                                                    </TouchableOpacity>
+                                                </View>
+                                            )}
+                                        </View>
+
+                                    )}
+                                    <BottomSheetModal
+                                        backgroundStyle={{ backgroundColor: 'white' }}
+                                        ref={bottomSwapModalRef}
+                                        keyboardBlurBehavior="restore"
+                                        index={0}
+                                        handleIndicatorStyle={tw`bg-black h-1 w-10`}
+                                        snapPoints={swapSnapPoints}>
+                                        <BottomSheetView style={tw`flex-1 p-5 gap-4`}>
+                                            {networkTypes.map((value, index) => (
+                                                <>
+                                                    {swapNetwork !== value.network && (
+                                                        <TouchableOpacity key={index} onPress={() => { handleNetwork(value.network); handleDismissSwapModalPress(); }}>
+                                                            <Text style={tw`text-[20px] w-full`}>{value.network}</Text>
+                                                        </TouchableOpacity>
+                                                    )}
+                                                </>
+                                            ))}
+                                        </BottomSheetView>
+                                    </BottomSheetModal>
+                                </ScrollView>
+                            </BottomSheetModalProvider>
                         </LinearGradient>
                     </BottomSheetView>
                 </BottomSheetModal>
-            </View>
+
+            </View >
         );
     });
 

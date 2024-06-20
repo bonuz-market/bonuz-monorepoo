@@ -44,41 +44,31 @@ export const networkTypes = [
   },
   {
     id: 2,
-    network: 'Polygon Mumbai',
-    chainId: '80_001',
-  },
-  {
-    id: 3,
     network: 'Polygon',
     chainId: '137',
   },
   {
-    id: 4,
+    id: 3,
     network: 'Ethereum',
     chainId: '1',
   },
   {
-    id: 5,
+    id: 4,
     network: 'BNB Smart Chain',
     chainId: '56',
   },
   {
-    id: 6,
+    id: 5,
     network: 'Arbitrum',
     chainId: '42_161',
   },
   {
-    id: 7,
-    network: 'Arbitrum Nova',
-    chainId: '42_170',
-  },
-  {
-    id: 8,
+    id: 6,
     network: 'Base',
     chainId: '8453',
   },
   {
-    id: 9,
+    id: 7,
     network: 'Core Dao',
     chainId: '1116',
   },
