@@ -166,3 +166,27 @@ header {
   display: flex !important;
   gap: 20px;
 }
+
+.slick-dots li {
+  background-color: white;
+  height: 0.5rem !important;
+  width: 0.5rem !important;
+  border-radius: 100%;
+}
+.slick-dots .slick-active {
+  width: 2rem !important;
+  height: 0.5rem;
+  border-radius: 10px;
+}
+.slick-dots li button {
+  display: none;
+}
+.slick-slide {
+  width: 200px;
+  height: 150px;
+}
+
+.slick-track .slick-active {
+  width: 210px;
+  height: 160px;
+}

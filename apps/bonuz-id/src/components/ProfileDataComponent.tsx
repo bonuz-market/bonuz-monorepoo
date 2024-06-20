@@ -5,9 +5,10 @@ import { hasNonEmptyLink } from "@/utils";
 import { Icon } from "@iconify/react";
 import { cn } from "@/lib/utils";
 import Slider from "react-slick";
+import Image from "next/image";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-
+import voucherImage from "../../public/images/Header.png";
 interface ProfileDataComponentProps {
   data: any;
 }
@@ -337,7 +338,7 @@ export default function ProfileDataComponent({
             <div
               className={cn(
                 "rounded-[20px] bg-gradient-to-r from-[#009EFD] to-[#2AF598] shadow-[0px_0px_0px_0px_rgba(0,0,0,0.00),-80px_104px_53px_0px_rgba(0,0,0,0.01),-45px_59px_44px_0px_rgba(0,0,0,0.05),-20px_26px_33px_0px_rgba(0,0,0,0.09),-5px_7px_18px_0px_rgba(0,0,0,0.10)] backdrop-blur-[20px] ",
-                "!flex !w-[200px] h-[150px] p-3 flex-col items-start gap-3 flex-shrink-0"
+                "!flex w-full h-full p-3 flex-col items-start gap-3 flex-shrink-0"
               )}
             >
               <div className="flex flex-col justify-center items-start py-2 bg-blend-overlay bg-neutral-400 rounded-[70px]">
@@ -357,7 +358,7 @@ export default function ProfileDataComponent({
             <div
               className={cn(
                 "rounded-[20px] bg-gradient-to-r from-[#FB308D] to-[#C03DD2] shadow-[0px_0px_0px_0px_rgba(0,0,0,0.00),-80px_104px_53px_0px_rgba(0,0,0,0.01),-45px_59px_44px_0px_rgba(0,0,0,0.05),-20px_26px_33px_0px_rgba(0,0,0,0.09),-5px_7px_18px_0px_rgba(0,0,0,0.10)] backdrop-blur-[20px]",
-                "!flex !w-[200px] h-[150px] p-3 flex-col items-start gap-3 flex-shrink-0 "
+                "!flex w-full h-full p-3 flex-col items-start gap-3 flex-shrink-0 "
               )}
             >
               <div className="flex flex-col justify-center items-start p-2 bg-zinc-800 bg-opacity-90 rounded-[70px]">
@@ -377,7 +378,7 @@ export default function ProfileDataComponent({
             <div
               className={cn(
                 "rounded-[20px] bg-gradient-to-r from-[#F67640] to-[#F14375]",
-                "!flex !w-[200px] h-[150px] p-3 justify-between items-start flex-shrink-0"
+                "!flex w-full h-full p-3 justify-between items-start flex-shrink-0"
               )}
             >
               <div className="flex flex-col flex-1">
@@ -407,7 +408,7 @@ export default function ProfileDataComponent({
             <div
               className={cn(
                 "rounded-[20px] bg-gradient-to-r from-[#3D73EB] to-[#DE8FFF] shadow-[0px_0px_0px_0px_rgba(0,0,0,0.00),-80px_104px_53px_0px_rgba(0,0,0,0.01),-45px_59px_44px_0px_rgba(0,0,0,0.05),-20px_26px_33px_0px_rgba(0,0,0,0.09),-5px_7px_18px_0px_rgba(0,0,0,0.10)] backdrop-blur-[20px]",
-                "!flex !w-[200px] h-[150px] p-3 items-start gap-3 flex-shrink-0 "
+                "!flex w-full h-full p-3 items-start gap-3 flex-shrink-0 "
               )}
             >
               <div className="flex flex-col flex-1 py-px">
@@ -438,6 +439,24 @@ export default function ProfileDataComponent({
               </div>
             </div>
           </Slider>
+          <div className={cn("flex w-full mt-10")}>
+            <div className={cn("flex flex-row w-full h-full gap-4 bg-[#979797] rounded-2xl overflow-hidden items-center")}>
+              <Image src={voucherImage} width={185} height={70} alt="voucher1" />
+              <div className={cn("flex flex-col w-full h-full justify-center")}>
+                <text>Voucher</text>
+                <text>Free Drink</text>
+              </div>
+            </div>
+          </div>
+          <div className={cn("flex w-full mt-10")}>
+            <div className={cn("flex flex-row w-full h-full gap-4 bg-[#979797] rounded-2xl overflow-hidden items-center")}>
+              <Image src={voucherImage} width={185} height={70} alt="voucher1" />
+              <div className={cn("flex flex-col w-full h-full justify-center")}>
+                <text>Voucher</text>
+                <text>Free Drink</text>
+              </div>
+            </div>
+          </div>
         </div>
       )}
     </>
