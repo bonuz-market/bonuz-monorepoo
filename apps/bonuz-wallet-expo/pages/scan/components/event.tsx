@@ -19,9 +19,9 @@ export const Event = ({ data, onCheckOut }: EventProps) => {
   return (
     <View style={tw`flex gap-2`}>
       <Image
-        height={116}
+        height={170}
         source={{ uri: data.image.url }}
-        style={tw`w-full h-[116px] rounded-[30px]`}
+        style={tw`w-full h-[170px] rounded-[30px]`}
       />
       <Tabs tabs={['Details', 'Quests', 'Agenda']} value={activeTab} onValueChange={setActiveTab} />
       {activeTab === 'Details' ? (
