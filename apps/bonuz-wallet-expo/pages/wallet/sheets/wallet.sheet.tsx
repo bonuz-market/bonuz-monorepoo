@@ -24,7 +24,7 @@ import TokenInfoSection from '@/components/TokenInfo';
 import WalletTypesSection from '@/components/WalletTypesSection';
 import WalletUnConnected from '@/components/WalletUnConnected';
 import { WalletSheetProps } from '@/entities/wallet';
-import { getActivityDataByWalletAddress, getNftDataByWalletAddress, getTokenDataByWalletAddress } from '@/services/backend/wallets.service';
+import { getActivityDataByWalletAddress, getNftDataByWalletAddress, getTokenDataByWalletAddress, getTotalBalanceByWallet } from '@/services/backend/wallets.service';
 import { useUserStore } from '@/store';
 import { networkTypes, walletTypes } from '@/store/walletTypes';
 import { isNotEmpty } from '@/utils/object';
@@ -44,7 +44,6 @@ export const WalletSheet = forwardRef<BottomSheetModal, WalletSheetProps>(
 
         const [value, setValue] = useState<string>('Crypto');
 
-        const [totalBalance, setTotalBalance] = useState<string>('0');
         const [swapNetwork, setSwapNetwork] = useState<string>(networkTypes[networkType].network);
         const [destinationNetwork, setDestinationNetwork] = useState<string>(networkTypes[networkType].network);
 
@@ -82,6 +81,13 @@ export const WalletSheet = forwardRef<BottomSheetModal, WalletSheetProps>(
             },
         });
 
+        const { data: balance } = useQuery({
+            queryKey: [wallet.address, walletType],
+            queryFn: ({ queryKey }) => {
+                return getTotalBalanceByWallet(queryKey[0]);
+            },
+        });
+
         const handleSwapPresentModalPress = useCallback(() => {
             bottomSwapModalRef.current?.present();
         }, []);
@@ -113,7 +119,7 @@ export const WalletSheet = forwardRef<BottomSheetModal, WalletSheetProps>(
                                 <Text style={tw`font-semibold text-[18px] text-white`}>Main Wallet</Text>
                                 <Text style={tw`font-medium text-[14px] text-white`}>{truncateAddress(wallet.address)}</Text>
                                 <View style={tw`bg-transparent flex-1 flex-row items-center gap-2 mt-4`}>
-                                    <Text style={tw`text-[20px] text-white font-semibold`}>${totalBalance}</Text>
+                                    <Text style={tw`text-[20px] text-white font-semibold`}>${balance}</Text>
                                     <Image
                                         style={tw`w-[20.11px] h-[14px]`}
                                         source={require('@/assets/images/cart/eyeIcon.png')}

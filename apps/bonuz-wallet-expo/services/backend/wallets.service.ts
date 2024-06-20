@@ -4,19 +4,28 @@ import { networkTypes } from '@/store/walletTypes';
 
 import { backendClient } from './backend.config';
 
+export const getTotalBalanceByWallet = async (walletAddress: string) => {
+  if (walletAddress === undefined) return 0;
+  const res = await backendClient
+    .get(`api/users/wallet/${walletAddress}/balance`)
+    .json<{ data: TokenDataProps }>();
+  let balance = 0;
+  for (let i = 0; i < res.data.tokens.length; i++)
+    balance = balance + Number(res.data.tokens[i].balance);
+  return balance;
+};
+
 export const getTokenDataByWalletAddress = async (
   walletAddress: string,
   networkType: number,
   setLoading: any,
 ) => {
-  console.log('params:', walletAddress, networkType);
   if (walletAddress === undefined || networkType === undefined) return [];
   const res = await backendClient
     .get(`api/users/wallet/${walletAddress}/balance?chainId=${networkTypes[networkType].chainId}`)
     .json<{ data: TokenDataProps }>();
 
   setLoading(false);
-  console.log('data:', res.data.tokens);
   return res.data.tokens;
 };
 

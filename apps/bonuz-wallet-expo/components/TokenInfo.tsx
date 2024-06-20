@@ -14,9 +14,7 @@ import NoItemSection from './NoItemSection';
 export default function TokenInfoSection(props: { value: any; loadingStatus: any }) {
     const { value, loadingStatus } = props;
     const navigation = useNavigation();
-    useEffect(() => {
-        console.log('result:', value)
-    }, [value])
+
     return (
         <View>
             {loadingStatus === true ? (
