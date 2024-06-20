@@ -21,41 +21,47 @@ export default function NftInfoSection(props: { value: any; loadingStatus: boole
 
     return (
         <>
-            {value === undefined ? (
-                <NoItemSection />
+            {loadingStatus === true ? (
+                <LoadingSection />
             ) : (
                 <>
-                    {value.length > 0 ? (
-                        value.map((nftData: NftData, index: number) => (
-                            <TouchableOpacity
-                                key={index}
-                                onPress={() => {
-                                    onPressEvent(index + 1);
-                                    navigation.navigate('nfts', { paramName: nftData });
-                                }}
-                            >
-                                <View
-                                    style={tw`bg-transparent flex-row justify-between p-3 mx-5 mt-3 mb-3 bg-[#313CA6] rounded-xl`}>
-                                    <View style={tw`bg-transparent flex flex-row items-center gap-2`}>
-                                        <Image style={tw`w-[80px] h-[80px]`} source={{ uri: nftData.content.preview.url }} />
-                                        <View style={tw`bg-transparent w-78/100 flex flex-col gap-2`}>
-                                            <Text style={tw`text-[16px] text-white font-semibold flex-wrap`}>
-                                                {shortenDiscription(nftData.name, 36)}
-                                            </Text>
-                                            <Text style={tw`text-[12px] font-normal text-white`}>
-                                                {shortenDiscription(nftData.description, 52)}
-                                            </Text>
-                                            <Text style={tw`text-[12px] font-normal text-white`}>{nftData.last_transferred_at}</Text>
-                                        </View>
-                                    </View>
-                                </View>
-                            </TouchableOpacity>
-                        ))
-                    ) : (
+                    {value === undefined ? (
                         <NoItemSection />
-                    )}
+                    ) : (
+                        <>
+                            {value.length > 0 ? (
+                                value.map((nftData: NftData, index: number) => (
+                                    <TouchableOpacity
+                                        key={index}
+                                        onPress={() => {
+                                            onPressEvent(index + 1);
+                                            navigation.navigate('nfts', { paramName: nftData });
+                                        }}
+                                    >
+                                        <View
+                                            style={tw`bg-transparent flex-row justify-between p-3 mx-5 mt-3 mb-3 bg-[#313CA6] rounded-xl`}>
+                                            <View style={tw`bg-transparent flex flex-row items-center gap-2`}>
+                                                <Image style={tw`w-[80px] h-[80px]`} source={{ uri: nftData.content.preview.url }} />
+                                                <View style={tw`bg-transparent w-78/100 flex flex-col gap-2`}>
+                                                    <Text style={tw`text-[16px] text-white font-semibold flex-wrap`}>
+                                                        {shortenDiscription(nftData.name, 36)}
+                                                    </Text>
+                                                    <Text style={tw`text-[12px] font-normal text-white`}>
+                                                        {shortenDiscription(nftData.description, 52)}
+                                                    </Text>
+                                                    <Text style={tw`text-[12px] font-normal text-white`}>{nftData.last_transferred_at}</Text>
+                                                </View>
+                                            </View>
+                                        </View>
+                                    </TouchableOpacity>
+                                ))
+                            ) : (
+                                <NoItemSection />
+                            )}
+                        </>)}
                 </>
-            )}
+            )
+            }
         </>
     );
 }

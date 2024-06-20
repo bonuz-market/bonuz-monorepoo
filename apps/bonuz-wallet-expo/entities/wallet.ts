@@ -15,7 +15,7 @@ export interface TokenData {
   name: string;
   balance: string;
   decimals: string;
-  logoURI: number;
+  logoURI: string;
   symbol: string;
   quote: number;
   quoteRate: number;
