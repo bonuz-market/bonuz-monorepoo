@@ -6,6 +6,7 @@ export const fromPrivateKeyToWallet = (privateKey: string) => {
 };
 
 export const truncateAddress = (address: string) => `${address.slice(0, 6)}...${address.slice(-4)}`;
+
 export const convertDate = (timestamp: string) => {
   const date = new Date(timestamp);
   const months = [
@@ -27,4 +28,14 @@ export const convertDate = (timestamp: string) => {
   const year = date.getFullYear();
 
   return `${month} ${day}, ${year}`;
+};
+
+export const shortenDiscription = (description: string, prefixLength: number) => {
+  if (!description || description.length < prefixLength) {
+    return description; // If the address is too short, return as is
+  }
+
+  const prefix = description.slice(0, prefixLength);
+
+  return `${prefix}...`;
 };

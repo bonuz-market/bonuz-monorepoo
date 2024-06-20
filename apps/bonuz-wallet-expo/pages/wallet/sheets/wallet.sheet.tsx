@@ -23,22 +23,14 @@ import SwitchButton from '@/components/SwtichButton';
 import TokenInfoSection from '@/components/TokenInfo';
 import WalletTypesSection from '@/components/WalletTypesSection';
 import WalletUnConnected from '@/components/WalletUnConnected';
+import { WalletSheetProps } from '@/entities/wallet';
 import { getActivityDataByWalletAddress, getNftDataByWalletAddress, getTokenDataByWalletAddress } from '@/services/backend/wallets.service';
 import { useUserStore } from '@/store';
 import { networkTypes, walletTypes } from '@/store/walletTypes';
 import { isNotEmpty } from '@/utils/object';
 import { truncateAddress } from '@/utils/wallet';
 
-interface WalletSheetProps {
-    walletType: string;
-    setWalletType: any;
-    networkType: number;
-    setNetworkType: any;
-    currentSection: string;
-    handleNext: any;
-    option: string;
-    setOption: any;
-}
+
 
 export const WalletSheet = forwardRef<BottomSheetModal, WalletSheetProps>(
     (
@@ -60,7 +52,7 @@ export const WalletSheet = forwardRef<BottomSheetModal, WalletSheetProps>(
         const [loading, setLoading] = useState(false);
 
 
-        const snapPoints = ['60%'];
+        const snapPoints = ['70%'];
         const swapSnapPoints = ['50%'];
 
         const handleDismissModalPress = useCallback(() => {
@@ -216,7 +208,7 @@ export const WalletSheet = forwardRef<BottomSheetModal, WalletSheetProps>(
                                         </View>
                                     )}
                                     {currentSection === 'swap' && (
-                                        <SwapComponent setOption={setOption} option={option} handleSwapNext={handleSwapNext} swapNetwork={swapNetwork} destinationNetwork={destinationNetwork} handleDismissSwapModalPress={handleDismissSwapModalPress} />
+                                        <SwapComponent setOption={setOption} option={option} handleSwapNext={handleSwapNext} swapNetwork={swapNetwork} destinationNetwork={destinationNetwork} handleDismissModalPress={handleDismissSwapModalPress} />
                                     )}
                                     <BottomSheetModal
                                         backgroundStyle={{ backgroundColor: 'white' }}

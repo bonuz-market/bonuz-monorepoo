@@ -6,6 +6,7 @@ import { Image, Text, TouchableOpacity, View } from 'react-native';
 import tw from 'twrnc';
 
 import { NftData } from '@/entities/wallet';
+import { shortenDiscription } from '@/utils/wallet';
 
 import LoadingSection from './LoadingSection';
 import NoItemSection from './NoItemSection';
@@ -16,16 +17,6 @@ export default function NftInfoSection(props: { value: any; loadingStatus: boole
 
     const onPressEvent = (index: number) => {
         console.log('index:', index);
-    };
-
-    const shortenDiscription = (description: string, prefixLength: number) => {
-        if (!description || description.length < prefixLength) {
-            return description; // If the address is too short, return as is
-        }
-
-        const prefix = description.slice(0, prefixLength);
-
-        return `${prefix}...`;
     };
 
     return (

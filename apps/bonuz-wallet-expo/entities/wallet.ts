@@ -51,3 +51,13 @@ export interface TransactionData {
   quote: number;
   explorerUrl: string;
 }
+export interface WalletSheetProps {
+  walletType: string;
+  setWalletType: any;
+  networkType: number;
+  setNetworkType: any;
+  currentSection: string;
+  handleNext: any;
+  option: string;
+  setOption: any;
+}
