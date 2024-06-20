@@ -6,9 +6,6 @@ import Carousel, { ICarouselInstance, Pagination } from 'react-native-reanimated
 import tw from 'twrnc';
 
 interface ItemsCarouselProps {
-  lineargradient?: string[];
-  start?: [number, number];
-  end?: [number, number];
   data: {
     title: string;
     subtitle: string;
@@ -18,13 +15,7 @@ interface ItemsCarouselProps {
   setActiveIndex: (index: number) => void;
 }
 
-export const ItemsCarousel = ({
-  lineargradient,
-  start,
-  end,
-  data,
-  setActiveIndex,
-}: ItemsCarouselProps) => {
+export const ItemsCarousel = ({ data, setActiveIndex }: ItemsCarouselProps) => {
   const progress = useSharedValue<number>(0);
 
   const window = useWindowDimensions();
@@ -48,6 +39,7 @@ export const ItemsCarousel = ({
         mode="parallax"
         data={data}
         scrollAnimationDuration={500}
+        onProgressChange={progress}
         modeConfig={{
           parallaxScrollingOffset: 100,
         }}
