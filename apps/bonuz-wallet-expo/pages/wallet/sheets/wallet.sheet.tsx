@@ -7,12 +7,10 @@ import React, {
     useCallback,
     useEffect,
     useImperativeHandle,
-    useMemo,
     useRef,
     useState,
 } from 'react';
 import { Image, ImageBackground, ScrollView, Text, TouchableOpacity, View } from 'react-native';
-import { TextInput } from 'react-native-gesture-handler';
 import tw from 'twrnc';
 import { useShallow } from 'zustand/react/shallow';
 
@@ -20,6 +18,7 @@ import ActivityInfoSection from '@/components/ActivityInfo';
 import NetworkTypesSection from '@/components/NetworkTypesSection';
 import NftInfoSection from '@/components/NftInfo';
 import ReceiveComponent from '@/components/ReceiveComponent';
+import SwapComponent from '@/components/SwapComponent';
 import SwitchButton from '@/components/SwtichButton';
 import TokenInfoSection from '@/components/TokenInfo';
 import WalletTypesSection from '@/components/WalletTypesSection';
@@ -28,7 +27,6 @@ import { useUserStore } from '@/store';
 import { networkTypes, NftDataProps, TokenData, TransactionDataProps, WalletDataProps, walletTypes } from '@/store/walletTypes';
 import { isNotEmpty } from '@/utils/object';
 import { truncateAddress } from '@/utils/wallet';
-import SwapComponent from '@/components/SwapComponent';
 
 interface WalletSheetProps {
     walletType: string;
@@ -364,13 +362,13 @@ export const WalletSheet = forwardRef<BottomSheetModal, WalletSheetProps>(
                                         snapPoints={swapSnapPoints}>
                                         <BottomSheetView style={tw`flex-1 p-5 gap-4`}>
                                             {networkTypes.map((value, index) => (
-                                                <>
+                                                <View key={index}>
                                                     {swapNetwork !== value.network && (
                                                         <TouchableOpacity key={index} onPress={() => { handleNetwork(value.network); handleDismissSwapModalPress(); }}>
                                                             <Text style={tw`text-[20px] w-full`}>{value.network}</Text>
                                                         </TouchableOpacity>
                                                     )}
-                                                </>
+                                                </View>
                                             ))}
                                         </BottomSheetView>
                                     </BottomSheetModal>

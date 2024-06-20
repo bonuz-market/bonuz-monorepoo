@@ -58,13 +58,15 @@ export default function Wallet() {
                   style={tw`w-[20px] h-[20px]`}
                   source={require('@/assets/images/cart/worldIcon.png')}
                 />
-                <Text style={tw`text-[14px] font-medium text-white`}>
-                  {networkTypes[networkType].network}
-                </Text>
-                <Image
-                  style={tw`w-[10px] h-[5.83px] items-center`}
-                  source={require('@/assets/images/cart/downIcon.png')}
-                />
+                <View style={tw`bg-transparent flex flex-row justify-center items-center gap-2`}>
+                  <Text style={tw`text-[14px] font-medium text-white`}>
+                    {networkTypes[networkType].network}
+                  </Text>
+                  <Image
+                    style={tw`w-[10px] h-[5.83px] items-center justify-center`}
+                    source={require('@/assets/images/cart/downIcon.png')}
+                  />
+                </View>
               </View>
             </TouchableOpacity>
           </View>

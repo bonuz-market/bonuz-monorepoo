@@ -39,8 +39,8 @@ export const walletTypes = [
 export const networkTypes = [
   {
     id: 1,
-    network: 'All Networks',
-    chainId: '0',
+    network: 'Base',
+    chainId: '8453',
   },
   {
     id: 2,
@@ -64,11 +64,6 @@ export const networkTypes = [
   },
   {
     id: 6,
-    network: 'Base',
-    chainId: '8453',
-  },
-  {
-    id: 7,
     network: 'Core Dao',
     chainId: '1116',
   },
