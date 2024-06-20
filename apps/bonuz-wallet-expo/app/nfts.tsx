@@ -9,6 +9,7 @@ import tw from 'twrnc';
 
 import { StatusBarHeight } from '@/components/StatusbarHeight';
 import { NftsSheet } from '@/pages/nfts/sheets';
+import { convertDate, truncateAddress } from '@/utils/wallet';
 
 export default function Nfts() {
   const { navigate } = useRouter();
@@ -62,19 +63,23 @@ export default function Nfts() {
             <Text style={tw`text-[#9B9AA7] text-[16px] mt-1`}>{paramName.description}</Text>
             <View style={tw`bg-transparent mt-1 flex flex-row justify-between`}>
               <Text style={tw`text-[#FFFFFF] text-[16px]`}>Contract</Text>
-              <Text style={tw`text-[#FFFFFF] text-[16px]`}>{paramName.contract_address}</Text>
+              <Text style={tw`text-[#FFFFFF] text-[16px]`}>
+                {truncateAddress(paramName.contract_address)}
+              </Text>
             </View>
             <View style={tw`bg-transparent mt-1 flex flex-row justify-between`}>
               <Text style={tw`text-[#FFFFFF] text-[16px]`}>Token ID</Text>
-              <Text style={tw`text-[#FFFFFF] text-[16px]`}>{paramName.token_Id}</Text>
+              <Text style={tw`text-[#FFFFFF] text-[16px]`}>{paramName.token_id}</Text>
             </View>
             <View style={tw`bg-transparent mt-1 flex flex-row justify-between`}>
               <Text style={tw`text-[#FFFFFF] text-[16px]`}>Interface</Text>
-              <Text style={tw`text-[#FFFFFF] text-[16px]`}>{paramName.interface}</Text>
+              <Text style={tw`text-[#FFFFFF] text-[16px]`}>{paramName.interfaces[0]}</Text>
             </View>
             <View style={tw`bg-transparent mt-1 flex flex-row justify-between`}>
               <Text style={tw`text-[#FFFFFF] text-[16px]`}>Minted At</Text>
-              <Text style={tw`text-[#FFFFFF] text-[16px]`}>{paramName.date}</Text>
+              <Text style={tw`text-[#FFFFFF] text-[16px]`}>
+                {convertDate(paramName.last_transferred_at)}
+              </Text>
             </View>
             <Link style={tw`bg-transparent mt-2`} href={paramName.external_url}>
               <Text style={tw`text-[#5B98EE] text-[16px]`}>View on Opensea</Text>

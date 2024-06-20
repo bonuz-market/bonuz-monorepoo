@@ -13,15 +13,15 @@ export default function ActivityInfoSection(props: { value: any; loadingStatus: 
     const { value, loadingStatus } = props;
 
     return (
-        <>
+        <View>
             {loadingStatus === true ? (
                 <LoadingSection />
             ) : (
-                <>
+                <View>
                     {value === undefined ? (
                         <NoItemSection />
                     ) : (
-                        <>
+                        <View>
                             {value.length > 0 ? (
                                 value.map((transactionData: TransactionData, index: number) => (
                                     <TouchableOpacity key={index} onPress={() => Linking.openURL(transactionData.explorerUrl)}>
@@ -49,11 +49,11 @@ export default function ActivityInfoSection(props: { value: any; loadingStatus: 
                             ) : (
                                 <NoItemSection />
                             )}
-                        </>
+                        </View>
                     )}
-                </>
+                </View>
             )
             }
-        </>
+        </View>
     );
 }

@@ -15,15 +15,15 @@ export default function TokenInfoSection(props: { value: any; loadingStatus: any
     const navigation = useNavigation();
 
     return (
-        <>
+        <View>
             {loadingStatus === true ? (
                 <LoadingSection />
             ) : (
-                <>
+                <View>
                     {value === undefined ? (
                         <NoItemSection />
                     ) : (
-                        <>
+                        <View>
                             {value.lengh === 0 ? (
                                 <NoItemSection />
                             ) : (
@@ -42,10 +42,10 @@ export default function TokenInfoSection(props: { value: any; loadingStatus: any
                                     </TouchableOpacity>
                                 ))
                             )}
-                        </>
+                        </View>
                     )}
-                </>
+                </View>
             )}
-        </>
+        </View>
     )
 }

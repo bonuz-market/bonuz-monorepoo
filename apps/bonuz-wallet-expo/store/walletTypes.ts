@@ -60,6 +60,6 @@ export const networkTypes = [
   {
     id: 5,
     network: 'Arbitrum',
-    chainId: '42_161',
+    chainId: '42161',
   },
 ];

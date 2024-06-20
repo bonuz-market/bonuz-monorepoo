@@ -37,6 +37,7 @@ export interface NftData {
   description: string;
   external_url: string;
   last_transferred_at: string;
+  interfaces: any;
 }
 
 export interface TransactionDataProps {

@@ -20,15 +20,15 @@ export default function NftInfoSection(props: { value: any; loadingStatus: boole
     };
 
     return (
-        <>
+        <View>
             {loadingStatus === true ? (
                 <LoadingSection />
             ) : (
-                <>
+                <View>
                     {value === undefined ? (
                         <NoItemSection />
                     ) : (
-                        <>
+                        <View>
                             {value.length > 0 ? (
                                 value.map((nftData: NftData, index: number) => (
                                     <TouchableOpacity
@@ -58,10 +58,10 @@ export default function NftInfoSection(props: { value: any; loadingStatus: boole
                             ) : (
                                 <NoItemSection />
                             )}
-                        </>)}
-                </>
-            )
-            }
-        </>
+                        </View>
+                    )}
+                </View>
+            )}
+        </View>
     );
 }
