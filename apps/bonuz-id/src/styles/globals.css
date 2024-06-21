@@ -185,3 +185,15 @@ header {
 .slick-slide {
   height: 170px !important;
 }
+
+.slick-track {
+  align-items: center;
+}
+
+.slick-track .slick-current {
+  height: 180px !important;
+}
+
+.box-transition {
+  transition: height 0.3s ease-in-out;
+}

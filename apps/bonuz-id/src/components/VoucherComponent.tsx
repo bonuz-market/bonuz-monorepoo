@@ -3,12 +3,15 @@ import { cn } from "@/lib/utils";
 
 interface VoucerComponentProps {
     voucher: VoucherProps;
+    currentIndex: number;
+    boxIndex: number;
 }
-export default function VoucherComponent({ voucher }: VoucerComponentProps) {
+export default function VoucherComponent({ voucher, currentIndex, boxIndex }: VoucerComponentProps) {
     return (
         <div
             className={cn(
-                "flex flex-row w-full h-[160px] p-4 gap-2 rounded-[20px] bg-gradient-to-r from-[#009EFD] to-[#2AF598] shadow-[0px_0px_0px_0px_rgba(0,0,0,0.00),-80px_104px_53px_0px_rgba(0,0,0,0.01),-45px_59px_44px_0px_rgba(0,0,0,0.05),-20px_26px_33px_0px_rgba(0,0,0,0.09),-5px_7px_18px_0px_rgba(0,0,0,0.10)] backdrop-blur-[20px] ",
+                "flex flex-row w-full h-[160px] p-4 gap-2 rounded-[20px] bg-gradient-to-r from-[#009EFD] to-[#2AF598] shadow-[0px_0px_0px_0px_rgba(0,0,0,0.00),-80px_104px_53px_0px_rgba(0,0,0,0.01),-45px_59px_44px_0px_rgba(0,0,0,0.05),-20px_26px_33px_0px_rgba(0,0,0,0.09),-5px_7px_18px_0px_rgba(0,0,0,0.10)] backdrop-blur-[20px] box-transition",
+                { 'h-[180px]': currentIndex === boxIndex }
             )}
         >
             <div className="flex flex-col">
@@ -60,7 +63,7 @@ export default function VoucherComponent({ voucher }: VoucerComponentProps) {
                                     alt='background-alt-4'
                                     className="h-[45px] w-[60px]"
                                 />
-                                <div className="h-[45px] w-[60px] rounded-sm text-center">
+                                <div className="h-[45px] w-[60px] rounded-xl justify-center flex text-center items-center bg-[#CBA6F7]">
                                     <text>{voucher.count - 4}+</text>
                                 </div>
                             </div>

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { SetStateAction, useState } from "react";
 import SwitchButton from "./SwitchButton";
 import Collapsible from "./Collapsible";
 import { hasNonEmptyLink } from "@/utils";
@@ -16,15 +16,7 @@ interface ProfileDataComponentProps {
   data: User;
 }
 
-const settings = {
-  infinite: true,
-  slidesToShow: 3,
-  slidesToScroll: 1,
-  variableWidth: true,
-  prevArrow: <></>,
-  nextArrow: <></>,
-  dots: true,
-};
+
 
 export default function ProfileDataComponent({
   data,
@@ -37,6 +29,18 @@ export default function ProfileDataComponent({
 
   const blockchainsWallets = hasNonEmptyLink(data?.links?.blockchainsWallets);
   const digitalIdentifiers = hasNonEmptyLink(data?.links?.digitalIdentifiers);
+  const [currentIndex, setCurrentIndex] = useState<number>(0);
+
+  const settings = {
+    infinite: true,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    variableWidth: true,
+    prevArrow: <></>,
+    nextArrow: <></>,
+    dots: true,
+    afterChange: (index: number) => setCurrentIndex(index),
+  };
 
   return (
     <>
@@ -339,7 +343,7 @@ export default function ProfileDataComponent({
         <div className={cn("slider-container w-[800px]")}>
           <Slider {...settings}>
             {voucherSliderData.map((data, index) => (
-              <VoucherComponent key={index} voucher={data} />
+              <VoucherComponent key={index} voucher={data} currentIndex={currentIndex} boxIndex={index} />
             ))}
           </Slider>
 
