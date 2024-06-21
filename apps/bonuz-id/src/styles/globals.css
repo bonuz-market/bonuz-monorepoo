@@ -181,12 +181,7 @@ header {
 .slick-dots li button {
   display: none;
 }
-.slick-slide {
-  width: 200px;
-  height: 150px;
-}
 
-.slick-track .slick-active {
-  width: 210px;
-  height: 160px;
+.slick-slide {
+  height: 170px !important;
 }
