@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Link, useLocalSearchParams, useNavigation } from 'expo-router';
 import { useLayoutEffect } from 'react';
-import { FlatList, ImageBackground, Pressable, Text, View } from 'react-native';
+import { ActivityIndicator, FlatList, ImageBackground, Pressable, Text, View } from 'react-native';
 import tw from 'twrnc';
 
 import { BACKEND_ENDPOINT } from '@/services/backend/backend.config';
@@ -66,6 +66,9 @@ const RealWorldList = () => {
         ItemSeparatorComponent={() => <View style={tw`h-4`} />}
         refreshing={isLoading}
         onRefresh={refetch}
+        ListEmptyComponent={() => {
+          return isLoading && <ActivityIndicator />;
+        }}
       />
     </LinearGradient>
   );
