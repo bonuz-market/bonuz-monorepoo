@@ -4,8 +4,7 @@ export const getTokenDataByChainId = async (
   setSwapDesToken: any,
   option: string,
 ) => {
-  if (chainId === undefined) return 0;
-  console.log('called');
+  if (chainId === undefined) return [];
   const res = await fetch(
     `https://aggregator-api.xy.finance/v1/recommendedTokens?chainId=${chainId}`,
     {

@@ -296,7 +296,7 @@ export const WalletSheet = forwardRef<BottomSheetModal, WalletSheetProps>(
                                         snapPoints={snapPoints}>
                                         <BottomSheetView style={tw`flex-1 p-5 gap-4`}>
                                             <ScrollView contentContainerStyle={{ paddingBottom: 20 }}>
-                                                {tokens.map((value: TokenProps, index: number) => (
+                                                {tokens.length > 0 && tokens.map((value: TokenProps, index: number) => (
                                                     <TouchableOpacity
                                                         key={index}
                                                         onPress={() => {
@@ -304,10 +304,10 @@ export const WalletSheet = forwardRef<BottomSheetModal, WalletSheetProps>(
                                                             if (option === 'swap') setSwapToken(value);
                                                             else setSwapDesToken(value);
                                                         }}
-                                                        style={tw`flex flex-row items-center gap-2`}
+                                                        style={tw`flex flex-row items-center mt-2`}
                                                     >
                                                         <Image style={tw`w-[40px] h-[40px] rounded-full`} source={{ uri: value.logoURI }} />
-                                                        <Text style={tw`text-[16px] font-medium text-white`}>{value.name}</Text>
+                                                        <Text style={tw`text-[16px] font-medium text-white ml-2`}>{value.name}</Text>
                                                     </TouchableOpacity>
                                                 ))}
                                             </ScrollView>
