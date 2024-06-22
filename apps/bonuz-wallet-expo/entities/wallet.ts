@@ -40,6 +40,14 @@ export interface NftData {
   interfaces: any;
 }
 
+export interface TokenProps {
+  address: string;
+  chainId: number;
+  logoURI: string;
+  name: string;
+  symbol: string;
+  decimals: number;
+}
 export interface TransactionDataProps {
   transactions: TransactionData[];
 }

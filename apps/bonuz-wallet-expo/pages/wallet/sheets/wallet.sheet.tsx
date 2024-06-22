@@ -23,7 +23,8 @@ import SwitchButton from '@/components/SwtichButton';
 import TokenInfoSection from '@/components/TokenInfo';
 import WalletTypesSection from '@/components/WalletTypesSection';
 import WalletUnConnected from '@/components/WalletUnConnected';
-import { WalletSheetProps } from '@/entities/wallet';
+import { TokenProps, WalletSheetProps } from '@/entities/wallet';
+import { getTokenDataByChainId } from '@/services/backend/swap.service';
 import { getActivityDataByWalletAddress, getNftDataByWalletAddress, getTokenDataByWalletAddress, getTotalBalanceByWallet } from '@/services/backend/wallets.service';
 import { useUserStore } from '@/store';
 import { networkTypes, walletTypes } from '@/store/walletTypes';
@@ -39,6 +40,8 @@ export const WalletSheet = forwardRef<BottomSheetModal, WalletSheetProps>(
     ) => {
         const _bottomSheetModalRef = useRef<BottomSheetModal>(null);
         const bottomSwapModalRef = useRef<BottomSheetModal>(null);
+        const bottomTokenModalRef = useRef<BottomSheetModal>(null);
+
         useImperativeHandle(bottomSheetModalRef, () => _bottomSheetModalRef.current!, []);
 
 
@@ -54,12 +57,24 @@ export const WalletSheet = forwardRef<BottomSheetModal, WalletSheetProps>(
         const snapPoints = ['80%'];
         const swapSnapPoints = ['50%'];
 
+        const [swapToken, setSwapToken] = useState<TokenProps>({
+            address: '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE',
+            name: 'ETH',
+            chainId: 1,
+            symbol: 'ETH',
+            logoURI: 'https://assets.coingecko.com/coins/images/279/small/ethereum.png?1595348880',
+            decimals: 18,
+        });
+
         const handleDismissModalPress = useCallback(() => {
             _bottomSheetModalRef.current?.dismiss();
         }, []);
 
         const handleDismissSwapModalPress = useCallback(() => {
             bottomSwapModalRef.current?.dismiss();
+        }, []);
+        const handleDismissTokenModalPress = useCallback(() => {
+            bottomTokenModalRef.current?.dismiss();
         }, []);
 
         const { auth, user, wallet } = useUserStore(
@@ -88,13 +103,33 @@ export const WalletSheet = forwardRef<BottomSheetModal, WalletSheetProps>(
             },
         });
 
+        const { data: tokens } = useQuery({
+            queryKey: [swapNetwork],
+            queryFn: ({ queryKey }) => {
+                console.log("network:", swapNetwork);
+                for (const networkType of networkTypes) {
+                    if (swapNetwork === networkType.network) {
+                        return getTokenDataByChainId(Number(networkType.chainId), setSwapToken);
+                    }
+                }
+            },
+        });
+
         const handleSwapPresentModalPress = useCallback(() => {
             bottomSwapModalRef.current?.present();
+        }, []);
+
+        const handleTokenPresentModalPress = useCallback(() => {
+            bottomTokenModalRef.current?.present();
         }, []);
 
         const handleSwapNext = (session: string) => {
             setFlag(session);
             return handleSwapPresentModalPress();
+        };
+
+        const handleTokenSection = () => {
+            return handleTokenPresentModalPress();
         };
 
         const handleNetwork = (networkString: string) => {
@@ -214,7 +249,7 @@ export const WalletSheet = forwardRef<BottomSheetModal, WalletSheetProps>(
                                         </View>
                                     )}
                                     {currentSection === 'swap' && (
-                                        <SwapComponent setOption={setOption} option={option} handleSwapNext={handleSwapNext} swapNetwork={swapNetwork} destinationNetwork={destinationNetwork} handleDismissModalPress={handleDismissSwapModalPress} />
+                                        <SwapComponent setOption={setOption} option={option} handleSwapNext={handleSwapNext} swapNetwork={swapNetwork} destinationNetwork={destinationNetwork} handleDismissModalPress={handleDismissSwapModalPress} handleTokenSection={handleTokenSection} swapToken={swapToken} />
                                     )}
                                     <BottomSheetModal
                                         backgroundStyle={{ backgroundColor: 'white' }}
@@ -224,15 +259,48 @@ export const WalletSheet = forwardRef<BottomSheetModal, WalletSheetProps>(
                                         handleIndicatorStyle={tw`bg-black h-1 w-10`}
                                         snapPoints={swapSnapPoints}>
                                         <BottomSheetView style={tw`flex-1 p-5 gap-4`}>
-                                            {networkTypes.map((value, index) => (
-                                                <View key={index}>
-                                                    {swapNetwork !== value.network && (
-                                                        <TouchableOpacity key={index} onPress={() => { handleNetwork(value.network); handleDismissSwapModalPress(); }}>
-                                                            <Text style={tw`text-[20px] w-full`}>{value.network}</Text>
+                                            {networkTypes.map((value, index) => {
+                                                if (swapNetwork !== value.network) {
+                                                    return (
+                                                        <TouchableOpacity
+                                                            key={index}
+                                                            onPress={() => {
+                                                                handleNetwork(value.network);
+                                                                handleDismissSwapModalPress();
+                                                            }}
+                                                        >
+                                                            <Text style={tw`text-[20px] w-full`}>
+                                                                {value.network}
+                                                            </Text>
                                                         </TouchableOpacity>
-                                                    )}
-                                                </View>
-                                            ))}
+                                                    );
+                                                }
+                                            })}
+                                        </BottomSheetView>
+                                    </BottomSheetModal>
+                                    <BottomSheetModal
+                                        backgroundStyle={{ backgroundColor: '#313CA6' }}
+                                        ref={bottomTokenModalRef}
+                                        keyboardBlurBehavior="restore"
+                                        index={0}
+                                        handleIndicatorStyle={tw`bg-black h-1 w-10`}
+                                        snapPoints={snapPoints}>
+                                        <BottomSheetView style={tw`flex-1 p-5 gap-4`}>
+                                            <ScrollView contentContainerStyle={{ paddingBottom: 20 }}>
+                                                {tokens.map((value: TokenProps, index: number) => (
+                                                    <TouchableOpacity
+                                                        key={index}
+                                                        onPress={() => {
+                                                            handleDismissTokenModalPress();
+                                                            setSwapToken(value)
+                                                        }}
+                                                        style={tw`flex flex-row items-center gap-2`}
+                                                    >
+                                                        <Image style={tw`w-[40px] h-[40px] rounded-full`} source={{ uri: value.logoURI }} />
+                                                        <Text style={tw`text-[16px] font-medium text-white`}>{value.name}</Text>
+                                                    </TouchableOpacity>
+                                                ))}
+                                            </ScrollView>
                                         </BottomSheetView>
                                     </BottomSheetModal>
                                 </ScrollView>
