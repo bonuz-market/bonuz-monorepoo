@@ -7,8 +7,8 @@ import tw from 'twrnc';
 import { TokenProps } from '@/entities';
 
 
-export default function SwapComponent(props: { setOption: any; option: string, handleSwapNext: any, swapNetwork: string, destinationNetwork: string, handleDismissModalPress: any, handleTokenSection: any, swapToken: TokenProps }) {
-    const { setOption, option, handleSwapNext, swapNetwork, destinationNetwork, handleDismissModalPress, handleTokenSection, swapToken } = props;
+export default function SwapComponent(props: { setOption: any; option: string, handleSwapNext: any, swapNetwork: string, destinationNetwork: string, handleDismissModalPress: any, handleTokenSection: any, swapToken: TokenProps, swapDesToken: TokenProps }) {
+    const { setOption, option, handleSwapNext, swapNetwork, destinationNetwork, handleDismissModalPress, handleTokenSection, swapToken, swapDesToken } = props;
 
 
     return (
@@ -85,8 +85,8 @@ export default function SwapComponent(props: { setOption: any; option: string, h
                         </View>
                         <TouchableOpacity onPress={() => handleTokenSection()}>
                             <View style={tw`flex flex-row justify-between items-center gap-2 `}>
-                                <Image style={tw`w-[40px] h-[40px] rounded-full`} source={{ uri: swapToken.logoURI }} />
-                                <Text style={tw`text-white font-semibold text-[14px]`}>{swapToken.name}</Text>
+                                <Image style={tw`w-[40px] h-[40px] rounded-full`} source={{ uri: swapDesToken.logoURI }} />
+                                <Text style={tw`text-white font-semibold text-[14px]`}>{swapDesToken.name}</Text>
                                 <Image
                                     style={tw`w-[10px] h-[5.83px] items-center justify-center`}
                                     source={require('@/assets/images/cart/downIcon.png')}

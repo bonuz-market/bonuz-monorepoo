@@ -1,4 +1,9 @@
-export const getTokenDataByChainId = async (chainId: number, setSwapToken: any) => {
+export const getTokenDataByChainId = async (
+  chainId: number,
+  setSwapToken: any,
+  setSwapDesToken: any,
+  option: string,
+) => {
   if (chainId === undefined) return 0;
   console.log('called');
   const res = await fetch(
@@ -10,6 +15,7 @@ export const getTokenDataByChainId = async (chainId: number, setSwapToken: any) 
   );
   const data = await res.json();
   console.log('data:', data.recommendedTokens);
-  setSwapToken(data.recommendedTokens[0]);
+  if (option === 'swap') setSwapToken(data.recommendedTokens[0]);
+  else setSwapDesToken(data.recommendedTokens[0]);
   return data.recommendedTokens;
 };
