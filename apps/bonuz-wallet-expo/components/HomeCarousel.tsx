@@ -1,6 +1,8 @@
 import { LinearGradient } from 'expo-linear-gradient';
+import { Link } from 'expo-router';
+import { ExpoRouter } from 'expo-router/types/expo-router';
 import React from 'react';
-import { ImageBackground, Text, useWindowDimensions, View } from 'react-native';
+import { ImageBackground, Pressable, Text, useWindowDimensions, View } from 'react-native';
 import { useSharedValue } from 'react-native-reanimated';
 import Carousel, { ICarouselInstance, Pagination } from 'react-native-reanimated-carousel';
 import tw from 'twrnc';
@@ -9,7 +11,7 @@ interface HomeCarouselProps {
   title: string;
   right: JSX.Element;
   badgeCount: number;
-  data: { image: string; title: string }[];
+  data: { image: string; title: string; href: ExpoRouter.Href }[];
   style?: any;
 }
 
@@ -65,14 +67,22 @@ export default function HomeCarousel({ title, right, badgeCount, data, style }: 
           onProgressChange={progress}
           scrollAnimationDuration={1000}
           renderItem={({ item }) => (
-            <ImageBackground
-              style={tw`w-full h-full rounded-[20px] justify-end`}
-              imageStyle={tw`rounded-[20px]`}
-              height={170}
-              source={{ uri: item.image }}>
-              <Text style={tw`text-xl text-white font-semibold p-4`}>{item.title}</Text>
-            </ImageBackground>
+            <Link href={item.href} asChild>
+              <Pressable>
+                <ImageBackground
+                  style={tw`w-full h-full rounded-[20px] justify-end`}
+                  imageStyle={tw`rounded-[20px]`}
+                  height={170}
+                  source={{ uri: item.image }}>
+                  <Text style={tw`text-xl text-white font-semibold p-4`}>{item.title}</Text>
+                </ImageBackground>
+              </Pressable>
+            </Link>
           )}
+          onConfigurePanGesture={(g) => {
+            g.activeOffsetX([-20, 20]);
+            g.failOffsetY([-20, 20]);
+          }}
         />
         <Pagination.Basic
           progress={progress}

@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { LinearGradient } from 'expo-linear-gradient';
-import { useRouter } from 'expo-router';
+import { Link, useRouter } from 'expo-router';
 import React, { useState } from 'react';
 import { Image, ScrollView, StatusBar, TextInput, TouchableOpacity } from 'react-native';
 import tw from 'twrnc';
@@ -20,7 +20,6 @@ import {
 } from '@/services/backend/discovery.service';
 
 export default function Home() {
-  const [eventIndex, setEventIndex] = useState(0);
   const tabBarMargin = useBottomTabBarMargin();
   const { navigate } = useRouter();
 
@@ -31,7 +30,7 @@ export default function Home() {
 
   const { data: realWorldData } = useQuery({
     queryKey: ['realWorldData'],
-    queryFn: getRealWorldData,
+    queryFn: async () => getRealWorldData(),
     select: (data) => {
       return data.docs.map((item) => ({
         ...item,
@@ -47,7 +46,7 @@ export default function Home() {
 
   const { data: digitalWorldData } = useQuery({
     queryKey: ['digitalWorldData'],
-    queryFn: getDigitalWorldData,
+    queryFn: async () => getDigitalWorldData(),
     select: (data) => {
       return data.docs.map((item) => ({
         ...item,
@@ -146,13 +145,21 @@ export default function Home() {
                 title={category}
                 badgeCount={partners.length}
                 right={
-                  <View style={tw`px-3 py-1 bg-[#684FCD] rounded-full`}>
+                  <Link
+                    href={{
+                      pathname: '/(discover)/realWorld/[category]',
+                      params: { category },
+                    }}>
                     <Text style={tw`text-white text-sm font-semibold`}>View All</Text>
-                  </View>
+                  </Link>
                 }
-                data={partners.map((partner) => ({
+                data={partners.slice(0, 3).map((partner) => ({
                   title: partner.name,
                   image: partner.image.url,
+                  href: {
+                    pathname: '/(discover)/realWorld/partner/[slug]',
+                    params: { slug: partner.id },
+                  },
                 }))}
               />
             ))
@@ -163,12 +170,21 @@ export default function Home() {
                 badgeCount={apps.length}
                 right={
                   <View style={tw`px-3 py-1 bg-[#684FCD] rounded-full`}>
-                    <Text style={tw`text-white text-sm font-semibold`}>View All</Text>
+                    <Link
+                      href={{
+                        pathname: '/(discover)/digitalWorld/[category]',
+                        params: { category },
+                      }}>
+                      <Text style={tw`text-white text-sm font-semibold`}>View All</Text>
+                    </Link>
                   </View>
                 }
                 data={apps.slice(0, 3).map((app) => ({
                   title: app.name,
                   image: app.image.url,
+                  href: {
+                    pathname: '/home',
+                  },
                 }))}
               />
             ))}
