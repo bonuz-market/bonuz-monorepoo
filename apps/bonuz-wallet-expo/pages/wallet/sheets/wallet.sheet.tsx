@@ -116,7 +116,6 @@ export const WalletSheet = forwardRef<BottomSheetModal, WalletSheetProps>(
         const { data: tokens } = useQuery({
             queryKey: [swapNetwork],
             queryFn: ({ queryKey }) => {
-                console.log("network:", swapNetwork);
                 for (const networkType of networkTypes) {
                     if (swapNetwork === networkType.network) {
                         return getTokenDataByChainId(Number(networkType.chainId), setSwapToken, setSwapDesToken, swapTokenType);
