@@ -7,8 +7,8 @@ import tw from 'twrnc';
 import { TokenProps } from '@/entities';
 
 
-export default function SwapComponent(props: { setOption: any; option: string, handleSwapNext: any, swapNetwork: string, destinationNetwork: string, handleDismissModalPress: any, handleTokenSection: any, swapToken: TokenProps, swapDesToken: TokenProps }) {
-    const { setOption, option, handleSwapNext, swapNetwork, destinationNetwork, handleDismissModalPress, handleTokenSection, swapToken, swapDesToken } = props;
+export default function SwapComponent(props: { setOption: any; option: string, handleSwapNext: any, swapNetwork: string, destinationNetwork: string, handleDismissModalPress: any, handleTokenSection: any, swapToken: TokenProps, swapDesToken: TokenProps, setSwapTokenType: any }) {
+    const { setOption, option, handleSwapNext, swapNetwork, destinationNetwork, handleDismissModalPress, handleTokenSection, swapToken, swapDesToken, setSwapTokenType } = props;
 
 
     return (
@@ -53,7 +53,7 @@ export default function SwapComponent(props: { setOption: any; option: string, h
                                     <Text style={tw`text-[16px] text-white font-normal text-right`}>MAX</Text>
                                 </TouchableOpacity>
                             </View>
-                            <TouchableOpacity onPress={() => handleTokenSection()}>
+                            <TouchableOpacity onPress={() => { handleTokenSection(); setSwapTokenType('sourceSwapToken') }}>
                                 <View style={tw`flex flex-row justify-between items-center gap-2 `}>
                                     <Image style={tw`w-[40px] h-[40px] rounded-full`} source={{ uri: swapToken.logoURI }} />
                                     <Text style={tw`text-white font-semibold text-[14px]`}>{swapToken.name}</Text>
@@ -83,7 +83,7 @@ export default function SwapComponent(props: { setOption: any; option: string, h
                                 <Text style={tw`text-white text-[14px] font-semibold`}>= $0</Text>
                             </View>
                         </View>
-                        <TouchableOpacity onPress={() => handleTokenSection()}>
+                        <TouchableOpacity onPress={() => { handleTokenSection(); setSwapTokenType('desSwapToken') }}>
                             <View style={tw`flex flex-row justify-between items-center gap-2 `}>
                                 <Image style={tw`w-[40px] h-[40px] rounded-full`} source={{ uri: swapDesToken.logoURI }} />
                                 <Text style={tw`text-white font-semibold text-[14px]`}>{swapDesToken.name}</Text>

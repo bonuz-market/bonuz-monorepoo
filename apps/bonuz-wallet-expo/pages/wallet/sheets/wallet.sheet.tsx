@@ -46,6 +46,7 @@ export const WalletSheet = forwardRef<BottomSheetModal, WalletSheetProps>(
 
 
         const [value, setValue] = useState<string>('Crypto');
+        const [swapTokenType, setSwapTokenType] = useState<string>('sourceSwapToken');
 
         const [swapNetwork, setSwapNetwork] = useState<string>(networkTypes[networkType].network);
         const [destinationNetwork, setDestinationNetwork] = useState<string>(networkTypes[networkType].network);
@@ -118,7 +119,7 @@ export const WalletSheet = forwardRef<BottomSheetModal, WalletSheetProps>(
                 console.log("network:", swapNetwork);
                 for (const networkType of networkTypes) {
                     if (swapNetwork === networkType.network) {
-                        return getTokenDataByChainId(Number(networkType.chainId), setSwapToken, setSwapDesToken, option);
+                        return getTokenDataByChainId(Number(networkType.chainId), setSwapToken, setSwapDesToken, swapTokenType);
                     }
                 }
             },
@@ -258,7 +259,7 @@ export const WalletSheet = forwardRef<BottomSheetModal, WalletSheetProps>(
                                         </View>
                                     )}
                                     {currentSection === 'swap' && (
-                                        <SwapComponent setOption={setOption} option={option} handleSwapNext={handleSwapNext} swapNetwork={swapNetwork} destinationNetwork={destinationNetwork} handleDismissModalPress={handleDismissSwapModalPress} handleTokenSection={handleTokenSection} swapToken={swapToken} swapDesToken={swapDesToken} />
+                                        <SwapComponent setOption={setOption} option={option} handleSwapNext={handleSwapNext} swapNetwork={swapNetwork} destinationNetwork={destinationNetwork} handleDismissModalPress={handleDismissSwapModalPress} handleTokenSection={handleTokenSection} swapToken={swapToken} swapDesToken={swapDesToken} setSwapTokenType={setSwapTokenType} />
                                     )}
                                     <BottomSheetModal
                                         backgroundStyle={{ backgroundColor: 'white' }}
@@ -296,12 +297,12 @@ export const WalletSheet = forwardRef<BottomSheetModal, WalletSheetProps>(
                                         snapPoints={snapPoints}>
                                         <BottomSheetView style={tw`flex-1 p-5 gap-4`}>
                                             <ScrollView contentContainerStyle={{ paddingBottom: 20 }}>
-                                                {tokens.length > 0 && tokens.map((value: TokenProps, index: number) => (
+                                                {tokens !== undefined && tokens.length > 0 && tokens.map((value: TokenProps, index: number) => (
                                                     <TouchableOpacity
                                                         key={index}
                                                         onPress={() => {
                                                             handleDismissTokenModalPress();
-                                                            if (option === 'swap') setSwapToken(value);
+                                                            if (swapTokenType === 'sourceSwapToken') setSwapToken(value);
                                                             else setSwapDesToken(value);
                                                         }}
                                                         style={tw`flex flex-row items-center mt-2`}

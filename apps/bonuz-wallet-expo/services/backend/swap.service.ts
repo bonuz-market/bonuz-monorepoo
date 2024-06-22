@@ -2,7 +2,7 @@ export const getTokenDataByChainId = async (
   chainId: number,
   setSwapToken: any,
   setSwapDesToken: any,
-  option: string,
+  swapTokenType: string,
 ) => {
   if (chainId === undefined) return [];
   const res = await fetch(
@@ -13,8 +13,7 @@ export const getTokenDataByChainId = async (
     },
   );
   const data = await res.json();
-  console.log('data:', data.recommendedTokens);
-  if (option === 'swap') setSwapToken(data.recommendedTokens[0]);
-  else setSwapDesToken(data.recommendedTokens[0]);
+  if (swapTokenType === 'sourceSwapToken') setSwapToken(data.recommendedTokens[0]);
+  if (swapTokenType === 'desSwapToken') setSwapDesToken(data.recommendedTokens[0]);
   return data.recommendedTokens;
 };
