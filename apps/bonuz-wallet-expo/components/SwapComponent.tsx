@@ -106,7 +106,7 @@ export default function SwapComponent(props: { setOption: any; option: string, h
                 <View style={tw`flex flex-1 mt-8 mx-5`}>
                     <View style={tw`flex flex-row`}>
                         <View style={tw`justify-center w-1/2`}>
-                            <Text style={tw`text-white text-[16px] font-semibold`}>Source Chain:</Text>
+                            <Text style={tw`text-white text-[16px] font-semibold`}>Chain:</Text>
                         </View>
                         <TouchableOpacity onPress={() => handleSwapNext('swap')} style={tw`justify-between w-1/2`}>
                             <View style={tw`flex justify-between flex-row items-center`}>
@@ -121,24 +121,35 @@ export default function SwapComponent(props: { setOption: any; option: string, h
                     <View style={tw`mt-4 bg-[#313CA6] p-2 rounded-md gap-2`}>
                         <View style={tw`flex flex-row justify-between`}>
                             <Text style={tw`text-white text-[14px] font-semibold`}>From</Text>
-                            <Text style={tw`text-white text-[14px] font-semibold`}>Balance: 0.00000 MATIC</Text>
+                            <Text style={tw`text-white text-[14px] font-semibold`}>Balance: 0.00000 {swapToken.symbol}</Text>
                         </View>
-                        <View>
-                            <View style={tw`px-2 bg-[#040D5C] rounded-md w-full h-[40px] flex flex-row justify-between items-center`}>
+                        <View style={tw`flex flex-row justify-between items-center`}>
+                            <View style={tw`px-2 bg-[#040D5C] rounded-md w-6/10 h-[40px] flex flex-row justify-between items-center`}>
                                 <TextInput
                                     placeholderTextColor={'#BAB3E2'}
                                     placeholder="0"
-                                    style={tw`text-[16px] font-normal text-white px-2 bg-[#040D5C] rounded-md w-9/10 h-[40px]`}
+                                    style={tw`text-[16px] font-normal text-white px-2 bg-[#040D5C] rounded-md w-8/10 h-[40px]`}
                                 />
                                 <TouchableOpacity onPress={() => console.log('sdf')}>
                                     <Text style={tw`text-[16px] text-white font-normal text-right`}>MAX</Text>
                                 </TouchableOpacity>
                             </View>
+                            <TouchableOpacity onPress={() => { handleTokenSection(); setSwapTokenType('sourceSwapToken') }}>
+                                <View style={tw`flex flex-row justify-between items-center gap-2 `}>
+                                    <Image style={tw`w-[40px] h-[40px] rounded-full`} source={{ uri: swapToken.logoURI }} />
+                                    <Text style={tw`text-white font-semibold text-[14px]`}>{swapToken.name}</Text>
+                                    <Image
+                                        style={tw`w-[10px] h-[5.83px] items-center justify-center`}
+                                        source={require('@/assets/images/cart/downIcon.png')}
+                                    />
+                                </View>
+                            </TouchableOpacity>
                         </View>
                         <View>
                             <Text style={tw`text-white text-[14px] font-semibold`}>= $0</Text>
                         </View>
                     </View>
+
                     <View style={tw`w-full items-center mt-4`}>
                         <Image style={tw`w-4 h-4`} source={require('@/assets/images/swap/swap.png')} />
                     </View>
@@ -156,16 +167,28 @@ export default function SwapComponent(props: { setOption: any; option: string, h
                             </View>
                         </TouchableOpacity>
                     </View>
-                    <View style={tw`mt-4 bg-[#313CA6] p-2 rounded-md gap-2`}>
-                        <View style={tw`flex flex-row justify-between`}>
-                            <Text style={tw`text-white text-[14px] font-semibold`}>To(Quote)</Text>
-                        </View>
+                    <View style={tw`mt-4 bg-[#313CA6] p-2 rounded-md gap-2 flex flex-row justify-between items-center`}>
                         <View>
-                            <Text style={tw`text-white text-[14px] font-semibold`}>0.00000</Text>
+                            <View style={tw`flex flex-row justify-between`}>
+                                <Text style={tw`text-white text-[14px] font-semibold`}>To(Quote)</Text>
+                            </View>
+                            <View>
+                                <Text style={tw`text-white text-[14px] font-semibold`}>0.00000</Text>
+                            </View>
+                            <View>
+                                <Text style={tw`text-white text-[14px] font-semibold`}>= $0</Text>
+                            </View>
                         </View>
-                        <View>
-                            <Text style={tw`text-white text-[14px] font-semibold`}>= $0</Text>
-                        </View>
+                        <TouchableOpacity onPress={() => { handleTokenSection(); setSwapTokenType('desSwapToken') }}>
+                            <View style={tw`flex flex-row justify-between items-center gap-2 `}>
+                                <Image style={tw`w-[40px] h-[40px] rounded-full`} source={{ uri: swapDesToken.logoURI }} />
+                                <Text style={tw`text-white font-semibold text-[14px]`}>{swapDesToken.name}</Text>
+                                <Image
+                                    style={tw`w-[10px] h-[5.83px] items-center justify-center`}
+                                    source={require('@/assets/images/cart/downIcon.png')}
+                                />
+                            </View>
+                        </TouchableOpacity>
                     </View>
                     <TouchableOpacity onPress={() => { handleDismissModalPress() }}>
                         <LinearGradient
