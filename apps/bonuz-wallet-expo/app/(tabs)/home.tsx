@@ -137,7 +137,7 @@ export default function Home() {
       </View>
       <ScrollView
         contentContainerStyle={[{ paddingBottom: tabBarMargin }, tw`gap-3`]}
-        style={tw`px-4`}>
+        style={tw`px-4 mt-1`}>
         {activeTab === 'Real World'
           ? Object.entries(realWorldDataByCategory ?? {}).map(([category, partners]) => (
               <HomeCarousel
