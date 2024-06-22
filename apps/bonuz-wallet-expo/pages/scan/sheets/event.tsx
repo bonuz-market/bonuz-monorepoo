@@ -27,7 +27,9 @@ const EventSheetContent = ({ data, handleCheckInPress }: EventSheetContentProps)
         <Image
           style={tw`w-full h-[250px] rounded-t-[30px] `}
           source={
-            data.image ? { uri: data.image.url } : require('@/assets/images/profile/profile.png')
+            data.image
+              ? { uri: data.image.url }
+              : require('@/assets/images/profile/defaultAvatar.jpg')
           }
         />
       </View>

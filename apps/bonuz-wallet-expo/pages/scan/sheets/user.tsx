@@ -344,7 +344,7 @@ const UserSheetContent = ({
               source={
                 connection.profilePicture
                   ? { uri: connection.profilePicture }
-                  : require('@/assets/images/profile/profile.png')
+                  : require('@/assets/images/profile/defaultAvatar.jpg')
               }
             />
             <BlurView

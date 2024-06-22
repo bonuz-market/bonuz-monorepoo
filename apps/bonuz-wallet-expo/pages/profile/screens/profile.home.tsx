@@ -174,7 +174,7 @@ const HeaderComponent = ({
               source={
                 data?.profilePicture
                   ? { uri: data.profilePicture }
-                  : require('@/assets/images/profile/profile.png')
+                  : require('@/assets/images/profile/defaultAvatar.jpg')
               }
               //   contentFit="cover"
               //   contentPosition="center"
