@@ -7,12 +7,15 @@ import { useShallow } from 'zustand/react/shallow';
 
 import { Accordion } from '@/components/Accordion/Accordion';
 import { Text } from '@/components/Themed';
+import { useBottomTabBarMargin } from '@/hooks/useBottomTabBarHeight';
 import { Event } from '@/pages/scan/components/event';
 import { ScanQrCode } from '@/pages/scan/sections';
 import { getEventsByIds } from '@/services/backend/events.service';
 import { useUserStore } from '@/store';
 
 export default function Scan() {
+  const tabBarMargin = useBottomTabBarMargin();
+
   const [activeSections, setActiveSections] = React.useState<number[]>([0]);
   const { checkedInEvents, removeEvent } = useUserStore(
     useShallow((state) => ({
@@ -54,6 +57,7 @@ export default function Scan() {
           ]}
           onAccordionChange={(sections) => setActiveSections(sections)}
         />
+        <View style={{ paddingBottom: tabBarMargin }} />
       </View>
     </LinearGradient>
   );
