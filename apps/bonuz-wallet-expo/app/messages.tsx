@@ -1,23 +1,25 @@
 import { BottomSheetModal, BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { useHeaderHeight } from '@react-navigation/elements';
 import { useMutation } from '@tanstack/react-query';
+import { BlurView } from 'expo-blur';
 import { LinearGradient } from 'expo-linear-gradient';
+import { router } from 'expo-router';
 import React, { useCallback, useEffect, useMemo, useRef } from 'react';
-import { KeyboardAvoidingView, Platform, View } from 'react-native';
+import { FlatList, KeyboardAvoidingView, Platform } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import { Avatar, GiftedChat, IMessage, User } from 'react-native-gifted-chat';
+import { GiftedChat, IMessage, User } from 'react-native-gifted-chat';
+import { Iconify } from 'react-native-iconify';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import tw from 'twrnc';
 
 import { User as UserEntity } from '@/entities/user';
+import { ConnectionSheet } from '@/pages/connections/sheets';
 import {
-  InputToolbar,
   Message,
   renderComposer,
   RenderInputToolbar,
   renderSend,
 } from '@/pages/messages/components';
-import { UserSheet } from '@/pages/scan/sheets/user';
 import { sendMessage, useUserMessages } from '@/services/backend/messages';
 import {
   useQueryGetUserProfileAndSocialLinksByHandle,
@@ -75,9 +77,13 @@ const Messages = () => {
   });
 
   const onSend = useCallback(
-    (messages: MessageType[] = []) => {
-      sendMessageAsync({
+    async (messages: MessageType[] = []) => {
+      await sendMessageAsync({
         message: messages[0].text,
+      });
+      ref.current?.scrollToOffset({
+        offset: 0,
+        animated: true,
       });
     },
     [sendMessageAsync],
@@ -87,25 +93,26 @@ const Messages = () => {
 
   const messages = useMemo(
     () =>
-      messagesData?.pages
-        ?.map((page) => page.messages.data)
-        .flat()
-        .map((message) => {
-          const user = userConnections.find((user) => user.handle === message.user.handle);
-          return {
-            _id: message.id,
-            text: message.message,
-            createdAt: message.createdAt,
-            user: {
-              _id: message.user.id,
-              name: user?.name,
-              handle: message.user.handle,
-              avatar: user?.profilePicture!,
-            },
-          };
-        }),
+      messagesData?.pages.map((message) => {
+        const user = userConnections.find((user) => user.handle === message.user.handle);
+        return {
+          _id: message.id,
+          text: message.message,
+          createdAt: message.createdAt,
+          user: {
+            _id: message.user.id,
+            name: user?.name,
+            handle: message.user.handle,
+            avatar: user?.profilePicture!,
+          },
+        };
+      }),
     [messagesData?.pages, userConnections],
   );
+
+  useEffect(() => {
+    router.setParams({ members: (userConnections.length + 1).toString() });
+  }, [userConnections]);
 
   const onAvatarPress = useCallback(
     (messageUser: User) => {
@@ -118,6 +125,7 @@ const Messages = () => {
   );
 
   const { bottom } = useSafeAreaInsets();
+  const ref = useRef<FlatList<IMessage>>();
 
   return (
     <BottomSheetModalProvider>
@@ -127,8 +135,9 @@ const Messages = () => {
         }}>
         <LinearGradient colors={['#4B2EA2', '#0E2875']} style={tw`flex-1`}>
           <GiftedChat
+            ref={ref}
             messages={messages ?? []}
-            onSend={(messages) => onSend(messages as MessageType[])}
+            onSend={async (messages) => onSend(messages as MessageType[])}
             user={{
               _id: user.id,
               name: user.name ?? '',
@@ -137,12 +146,12 @@ const Messages = () => {
               avatar: user.profilePicture ?? '',
             }}
             renderMessage={Message}
-            messagesContainerStyle={{}}
             listViewProps={{
-              contentContainerStyle: {
-                flexGrow: 1,
-                justifyContent: 'flex-end',
-              },
+              contentContainerStyle: [
+                {
+                  paddingBottom: headerHeight + 10,
+                },
+              ],
             }}
             renderInputToolbar={RenderInputToolbar}
             renderComposer={renderComposer}
@@ -151,6 +160,17 @@ const Messages = () => {
             bottomOffset={bottom}
             infiniteScroll
             scrollToBottom
+            scrollToBottomComponent={() => (
+              <BlurView
+                style={[
+                  tw`p-3 items-center justify-center rounded-full overflow-hidden bg-[#6e5ad1]`,
+                ]}
+                intensity={50}
+                tint="light">
+                <Iconify icon="ion:chevron-down-outline" color="white" size={24} />
+              </BlurView>
+            )}
+            scrollToBottomStyle={tw`bg-transparent`}
             loadEarlier={hasNextMessagesPage}
             onLoadEarlier={() => fetchNextMessagesPage()}
             isLoadingEarlier={isFetchingNextMessagesPage}
@@ -158,16 +178,17 @@ const Messages = () => {
             renderAvatarOnTop={false}
             renderUsernameOnMessage
             onPressAvatar={onAvatarPress}
+            inverted
           />
           {Platform.OS === 'android' && (
             <KeyboardAvoidingView behavior="padding" keyboardVerticalOffset={headerHeight} />
           )}
         </LinearGradient>
-        <UserSheet
+        <ConnectionSheet
           ref={bottomSheetModalRef}
-          onAddConnection={handleAddConnection}
           onRemoveConnection={handleRemoveConnection}
           onDismiss={() => setSelectedUserHandle(undefined)}
+          snapPoints={['85%']}
         />
       </GestureHandlerRootView>
     </BottomSheetModalProvider>

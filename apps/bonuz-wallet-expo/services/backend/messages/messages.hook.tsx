@@ -7,17 +7,8 @@ export const useUserMessages = () => {
     queryKey: ['messages'],
     queryFn: async ({ pageParam }) => getMessages(pageParam),
     select: ({ pages, pageParams }) => {
-      const newPages = pages.map(({ messages }) => {
-        return {
-          messages: {
-            data: messages.data,
-            pageCount: messages.pageCount,
-            next: messages.next,
-          },
-        };
-      });
       return {
-        pages: newPages,
+        pages: pages?.map((page) => page.messages.data).flat(),
         pageParams,
       };
     },

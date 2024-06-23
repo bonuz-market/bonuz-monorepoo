@@ -13,21 +13,12 @@ import tw from 'twrnc';
 const { isSameUser, isSameDay } = utils;
 
 export const Bubble = (props: BubbleProps<any>) => {
-  const { currentMessage, user } = props;
-
-  const getInnerComponentProps = () => {
-    const { containerStyle, ...innerProps } = props;
-    return {
-      ...innerProps,
-      position: 'left',
-      isSameUser,
-      isSameDay,
-    } as BubbleProps<any>;
-  };
+  const { currentMessage } = props;
 
   const renderMessageText = () => {
     if (currentMessage.text) {
-      const { containerStyle, wrapperStyle, renderMessageText, ...messageTextProps } = props;
+      const { containerStyle, wrapperStyle, renderMessageText, optionTitles, ...messageTextProps } =
+        props;
       if (renderMessageText) {
         return renderMessageText(messageTextProps);
       }
@@ -37,33 +28,11 @@ export const Bubble = (props: BubbleProps<any>) => {
           {...messageTextProps}
           textStyle={{
             left: [tw`text-white text-sm m-0`],
-          }}
-          linkStyle={{
-            left: [
-              {
-                fontFamily: 'Farro_400Regular',
-                fontSize: 14,
-                color: '#FFA34E',
-              },
-            ],
+            right: [tw`text-white text-sm m-0`],
           }}
         />
       );
     }
-    return null;
-  };
-
-  const renderMessageImage = () => {
-    if (currentMessage.image) {
-      const { containerStyle, wrapperStyle, renderMessageImage, ...messageImageProps } = props;
-      if (renderMessageImage) {
-        return renderMessageImage(messageImageProps);
-      }
-
-      return <MessageImage {...messageImageProps} />;
-    }
-
-    return null;
   };
 
   const renderUsername = () => {
@@ -77,13 +46,11 @@ export const Bubble = (props: BubbleProps<any>) => {
         </Pressable>
       );
     }
-
-    return null;
   };
 
   const renderTime = () => {
     if (currentMessage.createdAt) {
-      const { containerStyle, wrapperStyle, renderTime, ...timeProps } = props;
+      const { containerStyle, wrapperStyle, textStyle, renderTime, ...timeProps } = props;
       if (renderTime) {
         return renderTime(timeProps);
       }
@@ -93,27 +60,73 @@ export const Bubble = (props: BubbleProps<any>) => {
           {...timeProps}
           timeTextStyle={{
             left: [tw`text-xs text-[rgba(255,255,255,0.7)]`],
+            right: [tw`text-xs text-[rgba(255,255,255,0.7)]`],
           }}
         />
       );
     }
+  };
 
-    return null;
+  const styles = {
+    left: {
+      containerToNext: tw`rounded-bl`,
+      containerToPrevious: tw`rounded-tl`,
+    },
+    right: {
+      containerToNext: tw`rounded-br`,
+      containerToPrevious: tw`rounded-tr`,
+    },
+  };
+
+  const styledBubbleToNext = () => {
+    const { currentMessage, nextMessage, position, containerToNextStyle } = props;
+    if (
+      currentMessage &&
+      nextMessage &&
+      position &&
+      isSameUser(currentMessage, nextMessage) &&
+      isSameDay(currentMessage, nextMessage)
+    ) {
+      return [
+        styles[position].containerToNext,
+        containerToNextStyle && containerToNextStyle[position],
+      ];
+    }
+  };
+
+  const styledBubbleToPrevious = () => {
+    const { currentMessage, previousMessage, position, containerToPreviousStyle } = props;
+    if (
+      currentMessage &&
+      previousMessage &&
+      position &&
+      isSameUser(currentMessage, previousMessage) &&
+      isSameDay(currentMessage, previousMessage)
+    ) {
+      return [
+        styles[position].containerToPrevious,
+        containerToPreviousStyle && containerToPreviousStyle[position],
+      ];
+    }
   };
 
   const renderCustomView = () => {
     if (props.renderCustomView) {
       return props.renderCustomView(props);
     }
-
-    return null;
   };
 
   const messageHeader = <View style={tw`mb-1`}>{renderUsername()}</View>;
-
+  const isCurrentUser = props.currentMessage?.user._id === props.user?._id;
   return (
     <Pressable
-      style={tw`flex-1 gap-0.5`}
+      style={[
+        tw`flex-col w-full gap-0.5`,
+        isCurrentUser && tw`bg-[#3759f8] w-full ml-auto p-2.5 rounded-xl`,
+        !isCurrentUser && tw`bg-[#2b389e] w-full p-2.5 rounded-xl`,
+        styledBubbleToNext(),
+        styledBubbleToPrevious(),
+      ]}
       onPress={() => props.onPress?.(undefined, props.currentMessage)}>
       {renderCustomView()}
       {messageHeader}
