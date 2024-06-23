@@ -55,7 +55,7 @@ export default function Connection() {
           <View style={tw`flex bg-transparent justify-center items-center`}>
             <Text style={tw`text-[20px] text-white font-semibold`}>Social</Text>
           </View>
-          <TouchableOpacity onPress={() => navigate('/cart')}>
+          <TouchableOpacity onPress={() => navigate('/messages')}>
             <View
               style={tw`w-[54px] h-[54px] rounded-full bg-[#684FCD] justify-center items-center`}>
               <View

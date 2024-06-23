@@ -62,6 +62,7 @@ function RootLayoutNav() {
           <Stack.Screen name="tokens" options={{ headerShown: false }} />
           <Stack.Screen name="explore" options={{ headerShown: false }} />
           <Stack.Screen name="connection" options={{ headerShown: false }} />
+          <Stack.Screen name="messages" options={{ headerShown: false }} />
           <Stack.Screen name="settings" options={{ headerShown: false }} />
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
           <Stack.Screen name="(discover)" options={{ headerShown: false }} />
