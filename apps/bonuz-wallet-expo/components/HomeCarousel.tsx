@@ -1,189 +1,100 @@
 import { LinearGradient } from 'expo-linear-gradient';
+import { Link } from 'expo-router';
+import { ExpoRouter } from 'expo-router/types/expo-router';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import Carousel from 'react-native-reanimated-carousel';
-import { RFPercentage } from 'react-native-responsive-fontsize';
-import {
-  heightPercentageToDP as hp,
-  widthPercentageToDP as wp,
-} from 'react-native-responsive-screen';
+import { ImageBackground, Pressable, Text, useWindowDimensions, View } from 'react-native';
+import { useSharedValue } from 'react-native-reanimated';
+import Carousel, { ICarouselInstance, Pagination } from 'react-native-reanimated-carousel';
+import tw from 'twrnc';
 
 interface HomeCarouselProps {
   title: string;
-  lineargradient?: string[];
-  start?: [number, number];
-  end?: [number, number];
   right: JSX.Element;
   badgeCount: number;
-  item: JSX.Element;
-  data: any[];
-  activeIndex: number;
-  setActiveIndex: (index: number) => void;
+  data: { image: string; title: string; href: ExpoRouter.Href }[];
   style?: any;
 }
-export default function HomeCarousel({
-  title,
-  lineargradient,
-  start,
-  end,
-  right,
-  badgeCount,
-  item,
-  data,
-  activeIndex,
-  setActiveIndex,
-  style,
-}: HomeCarouselProps) {
+
+export default function HomeCarousel({ title, right, badgeCount, data, style }: HomeCarouselProps) {
+  const window = useWindowDimensions();
+
+  const progress = useSharedValue<number>(0);
+
+  const PAGE_WIDTH = window.width;
+
+  const ref = React.useRef<ICarouselInstance>(null);
+
+  const onPressPagination = (index: number) => {
+    ref.current?.scrollTo({
+      /**
+       * Calculate the difference between the current index and the target index
+       * to ensure that the carousel scrolls to the nearest index
+       */
+      count: index - progress.value,
+      animated: true,
+    });
+  };
+
   return (
     <LinearGradient
-      start={start || [0, 0.4]}
-      end={end || [0.2, 0.7]}
-      colors={lineargradient || ['#63ADEF', '#4E35B1']}
-      style={[styles.itemLinear, style]}>
-      <View style={styles.itemContainer}>
-        <View style={styles.itemsHeader}>
-          <View style={styles.yourItemsContainer}>
-            <Text style={styles.yourItemText}>{title}</Text>
-            <View style={styles.yourItemBadge}>
-              <Text style={styles.yourItemBadgeText}>{badgeCount}+</Text>
+      start={[0, 0.4]}
+      end={[0.2, 0.7]}
+      colors={['#63ADEF', '#4E35B1']}
+      style={[tw`rounded-3xl p-[1px]`, style]}>
+      <View style={tw`bg-[#4E35B1] rounded-3xl`}>
+        <View style={tw`flex-row items-center justify-between w-full bg-transparent px-4 pt-2`}>
+          <View style={tw`flex-row items-center bg-transparent gap-2`}>
+            <Text style={tw`text-white font-bold text-xl`}>{title}</Text>
+            <View style={tw`bg-[#63ADEF30] rounded-full w-6 justify-center items-center h-6 p-1`}>
+              <Text style={tw`text-white font-bold text-sm`}>{badgeCount}</Text>
             </View>
           </View>
           {right}
         </View>
         <Carousel
-          width={wp(95)}
-          height={hp(25)}
+          ref={ref}
+          width={PAGE_WIDTH - 32}
+          style={{ width: PAGE_WIDTH }}
+          height={180}
           loop={false}
-          style={{ width: '100%' }}
+          pagingEnabled={false}
           mode="parallax"
+          modeConfig={{
+            parallaxScrollingScale: 0.9,
+            parallaxScrollingOffset: 50,
+          }}
           data={data}
+          onProgressChange={progress}
           scrollAnimationDuration={1000}
-          onSnapToItem={(index) => setActiveIndex(index)}
-          renderItem={({ index }) => item}
+          renderItem={({ item }) => (
+            <Link href={item.href} asChild>
+              <Pressable>
+                <ImageBackground
+                  style={tw`w-full h-full rounded-[20px] justify-end`}
+                  imageStyle={tw`rounded-[20px]`}
+                  height={170}
+                  source={{ uri: item.image }}>
+                  <Text style={tw`text-xl text-white font-semibold p-4`}>{item.title}</Text>
+                </ImageBackground>
+              </Pressable>
+            </Link>
+          )}
+          onConfigurePanGesture={(g) => {
+            g.activeOffsetX([-20, 20]);
+            g.failOffsetY([-20, 20]);
+          }}
         />
-        <View style={styles.pagination}>
-          {data.map((_, index) => {
-            return (
-              <View
-                key={index}
-                style={[styles.paginationDot, index === activeIndex && styles.activeDot]}
-              />
-            );
-          })}
-        </View>
+        <Pagination.Basic
+          progress={progress}
+          data={data}
+          dotStyle={tw`w-2 h-2 rounded-full bg-[rgba(255,255,255,0.5)]`}
+          //   NOT YET IMPLEMENTED
+          activeDotStyle={tw`bg-white`}
+          containerStyle={tw`gap-2 bottom-1`}
+          horizontal
+          onPress={onPressPagination}
+        />
       </View>
     </LinearGradient>
   );
 }
-
-const styles = StyleSheet.create({
-  itemLinear: {
-    width: wp(90),
-    height: hp(34),
-    alignSelf: 'center',
-    borderRadius: wp(6),
-    padding: 1,
-  },
-  itemContainer: {
-    backgroundColor: '#4E35B1',
-    borderRadius: wp(6),
-    paddingLeft: wp(5),
-    paddingVertical: wp(5),
-    flex: 1,
-  },
-  carousel: {
-    height: '100%',
-    width: wp(90),
-    borderRadius: wp(7),
-    left: -wp(10),
-    flexDirection: 'row',
-  },
-  itemsHeader: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    width: '100%',
-    backgroundColor: 'transparent',
-  },
-  yourItemsContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: 'transparent',
-  },
-  yourItemText: {
-    fontSize: RFPercentage(2.5),
-    color: 'white',
-    fontWeight: 'bold',
-  },
-  pagination: {
-    flexDirection: 'row',
-    alignSelf: 'center',
-    backgroundColor: 'transparent',
-  },
-  paginationDot: {
-    width: hp(1),
-    height: hp(1),
-    borderRadius: hp(2),
-    backgroundColor: '#FFFFFF30',
-    marginHorizontal: 3,
-  },
-  activeDot: {
-    backgroundColor: '#FFFFFF',
-    width: wp(10),
-    height: hp(1),
-    borderRadius: 5,
-  },
-  yourItemBadge: {
-    backgroundColor: '#63ADEF30',
-    borderRadius: 50,
-    width: wp(9),
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: hp(2.5),
-    marginLeft: 5,
-  },
-  yourItemBadgeText: {
-    fontSize: RFPercentage(1.5),
-    color: 'white',
-    fontWeight: 'bold',
-  },
-  info: {
-    width: wp(7),
-    height: wp(7),
-    marginRight: wp(5),
-  },
-  rewardContainer: {
-    backgroundColor: 'transparent',
-    width: '50%',
-    height: '100%',
-    padding: wp(5),
-  },
-  reward: {
-    backgroundColor: '#f67868',
-    width: wp(20),
-    height: wp(20),
-    borderRadius: wp(10),
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  rewardImage: {
-    width: wp(14),
-    height: wp(14),
-  },
-  voucher: {
-    fontSize: RFPercentage(2.7),
-    color: 'white',
-    fontWeight: 'bold',
-    marginTop: hp(1.5),
-    marginBottom: hp(1),
-  },
-  subVoucher: {
-    fontSize: RFPercentage(2.2),
-    color: 'white',
-  },
-  yourItemsImage: {
-    width: wp(40),
-    height: hp(25),
-    resizeMode: 'contain',
-  },
-});
