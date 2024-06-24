@@ -1,9 +1,8 @@
-/* eslint-disable unicorn/no-null */
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { useIsFocused } from '@react-navigation/native';
 import { useQuery } from '@tanstack/react-query';
 import { BarcodeScanningResult, CameraView, useCameraPermissions } from 'expo-camera';
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Button, ImageBackground, Text, View } from 'react-native';
 import QRCode from 'react-native-qrcode-svg';
 import tw from 'twrnc';
@@ -92,7 +91,7 @@ export const ScanQrCode = ({ isActive }: { isActive: boolean }) => {
 
   if (!isNotEmpty(user)) {
     // TODO: Add logged out state
-    return null;
+    return <></>;
   }
 
   if (!permission || !isFocused) {

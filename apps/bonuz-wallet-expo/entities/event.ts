@@ -18,14 +18,36 @@ interface CheckIn {
 export interface Event {
   id: number;
   title: string;
-  description: string;
+  description?: string;
+  shortDescription: string;
   image: {
     url: string;
   };
-  agenda: string;
-  startDate: Date;
-  endDate: Date;
-  type: string;
-  checkIns: CheckIn[];
-  quests: Quest[];
+  link: string;
+  start_date: string;
+  end_date: string;
+  organizer: string;
+  agenda?: string;
+  challenges: {
+    id: number;
+    name: string;
+    description: string;
+    image: {
+      url: string;
+    };
+    trackable: number;
+    updatedAt: string;
+    createdAt: string;
+  }[];
+  challenges_new: {
+    id: number;
+    name: string;
+    description: string;
+    image: {
+      url: string;
+    };
+    trackable: number;
+    updatedAt: string;
+    createdAt: string;
+  }[];
 }

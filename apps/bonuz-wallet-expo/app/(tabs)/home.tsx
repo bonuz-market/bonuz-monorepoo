@@ -1,26 +1,85 @@
+import { useQuery } from '@tanstack/react-query';
 import { LinearGradient } from 'expo-linear-gradient';
-import { useRouter } from 'expo-router';
+import { Link, useRouter } from 'expo-router';
 import React, { useState } from 'react';
 import { Image, ScrollView, StatusBar, TextInput, TouchableOpacity } from 'react-native';
 import tw from 'twrnc';
 
+import { HomeBanner } from '@/components/HomeBanner/HomeBanner';
 import HomeCarousel from '@/components/HomeCarousel';
 import { StatusBarHeight } from '@/components/StatusbarHeight';
-import SwitchButton from '@/components/SwtichButton';
+import { Tabs } from '@/components/Tabs';
 import { Text, View } from '@/components/Themed';
+import { App, Partner } from '@/entities/discovery';
 import { useBottomTabBarMargin } from '@/hooks/useBottomTabBarHeight';
+import { BACKEND_ENDPOINT } from '@/services/backend/backend.config';
+import {
+  getDigitalWorldData,
+  getFeaturedItems,
+  getRealWorldData,
+} from '@/services/backend/discovery.service';
 
 export default function Home() {
-  const [yourItemIndex, setYourItemIndex] = useState(0);
-  const [eventIndex, setEventIndex] = useState(0);
   const tabBarMargin = useBottomTabBarMargin();
   const { navigate } = useRouter();
 
-  const [value, setValue] = useState('Digital World');
+  const { data: featuredItems } = useQuery({
+    queryKey: ['featuredItems'],
+    queryFn: getFeaturedItems,
+  });
 
-  let yourItemsArray = [0, 1, 2];
+  const { data: realWorldData } = useQuery({
+    queryKey: ['realWorldData'],
+    queryFn: async () => getRealWorldData(),
+    select: (data) => {
+      return data.docs.map((item) => ({
+        ...item,
+        partners: item.items.map((partner) => ({
+          ...partner,
+          image: {
+            url: `${BACKEND_ENDPOINT}${partner.image?.url}`,
+          },
+        })),
+      }));
+    },
+  });
+
+  const { data: digitalWorldData } = useQuery({
+    queryKey: ['digitalWorldData'],
+    queryFn: async () => getDigitalWorldData(),
+    select: (data) => {
+      return data.docs.map((item) => ({
+        ...item,
+        apps: item.items.map((app) => ({
+          ...app,
+          image: {
+            url: `${BACKEND_ENDPOINT}${app.image?.url}`,
+          },
+        })),
+      }));
+    },
+  });
+
+  const realWorldDataByCategory = realWorldData?.reduce(
+    (acc, item) => {
+      acc[item.title] = item.partners;
+      return acc;
+    },
+    {} as Record<string, Partner[]>,
+  );
+
+  const digitalWorldDataByCategory = digitalWorldData?.reduce(
+    (acc, item) => {
+      acc[item.title] = item.apps;
+      return acc;
+    },
+    {} as Record<string, App[]>,
+  );
+
+  const [activeTab, setActiveTab] = useState<'Real World' | 'Digital World'>('Digital World');
+
   return (
-    <LinearGradient colors={['#4B2EA2', '#0E2875']} style={tw`flex-1`}>
+    <LinearGradient colors={['#4B2EA2', '#0E2875']} style={tw`flex-1 flex-col gap-1.5`}>
       <StatusBar backgroundColor={'#5137B1'} />
       <View
         style={[
@@ -40,7 +99,7 @@ export default function Home() {
           </View>
         </TouchableOpacity>
         <Image style={tw`w-33 h-9`} source={require('@/assets/images/home/logo.png')} />
-        <TouchableOpacity onPress={() => navigate('/wallet')}>
+        <TouchableOpacity onPress={() => navigate('/cart')}>
           <View style={tw`w-[54px] h-[54px] rounded-full bg-[#684FCD] justify-center items-center`}>
             <Image
               style={tw`w-[30px] h-[30px]`}
@@ -50,132 +109,85 @@ export default function Home() {
         </TouchableOpacity>
       </View>
 
-      <View style={tw`bg-transparent mx-5 mt-5`}>
-        <SwitchButton
-          value={value}
-          onValueChange={setValue}
-          titleList={['Digital World', 'Real World']}
-        />
-      </View>
+      <HomeBanner data={featuredItems ?? []} />
+      <Tabs
+        tabs={['Digital World', 'Real World']}
+        value={activeTab}
+        onValueChange={(tab) => setActiveTab(tab as 'Real World' | 'Digital World')}
+        containerStyle={tw`mx-4 bg-[#684FCD]`}
+      />
 
-      <View style={tw`flex flex-row items-center bg-transparent mx-5 py-5 justify-between`}>
+      <View style={tw`flex flex-row items-center bg-transparent mx-4 justify-between`}>
         <View style={tw`w-[54px] h-[54px] rounded-full bg-[#684FCD] justify-center items-center`}>
           <Image
             style={tw`w-[30px] h-[30px]`}
             source={require('@/assets/images/home/filter.png')}
           />
         </View>
+
         <View
           style={tw`py-2 flex flex-row items-center bg-[#5F42BE] w-83 h-12 rounded-full border-2 border-[#7651CD]`}>
           <Image style={tw`w-7 h-7 mr-2`} source={require('@/assets/images/home/search.png')} />
           <TextInput
             placeholderTextColor={'#BAB3E2'}
-            placeholder="Search games, defi, gift cards"
+            placeholder="Search events, shops, communities..."
             style={tw`text-[16px] font-normal text-white w-80`}
           />
         </View>
       </View>
-      <ScrollView contentContainerStyle={{ paddingBottom: tabBarMargin }} style={tw`flex-1`}>
-        <HomeCarousel
-          title={'Your Items'}
-          badgeCount={99}
-          right={
-            <Image style={tw`w-7 h-7 mr-5`} source={require('@/assets/images/home/info.png')} />
-          }
-          data={yourItemsArray}
-          item={
-            <LinearGradient
-              colors={['#F14375', '#F67640']}
-              style={tw`h-full w-full rounded-3xl flex flex-row left-[-43px] items-center`}>
-              <View style={tw`bg-transparent w-1/2 h-full p-6`}>
-                <View style={tw`bg-[#f67868] w-23 h-23 rounded-full justify-center items-center`}>
-                  <Image
-                    style={tw`w-16 h-16`}
-                    source={require('@/assets/images/home/rewards.png')}
-                  />
+      <ScrollView
+        contentContainerStyle={[{ paddingBottom: tabBarMargin }, tw`gap-3`]}
+        style={tw`px-4 mt-1`}>
+        {activeTab === 'Real World'
+          ? Object.entries(realWorldDataByCategory ?? {}).map(([category, partners]) => (
+            <HomeCarousel
+              key={category}
+              title={category}
+              badgeCount={partners.length}
+              right={
+                <Link
+                  href={{
+                    pathname: '/(discover)/realWorld/[category]',
+                    params: { category },
+                  }}>
+                  <Text style={tw`text-white text-sm font-semibold`}>View All</Text>
+                </Link>
+              }
+              data={partners.slice(0, 3).map((partner) => ({
+                title: partner.name,
+                image: partner.image.url,
+                href: {
+                  pathname: '/(discover)/realWorld/partner/[slug]',
+                  params: { slug: partner.id },
+                },
+              }))}
+            />
+          ))
+          : Object.entries(digitalWorldDataByCategory ?? {}).map(([category, apps]) => (
+            <HomeCarousel
+              key={category}
+              title={category}
+              badgeCount={apps.length}
+              right={
+                <View style={tw`px-3 py-1 bg-[#684FCD] rounded-full`}>
+                  <Link
+                    href={{
+                      pathname: '/(discover)/digitalWorld/[category]',
+                      params: { category },
+                    }}>
+                    <Text style={tw`text-white text-sm font-semibold`}>View All</Text>
+                  </Link>
                 </View>
-                <Text style={tw`text-[20px] text-white font-bold mt-3 mb-1`}>Vouchers</Text>
-                <Text style={tw`text-[16px] text-white`}>2 Items</Text>
-              </View>
-              <Image
-                style={tw`w-45 h-9/10`}
-                source={require('@/assets/images/home/yourItems.png')}
-              />
-            </LinearGradient>
-          }
-          setActiveIndex={setYourItemIndex}
-          activeIndex={yourItemIndex}
-        />
-        <HomeCarousel
-          title={'Events'}
-          end={[0.6, 0.4]}
-          start={[0.8, 0.7]}
-          badgeCount={99}
-          style={tw`mt-3`}
-          right={
-            <View style={tw`bg-[#63ADEF30] mr-5 rounded-xl py-1 px-3`}>
-              <Text style={tw`text-[14px] text-white font-semibold`}>View All</Text>
-            </View>
-          }
-          data={yourItemsArray}
-          item={
-            <LinearGradient
-              colors={['#F14375', '#F67640']}
-              style={tw`h-full w-9/10 rounded-3xl flex flex-row left-[-43px] items-center`}>
-              <View style={tw`bg-transparent w-1/2 h-full p-6`}>
-                <View style={tw`bg-[#f67868] w-23 h-23 rounded-full justify-center items-center`}>
-                  <Image
-                    style={tw`w-16 h-16`}
-                    source={require('@/assets/images/home/rewards.png')}
-                  />
-                </View>
-                <Text style={tw`text-[20px] text-white font-bold mt-3 mb-1`}>Vouchers</Text>
-                <Text style={tw`text-[16px] text-white`}>2 Items</Text>
-              </View>
-              <Image
-                style={tw`w-45 h-9/10`}
-                source={require('@/assets/images/home/yourItems.png')}
-              />
-            </LinearGradient>
-          }
-          setActiveIndex={setEventIndex}
-          activeIndex={eventIndex}
-        />
-        <HomeCarousel
-          title={'Food'}
-          end={[0.6, 0.4]}
-          start={[0.8, 0.7]}
-          badgeCount={99}
-          style={tw`mt-3`}
-          right={
-            <View style={tw`bg-[#63ADEF30] mr-5 rounded-xl py-1 px-3`}>
-              <Text style={tw`text-[14px] text-white font-semibold`}>View All</Text>
-            </View>
-          }
-          data={yourItemsArray}
-          item={
-            <LinearGradient
-              colors={['#F14375', '#F67640']}
-              style={tw`h-full w-9/10 rounded-3xl flex flex-row left-[-43px] items-center`}>
-              <View style={tw`bg-transparent w-1/2 h-full p-6`}>
-                <View style={tw`bg-[#f67868] w-23 h-23 rounded-full justify-center items-center`}>
-                  <Image
-                    style={tw`w-16 h-16`}
-                    source={require('@/assets/images/home/rewards.png')}
-                  />
-                </View>
-                <Text style={tw`text-[20px] text-white font-bold mt-3 mb-1`}>Vouchers</Text>
-                <Text style={tw`text-[16px] text-white`}>2 Items</Text>
-              </View>
-              <Image
-                style={tw`w-45 h-9/10`}
-                source={require('@/assets/images/home/yourItems.png')}
-              />
-            </LinearGradient>
-          }
-          setActiveIndex={setEventIndex}
-          activeIndex={eventIndex}
-        />
+              }
+              data={apps.slice(0, 3).map((app) => ({
+                title: app.name,
+                image: app.image.url,
+                href: {
+                  pathname: '/home',
+                },
+              }))}
+            />
+          ))}
       </ScrollView>
     </LinearGradient>
   );

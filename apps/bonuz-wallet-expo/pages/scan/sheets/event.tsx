@@ -2,7 +2,8 @@ import { BottomSheetFooter, BottomSheetModal } from '@gorhom/bottom-sheet';
 import { useMutation } from '@tanstack/react-query';
 import { BlurView } from 'expo-blur';
 import { LinearGradient } from 'expo-linear-gradient';
-import React, { forwardRef, useImperativeHandle, useMemo, useRef } from 'react';
+import { HTTPError } from 'ky';
+import { forwardRef, useImperativeHandle, useMemo, useRef } from 'react';
 import { ActivityIndicator, Image, Platform, Pressable, Text, View } from 'react-native';
 import Markdown from 'react-native-markdown-display';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -18,13 +19,17 @@ interface EventSheetContentProps {
 }
 
 const EventSheetContent = ({ data, handleCheckInPress }: EventSheetContentProps) => {
+  console.log(data, 'data');
+
   return (
     <View style={tw`flex-1 gap-4`}>
       <View style={tw`relative w-full h-[250px] `}>
         <Image
           style={tw`w-full h-[250px] rounded-t-[30px] `}
           source={
-            data.image ? { uri: data.image.url } : require('@/assets/images/profile/profile.png')
+            data.image
+              ? { uri: data.image.url }
+              : require('@/assets/images/profile/defaultAvatar.jpg')
           }
         />
       </View>
@@ -36,7 +41,7 @@ const EventSheetContent = ({ data, handleCheckInPress }: EventSheetContentProps)
               color: 'white',
             },
           }}>
-          {data.description}
+          {data.shortDescription}
         </Markdown>
       </View>
     </View>
@@ -59,11 +64,17 @@ export const EventSheet = forwardRef<BottomSheetModal, EventSheetProps>(
     const { bottom } = useSafeAreaInsets();
     const snapPoints = useMemo(() => ['65%', '90%'], []);
 
-    const { mutateAsync: checkIn, isPending } = useMutation({
+    const {
+      mutateAsync: checkIn,
+      isPending,
+      error,
+    } = useMutation({
       mutationKey: ['checkIn'],
       mutationFn: async (eventId: number) => checkInEvent(eventId),
       onSuccess: onCheckIn,
     });
+
+    console.log((error as HTTPError)?.response.json().then(console.log), 'error');
 
     const handleCheckIn = async () => {
       if (!eventIdRef.current) return;
@@ -129,7 +140,7 @@ export const EventSheet = forwardRef<BottomSheetModal, EventSheetProps>(
               </View>
             );
           eventIdRef.current = data.data.id;
-          return <EventSheetContent data={data.data} handleCheckInPress={handleCheckIn} />;
+          return <EventSheetContent data={data.data as Event} handleCheckInPress={handleCheckIn} />;
         }}
       </BottomSheetModal>
     );

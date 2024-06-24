@@ -24,7 +24,7 @@ export default function Connection() {
 
   const bottomModalRef = useRef<BottomSheetModal>(null);
 
-  const [activeTab, setActiveTab] = useState<'Lens.xys Feed' | 'My Connections'>('Lens.xys Feed');
+  const [activeTab, setActiveTab] = useState<'Lens.xys Feed' | 'My Connections'>('My Connections');
   const { data, isRefetching, isLoading, refetch } = useUserConnections();
 
   console.log(data, 'data connections');
