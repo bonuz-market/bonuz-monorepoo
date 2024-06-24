@@ -95,18 +95,10 @@ function RootLayoutNav() {
                       </Pressable>
                     </View>
                     <View style={tw`flex-1 flex-col gap-2`}>
-                      <Text
-                        style={[
-                          tw`text-white text-center flex-1 text-xl font-semibold`,
-                          { transform: [{ translateX: -24 }] },
-                        ]}>
+                      <Text style={[tw`text-white text-center flex-1 text-xl font-semibold`]}>
                         {options.title}
                       </Text>
-                      <Text
-                        style={[
-                          tw`text-white text-opacity-70 text-center flex-1 text-sm`,
-                          { transform: [{ translateX: -24 }] },
-                        ]}>
+                      <Text style={[tw`text-white text-opacity-70 text-center flex-1 text-sm`]}>
                         {(
                           route.params as {
                             members: string;
