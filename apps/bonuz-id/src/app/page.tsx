@@ -62,6 +62,11 @@ export default function Home() {
 
   const frames = [Frame1, Frame2, Frame3, Frame4];
 
+  const { setDigitalTypes, setRealWorldTypes } = useResultTypeStore((store: { setDigitalTypes: any; setRealWorldTypes: any }) => ({
+    setDigitalTypes: store.setDigitalTypes,
+    setRealWorldTypes: store.setRealWorldTypes,
+  }));
+
   function shortenEthereumAddress(address: any) {
     if (address) {
       const firstPart = address.slice(0, 6);
@@ -92,8 +97,9 @@ export default function Home() {
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setSearchQuery(value);
-    console.log("value ", value);
     if (value.length === 3) {
+      setDigitalTypes(digitalTypesMockData);
+      setRealWorldTypes(realTypesMockData);
       router.push(`/results?query=${value}`);
     }
   };
@@ -283,9 +289,8 @@ export default function Home() {
                   {frames.map((frame, index) => (
                     <div
                       key={index}
-                      className={`duration-700 ease-in-out ${
-                        index === currentIndex ? "block" : "hidden"
-                      }`}
+                      className={`duration-700 ease-in-out ${index === currentIndex ? "block" : "hidden"
+                        }`}
                       data-carousel-item={
                         index === currentIndex ? "active" : undefined
                       }
@@ -392,7 +397,7 @@ export default function Home() {
             placeholder="Search"
             // onChange={(e) => setSearchQuery(e.target.value)}
             onChange={handleChange}
-            // onKeyDown={handleKeyDown}
+          // onKeyDown={handleKeyDown}
           />
           <Image
             src={cancleIcon}

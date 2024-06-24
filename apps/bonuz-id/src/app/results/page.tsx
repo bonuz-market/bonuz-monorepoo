@@ -3,13 +3,13 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
 import Image from 'next/image'
-import axios from 'axios'
 import { ChangeEvent } from 'react'
 import { cn } from '@/lib/utils'
 import { gql, useQuery } from '@apollo/client';
 
 import checkboxIcon from "../../../public/icons/checkBox-icon.svg";
 import Header from '@/components/Header'
+import { useResultTypeStore } from '@/store/resultTypeStore'
 
 const digitalDappData = [
   { label: 'ON-CHain Engagement Airdrops', count: '96+' },
@@ -157,6 +157,13 @@ export default function SearchPage() {
   const [searchQuery, setSearchQuery] = useState('')
   const [currentIndex, setCurrentIndex] = useState(0)
   // const [results, setResults] = useState<User[]>([])
+
+  const { digitalTypes, realWorldTypes } = useResultTypeStore(
+    useShallow((store) => ({
+      digitalTypes: store.digitalTypes,
+      realWorldTypes: store.realWorldTypes,
+    })),
+  );
 
   const { data, loading, error } = useQuery(GET_USER_PROFILES, {
     variables: { handles: searchQuery },
@@ -461,3 +468,7 @@ export default function SearchPage() {
     </div>
   )
 }
+function useShallow(arg0: (store: any) => { auth: any; user: any; wallet: any }): any {
+  throw new Error('Function not implemented.')
+}
+
