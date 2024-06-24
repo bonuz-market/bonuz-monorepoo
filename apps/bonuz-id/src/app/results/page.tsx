@@ -9,7 +9,9 @@ import { gql, useQuery } from '@apollo/client';
 
 import checkboxIcon from "../../../public/icons/checkBox-icon.svg";
 import Header from '@/components/Header'
-import { useResultTypeStore } from '@/store/resultTypeStore'
+import { useResultTypeStore } from '@/store/resultTypeStore';
+import { useShallow } from 'zustand/react/shallow';
+import { resultTypes } from '@/types/typeResult';
 
 const digitalDappData = [
   { label: 'ON-CHain Engagement Airdrops', count: '96+' },
@@ -156,21 +158,17 @@ export default function SearchPage() {
   const query = searchParams.get('query')
   const [searchQuery, setSearchQuery] = useState('')
   const [currentIndex, setCurrentIndex] = useState(0)
-  // const [results, setResults] = useState<User[]>([])
+
+  const { data } = useQuery(GET_USER_PROFILES, {
+    variables: { handles: searchQuery },
+  });
 
   const { digitalTypes, realWorldTypes } = useResultTypeStore(
     useShallow((store) => ({
       digitalTypes: store.digitalTypes,
       realWorldTypes: store.realWorldTypes,
-    })),
-  );
-
-  const { data, loading, error } = useQuery(GET_USER_PROFILES, {
-    variables: { handles: searchQuery },
-  });
-
-
-
+    }))
+  )
   const handlePrev = () => {
     setCurrentIndex((prevIndex) => prevIndex - 1)
   }
@@ -265,18 +263,16 @@ export default function SearchPage() {
               Digital D/Apps
             </p>
             <div className="flex flex-col gap-1 pt-2">
-              {digitalDappData.map((data, index) => (
+              {digitalTypes.length >= 1 && digitalTypes.map((data: resultTypes, index: number) => (
                 <div
                   key={index}
                   className="flex flex-row p-2 gap-4 max-w-[360px] bg-[#a2a2a20a] rounded-[16px] justify-between font-inter text-base font-normal leading-6 tracking-tight text-left px-[16px] py-[8px]"
                 >
                   <div className="flex flex-row gap-2 text-[14px] justify-center items-center">
-                    <p>{data.label}</p>
-                    {data.count !== "" && (
-                      <div className="flex w-[32px] h-[20px] rounded-[50px] bg-[url('/images/third-baackground.svg')] text-center justify-center items-center text-[12px]">
-                        {data.count}
-                      </div>
-                    )}
+                    <p>{data.type}</p>
+                    <div className="flex w-[32px] h-[20px] rounded-[50px] bg-[url('/images/third-baackground.svg')] text-center justify-center items-center text-[12px]">
+                      {data.count}
+                    </div>
                   </div>
                   <Image
                     src={checkboxIcon}
@@ -293,18 +289,16 @@ export default function SearchPage() {
               Real-World D/Apps
             </p>
             <div className="flex flex-col gap-1 pt-2">
-              {realWorldData.map((data, index) => (
+              {realWorldTypes.length >= 1 && realWorldTypes.map((data: resultTypes, index: number) => (
                 <div
                   key={index}
                   className="flex flex-row p-2 gap-4 max-w-[360px] bg-[#a2a2a20a] rounded-[16px] justify-between font-inter text-base font-normal leading-6 tracking-tight text-left px-[16px] py-[8px]"
                 >
                   <div className="flex flex-row gap-2 text-[14px] justify-center items-center">
-                    <p>{data.label}</p>
-                    {data.count !== "" && (
-                      <div className="flex w-[32px] h-[20px] rounded-[50px] bg-[url('/images/third-baackground.svg')] text-center justify-center items-center text-[13px]">
-                        {data.count}
-                      </div>
-                    )}
+                    <p>{data.type}</p>
+                    <div className="flex w-[32px] h-[20px] rounded-[50px] bg-[url('/images/third-baackground.svg')] text-center justify-center items-center text-[13px]">
+                      {data.count}
+                    </div>
                   </div>
                   <Image
                     src={checkboxIcon}
@@ -468,7 +462,3 @@ export default function SearchPage() {
     </div>
   )
 }
-function useShallow(arg0: (store: any) => { auth: any; user: any; wallet: any }): any {
-  throw new Error('Function not implemented.')
-}
-

@@ -7,6 +7,10 @@ import { useState } from "react";
 import copyIcon from "../../public/icons/copy-icon.svg";
 import walletAvatar from "../../public/icons/wallet-avatar-icon.svg";
 import walletIcon from "../../public/icons/wallet-icon.svg";
+import { useResultTypeStore } from '@/store/resultTypeStore'
+import { digitalTypesMockData } from '@/mockUpData/resultTypesData';
+import { realTypesMockData } from '@/mockUpData/resultTypesData';
+
 
 import cancleIcon from "../../public/icons/arrow-cancle.png";
 import blockchainIcon from "../../public/icons/blockchain-icon.svg";

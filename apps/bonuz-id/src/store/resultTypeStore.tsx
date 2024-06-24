@@ -1,4 +1,3 @@
-import * as SecureStore from 'expo-secure-store';
 import { resultTypes } from '@/types/typeResult';
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
@@ -62,10 +61,10 @@ export const useResultTypeStore = create<ResultTypeStore & (ResultTypeStoreActio
         {
             name: resultTypesStoreKey,
             storage: createJSONStorage(() => ({
-                setItem: async (key: string, value: string) => await SecureStore.setItemAsync(key, value),
+                setItem: (key: string, value: string) => localStorage.setItem(key, value),
                 getItem: async (key: string) =>
-                    (await SecureStore.getItemAsync(key)) as Promise<string> | null,
-                removeItem: async (key: string) => await SecureStore.deleteItemAsync(key),
+                    (localStorage.getItem(key)) as Promise<string> | null,
+                removeItem: async (key: string) => localStorage.deleteItem(key),
             })),
             // eslint-disable-next-line unicorn/consistent-function-scoping
             onRehydrateStorage: () => (state) => {
