@@ -162,6 +162,10 @@ export default function SearchPage() {
     setRealTypesArray(Object.values(realWorldTypes));
   }, [digitalTypes, realWorldTypes])
 
+  useEffect(() => {
+    console.log("result:", digitalTypesArray);
+  }, [digitalTypesArray]);
+
   const handlePrev = () => {
     setCurrentIndex((prevIndex) => prevIndex - 1)
   }
@@ -186,7 +190,7 @@ export default function SearchPage() {
   console.log("results ", results);
 
   return (
-    <div className="bg-[url('/images/third-baackground.svg')] bg-center flex w-full h-auto md:h-[100vh] lg:h-auto xl:h-[100vh] flex-col px-7 pb-6 bg-cover">
+    <div className="bg-[url('/images/third-baackground.svg')] bg-center flex w-full h-auto md:h-[100vh] lg:h-auto xl:h-[100vh] flex-col px-7 pb-6 bg-cover overflow-hidden">
 
       <Header />
 
@@ -215,13 +219,13 @@ export default function SearchPage() {
             <p className="text-[16px] leading-[30px] font-normal">
               Digital D/Apps
             </p>
-            <ResultTypesComponent datas={digitalTypesArray} />
+            <ResultTypesComponent datas={digitalTypesArray} type="digital" setDigitalTypesArray={setDigitalTypesArray} />
           </div>
           <div className="pt-2">
             <p className="text-[16px] leading-[30px] font-normal">
               Real-World D/Apps
             </p>
-            <ResultTypesComponent datas={realTypesArray} />
+            <ResultTypesComponent datas={realTypesArray} type="realworld" setRealTypesArray={setRealTypesArray} />
           </div>
         </div>
         <div className='flex flex-col flex-3'>

@@ -71,4 +71,5 @@ export const plugins = [
     addUtilities(newUtilities, ["responsive", "hover"]);
   },
   require("daisyui"),
+  require("tailwind-scrollbar-daisyui"),
 ];
