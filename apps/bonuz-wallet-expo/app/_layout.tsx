@@ -1,4 +1,5 @@
 import FontAwesome from '@expo/vector-icons/FontAwesome';
+import { useQueryClient } from '@tanstack/react-query';
 import { BlurView } from 'expo-blur';
 import { useFonts } from 'expo-font';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -12,6 +13,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Toast from 'react-native-toast-message';
 import tw from 'twrnc';
 
+import { RefetchMessagesHeaderButton } from '@/pages/messages/components/refetchButton';
 import { ReactQueryProvider } from '@/providers';
 import { useUserStore } from '@/store';
 
@@ -58,6 +60,7 @@ export default function RootLayout() {
 
 function RootLayoutNav() {
   const { top } = useSafeAreaInsets();
+
   return (
     <GestureHandlerRootView style={styles.container}>
       <ReactQueryProvider>
@@ -112,6 +115,7 @@ function RootLayoutNav() {
                         Members
                       </Text>
                     </View>
+                    <RefetchMessagesHeaderButton />
                   </View>
                 </BlurView>
               ),
