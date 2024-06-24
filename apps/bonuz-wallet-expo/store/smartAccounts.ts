@@ -25,7 +25,7 @@ import { fromPrivateKeyToWallet } from '@/utils/wallet';
 
 export let smartAccountSdkByChainId: { [chainId: number]: BiconomySmartAccountV2 } = {};
 
-const chainByChainId = {
+export const chainByChainId = {
   [polygonMumbai.id]: polygonMumbai,
   [polygon.id]: polygon,
   [mainnet.id]: mainnet,

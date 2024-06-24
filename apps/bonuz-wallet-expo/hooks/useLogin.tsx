@@ -18,7 +18,6 @@ export const useLogin = () => {
   const { login: loginApple } = useAppleLogin();
   const { login: loginEmail } = useEmailLogin();
   const clear = useUserStore((state) => state.clear);
-  const setUser = useUserStore((state) => state.setUser);
 
   const login = async (options: loginParams) => {
     const { provider } = options;

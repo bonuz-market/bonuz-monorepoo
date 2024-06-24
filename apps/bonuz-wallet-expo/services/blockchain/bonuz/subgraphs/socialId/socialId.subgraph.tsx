@@ -1,4 +1,5 @@
 import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
+import React from 'react';
 
 import { SOCIAL_ID_SUBGRAPH_URL } from '../../bonuz.config';
 

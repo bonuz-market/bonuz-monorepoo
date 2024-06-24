@@ -99,7 +99,7 @@ export default function Home() {
           </View>
         </TouchableOpacity>
         <Image style={tw`w-33 h-9`} source={require('@/assets/images/home/logo.png')} />
-        <TouchableOpacity onPress={() => navigate('/cart')}>
+        <TouchableOpacity onPress={() => navigate('/wallet')}>
           <View style={tw`w-[54px] h-[54px] rounded-full bg-[#684FCD] justify-center items-center`}>
             <Image
               style={tw`w-[30px] h-[30px]`}
@@ -140,54 +140,54 @@ export default function Home() {
         style={tw`px-4 mt-1`}>
         {activeTab === 'Real World'
           ? Object.entries(realWorldDataByCategory ?? {}).map(([category, partners]) => (
-              <HomeCarousel
-                key={category}
-                title={category}
-                badgeCount={partners.length}
-                right={
+            <HomeCarousel
+              key={category}
+              title={category}
+              badgeCount={partners.length}
+              right={
+                <Link
+                  href={{
+                    pathname: '/(discover)/realWorld/[category]',
+                    params: { category },
+                  }}>
+                  <Text style={tw`text-white text-sm font-semibold`}>View All</Text>
+                </Link>
+              }
+              data={partners.slice(0, 3).map((partner) => ({
+                title: partner.name,
+                image: partner.image.url,
+                href: {
+                  pathname: '/(discover)/realWorld/partner/[slug]',
+                  params: { slug: partner.id },
+                },
+              }))}
+            />
+          ))
+          : Object.entries(digitalWorldDataByCategory ?? {}).map(([category, apps]) => (
+            <HomeCarousel
+              key={category}
+              title={category}
+              badgeCount={apps.length}
+              right={
+                <View style={tw`px-3 py-1 bg-[#684FCD] rounded-full`}>
                   <Link
                     href={{
-                      pathname: '/(discover)/realWorld/[category]',
+                      pathname: '/(discover)/digitalWorld/[category]',
                       params: { category },
                     }}>
                     <Text style={tw`text-white text-sm font-semibold`}>View All</Text>
                   </Link>
-                }
-                data={partners.slice(0, 3).map((partner) => ({
-                  title: partner.name,
-                  image: partner.image.url,
-                  href: {
-                    pathname: '/(discover)/realWorld/partner/[slug]',
-                    params: { slug: partner.id },
-                  },
-                }))}
-              />
-            ))
-          : Object.entries(digitalWorldDataByCategory ?? {}).map(([category, apps]) => (
-              <HomeCarousel
-                key={category}
-                title={category}
-                badgeCount={apps.length}
-                right={
-                  <View style={tw`px-3 py-1 bg-[#684FCD] rounded-full`}>
-                    <Link
-                      href={{
-                        pathname: '/(discover)/digitalWorld/[category]',
-                        params: { category },
-                      }}>
-                      <Text style={tw`text-white text-sm font-semibold`}>View All</Text>
-                    </Link>
-                  </View>
-                }
-                data={apps.slice(0, 3).map((app) => ({
-                  title: app.name,
-                  image: app.image.url,
-                  href: {
-                    pathname: '/home',
-                  },
-                }))}
-              />
-            ))}
+                </View>
+              }
+              data={apps.slice(0, 3).map((app) => ({
+                title: app.name,
+                image: app.image.url,
+                href: {
+                  pathname: '/home',
+                },
+              }))}
+            />
+          ))}
       </ScrollView>
     </LinearGradient>
   );

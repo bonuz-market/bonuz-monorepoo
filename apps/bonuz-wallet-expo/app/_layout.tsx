@@ -57,7 +57,9 @@ function RootLayoutNav() {
       <ReactQueryProvider>
         <Stack initialRouteName="index">
           <Stack.Screen name="index" options={{ headerShown: false }} />
-          <Stack.Screen name="cart" options={{ headerShown: false }} />
+          <Stack.Screen name="wallet" options={{ headerShown: false }} />
+          <Stack.Screen name="nfts" options={{ headerShown: false }} />
+          <Stack.Screen name="tokens" options={{ headerShown: false }} />
           <Stack.Screen name="explore" options={{ headerShown: false }} />
           <Stack.Screen name="connection" options={{ headerShown: false }} />
           <Stack.Screen name="settings" options={{ headerShown: false }} />

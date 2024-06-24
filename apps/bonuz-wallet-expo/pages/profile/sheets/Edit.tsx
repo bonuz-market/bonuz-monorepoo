@@ -134,7 +134,7 @@ export const ProfileEdit = forwardRef<BottomSheetModal, {}>((props, bottomSheetM
       reset();
       _bottomSheetModalRef.current?.dismiss();
     },
-    () => {},
+    () => { },
   );
 
   const profilePictureInput = useMemo(() => {
@@ -211,8 +211,6 @@ export const ProfileEdit = forwardRef<BottomSheetModal, {}>((props, bottomSheetM
         if (!userData) {
           return;
         }
-        console.log(data);
-
         const keys = ['socials', 'wallets', 'messagingApps', 'decentralizedIdentifiers'];
         const updatedData = {};
 
@@ -223,15 +221,15 @@ export const ProfileEdit = forwardRef<BottomSheetModal, {}>((props, bottomSheetM
             (acc, [k, value]) => {
               if (
                 value.handle !==
-                  // @ts-ignore
-                  userData[
-                    key as 'socials' | 'wallets' | 'messagingApps' | 'decentralizedIdentifiers'
-                  ][k]?.handle ||
+                // @ts-ignore
+                userData[
+                  key as 'socials' | 'wallets' | 'messagingApps' | 'decentralizedIdentifiers'
+                ][k]?.handle ||
                 value.isPublic !==
-                  // @ts-ignore
-                  userData[
-                    key as 'socials' | 'wallets' | 'messagingApps' | 'decentralizedIdentifiers'
-                  ][k]?.isPublic
+                // @ts-ignore
+                userData[
+                  key as 'socials' | 'wallets' | 'messagingApps' | 'decentralizedIdentifiers'
+                ][k]?.isPublic
               ) {
                 return {
                   ...acc,
@@ -296,8 +294,6 @@ export const ProfileEdit = forwardRef<BottomSheetModal, {}>((props, bottomSheetM
           //   ...validatableWallets,
           // },
         };
-
-        console.log('dataToUpdate', dataToUpdate);
 
         if (!Object.values(dataToUpdate).every((value) => value === undefined)) {
           Toast.show({

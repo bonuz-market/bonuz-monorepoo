@@ -47,26 +47,25 @@ export default function Home() {
   const onboardingData = [
     {
       image: require('@/assets/images/onboardingOne.png'),
-      title: `Welcome to Your On-Chain Social Smart Wallet`,
+      title: 'Welcome to your On-chain Social Wallet',
       description:
-        'Add Your Social Media Links to Your Profile so New Friends can Easily Connect to You!',
-      // capitalize the first letter of each word
+        'Add your social media links to your profile so new friends can easily connect to you',
     },
     {
       image: require('@/assets/images/onboardingTwo.png'),
-      title: 'Make New Friends while Exploring New Events',
-      description: 'Use QR code to add New Connections!',
+      title: 'Make new friends while exploring new events',
+      description: 'Use QR-code to add a new connections',
     },
     {
       image: require('@/assets/images/onboardingThree.png'),
-      title: 'Earn Exclusive Rewards & Airdrops',
-      description: 'Participate in Challenge to Earn Vouchers, Discounts, Certificates and More!',
+      title: 'Earn exclusive rewards by participating in challenges',
+      description: 'Secure vouchers, discounts, certificates and more from Bonuz partners',
     },
     {
       image: require('@/assets/images/onboardingFour.png'),
-      title: 'Explore & Connect to Apps & Dapps',
+      title: 'Connect to Apps & Dapps using your wallet',
       description:
-        'Seamlessly Access Your Favorite Web3 Applications Directly from the Integrated Wallet',
+        'Seamlessly access and use your favorite Web3 applications directly from the integrated wallet interface',
     },
   ];
 
@@ -89,7 +88,7 @@ export default function Home() {
     if (activeIndex === 0) {
       return 'Continue';
     } else if (activeIndex === 3) {
-      return 'Connect Bonuz ID';
+      return 'Connect Decentralized ID';
     } else {
       return 'Next';
     }
@@ -98,7 +97,6 @@ export default function Home() {
   const handleLogin = async (params: loginParams) => {
     try {
       await login(params);
-      console.log('Login', params);
     } catch (error) {
       console.error('Error Login', error);
     }
@@ -114,7 +112,6 @@ export default function Home() {
     );
   };
 
-  console.log('state.auth', state.auth);
 
   const [email, setEmail] = useState('');
 
@@ -148,7 +145,7 @@ export default function Home() {
             onMomentumScrollEnd={(event: any) => {
               const index = Math.floor(
                 Math.floor(event.nativeEvent.contentOffset.x) /
-                  Math.floor(event.nativeEvent.layoutMeasurement.width),
+                Math.floor(event.nativeEvent.layoutMeasurement.width),
               );
               setActiveIndex(index);
             }}
@@ -238,7 +235,7 @@ export default function Home() {
                 />
               </View>
               <TouchableOpacity
-                onPress={() => handleLogin({ provider: 'email', email, onLoginComplete: () => {} })}
+                onPress={() => handleLogin({ provider: 'email', email, onLoginComplete: () => { } })}
                 style={[styles.button, { marginTop: 16 }]}>
                 <Text style={styles.buttonText}>Sign Up</Text>
               </TouchableOpacity>
