@@ -1,4 +1,3 @@
-/* eslint-disable sonarjs/no-identical-functions */
 import { NftDataProps, TokenDataProps, TransactionDataProps } from '@/entities/wallet';
 import { networkTypes } from '@/store/walletTypes';
 

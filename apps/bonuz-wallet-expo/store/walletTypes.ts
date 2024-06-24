@@ -39,7 +39,7 @@ export const walletTypes = [
 export const networkTypes = [
   {
     id: 1,
-    network: 'Base',
+    network: 'Base Network',
     chainId: '8453',
   },
   {
