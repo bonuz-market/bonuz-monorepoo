@@ -48,13 +48,16 @@ const Messages = () => {
   const {
     data: messagesData,
     refetch: refetchMessages,
-    isLoading: isMessagesLoading,
     fetchNextPage: fetchNextMessagesPage,
     hasNextPage: hasNextMessagesPage,
     isFetchingNextPage: isFetchingNextMessagesPage,
-  } = useUserMessages();
-  const { data: selectedUserData, refetch: refetchSelectedUser } =
-    useQueryGetUserProfileAndSocialLinksByHandle({ handle: selectedUserHandle });
+  } = useUserMessages({
+    refetchOnMount: 'always',
+  });
+  const { data: selectedUserData, refetch: refetchConnections } =
+    useQueryGetUserProfileAndSocialLinksByHandle({
+      handle: selectedUserHandle,
+    });
 
   const { data: userConnections } = useUserConnections();
   useEffect(() => {
@@ -64,11 +67,8 @@ const Messages = () => {
   }, [selectedUserData, selectedUserHandle]);
 
   const handleRemoveConnection = async () => {
-    await refetchSelectedUser();
-  };
-
-  const handleAddConnection = async () => {
-    await refetchSelectedUser();
+    await refetchMessages();
+    await refetchConnections();
   };
 
   const { mutateAsync: sendMessageAsync } = useMutation({
