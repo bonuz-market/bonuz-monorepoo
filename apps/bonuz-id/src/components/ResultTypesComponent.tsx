@@ -1,7 +1,5 @@
 import Image from 'next/image'; // Make sure to import the Image component
 import { resultTypes } from "@/types/typeResult";
-import checkboxIcon from "../../public/icons/checkBox-icon.svg";
-import uncheckboxIcon from "../../public/icons/uncheckbox-icon.svg";
 interface resultTypesProps {
     datas: resultTypes[];
     type: string;
@@ -11,10 +9,10 @@ interface resultTypesProps {
 
 export const ResultTypesComponent = ({ datas, type, setDigitalTypesArray, setRealTypesArray }: resultTypesProps) => {
     const onhandleCheck = (index: number) => {
-        const updatedSource = [...datas]; // Create a copy of source array
+        const updatedSource = [...datas];
         updatedSource[index] = {
             ...updatedSource[index],
-            flag: !updatedSource[index].flag, // Toggle the flag value
+            flag: !updatedSource[index].flag,
         };
         console.log("clicked:", updatedSource)
         if (type === 'digital') setDigitalTypesArray(updatedSource);
@@ -34,7 +32,7 @@ export const ResultTypesComponent = ({ datas, type, setDigitalTypesArray, setRea
                         </div>
                     </div>
                     <Image
-                        src={data.flag ? checkboxIcon : uncheckboxIcon}
+                        src={data.flag ? '/icons/checkBox-icon.svg' : '/icons/uncheckbox-icon.svg'}
                         width={20}
                         height={20}
                         alt="checkbox_icon"

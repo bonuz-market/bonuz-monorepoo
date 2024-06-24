@@ -4,16 +4,17 @@ import Collapsible from "./Collapsible";
 import { hasNonEmptyLink } from "@/utils";
 import { Icon } from "@iconify/react";
 import { cn } from "@/lib/utils";
-import Slider from "react-slick";
 import Image from "next/image";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import voucherImage from "../../public/images/Header.png";
-import { User } from "@/types/user";
 import VoucherComponent from "./VoucherComponent";
 import { voucherSliderData } from '../mockUpData/profileSliderData';
+import ReactCarousel, { AFTER, CENTER, BEFORE } from "react-carousel-animated";
+import "react-carousel-animated/dist/style.css";
+import Carousel from "./Carousel";
 interface ProfileDataComponentProps {
-  data: User;
+  data: any;
 }
 
 
@@ -341,11 +342,13 @@ export default function ProfileDataComponent({
         </>
       ) : (
         <div className={cn("slider-container w-[800px]")}>
-          <Slider {...settings}>
-            {voucherSliderData.map((data, index) => (
-              <VoucherComponent key={index} voucher={data} currentIndex={currentIndex} boxIndex={index} />
-            ))}
-          </Slider>
+          <Carousel
+            slides={voucherSliderData}
+            animationDuration={1000}
+            duration={5000}
+            animationTimingFunction="linear"
+            withNavigation
+          />
 
           <div className={cn("flex w-full mt-10")}>
             <div className={cn("flex flex-row w-full h-full gap-4 bg-[#979797] rounded-2xl overflow-hidden items-center")}>
@@ -365,8 +368,9 @@ export default function ProfileDataComponent({
               </div>
             </div>
           </div>
-        </div>
-      )}
+        </div >
+      )
+      }
     </>
   );
 }

@@ -162,38 +162,13 @@ header {
   clip-path: circle(50% at 50% 50%);
 }
 
-.slick-track {
-  display: flex !important;
-  gap: 20px;
+.sliderWrapper {
+  display: "flex";
+  transition: "transform 0.5s ease-in-out";
+  height: "200px";
 }
 
-.slick-dots li {
-  background-color: white;
-  height: 0.5rem !important;
-  width: 0.5rem !important;
-  border-radius: 100%;
-}
-.slick-dots .slick-active {
-  width: 2rem !important;
-  height: 0.5rem;
-  border-radius: 10px;
-}
-.slick-dots li button {
-  display: none;
-}
-
-.slick-slide {
-  height: 170px !important;
-}
-
-.slick-track {
-  align-items: center;
-}
-
-.slick-track .slick-current {
-  height: 180px !important;
-}
-
-.box-transition {
-  transition: height 0.3s ease-in-out;
+.casuelItem {
+  width: "100%";
+  transition: "width 0.5s ease-in-out";
 }
