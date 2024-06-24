@@ -3,32 +3,15 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
 import Image from 'next/image'
-import { ChangeEvent } from 'react'
 import { cn } from '@/lib/utils'
 import { gql, useQuery } from '@apollo/client';
 
 import checkboxIcon from "../../../public/icons/checkBox-icon.svg";
+import uncheckboxIcon from "../../../public/icons/uncheckbox-icon.svg";
 import Header from '@/components/Header'
 import { useResultTypeStore } from '@/store/resultTypeStore';
 import { useShallow } from 'zustand/react/shallow';
 import { resultTypes } from '@/types/typeResult';
-
-const digitalDappData = [
-  { label: 'ON-CHain Engagement Airdrops', count: '96+' },
-  { label: 'Education Certificates', count: '99+' },
-  { label: 'Shopping (Vouchers, Gift Cards)', count: '99+' },
-  { label: 'DEFI', count: '99+' },
-  { label: 'Virtual Reality', count: '99+' },
-]
-
-const realWorldData = [
-  { label: 'Humans (Bonuz On-Chain ID)', count: '96+' },
-  { label: 'Lens Profiles', count: '99+' },
-  { label: 'Real Life Engagement Airdrops', count: '99+' },
-  { label: '99+', count: '' },
-  { label: 'Token-Gated Meetup', count: '99+' },
-  { label: 'Mixed Reality Games (AR)', count: '99+' },
-]
 
 const sliderData = [
   {
@@ -163,12 +146,21 @@ export default function SearchPage() {
     variables: { handles: searchQuery },
   });
 
+  const [digitalTypesArray, setDigitalTypesArray] = useState<any[]>([]);
+  const [realTypesArray, setRealTypesArray] = useState<any[]>([]);
+
   const { digitalTypes, realWorldTypes } = useResultTypeStore(
     useShallow((store) => ({
       digitalTypes: store.digitalTypes,
       realWorldTypes: store.realWorldTypes,
     }))
   )
+
+  useEffect(() => {
+    setDigitalTypesArray(Object.values(digitalTypes));
+    setRealTypesArray(Object.values(realWorldTypes));
+  }, [digitalTypes, realWorldTypes])
+
   const handlePrev = () => {
     setCurrentIndex((prevIndex) => prevIndex - 1)
   }
@@ -183,41 +175,10 @@ export default function SearchPage() {
     }
   }, [query])
 
-  // useEffect(() => {
-  //   const fetchData = async (searchQuery: string) => {
-  //     try {
-  //       const response = await axios.get<User[]>('/data/users.json')
-  //       const users = response.data
-  //       if (!searchQuery) {
-  //         setResults(users)
-  //         return
-  //       }
-  //       const filteredUsers = users.filter((user) =>
-  //         user.handle.toLowerCase().includes(searchQuery.toLowerCase())
-  //       )
-  //       setResults(filteredUsers)
-  //     } catch (error) {
-  //       console.error('Error fetching data:', error)
-  //     }
-  //   }
-
-  //   // if (searchQuery && searchQuery.length >= 3) {
-  //   fetchData(searchQuery as string)
-  // }, [searchQuery])
-
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') {
       e.preventDefault()
-      // router.push(`/q=${searchQuery}&filters=all`)
     }
-  }
-
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value
-    setSearchQuery(value)
-    // if (value.length >= 3) {
-    // router.push(`/results?query=${value}`, undefined, { shallow: true })
-    // }
   }
 
   const results = data?.userProfiles as GraphQLUser[] || []
@@ -225,16 +186,7 @@ export default function SearchPage() {
 
   return (
     <div className="bg-[url('/images/third-baackground.svg')] bg-center flex w-full h-auto md:h-[100vh] lg:h-auto xl:h-[100vh] flex-col px-7 pb-6 bg-cover">
-      {/* <div className="flex justify-between  h-[56px] items-center flex-col rounded-b-[30px] bg-opacity-5 md:flex-row gap-0 md:gap-2 px-8 bg-[#a2a2a20a]">
-        <p className="font-[26px] hidden md:flex">bonuz</p>
-        <div
-          className="w-[25px] h-[25px] md:w-[30px] md:h-[30px] bg-[url('/icons/up-icon.png')] rounded-[50px] bg-center flex justify-center items-center cursor-pointer"
-          onClick={() => router.push("/")}
-        />
-        <button className="rounded-[30px] px-[8px] bg-custom-gradient-mint text-[12px] md:text-[14px]">
-          Connect Bonuz On-Chain Social ID
-        </button>
-      </div> */}
+
       <Header />
 
 
@@ -263,7 +215,7 @@ export default function SearchPage() {
               Digital D/Apps
             </p>
             <div className="flex flex-col gap-1 pt-2">
-              {digitalTypes.length >= 1 && digitalTypes.map((data: resultTypes, index: number) => (
+              {digitalTypesArray.length >= 1 && digitalTypesArray.map((data: resultTypes, index: number) => (
                 <div
                   key={index}
                   className="flex flex-row p-2 gap-4 max-w-[360px] bg-[#a2a2a20a] rounded-[16px] justify-between font-inter text-base font-normal leading-6 tracking-tight text-left px-[16px] py-[8px]"
@@ -275,7 +227,7 @@ export default function SearchPage() {
                     </div>
                   </div>
                   <Image
-                    src={checkboxIcon}
+                    src={data.flag ? checkboxIcon : uncheckboxIcon}
                     width={20}
                     height={20}
                     alt="checkbox_icon"
@@ -289,7 +241,7 @@ export default function SearchPage() {
               Real-World D/Apps
             </p>
             <div className="flex flex-col gap-1 pt-2">
-              {realWorldTypes.length >= 1 && realWorldTypes.map((data: resultTypes, index: number) => (
+              {realTypesArray.length >= 1 && realTypesArray.map((data: resultTypes, index: number) => (
                 <div
                   key={index}
                   className="flex flex-row p-2 gap-4 max-w-[360px] bg-[#a2a2a20a] rounded-[16px] justify-between font-inter text-base font-normal leading-6 tracking-tight text-left px-[16px] py-[8px]"
@@ -301,7 +253,7 @@ export default function SearchPage() {
                     </div>
                   </div>
                   <Image
-                    src={checkboxIcon}
+                    src={data.flag ? checkboxIcon : uncheckboxIcon}
                     width={20}
                     height={20}
                     alt="checkbox_icon"

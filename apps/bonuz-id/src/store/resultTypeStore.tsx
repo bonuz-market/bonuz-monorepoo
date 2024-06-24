@@ -62,9 +62,9 @@ export const useResultTypeStore = create<ResultTypeStore & (ResultTypeStoreActio
             name: resultTypesStoreKey,
             storage: createJSONStorage(() => ({
                 setItem: (key: string, value: string) => localStorage.setItem(key, value),
-                getItem: async (key: string) =>
-                    (localStorage.getItem(key)) as Promise<string> | null,
-                removeItem: async (key: string) => localStorage.deleteItem(key),
+                getItem: (key: string) =>
+                    (localStorage.getItem(key)) as string | null,
+                removeItem: (key: string) => localStorage.deleteItem(key),
             })),
             // eslint-disable-next-line unicorn/consistent-function-scoping
             onRehydrateStorage: () => (state) => {
