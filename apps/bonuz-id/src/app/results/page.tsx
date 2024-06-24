@@ -219,13 +219,13 @@ export default function SearchPage() {
             <p className="text-[16px] leading-[30px] font-normal">
               Digital D/Apps
             </p>
-            <ResultTypesComponent datas={digitalTypesArray} type="digital" setDigitalTypesArray={setDigitalTypesArray} />
+            <ResultTypesComponent datas={digitalTypesArray} type="digital" setDigitalTypesArray={setDigitalTypesArray} setRealTypesArray={setRealTypesArray} />
           </div>
           <div className="pt-2">
             <p className="text-[16px] leading-[30px] font-normal">
               Real-World D/Apps
             </p>
-            <ResultTypesComponent datas={realTypesArray} type="realworld" setRealTypesArray={setRealTypesArray} />
+            <ResultTypesComponent datas={realTypesArray} type="realworld" setDigitalTypesArray={setDigitalTypesArray} setRealTypesArray={setRealTypesArray} />
           </div>
         </div>
         <div className='flex flex-col flex-3'>

@@ -2,34 +2,27 @@ import Image from 'next/image'; // Make sure to import the Image component
 import { resultTypes } from "@/types/typeResult";
 import checkboxIcon from "../../public/icons/checkBox-icon.svg";
 import uncheckboxIcon from "../../public/icons/uncheckbox-icon.svg";
-import { useState } from 'react';
-import { useEffect } from 'react';
-
 interface resultTypesProps {
     datas: resultTypes[];
     type: string;
-    setDigitalTypesArray?: (data: resultTypes[]) => void;
-    setRealTypesArray?: (data: resultTypes[]) => void;
+    setDigitalTypesArray: (data: resultTypes[]) => void;
+    setRealTypesArray: (data: resultTypes[]) => void;
 }
 
 export const ResultTypesComponent = ({ datas, type, setDigitalTypesArray, setRealTypesArray }: resultTypesProps) => {
-    const [source, setSource] = useState<resultTypes[]>([]);
-    useEffect(() => {
-        setSource(datas);
-    }, [datas])
-
     const onhandleCheck = (index: number) => {
-        const updatedSource = [...source]; // Create a copy of source array
+        const updatedSource = [...datas]; // Create a copy of source array
         updatedSource[index] = {
             ...updatedSource[index],
             flag: !updatedSource[index].flag, // Toggle the flag value
         };
         console.log("clicked:", updatedSource)
-        setSource(updatedSource);
+        if (type === 'digital') setDigitalTypesArray(updatedSource);
+        else setRealTypesArray(updatedSource);
     }
     return (
         <div className="flex flex-col gap-1 pt-2 max-h-[240px] scrollbar-thin scrollbar-thumb-rounded-md scrollbar-thumb-gray-900 scrollbar-track-black">
-            {source.length >= 1 && source.map((data: resultTypes, index: number) => (
+            {datas.length >= 1 && datas.map((data: resultTypes, index: number) => (
                 <div
                     key={index} // Add a key for each item in the list
                     className="flex flex-row p-2 gap-4 max-w-[360px] bg-[#a2a2a20a] rounded-[16px] justify-between font-inter text-base font-normal leading-6 tracking-tight text-left px-[16px] py-[8px]"
