@@ -8,13 +8,6 @@ import { isNotEmpty } from '@/utils/object';
 export const BACKEND_ENDPOINT =
   Constants.expoConfig?.extra?.backendUrl ?? '<backendUrl must be set in app.json>';
 
-export const TEST_TOKEN_LIST_ENDPOINT = 'https://aggregator-api.xy.finance';
-
-export let testBackendClient = ky.create({
-  prefixUrl: TEST_TOKEN_LIST_ENDPOINT,
-  headers: {},
-});
-
 export let backendClient = ky.create({
   prefixUrl: BACKEND_ENDPOINT,
   headers: {
