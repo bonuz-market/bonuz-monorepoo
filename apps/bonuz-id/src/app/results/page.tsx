@@ -6,13 +6,12 @@ import Image from 'next/image'
 import { cn } from '@/lib/utils'
 import { gql, useQuery } from '@apollo/client';
 
-import checkboxIcon from "../../../public/icons/checkBox-icon.svg";
-import uncheckboxIcon from "../../../public/icons/uncheckbox-icon.svg";
 import Header from '@/components/Header'
 import { useResultTypeStore } from '@/store/resultTypeStore';
 import { useShallow } from 'zustand/react/shallow';
 import { resultTypes } from '@/types/typeResult';
 import { ResultTypesComponent } from '@/components/ResultTypesComponent'
+import { ResultSlideComponent } from '@/components/ResultSlideComponent'
 
 const sliderData = [
   {
@@ -26,7 +25,7 @@ const sliderData = [
         bottom_middle_text: '2024',
         bottom_bottom_text: 'Sep 29,2024',
         left_url: '/images/sample1.png',
-        count: '99+',
+        count: '+99',
         left_top_text: 'NFT',
         left_bottom_text: 'Reward',
       },
@@ -36,7 +35,7 @@ const sliderData = [
         bottom_middle_text: 'Showcase',
         bottom_bottom_text: 'May 15,2024',
         left_url: '/images/sample1.png',
-        count: '99+',
+        count: '+99',
         left_top_text: 'NFT',
         left_bottom_text: 'Reward',
       },
@@ -58,12 +57,12 @@ const sliderData = [
         left_bottom_text: 'Reward',
       },
       {
-        url: '',
+        url: '/images/bdoge.png',
         bottom_top_text: 'McDonalds',
         bottom_middle_text: '',
         bottom_bottom_text: '',
         left_url: '',
-        count: '99+',
+        count: '+99',
         left_top_text: 'NFT',
         left_bottom_text: 'Reward',
       },
@@ -90,7 +89,7 @@ const sliderData = [
         bottom_middle_text: 'Dubai',
         bottom_bottom_text: '',
         left_url: '',
-        count: '99+',
+        count: '+99',
         left_top_text: 'NFT',
         left_bottom_text: 'Reward',
       },
@@ -141,7 +140,7 @@ export default function SearchPage() {
   const searchParams = useSearchParams();
   const query = searchParams.get('query')
   const [searchQuery, setSearchQuery] = useState('')
-  const [currentIndex, setCurrentIndex] = useState(0)
+
 
   const { data } = useQuery(GET_USER_PROFILES, {
     variables: { handles: searchQuery },
@@ -166,14 +165,6 @@ export default function SearchPage() {
     console.log("result:", digitalTypesArray);
   }, [digitalTypesArray]);
 
-  const handlePrev = () => {
-    setCurrentIndex((prevIndex) => prevIndex - 1)
-  }
-
-  const handleNext = () => {
-    setCurrentIndex((prevIndex) => prevIndex + 1)
-  }
-
   useEffect(() => {
     if (query) {
       setSearchQuery(query as string)
@@ -191,10 +182,7 @@ export default function SearchPage() {
 
   return (
     <div className="bg-[url('/images/third-baackground.svg')] bg-center flex w-full h-auto md:h-[100vh] lg:h-auto xl:h-[100vh] flex-col px-7 pb-6 bg-cover overflow-hidden">
-
       <Header />
-
-
       <div className="mt-2 w-full h-[30px] flex justify-between items-center justify-center p-3 pt-0 gap-2 rounded-[30px] border-2 pb-0 border-[#9651FF]">
         <Image src={'/icons/search.svg'} width={20} height={20} alt="search" />
         <input
@@ -230,7 +218,7 @@ export default function SearchPage() {
         </div>
         <div className='flex flex-col flex-3'>
           <div>
-            <div className='flex flex-col bg-gradient-border mt-10 p-2 rounded-[25px] bg-[#ffffff05] p-[16px]'>
+            <div className='flex flex-col bg-gradient-border mt-6 p-2 rounded-[25px] bg-[#ffffff05] p-[16px]'>
               <div className='flex gap-[12px] items-center'>
                 <span className='mb-[12px]'>Users</span>
                 <span className='mb-[12px] bg-[#a2a2a20a] py-[4px] px-[8px] rounded-[10px]'>
@@ -253,126 +241,33 @@ export default function SearchPage() {
                   </>
                 )}
                 {results.map((user) => {
+                  return (
+                    <div
+                      className='rounded-[30px] bg-[#a2a2a20a] p-4 h-[165px] w-[300px] md:w-[450px] flex flex-row gap-4 justify-center items-center flex-1'
+                      key={user.wallet}>
+                      {user.profileImage ? <img
+                        src={user.profileImage}
+                        className='rounded-full w-[107px] h-[94px]'
+                        alt="static-face"
+                      /> : <div className='skeleton w-32 h-32'></div>}
 
-                  return <div
-                    className='rounded-[30px] bg-[#a2a2a20a] p-4 h-[165px] w-[300px] md:w-[450px] flex flex-row gap-4 justify-center items-center flex-1'
-                    key={user.wallet}>
-                    {user.profileImage ? <img
-                      src={user.profileImage}
-                      className='rounded-full w-[107px] h-[94px]'
-                      alt="static-face"
-                    /> : <div className='skeleton w-32 h-32'></div>}
-
-                    {/* <Skeleton className='h-20 w-20 rounded-full' /> */}
-                    <div className='flex flex-col w-full items-center gap-2'>
-                      <p>{user.name}</p>
-                      <p>@{user.handle}</p>
-                      <button className='rounded-[30px] px-[8px] h-[35px] bg-custom-gradient-mint w-full text-[12px] md:text-[16px]'
-                        onClick={() => router.push(`/profile/${user.handle}`)}
-                      >
-                        View Social ID Profile
-                      </button>
+                      <div className='flex flex-col w-full items-center gap-2'>
+                        <p>{user.name}</p>
+                        <p>@{user.handle}</p>
+                        <button className='rounded-[30px] px-[8px] h-[35px] bg-custom-gradient-mint w-full text-[12px] md:text-[16px]'
+                          onClick={() => router.push(`/profile/${user.handle}`)}
+                        >
+                          View Social ID Profile
+                        </button>
+                      </div>
                     </div>
-                  </div>
+                  )
                 })}
               </div>
             </div>
           </div>
           <div className='flex flex-col bg-gradient-border mt-10 p-2 rounded-[25px]'>
-            <div className='grid flex-row gap-4 grid-cols-1 md:grid-cols-2'>
-              {sliderData.map((data, index) => (
-                <div
-                  key={index}
-                  className='rounded-[30px] bg-[#a2a2a20a] p-4 h-[165px] w-[300px] md:w-[450px] flex flex-col gap-4 justify-center items-center'>
-                  <div className='flex flex-row gap-2 justify-between w-full'>
-                    <div className='flex flex-row justify-center items-center gap-2'>
-                      <p>{data.topic}</p>
-                      {data.count !== '' && (
-                        <div className='flex w-[32px] h-[20px] rounded-[50px] bg-[#a2a2a20a] text-center justify-center items-center text-[13px]'>
-                          {data.count}
-                        </div>
-                      )}
-                    </div>
-                    {data.status === 'true' && (
-                      <div className="flex w-[75px] h-[25px] rounded-[50px] bg-[url('/images/third-baackground.svg')] text-center justify-center items-center text-[13px] cursor-pointer">
-                        View All
-                      </div>
-                    )}
-                  </div>
-                  <div
-                    id='controls-carousel'
-                    className='relative w-full w-[250px] h-[130px] flex justify-center'
-                    data-carousel='static'>
-                    <button
-                      type='button'
-                      className='top-0 start-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none'
-                      data-carousel-prev
-                      onClick={handlePrev}>
-                      <span className='inline-flex items-center justify-center w-10 h-10 rounded-full'>
-                        <svg
-                          className='w-4 h-4 text-white  rtl:rotate-180'
-                          aria-hidden='true'
-                          xmlns='http://www.w3.org/2000/svg'
-                          fill='none'
-                          viewBox='0 0 6 10'>
-                          <path
-                            stroke='currentColor'
-                            strokeLinecap='round'
-                            strokeLinejoin='round'
-                            strokeWidth='2'
-                            d='M5 1 1 5l4 4'
-                          />
-                        </svg>
-                        <span className='sr-only'>Previous</span>
-                      </span>
-                    </button>
-
-                    <div className='relative overflow-hidden rounded-lg h-[100%] w-[100%] flex items-center justify-center'>
-                      {data.images.map((frame, index1) => (
-                        <div
-                          key={index1}
-                          className={`duration-700 ease-in-out ${index1 === currentIndex ? 'block' : 'hidden'
-                            }`}
-                          data-carousel-item={
-                            index1 === currentIndex ? 'active' : undefined
-                          }>
-                          <Image
-                            src={frame.url}
-                            alt={`Frame ${index + 1}`}
-                            width={138}
-                            height={70}
-                          />
-                        </div>
-                      ))}
-                    </div>
-
-                    <button
-                      type='button'
-                      className='top-0 end-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none'
-                      data-carousel-next
-                      onClick={handleNext}>
-                      <span className='inline-flex items-center justify-center w-10 h-10 rounded-full'>
-                        <svg
-                          className='w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180'
-                          aria-hidden='true'
-                          xmlns='http://www.w3.org/2000/svg'
-                          fill='none'
-                          viewBox='0 0 6 10'>
-                          <path
-                            stroke='currentColor'
-                            strokeLinecap='round'
-                            strokeLinejoin='round'
-                            strokeWidth='2'
-                            d='m1 9 4-4-4-4'
-                          />
-                        </svg>
-                        <span className='sr-only'>Next</span>
-                      </span>
-                    </button>
-                  </div>
-                </div>
-              ))}
-            </div>
+            <ResultSlideComponent slidedata={sliderData} />
           </div>
         </div>
       </div>

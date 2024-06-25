@@ -13,12 +13,12 @@ interface ICarouselProps {
 }
 
 interface AnymationTypeProps {
-    index: any;
-    activeIndex: any;
-    nextActiveIndex: any;
-    duration: any;
-    timingFunction: any;
-    animationDelay: any;
+    index: number;
+    activeIndex: number;
+    nextActiveIndex: number;
+    duration: number;
+    timingFunction: string;
+    animationDelay: number;
 }
 interface ICarouselState {
     active: number;
@@ -41,8 +41,8 @@ export default function Carousel(props: ICarouselProps): React.ReactElement {
                     };
                 case "CUSTOM":
                     return {
-                        active: action.index,
-                        nextActive: (action.index + 1) % props.slides.length
+                        active: action.index!,
+                        nextActive: (action.index! + 1) % props.slides.length
                     };
                 default:
                     throw new Error();
@@ -50,16 +50,6 @@ export default function Carousel(props: ICarouselProps): React.ReactElement {
         },
         { active: 0, nextActive: 1 }
     );
-
-    let timerId: React.MutableRefObject<number> = React.useRef();
-
-    React.useEffect(() => {
-        clearTimeout(timerId.current);
-        timerId.current = setTimeout(() => {
-            dispatch({ type: "NEXT" });
-        }, props.duration || 1000);
-        return () => clearTimeout(timerId.current);
-    }, [state.nextActive, props.duration]);
 
     return (
         <div className="relative overflow-hidden w-full">
@@ -72,9 +62,9 @@ export default function Carousel(props: ICarouselProps): React.ReactElement {
                                 index,
                                 activeIndex: state.active,
                                 nextActiveIndex: state.nextActive,
-                                duration: props.animationDuration,
-                                timingFunction: props.animationTimingFunction,
-                                animationDelay: props.animationDelay
+                                duration: props.animationDuration || 700,
+                                timingFunction: props.animationTimingFunction || "cubic-bezier(0.1, 0.99, 0.1, 0.99)",
+                                animationDelay: props.animationDelay || 100
                             })
                         }}
                         className="flex justify-center items-center casuelItem absolute"
@@ -172,22 +162,19 @@ function getAnimationStyle({
     animationDelay
 }: AnymationTypeProps) {
 
-    let transitionPostfix: string = `${(duration || 700) /
-        1000}s  ${timingFunction ||
-        "cubic-bezier(0.1, 0.99, 0.1, 0.99)"} ${(animationDelay || 100) / 1000}s`;
+    let transitionPostfix: string = `${duration / 1000}s ${timingFunction} ${animationDelay / 1000}s`;
 
     const isActive = index === activeIndex;
     const scale = isActive ? 1.1 : 1; // Adjust scale for active item
     let leftNumber = isActive ? 50 : (index - activeIndex) * 50;
-    if (leftNumber < -50)
-        leftNumber += 200;
+    if (leftNumber < -50) leftNumber += 200;
+    if (leftNumber > 150) leftNumber -= 200;
     const left = isActive ? `${leftNumber}px` : `${leftNumber}%`;
-
 
     const style: React.CSSProperties = {
         transform: `scale(${scale})`,
         left: left,
-        opacity: leftNumber >= 100 ? 0 : 1,
+        opacity: leftNumber <= -0 || leftNumber >= 100 ? 0 : 1,
         transition: `transform ${transitionPostfix}, left ${transitionPostfix}`
     };
 
