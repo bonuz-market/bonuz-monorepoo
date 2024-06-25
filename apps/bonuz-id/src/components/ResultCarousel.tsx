@@ -1,21 +1,17 @@
 import { cn } from "@/lib/utils";
-import * as React from "react";
+import React from "react";
 import Image from 'next/image';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination } from 'swiper/modules';
+
 interface ICarouselProps {
     slides: any[];
-    chachedSlides?: boolean;
+    cachedSlides?: boolean;
     duration?: number;
     animationDuration?: number;
     animationTimingFunction?: string;
     animationDelay?: number;
     withNavigation?: boolean;
-}
-
-interface IAction {
-    type: string;
-    index?: number;
 }
 
 export default function ResultCarousel(props: ICarouselProps): React.ReactElement {
@@ -26,11 +22,7 @@ export default function ResultCarousel(props: ICarouselProps): React.ReactElemen
         },
     };
 
-    React.useEffect(() => {
-        console.log("props:", props.slides);
-    }, [])
     return (
-
         <div className="relative w-full h-full p-1 flex flex-row gap-2 overflow-hidden">
             <Swiper
                 pagination={pagination}
@@ -52,8 +44,8 @@ export default function ResultCarousel(props: ICarouselProps): React.ReactElemen
                                     className="w-full h-full"
                                 />
                                 <div className="absolute bottom-2 left-2 flex flex-col">
-                                    <text className="text-[12px] font-semibold">{data.bottom_top_text}</text>
-                                    <text className="text-[10px] font-normal">{data.bottom_bottom_text}</text>
+                                    <span className="text-[12px] font-semibold">{data.bottom_top_text}</span>
+                                    <span className="text-[10px] font-normal">{data.bottom_bottom_text}</span>
                                 </div>
                             </div>
                             <div className="flex w-[30%] bg-gradient-to-b from-[#EF5772] to-[#CD37A1] h-full flex-col items-center justify-center">
@@ -66,17 +58,16 @@ export default function ResultCarousel(props: ICarouselProps): React.ReactElemen
                                         key={index}
                                     />
                                     {data.count && (
-                                        <text className="absolute top-[-5px] right-[-5px] text-[10px] bg-[#FF0000] rounded-md p-[1px]">{data.count}</text>
+                                        <span className="absolute top-[-5px] right-[-5px] text-[10px] bg-[#FF0000] rounded-md p-[1px]">{data.count}</span>
                                     )}
                                 </div>
-                                <text className="text-[12px] font-normal">{data.left_top_text}</text>
-                                <text className="text-[12px] font-normal">{data.left_bottom_text}</text>
+                                <span className="text-[12px] font-normal">{data.left_top_text}</span>
+                                <span className="text-[12px] font-normal">{data.left_bottom_text}</span>
                             </div>
                         </div>
                     </SwiperSlide>
                 ))}
-            </Swiper >
-        </div >
+            </Swiper>
+        </div>
     );
 }
-
