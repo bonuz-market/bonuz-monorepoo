@@ -50,7 +50,7 @@ export default function Carousel(props: ICarouselProps): React.ReactElement {
             >
                 {(props.slides || []).map((slide, index) => (
                     <SwiperSlide key={index} className={cn(
-                        "flex flex-row p-4 gap-2 rounded-[20px] shadow-[0px_0px_0px_0px_rgba(0,0,0,0.00),-80px_104px_53px_0px_rgba(0,0,0,0.01),-45px_59px_44px_0px_rgba(0,0,0,0.05),-20px_26px_33px_0px_rgba(0,0,0,0.09),-5px_7px_18px_0px_rgba(0,0,0,0.10)] backdrop-blur-[20px]",
+                        "flex flex-row p-4 w-full gap-2 rounded-[20px] shadow-[0px_0px_0px_0px_rgba(0,0,0,0.00),-80px_104px_53px_0px_rgba(0,0,0,0.01),-45px_59px_44px_0px_rgba(0,0,0,0.05),-20px_26px_33px_0px_rgba(0,0,0,0.09),-5px_7px_18px_0px_rgba(0,0,0,0.10)] backdrop-blur-[20px]",
                         getGradientClass(index)
                     )}>
                         <div className="flex flex-col w-full">

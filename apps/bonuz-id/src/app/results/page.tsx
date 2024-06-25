@@ -20,9 +20,8 @@ const sliderData = [
     status: 'true',
     images: [
       {
-        url: '/images/bodge.png',
-        bottom_top_text: 'DecentralizeFest',
-        bottom_middle_text: '2024',
+        url: '/images/bdoge.png',
+        bottom_top_text: 'DecentralizeFest 2024',
         bottom_bottom_text: 'Sep 29,2024',
         left_url: '/images/sample1.png',
         count: '+99',
@@ -30,9 +29,8 @@ const sliderData = [
         left_bottom_text: 'Reward',
       },
       {
-        url: '/images/bodge.png',
-        bottom_top_text: 'CryptoCanvas',
-        bottom_middle_text: 'Showcase',
+        url: '/images/bdoge.png',
+        bottom_top_text: 'CryptoCanvas Showcase',
         bottom_bottom_text: 'May 15,2024',
         left_url: '/images/sample1.png',
         count: '+99',
@@ -49,7 +47,6 @@ const sliderData = [
       {
         url: '/images/bdoge.png',
         bottom_top_text: 'Starbucks coffee',
-        bottom_middle_text: '',
         bottom_bottom_text: '',
         left_url: '/images/sample1.png',
         count: '',
@@ -59,7 +56,6 @@ const sliderData = [
       {
         url: '/images/bdoge.png',
         bottom_top_text: 'McDonalds',
-        bottom_middle_text: '',
         bottom_bottom_text: '',
         left_url: '',
         count: '+99',
@@ -75,8 +71,7 @@ const sliderData = [
     images: [
       {
         url: '/images/bdoge.png',
-        bottom_top_text: 'Dubai Opera Grand',
-        bottom_middle_text: 'Grand',
+        bottom_top_text: 'Dubai Opera Grand Tour',
         bottom_bottom_text: '',
         left_url: '/images/sample1.png',
         count: '',
@@ -84,9 +79,8 @@ const sliderData = [
         left_bottom_text: 'Reward',
       },
       {
-        url: '',
-        bottom_top_text: 'Museum of Illusion',
-        bottom_middle_text: 'Dubai',
+        url: '/images/bdoge.png',
+        bottom_top_text: 'Museum of Illusion Dubai',
         bottom_bottom_text: '',
         left_url: '',
         count: '+99',
@@ -218,7 +212,7 @@ export default function SearchPage() {
         </div>
         <div className='flex flex-col flex-3'>
           <div>
-            <div className='flex flex-col bg-gradient-border mt-6 p-2 rounded-[25px] bg-[#ffffff05] p-[16px]'>
+            <div className='flex flex-col bg-gradient-border p-3 rounded-[25px] bg-[#ffffff05]'>
               <div className='flex gap-[12px] items-center'>
                 <span className='mb-[12px]'>Users</span>
                 <span className='mb-[12px] bg-[#a2a2a20a] py-[4px] px-[8px] rounded-[10px]'>
@@ -266,7 +260,7 @@ export default function SearchPage() {
               </div>
             </div>
           </div>
-          <div className='flex flex-col bg-gradient-border mt-10 p-2 rounded-[25px]'>
+          <div className='flex flex-col bg-gradient-border mt-2 p-2 rounded-[25px]'>
             <ResultSlideComponent slidedata={sliderData} />
           </div>
         </div>

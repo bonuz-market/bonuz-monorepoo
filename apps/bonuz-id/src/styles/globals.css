@@ -171,8 +171,8 @@ header {
 }
 
 .swiper-slide {
-  height: 160px !important;
-  display: flex;
+  height: 150px !important;
+  display: flex !important;
   transition: transform 0.3s ease-in-out;
 }
 
