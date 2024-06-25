@@ -1,3 +1,4 @@
+import { useHeaderHeight } from '@react-navigation/elements';
 import { useQuery } from '@tanstack/react-query';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Link, useRouter } from 'expo-router';
@@ -77,38 +78,11 @@ export default function Home() {
   );
 
   const [activeTab, setActiveTab] = useState<'Real World' | 'Digital World'>('Digital World');
-
+  const headerHeight = useHeaderHeight();
   return (
-    <LinearGradient colors={['#4B2EA2', '#0E2875']} style={tw`flex-1 flex-col gap-1.5`}>
-      <StatusBar backgroundColor={'#5137B1'} />
-      <View
-        style={[
-          tw`flex flex-row justify-between items-center bg-[#5137B1] px-4 h-4/25 rounded-b-[10]`,
-          { paddingTop: StatusBarHeight() },
-        ]}>
-        <TouchableOpacity onPress={() => navigate('/connection')}>
-          <View style={tw`w-[54px] h-[54px] rounded-full bg-[#684FCD] justify-center items-center`}>
-            <View
-              style={tw`bg-[#FF3B30] absolute top-[-1] left-9 w-[20px] rounded-full justify-center items-center`}>
-              <Text style={tw`text-[12px] text-white font-semibold`}>7</Text>
-            </View>
-            <Image
-              style={tw`w-[30px] h-[30px]`}
-              source={require('@/assets/images/home/profile.png')}
-            />
-          </View>
-        </TouchableOpacity>
-        <Image style={tw`w-33 h-9`} source={require('@/assets/images/home/logo.png')} />
-        <TouchableOpacity onPress={() => navigate('/wallet')}>
-          <View style={tw`w-[54px] h-[54px] rounded-full bg-[#684FCD] justify-center items-center`}>
-            <Image
-              style={tw`w-[30px] h-[30px]`}
-              source={require('@/assets/images/home/cart.png')}
-            />
-          </View>
-        </TouchableOpacity>
-      </View>
-
+    <LinearGradient
+      colors={['#4B2EA2', '#0E2875']}
+      style={[tw`flex-1 flex-col gap-1.5`, { paddingTop: headerHeight + 16 }]}>
       <HomeBanner data={featuredItems ?? []} />
       <Tabs
         tabs={['Digital World', 'Real World']}
@@ -140,54 +114,54 @@ export default function Home() {
         style={tw`px-4 mt-1`}>
         {activeTab === 'Real World'
           ? Object.entries(realWorldDataByCategory ?? {}).map(([category, partners]) => (
-            <HomeCarousel
-              key={category}
-              title={category}
-              badgeCount={partners.length}
-              right={
-                <Link
-                  href={{
-                    pathname: '/(discover)/realWorld/[category]',
-                    params: { category },
-                  }}>
-                  <Text style={tw`text-white text-sm font-semibold`}>View All</Text>
-                </Link>
-              }
-              data={partners.slice(0, 3).map((partner) => ({
-                title: partner.name,
-                image: partner.image.url,
-                href: {
-                  pathname: '/(discover)/realWorld/partner/[slug]',
-                  params: { slug: partner.id },
-                },
-              }))}
-            />
-          ))
-          : Object.entries(digitalWorldDataByCategory ?? {}).map(([category, apps]) => (
-            <HomeCarousel
-              key={category}
-              title={category}
-              badgeCount={apps.length}
-              right={
-                <View style={tw`px-3 py-1 bg-[#684FCD] rounded-full`}>
+              <HomeCarousel
+                key={category}
+                title={category}
+                badgeCount={partners.length}
+                right={
                   <Link
                     href={{
-                      pathname: '/(discover)/digitalWorld/[category]',
+                      pathname: '/(discover)/realWorld/[category]',
                       params: { category },
                     }}>
                     <Text style={tw`text-white text-sm font-semibold`}>View All</Text>
                   </Link>
-                </View>
-              }
-              data={apps.slice(0, 3).map((app) => ({
-                title: app.name,
-                image: app.image.url,
-                href: {
-                  pathname: '/home',
-                },
-              }))}
-            />
-          ))}
+                }
+                data={partners.slice(0, 3).map((partner) => ({
+                  title: partner.name,
+                  image: partner.image.url,
+                  href: {
+                    pathname: '/(discover)/realWorld/partner/[slug]',
+                    params: { slug: partner.id },
+                  },
+                }))}
+              />
+            ))
+          : Object.entries(digitalWorldDataByCategory ?? {}).map(([category, apps]) => (
+              <HomeCarousel
+                key={category}
+                title={category}
+                badgeCount={apps.length}
+                right={
+                  <View style={tw`px-3 py-1 bg-[#684FCD] rounded-full`}>
+                    <Link
+                      href={{
+                        pathname: '/(discover)/digitalWorld/[category]',
+                        params: { category },
+                      }}>
+                      <Text style={tw`text-white text-sm font-semibold`}>View All</Text>
+                    </Link>
+                  </View>
+                }
+                data={apps.slice(0, 3).map((app) => ({
+                  title: app.name,
+                  image: app.image.url,
+                  href: {
+                    pathname: '/home',
+                  },
+                }))}
+              />
+            ))}
       </ScrollView>
     </LinearGradient>
   );

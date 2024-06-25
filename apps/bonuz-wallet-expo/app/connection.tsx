@@ -1,4 +1,5 @@
 import { BottomSheetModal, BottomSheetModalProvider } from '@gorhom/bottom-sheet';
+import { useHeaderHeight } from '@react-navigation/elements';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useRouter } from 'expo-router';
 import React, { useRef, useState } from 'react';
@@ -21,6 +22,7 @@ import { useUserConnections } from '@/services/blockchain/bonuz/useSocialId';
 
 export default function Connection() {
   const { navigate } = useRouter();
+  const headerHeight = useHeaderHeight();
 
   const bottomModalRef = useRef<BottomSheetModal>(null);
 
@@ -39,37 +41,9 @@ export default function Connection() {
 
   return (
     <BottomSheetModalProvider>
-      <LinearGradient colors={['#4B2EA2', '#0E2875']} style={tw`flex-1`}>
-        <StatusBar backgroundColor={'#5137B1'} />
-        <View
-          style={[
-            tw`flex flex-row justify-between items-center bg-[#5137B1] px-4 h-4/25 rounded-b-[10]`,
-            { paddingTop: StatusBarHeight() },
-          ]}>
-          <TouchableOpacity onPress={() => navigate('/home')}>
-            <View
-              style={tw`w-[54px] h-[54px] rounded-full bg-[#684FCD] justify-center items-center`}>
-              <Image style={tw`w-[30px]`} source={require('@/assets/images/cart/leftIcon.png')} />
-            </View>
-          </TouchableOpacity>
-          <View style={tw`flex bg-transparent justify-center items-center`}>
-            <Text style={tw`text-[20px] text-white font-semibold`}>Social</Text>
-          </View>
-          <TouchableOpacity onPress={() => navigate('/messages')}>
-            <View
-              style={tw`w-[54px] h-[54px] rounded-full bg-[#684FCD] justify-center items-center`}>
-              <View
-                style={tw`bg-[#FF3B30] absolute top-[-1] left-9 w-[20px] rounded-full justify-center items-center`}>
-                <Text style={tw`text-[13px] text-white font-semibold`}>3</Text>
-              </View>
-              <Image
-                style={tw`w-[30px]`}
-                source={require('@/assets/images/connection/messageIcon.png')}
-              />
-            </View>
-          </TouchableOpacity>
-        </View>
-
+      <LinearGradient
+        colors={['#4B2EA2', '#0E2875']}
+        style={[tw`flex-1`, { paddingTop: headerHeight }]}>
         <View style={tw`bg-transparent mx-5 mt-10`}>
           <Tabs
             tabs={['Lens.xys Feed', 'My Connections']}

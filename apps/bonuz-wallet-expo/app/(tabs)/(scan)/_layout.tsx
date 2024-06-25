@@ -1,7 +1,10 @@
+import { BlurView } from 'expo-blur';
 import { Stack } from 'expo-router';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { Iconify } from 'react-native-iconify';
 import tw from 'twrnc';
+
+import { Header } from '@/components/Header/header';
 
 export default function ScanLayout() {
   return (
@@ -9,21 +12,42 @@ export default function ScanLayout() {
       <Stack.Screen
         name="scan"
         options={{
-          headerLeft: () => (
-            <Pressable hitSlop={30} style={tw`p-3 rounded-full bg-[#6742c1]`}>
-              <Iconify icon="ph:users-three-light" color="white" size={24} />
-            </Pressable>
+          header: ({ options, navigation }) => (
+            <Header
+              title={
+                <Text style={[tw`text-white text-center text-xl font-semibold`]}>
+                  {options.title}
+                </Text>
+              }
+              left={
+                <View style={tw`h-[48px] w-[48px] z-50`}>
+                  <Pressable onPress={navigation.goBack} hitSlop={30} style={tw`absolute`}>
+                    <BlurView
+                      style={[tw`flex-1 p-3 rounded-full overflow-hidden`]}
+                      intensity={50}
+                      tint="light">
+                      <Iconify icon="ph:users-three-light" color="white" size={24} />
+                    </BlurView>
+                  </Pressable>
+                </View>
+              }
+              right={
+                <View style={tw`h-[48px] w-[48px] z-50`}>
+                  <Pressable onPress={navigation.goBack} hitSlop={30} style={tw`absolute`}>
+                    <BlurView
+                      style={[tw`flex-1 p-3 rounded-full overflow-hidden`]}
+                      intensity={50}
+                      tint="light">
+                      <Iconify icon="ion:share-outline" color="white" size={24} />
+                    </BlurView>
+                  </Pressable>
+                </View>
+              }
+            />
           ),
-          headerRight: () => (
-            <Pressable hitSlop={30} style={tw`p-3 rounded-full bg-[#6742c1]`}>
-              <Iconify icon="ion:share-outline" color="white" size={24} />
-            </Pressable>
-          ),
-          headerBackground: () => (
-            <View style={tw.style(`bg-[#4a2ea1]`, StyleSheet.absoluteFill)} />
-          ),
+          headerTransparent: true,
+
           title: 'Connect',
-          headerTitleStyle: tw`text-white text-xl font-semibold mb-4`,
         }}
       />
     </Stack>

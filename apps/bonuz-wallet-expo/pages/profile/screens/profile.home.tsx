@@ -25,6 +25,7 @@ import {
   useWindowDimensions,
   View,
 } from 'react-native';
+import { Iconify } from 'react-native-iconify';
 import Animated, {
   Extrapolation,
   interpolate,
@@ -195,23 +196,30 @@ const HeaderComponent = ({
         noBottomBorder
         headerRight={
           <Pressable
-            onPress={() => { }}
-            style={tw`w-13 h-13 rounded-full justify-center items-center bg-[#E9A08F]`}
+            onPress={() => {}}
+            style={tw`h-[48px] w-[48px] rounded-full justify-center items-center`}
             hitSlop={30}>
-            <Image style={tw`w-7 h-7`} source={require('@/assets/images/profile/share.png')} />
+            <BlurView
+              style={[tw`flex-1 p-3 rounded-full overflow-hidden`]}
+              intensity={50}
+              tint="light">
+              <Iconify icon="ion:share-outline" color="white" size={24} />
+            </BlurView>
           </Pressable>
         }
-        headerRightStyle={[tw`pl-3`, { paddingLeft: Math.max(right, ROOT_HORIZONTAL_PADDING) }]}
+        headerRightStyle={[tw`pr-4`]}
         headerLeft={
           <View style={tw`flex flex-row gap-2 items-center`}>
             <Link href="/settings" asChild>
               <Pressable
-                style={tw`w-13 h-13 rounded-full justify-center items-center bg-[#E9A08F]`}
+                style={tw`h-[48px] w-[48px] rounded-full justify-center items-center`}
                 hitSlop={30}>
-                <Image
-                  style={tw`w-7 h-7`}
-                  source={require('@/assets/images/profile/settings.png')}
-                />
+                <BlurView
+                  style={[tw`flex-1 p-3 rounded-full overflow-hidden`]}
+                  intensity={50}
+                  tint="light">
+                  <Iconify icon="solar:settings-linear" color="white" size={24} />
+                </BlurView>
               </Pressable>
             </Link>
             <FadingView opacity={showNavBar}>
@@ -220,7 +228,7 @@ const HeaderComponent = ({
             </FadingView>
           </View>
         }
-        headerLeftStyle={[tw`pl-3`, { paddingLeft: Math.max(left, ROOT_HORIZONTAL_PADDING) }]}
+        headerLeftStyle={[tw`pl-4`]}
       />
     </View>
   );
@@ -321,34 +329,34 @@ export const ProfileHome = () => {
                     size={20}
                   />
                 } // RightComponent={
-              //   <HStack space={2} alignItems="center" justifyContent="center">
-              //     {item.type === SOCIAL_ACCOUNTS.s_x && !item.isVerified && (
-              //       <Button
-              //         onPress={async () => {
-              //           setIsVerifyDone(false);
-              //           promptAsync();
-              //         }}
-              //         size="xs"
-              //         colorScheme="fuchsia"
-              //         disabled={isVerifyLoading}>
-              //         Verify
-              //       </Button>
-              //     )}
-              //     <Ionicons
-              //       name={item.isPublic ? 'eye-outline' : 'eye-off-outline'}
-              //       color="white"
-              //       size={20}
-              //     />
-              //   </HStack>
-              // }
-              // isVerified={item.isVerified}
+                //   <HStack space={2} alignItems="center" justifyContent="center">
+                //     {item.type === SOCIAL_ACCOUNTS.s_x && !item.isVerified && (
+                //       <Button
+                //         onPress={async () => {
+                //           setIsVerifyDone(false);
+                //           promptAsync();
+                //         }}
+                //         size="xs"
+                //         colorScheme="fuchsia"
+                //         disabled={isVerifyLoading}>
+                //         Verify
+                //       </Button>
+                //     )}
+                //     <Ionicons
+                //       name={item.isPublic ? 'eye-outline' : 'eye-off-outline'}
+                //       color="white"
+                //       size={20}
+                //     />
+                //   </HStack>
+                // }
+                // isVerified={item.isVerified}
               />
             )}
             keyExtractor={(item) => item.type}
             ItemSeparatorComponent={() => (
               <View style={{ height: 10, backgroundColor: 'transparent' }} />
             )}
-          // ListEmptyComponent={<EmptySectionMessage text="social media" />}
+            // ListEmptyComponent={<EmptySectionMessage text="social media" />}
           />
         </View>
       ),
@@ -401,14 +409,14 @@ export const ProfileHome = () => {
                     size={20}
                   />
                 }
-              //   isVerified={item.isVerified}
+                //   isVerified={item.isVerified}
               />
             )}
             keyExtractor={(item) => item.type}
             ItemSeparatorComponent={() => (
               <View style={{ height: 10, backgroundColor: 'transparent' }} />
             )}
-          // ListEmptyComponent={<EmptySectionMessage text="wallets" />}
+            // ListEmptyComponent={<EmptySectionMessage text="wallets" />}
           />
         </View>
       ),
@@ -464,14 +472,14 @@ export const ProfileHome = () => {
                     size={20}
                   />
                 }
-              //   isVerified={item.isVerified}
+                //   isVerified={item.isVerified}
               />
             )}
             keyExtractor={(item) => item.type}
             ItemSeparatorComponent={() => (
               <View style={{ height: 10, backgroundColor: 'transparent' }} />
             )}
-          // ListEmptyComponent={<EmptySectionMessage text="messaging apps" />}
+            // ListEmptyComponent={<EmptySectionMessage text="messaging apps" />}
           />
         </View>
       ),
@@ -530,14 +538,14 @@ export const ProfileHome = () => {
                     size={20}
                   />
                 }
-              // isVerified={item.isVerified}
+                // isVerified={item.isVerified}
               />
             )}
             keyExtractor={(item) => item.type}
             ItemSeparatorComponent={() => (
               <View style={{ height: 10, backgroundColor: 'transparent' }} />
             )}
-          // ListEmptyComponent={<EmptySectionMessage text="decentralized identifiers" />}
+            // ListEmptyComponent={<EmptySectionMessage text="decentralized identifiers" />}
           />
         </View>
       ),

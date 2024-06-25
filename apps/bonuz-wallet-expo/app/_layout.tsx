@@ -13,6 +13,8 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Toast from 'react-native-toast-message';
 import tw from 'twrnc';
 
+import { Header } from '@/components/Header/header';
+import { MessagesButton } from '@/pages/connections/sheets/components/messagesButton';
 import { RefetchMessagesHeaderButton } from '@/pages/messages/components/refetchButton';
 import { ReactQueryProvider } from '@/providers';
 import { useUserStore } from '@/store';
@@ -59,8 +61,6 @@ export default function RootLayout() {
 }
 
 function RootLayoutNav() {
-  const { top } = useSafeAreaInsets();
-
   return (
     <GestureHandlerRootView style={styles.container}>
       <ReactQueryProvider>
@@ -70,20 +70,17 @@ function RootLayoutNav() {
           <Stack.Screen name="nfts" options={{ headerShown: false }} />
           <Stack.Screen name="tokens" options={{ headerShown: false }} />
           <Stack.Screen name="explore" options={{ headerShown: false }} />
-          <Stack.Screen name="connection" options={{ headerShown: false }} />
           <Stack.Screen
-            name="messages"
+            name="connection"
             options={{
-              header: ({ options, navigation, route }) => (
-                <BlurView
-                  style={[
-                    tw`flex-1 w-full pb-4 px-4 rounded-b-[30px] overflow-hidden`,
-                    { paddingTop: top },
-                  ]}
-                  intensity={50}
-                  tint="light">
-                  <View
-                    style={tw`flex-row flex-1 h-full items-center bg-transparent justify-center`}>
+              header: ({ options, navigation }) => (
+                <Header
+                  title={
+                    <Text style={[tw`text-white text-center text-xl font-semibold`]}>
+                      {options.title}
+                    </Text>
+                  }
+                  left={
                     <View style={tw`h-[48px] w-[48px] z-50`}>
                       <Pressable onPress={navigation.goBack} hitSlop={30} style={tw`absolute`}>
                         <BlurView
@@ -94,6 +91,20 @@ function RootLayoutNav() {
                         </BlurView>
                       </Pressable>
                     </View>
+                  }
+                  right={<MessagesButton />}
+                />
+              ),
+              headerTransparent: true,
+              title: 'Connections',
+            }}
+          />
+          <Stack.Screen
+            name="messages"
+            options={{
+              header: ({ options, navigation, route }) => (
+                <Header
+                  title={
                     <View style={tw`flex-1 flex-col gap-2`}>
                       <Text style={[tw`text-white text-center flex-1 text-xl font-semibold`]}>
                         {options.title}
@@ -107,9 +118,21 @@ function RootLayoutNav() {
                         Members
                       </Text>
                     </View>
-                    <RefetchMessagesHeaderButton />
-                  </View>
-                </BlurView>
+                  }
+                  left={
+                    <View style={tw`h-[48px] w-[48px] z-50`}>
+                      <Pressable onPress={navigation.goBack} hitSlop={30} style={tw`absolute`}>
+                        <BlurView
+                          style={[tw`flex-1 p-3 rounded-full overflow-hidden`]}
+                          intensity={50}
+                          tint="light">
+                          <Iconify icon="ion:chevron-back-outline" color="white" size={24} />
+                        </BlurView>
+                      </Pressable>
+                    </View>
+                  }
+                  right={<RefetchMessagesHeaderButton />}
+                />
               ),
               headerTransparent: true,
               title: 'Group Chat',

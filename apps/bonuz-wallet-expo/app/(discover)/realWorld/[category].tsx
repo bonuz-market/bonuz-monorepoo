@@ -1,3 +1,4 @@
+import { useHeaderHeight } from '@react-navigation/elements';
 import { useQuery } from '@tanstack/react-query';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Link, useLocalSearchParams, useNavigation } from 'expo-router';
@@ -35,12 +36,14 @@ const RealWorldList = () => {
       }))[0],
   });
 
+  const headerHeight = useHeaderHeight();
+
   return (
     <LinearGradient
       colors={['#0E2875', '#4B2EA2']}
       start={[0, 1]}
       end={[1, 1]}
-      style={tw`w-full h-full justify-center`}>
+      style={[tw`w-full h-full justify-center`, { paddingTop: headerHeight }]}>
       <FlatList
         data={data?.partners}
         keyExtractor={(item) => item.id.toString()}
