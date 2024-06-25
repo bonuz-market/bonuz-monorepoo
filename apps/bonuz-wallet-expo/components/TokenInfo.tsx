@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import { useNavigation } from 'expo-router';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Image, Text, TouchableOpacity, View } from 'react-native';
 import tw from 'twrnc';
 

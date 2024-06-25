@@ -1,6 +1,6 @@
 /* eslint-disable unicorn/consistent-function-scoping */
 /* eslint-disable prettier/prettier */
-import { BottomSheetModal, BottomSheetModalProvider, BottomSheetView } from '@gorhom/bottom-sheet';
+import { BottomSheetFlatList, BottomSheetModal, BottomSheetModalProvider, BottomSheetScrollView, BottomSheetView } from '@gorhom/bottom-sheet';
 import { useQuery } from '@tanstack/react-query';
 import { LinearGradient } from 'expo-linear-gradient';
 import React, {
@@ -10,7 +10,7 @@ import React, {
     useRef,
     useState,
 } from 'react';
-import { Image, ImageBackground, ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import { Image, ImageBackground, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import tw from 'twrnc';
 import { useShallow } from 'zustand/react/shallow';
 
@@ -56,7 +56,7 @@ export const WalletSheet = forwardRef<BottomSheetModal, WalletSheetProps>(
 
 
         const snapPoints = ['80%'];
-        const swapSnapPoints = ['50%'];
+        const swapSnapPoints = ['80%'];
 
         const [swapToken, setSwapToken] = useState<TokenProps>({
             address: '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE',
@@ -147,6 +147,20 @@ export const WalletSheet = forwardRef<BottomSheetModal, WalletSheetProps>(
             else
                 setDestinationNetwork(networkString);
         }
+
+        const renderItem = ({ item }) => (
+            <TouchableOpacity
+                onPress={() => {
+                    handleDismissTokenModalPress();
+                    if (swapTokenType === 'sourceSwapToken') setSwapToken(item);
+                    else setSwapDesToken(item);
+                }}
+                style={tw`flex flex-row items-center mt-2`}
+            >
+                <Image style={tw`w-[40px] h-[40px] rounded-full`} source={{ uri: item.logoURI }} />
+                <Text style={tw`text-[16px] font-medium text-white ml-2`}>{item.name}</Text>
+            </TouchableOpacity>
+        );
 
         return (
             <View style={tw`flex-1 bg-transparent`}>
@@ -294,30 +308,39 @@ export const WalletSheet = forwardRef<BottomSheetModal, WalletSheetProps>(
                                         index={0}
                                         handleIndicatorStyle={tw`bg-black h-1 w-10`}
                                         snapPoints={snapPoints}>
-                                        <BottomSheetView style={tw`flex-1 p-5 gap-4`}>
-                                            <ScrollView contentContainerStyle={{ paddingBottom: 20 }}>
-                                                {tokens !== undefined && tokens.length > 0 && tokens.map((value: TokenProps, index: number) => (
-                                                    <TouchableOpacity
-                                                        key={index}
-                                                        onPress={() => {
-                                                            handleDismissTokenModalPress();
-                                                            if (swapTokenType === 'sourceSwapToken') setSwapToken(value);
-                                                            else setSwapDesToken(value);
-                                                        }}
-                                                        style={tw`flex flex-row items-center mt-2`}
-                                                    >
-                                                        <Image style={tw`w-[40px] h-[40px] rounded-full`} source={{ uri: value.logoURI }} />
-                                                        <Text style={tw`text-[16px] font-medium text-white ml-2`}>{value.name}</Text>
-                                                    </TouchableOpacity>
-                                                ))}
-                                            </ScrollView>
-                                        </BottomSheetView>
+                                        <BottomSheetScrollView contentContainerStyle={tw`p-5`}>
+                                            <View style={tw`text-center w-full flex items-center flex flex-row`}>
+                                                <TouchableOpacity style={tw`absolute`} onPress={() => { handleDismissTokenModalPress(); }}>
+                                                    <Image style={tw`w-[30px] h-[30px]`} source={require('@/assets/images/cart/leftIcon.png')} />
+                                                </TouchableOpacity>
+                                                <Text style={tw`text-white text-[20px] font-semibold text-center w-full`}>Select Token</Text>
+                                            </View>
+                                            <TextInput
+                                                placeholderTextColor={'#BAB3E2'}
+                                                placeholder="Search"
+                                                style={tw`text-[16px] font-normal text-white mt-4 px-2 bg-[#040D5C] rounded-md w-full h-[40px]`}
+                                            />
+                                            {tokens !== undefined && tokens.length > 0 && tokens.map((value: TokenProps, index: number) => (
+                                                <TouchableOpacity
+                                                    key={index}
+                                                    onPress={() => {
+                                                        handleDismissTokenModalPress();
+                                                        if (swapTokenType === 'sourceSwapToken') setSwapToken(value);
+                                                        else setSwapDesToken(value);
+                                                    }}
+                                                    style={tw`flex flex-row items-center mt-2`}
+                                                >
+                                                    <Image style={tw`w-[40px] h-[40px] rounded-full`} source={{ uri: value.logoURI }} />
+                                                    <Text style={tw`text-[16px] font-medium text-white ml-2`}>{value.name}</Text>
+                                                </TouchableOpacity>
+                                            ))}
+                                        </BottomSheetScrollView>
                                     </BottomSheetModal>
                                 </ScrollView>
                             </BottomSheetModalProvider>
                         </LinearGradient>
                     </BottomSheetView>
-                </BottomSheetModal>
+                </BottomSheetModal >
 
             </View >
         );

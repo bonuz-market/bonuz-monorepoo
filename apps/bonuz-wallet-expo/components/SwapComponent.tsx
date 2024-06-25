@@ -10,7 +10,6 @@ import { TokenProps } from '@/entities';
 export default function SwapComponent(props: { setOption: any; option: string, handleSwapNext: any, swapNetwork: string, destinationNetwork: string, handleDismissModalPress: any, handleTokenSection: any, swapToken: TokenProps, swapDesToken: TokenProps, setSwapTokenType: any }) {
     const { setOption, option, handleSwapNext, swapNetwork, destinationNetwork, handleDismissModalPress, handleTokenSection, swapToken, swapDesToken, setSwapTokenType } = props;
 
-
     return (
         <View style={tw`flex-1`}>
             <View style={tw`flex flex-row mx-10 justify-between my-5`}>
