@@ -1623,8 +1623,6 @@ export const useUserConnections = (options?: any) => {
     queryFn: async () => {
       const userConnections = await getUserConnections();
 
-      console.log('userConnections', userConnections);
-
       const handlesToFetch = userConnections.map((connection) => connection.handle);
 
       const { data: connectionsData } = await getConnections({

@@ -25,7 +25,7 @@ export default function Connection() {
   const bottomModalRef = useRef<BottomSheetModal>(null);
 
   const [activeTab, setActiveTab] = useState<'Lens.xys Feed' | 'My Connections'>('My Connections');
-  const { data, isRefetching, isLoading, refetch } = useUserConnections();
+  const { data, isLoading, refetch } = useUserConnections();
 
   console.log(data, 'data connections');
 
@@ -55,7 +55,7 @@ export default function Connection() {
           <View style={tw`flex bg-transparent justify-center items-center`}>
             <Text style={tw`text-[20px] text-white font-semibold`}>Social</Text>
           </View>
-          <TouchableOpacity onPress={() => navigate('/cart')}>
+          <TouchableOpacity onPress={() => navigate('/messages')}>
             <View
               style={tw`w-[54px] h-[54px] rounded-full bg-[#684FCD] justify-center items-center`}>
               <View
@@ -80,9 +80,7 @@ export default function Connection() {
 
         <ScrollView
           style={tw`bg-transparent m-5`}
-          refreshControl={
-            <RefreshControl refreshing={isRefetching || isLoading} onRefresh={refetch} />
-          }>
+          refreshControl={<RefreshControl refreshing={isLoading} onRefresh={refetch} />}>
           {data?.map((user, index) => (
             <Pressable onPress={() => handleConnectionPress(user)} key={user.handle || index}>
               <View style={tw`bg-[#4837AE] p-4 rounded-3xl mt-3`}>

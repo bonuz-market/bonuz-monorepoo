@@ -439,10 +439,11 @@ interface UserSheetProps {
   onAddConnection: () => void;
   onRemoveConnection: () => void;
   onDismiss: () => void;
+  snapPoints?: string[];
 }
 
 export const UserSheet = forwardRef<BottomSheetModal, UserSheetProps>(
-  ({ onAddConnection, onRemoveConnection, onDismiss }, bottomSheetModalRef) => {
+  ({ onAddConnection, onRemoveConnection, onDismiss, snapPoints }, bottomSheetModalRef) => {
     const _bottomSheetModalRef = useRef<BottomSheetModal>(null);
     useImperativeHandle(bottomSheetModalRef, () => _bottomSheetModalRef.current!, []);
 
@@ -450,7 +451,7 @@ export const UserSheet = forwardRef<BottomSheetModal, UserSheetProps>(
 
     const [shouldShowRemoveConnectionFooter, setShouldShowRemoveConnectionFooter] = useState(false);
     const { bottom } = useSafeAreaInsets();
-    const snapPoints = useMemo(() => ['90%'], []);
+    const _snapPoints = useMemo(() => snapPoints ?? ['90%'], [snapPoints]);
 
     const { mutateAsync: removeConnection, isPending: isRemoveConnectionLoading } = useMutation({
       mutationKey: ['removeConnection'],
@@ -544,7 +545,7 @@ export const UserSheet = forwardRef<BottomSheetModal, UserSheetProps>(
           setShouldShowRemoveConnectionFooter(false);
         }}
         index={0}
-        snapPoints={snapPoints}
+        snapPoints={_snapPoints}
         keyboardBlurBehavior="restore"
         enableDynamicSizing={false}
         backdropComponent={CustomBackdrop}>
