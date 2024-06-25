@@ -2,6 +2,8 @@
 
 import Head from "next/head";
 import "@/styles/globals.css";
+import 'swiper/css';
+import 'swiper/css/pagination';
 import Providers from "../../providers";
 
 // export const metadata = {
