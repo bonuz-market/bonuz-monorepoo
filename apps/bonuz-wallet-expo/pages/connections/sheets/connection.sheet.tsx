@@ -405,10 +405,12 @@ const ConnectionSheetContent = ({
 
 interface ConnectionSheetProps {
   onRemoveConnection: () => void;
+  onDismiss?: () => void;
+  snapPoints?: string[];
 }
 
 export const ConnectionSheet = forwardRef<BottomSheetModal, ConnectionSheetProps>(
-  ({ onRemoveConnection }, bottomSheetModalRef) => {
+  ({ onRemoveConnection, onDismiss, snapPoints }, bottomSheetModalRef) => {
     const _bottomSheetModalRef = useRef<BottomSheetModal>(null);
     useImperativeHandle(bottomSheetModalRef, () => _bottomSheetModalRef.current!, []);
 
@@ -416,7 +418,7 @@ export const ConnectionSheet = forwardRef<BottomSheetModal, ConnectionSheetProps
 
     const [shouldShowRemoveConnectionFooter, setShouldShowRemoveConnectionFooter] = useState(false);
     const { bottom } = useSafeAreaInsets();
-    const snapPoints = useMemo(() => ['90%'], []);
+    const _snapPoints = useMemo(() => snapPoints ?? ['90%'], [snapPoints]);
 
     const { mutateAsync: removeConnection, isPending } = useMutation({
       mutationKey: ['removeConnection'],
@@ -500,9 +502,12 @@ export const ConnectionSheet = forwardRef<BottomSheetModal, ConnectionSheetProps
             </BottomSheetFooter>
           )
         }
-        onDismiss={() => setShouldShowRemoveConnectionFooter(false)}
+        onDismiss={() => {
+          onDismiss?.();
+          setShouldShowRemoveConnectionFooter(false);
+        }}
         index={0}
-        snapPoints={snapPoints}
+        snapPoints={_snapPoints}
         keyboardBlurBehavior="restore"
         enableDynamicSizing={false}
         backdropComponent={CustomBackdrop}>

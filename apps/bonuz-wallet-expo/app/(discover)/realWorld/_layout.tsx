@@ -7,34 +7,33 @@ import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { Iconify } from 'react-native-iconify';
 import tw from 'twrnc';
 
+import { Header } from '@/components/Header/header';
+import { ShareButton } from '@/pages/discovery/components/shareButton';
+
 export default function DiscoverLayout() {
   return (
     <Stack
       screenOptions={{
-        header: ({ options, navigation, route }) => (
-          <LinearGradient colors={['#0E2875', '#4B2EA2']} start={[0, 0]} end={[1, 1]}>
-            <View style={tw`rounded-b-[30px] pb-4 px-4  bg-[#553eb4]`}>
-              <View style={tw`flex-row items-center bg-transparent`}>
-                <View style={tw`h-[48px] w-[48px] z-50`}>
-                  <Pressable
-                    onPress={navigation.goBack}
-                    hitSlop={30}
-                    style={tw`p-3 absolute rounded-full bg-[#6742c1] `}>
+        header: ({ options, navigation }) => (
+          <Header
+            title={
+              <Text style={tw`text-white text-center text-xl font-semibold`}>{options.title}</Text>
+            }
+            left={
+              <View style={tw`h-[48px] w-[48px] z-50`}>
+                <Pressable onPress={navigation.goBack} hitSlop={30} style={tw`absolute`}>
+                  <BlurView
+                    style={[tw`flex-1 p-3 rounded-full overflow-hidden`]}
+                    intensity={50}
+                    tint="light">
                     <Iconify icon="ion:chevron-back-outline" color="white" size={24} />
-                  </Pressable>
-                </View>
-                <Text
-                  style={[
-                    tw`text-white text-center flex-1 text-xl font-semibold`,
-                    { transform: [{ translateX: -24 }] },
-                  ]}>
-                  {options.title}
-                </Text>
+                  </BlurView>
+                </Pressable>
               </View>
-            </View>
-          </LinearGradient>
+            }
+          />
         ),
-        headerBackground: () => <View style={tw.style(`bg-[#553eb4]`, StyleSheet.absoluteFill)} />,
+        headerTransparent: true,
         title: 'Real World',
       }}>
       <Stack.Screen name="index" options={{ headerShown: false }} />
@@ -44,40 +43,24 @@ export default function DiscoverLayout() {
         getId={({ params }) => String(Date.now())}
         // @ts-ignore
         options={({ navigation, route }) => ({
-          headerBackground: () => (
-            <View style={tw.style(`bg-transparent`, StyleSheet.absoluteFill)} />
-          ),
           headerTransparent: true,
-          header: undefined,
-          title: '',
-          headerLeft: ({ canGoBack }) =>
-            canGoBack && (
-              <BlurView
-                style={tw`rounded-full overflow-hidden items-center justify-center`}
-                intensity={50}
-                tint="light">
-                <Pressable onPress={navigation.goBack} hitSlop={30} style={tw`p-3 bg-transparent`}>
-                  <Iconify icon="ion:chevron-back-outline" color="white" size={30} />
-                </Pressable>
-              </BlurView>
-            ),
-          headerRight: () => {
-            const handleShare = async () => {
-              // TODO: add Universal link to handle share
-              await Sharing.shareAsync(`https://app.bonuz.id/partner/${route.params.slug}`);
-            };
-
-            return (
-              <BlurView
-                style={tw`rounded-full overflow-hidden items-center justify-center`}
-                intensity={50}
-                tint="light">
-                <Pressable onPress={handleShare} hitSlop={30} style={tw`p-3 rounded-full`}>
-                  <Iconify icon="ion:share-outline" color="white" size={30} />
-                </Pressable>
-              </BlurView>
-            );
-          },
+          header: () => (
+            <Header
+              left={
+                <View style={tw`h-[48px] w-[48px] z-50`}>
+                  <Pressable onPress={navigation.goBack} hitSlop={30} style={tw`absolute`}>
+                    <BlurView
+                      style={[tw`flex-1 p-3 rounded-full overflow-hidden`]}
+                      intensity={50}
+                      tint="light">
+                      <Iconify icon="ion:chevron-back-outline" color="white" size={24} />
+                    </BlurView>
+                  </Pressable>
+                </View>
+              }
+              right={<ShareButton route={route} />}
+            />
+          ),
         })}
       />
     </Stack>

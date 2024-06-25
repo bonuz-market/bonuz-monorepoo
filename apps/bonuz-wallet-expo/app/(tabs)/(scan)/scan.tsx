@@ -1,3 +1,4 @@
+import { useHeaderHeight } from '@react-navigation/elements';
 import { useQuery } from '@tanstack/react-query';
 import { LinearGradient } from 'expo-linear-gradient';
 import React from 'react';
@@ -35,8 +36,12 @@ export default function Scan() {
     removeEvent(eventId);
   };
 
+  const headerHeight = useHeaderHeight();
+
   return (
-    <LinearGradient colors={['#4B2EA2', '#0E2875']} style={tw`flex-1 items-center w-full`}>
+    <LinearGradient
+      colors={['#4B2EA2', '#0E2875']}
+      style={[tw`flex-1 items-center w-full`, { paddingTop: headerHeight }]}>
       <View style={tw`w-full mt-4`}>
         <Accordion
           activeSections={activeSections}
