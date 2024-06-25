@@ -148,7 +148,7 @@ export const WalletSheet = forwardRef<BottomSheetModal, WalletSheetProps>(
                 setDestinationNetwork(networkString);
         }
 
-        const filteredTokens = tokens.filter((token) =>
+        const filteredTokens = tokens.filter((token: TokenProps) =>
             token.name.toLowerCase().includes(searchQuery.toLowerCase())
         );
 
