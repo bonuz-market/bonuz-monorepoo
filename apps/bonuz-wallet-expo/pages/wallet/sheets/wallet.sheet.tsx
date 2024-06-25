@@ -44,7 +44,7 @@ export const WalletSheet = forwardRef<BottomSheetModal, WalletSheetProps>(
 
         useImperativeHandle(bottomSheetModalRef, () => _bottomSheetModalRef.current!, []);
 
-
+        const [searchQuery, setSearchQuery] = useState('');
         const [value, setValue] = useState<string>('Crypto');
         const [swapTokenType, setSwapTokenType] = useState<string>('sourceSwapToken');
 
@@ -148,18 +148,8 @@ export const WalletSheet = forwardRef<BottomSheetModal, WalletSheetProps>(
                 setDestinationNetwork(networkString);
         }
 
-        const renderItem = ({ item }) => (
-            <TouchableOpacity
-                onPress={() => {
-                    handleDismissTokenModalPress();
-                    if (swapTokenType === 'sourceSwapToken') setSwapToken(item);
-                    else setSwapDesToken(item);
-                }}
-                style={tw`flex flex-row items-center mt-2`}
-            >
-                <Image style={tw`w-[40px] h-[40px] rounded-full`} source={{ uri: item.logoURI }} />
-                <Text style={tw`text-[16px] font-medium text-white ml-2`}>{item.name}</Text>
-            </TouchableOpacity>
+        const filteredTokens = tokens.filter((token) =>
+            token.name.toLowerCase().includes(searchQuery.toLowerCase())
         );
 
         return (
@@ -319,8 +309,10 @@ export const WalletSheet = forwardRef<BottomSheetModal, WalletSheetProps>(
                                                 placeholderTextColor={'#BAB3E2'}
                                                 placeholder="Search"
                                                 style={tw`text-[16px] font-normal text-white mt-4 px-2 bg-[#040D5C] rounded-md w-full h-[40px]`}
+                                                onChangeText={(text) => setSearchQuery(text)}
+                                                value={searchQuery}
                                             />
-                                            {tokens !== undefined && tokens.length > 0 && tokens.map((value: TokenProps, index: number) => (
+                                            {filteredTokens !== undefined && filteredTokens.length > 0 && filteredTokens.map((value: TokenProps, index: number) => (
                                                 <TouchableOpacity
                                                     key={index}
                                                     onPress={() => {
