@@ -300,7 +300,7 @@ export const WalletSheet = forwardRef<BottomSheetModal, WalletSheetProps>(
                                         snapPoints={snapPoints}>
                                         <BottomSheetScrollView contentContainerStyle={tw`p-5`}>
                                             <View style={tw`text-center w-full flex items-center flex flex-row`}>
-                                                <TouchableOpacity style={tw`absolute`} onPress={() => { handleDismissTokenModalPress(); }}>
+                                                <TouchableOpacity style={tw`absolute z-100`} onPress={() => handleDismissTokenModalPress()}>
                                                     <Image style={tw`w-[30px] h-[30px]`} source={require('@/assets/images/cart/leftIcon.png')} />
                                                 </TouchableOpacity>
                                                 <Text style={tw`text-white text-[20px] font-semibold text-center w-full`}>Select Token</Text>
