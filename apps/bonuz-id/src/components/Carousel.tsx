@@ -77,11 +77,11 @@ export default function Carousel(props: ICarouselProps): React.ReactElement {
                                 animationDelay: props.animationDelay
                             })
                         }}
-                        className="flex justify-center items-center casuelItem"
+                        className="flex justify-center items-center casuelItem absolute"
                     >
                         <div
                             className={cn(
-                                "flex flex-row w-full h-[160px] p-4 gap-2 rounded-[20px] bg-gradient-to-r from-[#009EFD] to-[#2AF598] shadow-[0px_0px_0px_0px_rgba(0,0,0,0.00),-80px_104px_53px_0px_rgba(0,0,0,0.01),-45px_59px_44px_0px_rgba(0,0,0,0.05),-20px_26px_33px_0px_rgba(0,0,0,0.09),-5px_7px_18px_0px_rgba(0,0,0,0.10)] backdrop-blur-[20px]",
+                                "flex flex-row w-[280px] h-[160px] p-4 gap-2 rounded-[20px] bg-gradient-to-r from-[#009EFD] to-[#2AF598] shadow-[0px_0px_0px_0px_rgba(0,0,0,0.00),-80px_104px_53px_0px_rgba(0,0,0,0.01),-45px_59px_44px_0px_rgba(0,0,0,0.05),-20px_26px_33px_0px_rgba(0,0,0,0.09),-5px_7px_18px_0px_rgba(0,0,0,0.10)] backdrop-blur-[20px]",
                             )}
                         >
                             <div className="flex flex-col w-full">
@@ -178,11 +178,16 @@ function getAnimationStyle({
 
     const isActive = index === activeIndex;
     const scale = isActive ? 1.1 : 1; // Adjust scale for active item
-    const left = isActive ? '50px' : `${(index - activeIndex) * 100}%`;
+    let leftNumber = isActive ? 50 : (index - activeIndex) * 50;
+    if (leftNumber < -50)
+        leftNumber += 200;
+    const left = isActive ? `${leftNumber}px` : `${leftNumber}%`;
+
 
     const style: React.CSSProperties = {
         transform: `scale(${scale})`,
         left: left,
+        opacity: leftNumber >= 100 ? 0 : 1,
         transition: `transform ${transitionPostfix}, left ${transitionPostfix}`
     };
 
