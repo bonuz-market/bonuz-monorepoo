@@ -9,9 +9,9 @@ import { gql, useQuery } from '@apollo/client';
 import Header from '@/components/Header'
 import { useResultTypeStore } from '@/store/resultTypeStore';
 import { useShallow } from 'zustand/react/shallow';
-import { resultTypes } from '@/types/typeResult';
 import { ResultTypesComponent } from '@/components/ResultTypesComponent'
 import { ResultSlideComponent } from '@/components/ResultSlideComponent'
+import UserCarousel from '@/components/UserCarousel'
 
 const sliderData = [
   {
@@ -107,6 +107,52 @@ const GET_USER_PROFILES = gql`
   }
 `;
 
+const mockUserData = [
+  {
+    wallet: '0xfd046d678588e3a0b714Bf1B13852d22c8703Fd666',
+    handle: '@wayneweb3',
+    name: 'Jack Abdo',
+    profileImage: '/images/user.png',
+    socialLinks: {
+      platform: '',
+      link: '',
+      lastUpdated: '',
+    }
+  },
+  {
+    wallet: '0xfd046d678588e3a0b714Bf1B1d0d394c8703Fd666',
+    handle: '@wab3news',
+    name: 'Jason Taman',
+    profileImage: '/images/user.png',
+    socialLinks: {
+      platform: '',
+      link: '',
+      lastUpdated: '',
+    }
+  },
+  {
+    wallet: '0xfd046d678588e3a0b714Bf1B1d0d22c87232Fd666',
+    handle: '@wayneweb3',
+    name: 'Jack Abdo',
+    profileImage: '/images/user.png',
+    socialLinks: {
+      platform: '',
+      link: '',
+      lastUpdated: '',
+    }
+  },
+  {
+    wallet: '0xfd046d678588e3a0b714Bf1B1d0d22c8703Fd3426',
+    handle: '@wab3news',
+    name: 'Jason Taman',
+    profileImage: '/images/user.png',
+    socialLinks: {
+      platform: '',
+      link: '',
+      lastUpdated: '',
+    }
+  },
+]
 interface GraphQLUser {
   wallet: string
   handle: string
@@ -216,15 +262,12 @@ export default function SearchPage() {
               <div className='flex gap-[12px] items-center'>
                 <span className='mb-[12px]'>Users</span>
                 <span className='mb-[12px] bg-[#a2a2a20a] py-[4px] px-[8px] rounded-[10px]'>
-                  {results?.length}
+                  {mockUserData?.length}
                 </span>
               </div>
               <div
-                className={cn(
-                  'grid grid-cols-1 gap-4',
-                  results.length === 0 ? 'md:grid-cols-1' : 'md:grid-cols-2'
-                )}>
-                {results.length === 0 && (
+                className='w-[900px]'>
+                {mockUserData.length === 0 && (
                   <>
                     <div className='flex flex-col items-center justify-center'>
                       <h2 className='text-2xl font-bold '>No results found</h2>
@@ -234,7 +277,7 @@ export default function SearchPage() {
                     </div>
                   </>
                 )}
-                {results.map((user) => {
+                {/* {mockUserData.map((user) => {
                   return (
                     <div
                       className='rounded-[30px] bg-[#a2a2a20a] p-4 h-[165px] w-[300px] md:w-[450px] flex flex-row gap-4 justify-center items-center flex-1'
@@ -256,7 +299,14 @@ export default function SearchPage() {
                       </div>
                     </div>
                   )
-                })}
+                })} */}
+                <UserCarousel
+                  users={mockUserData}
+                  animationDuration={1000}
+                  duration={5000}
+                  animationTimingFunction="linear"
+                  withNavigation
+                />
               </div>
             </div>
           </div>

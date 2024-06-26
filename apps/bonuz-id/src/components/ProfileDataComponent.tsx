@@ -8,9 +8,7 @@ import Image from "next/image";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import voucherImage from "../../public/images/Header.png";
-import VoucherComponent from "./VoucherComponent";
 import { voucherSliderData } from '../mockUpData/profileSliderData';
-import ReactCarousel, { AFTER, CENTER, BEFORE } from "react-carousel-animated";
 import "react-carousel-animated/dist/style.css";
 import Carousel from "./Carousel";
 interface ProfileDataComponentProps {
