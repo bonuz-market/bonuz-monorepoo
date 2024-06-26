@@ -79,6 +79,10 @@
       "web3auth": {
         "clientId": "BCZyEo3y-o9dn5RxCk4bfqbVFP9K1D4eKZBGVtpJ25kIK1iE6UiSlVKTqj2wJMancY7LQiiL4151GhprqIukOi4"
       },
+      "mercuryo": {
+        "widgetId": "bb744eba-e0fd-4b35-a323-dd91782479bb",
+        "secret": "DS4yKwU#OMz>dwNS8XnR:~#v|0YD:,"
+      },
       "backendUrl": "https://bonuz-admin-wts46rwpca-ey.a.run.app",
       "nftStorageToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweDdmRWYzNmYwOTU2ZjM3OTY1RmRlRDI0OTcxMERlQ2U0MjE4YmZlNTEiLCJpc3MiOiJuZnQtc3RvcmFnZSIsImlhdCI6MTY5MDU0ODI5MzQ0OCwibmFtZSI6IkJvbnV6IFdlYiBBcHAifQ.odJ-TxYjLV8wbtCF_oxP8gH5hebEuG6keGtqUN0K6Dg",
       "router": {
