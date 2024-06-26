@@ -119,13 +119,15 @@ export default function Home() {
                 title={category}
                 badgeCount={partners.length}
                 right={
-                  <Link
-                    href={{
-                      pathname: '/(discover)/realWorld/[category]',
-                      params: { category },
-                    }}>
-                    <Text style={tw`text-white text-sm font-semibold`}>View All</Text>
-                  </Link>
+                  <View style={tw`px-3 py-1 bg-[#684FCD] rounded-full`}>
+                    <Link
+                      href={{
+                        pathname: '/(discover)/realWorld/[category]',
+                        params: { category },
+                      }}>
+                      <Text style={tw`text-white text-sm font-semibold`}>View All</Text>
+                    </Link>
+                  </View>
                 }
                 data={partners.slice(0, 3).map((partner) => ({
                   title: partner.name,
