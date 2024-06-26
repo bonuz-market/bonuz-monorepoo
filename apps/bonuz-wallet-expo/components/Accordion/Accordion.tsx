@@ -1,6 +1,6 @@
 import { Ionicons } from '@expo/vector-icons';
-import { ReactNode, useCallback } from 'react';
-import { View } from 'react-native';
+import { ComponentProps, ReactNode, useCallback } from 'react';
+import { FlatList, View } from 'react-native';
 import tw from 'twrnc';
 
 import AccordionBase from '@/components/Collapsible/Accordion';
@@ -11,15 +11,18 @@ export type Section = {
   index: number;
 };
 
+interface AccordionProps extends Omit<ComponentProps<typeof FlatList>, 'data' | 'renderItem'> {
+  activeSections: number[];
+  sections: Section[];
+  onAccordionChange: (indexes: number[]) => void;
+}
+
 export const Accordion = ({
   activeSections,
   sections,
   onAccordionChange,
-}: {
-  activeSections: number[];
-  sections: Section[];
-  onAccordionChange: (indexes: number[]) => void;
-}) => {
+  ...props
+}: AccordionProps) => {
   const renderHeader = useCallback(
     (section: Section) => {
       const isActive = activeSections.includes(section.index);
@@ -65,6 +68,7 @@ export const Accordion = ({
       }}
       sectionContainerStyle={tw`mb-3 px-3`}
       underlayColor="#117EFF50"
+      {...props}
     />
   );
 };

@@ -43,7 +43,7 @@ const DigitalWorldList = () => {
       colors={['#0E2875', '#4B2EA2']}
       start={[0, 1]}
       end={[1, 1]}
-      style={[tw`w-full h-full justify-center`, { paddingTop: headerHeight }]}>
+      style={[tw`w-full h-full justify-center`]}>
       <FlatList
         data={data?.apps}
         keyExtractor={(item) => item.id.toString()}
@@ -56,7 +56,7 @@ const DigitalWorldList = () => {
             <Text style={tw`text-xl text-white font-semibold p-4`}>{item.name}</Text>
           </ImageBackground>
         )}
-        contentContainerStyle={tw`p-4`}
+        contentContainerStyle={[tw`p-4`, { paddingTop: headerHeight + 16 }]}
         ItemSeparatorComponent={() => <View style={tw`h-4`} />}
         refreshing={isLoading}
         onRefresh={refetch}

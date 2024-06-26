@@ -138,7 +138,34 @@ function RootLayoutNav() {
               title: 'Group Chat',
             }}
           />
-          <Stack.Screen name="settings" options={{ headerShown: false }} />
+          <Stack.Screen
+            name="settings"
+            options={{
+              header: ({ options, navigation }) => (
+                <Header
+                  title={
+                    <Text style={[tw`text-white text-center text-xl font-semibold`]}>
+                      {options.title}
+                    </Text>
+                  }
+                  left={
+                    <View style={tw`h-[48px] w-[48px] z-50`}>
+                      <Pressable onPress={navigation.goBack} hitSlop={30} style={tw`absolute`}>
+                        <BlurView
+                          style={[tw`flex-1 p-3 rounded-full overflow-hidden`]}
+                          intensity={50}
+                          tint="light">
+                          <Iconify icon="ion:chevron-back-outline" color="white" size={24} />
+                        </BlurView>
+                      </Pressable>
+                    </View>
+                  }
+                />
+              ),
+              headerTransparent: true,
+              title: 'Settings',
+            }}
+          />
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
           <Stack.Screen name="(discover)" options={{ headerShown: false }} />
         </Stack>

@@ -43,7 +43,7 @@ const RealWorldList = () => {
       colors={['#0E2875', '#4B2EA2']}
       start={[0, 1]}
       end={[1, 1]}
-      style={[tw`w-full h-full justify-center`, { paddingTop: headerHeight }]}>
+      style={[tw`w-full h-full justify-center`]}>
       <FlatList
         data={data?.partners}
         keyExtractor={(item) => item.id.toString()}
@@ -65,7 +65,7 @@ const RealWorldList = () => {
             </Pressable>
           </Link>
         )}
-        contentContainerStyle={tw`p-4`}
+        contentContainerStyle={[tw`p-4`, { paddingTop: headerHeight + 16 }]}
         ItemSeparatorComponent={() => <View style={tw`h-4`} />}
         refreshing={isLoading}
         onRefresh={refetch}

@@ -39,31 +39,26 @@ export default function Scan() {
   const headerHeight = useHeaderHeight();
 
   return (
-    <LinearGradient
-      colors={['#4B2EA2', '#0E2875']}
-      style={[tw`flex-1 items-center w-full`, { paddingTop: headerHeight }]}>
-      <View style={tw`w-full mt-4`}>
-        <Accordion
-          activeSections={activeSections}
-          sections={[
-            {
-              titleComponent: <Text style={tw`text-white text-xl font-semibold`}>Scan</Text>,
-              renderContent: <ScanQrCode isActive={activeSections.includes(0)} />,
-              index: 0,
-            },
+    <LinearGradient colors={['#4B2EA2', '#0E2875']} style={[tw`flex-1 items-center w-full`]}>
+      <Accordion
+        activeSections={activeSections}
+        sections={[
+          {
+            titleComponent: <Text style={tw`text-white text-xl font-semibold`}>Scan</Text>,
+            renderContent: <ScanQrCode isActive={activeSections.includes(0)} />,
+            index: 0,
+          },
 
-            ...(data ?? []).map((event, index) => ({
-              titleComponent: (
-                <Text style={tw`text-white text-xl font-semibold`}>{event.title}</Text>
-              ),
-              renderContent: <Event data={event} onCheckOut={() => handleCheckOut(event.id)} />,
-              index: index + 1,
-            })),
-          ]}
-          onAccordionChange={(sections) => setActiveSections(sections)}
-        />
-        <View style={{ paddingBottom: tabBarMargin }} />
-      </View>
+          ...(data ?? []).map((event, index) => ({
+            titleComponent: <Text style={tw`text-white text-xl font-semibold`}>{event.title}</Text>,
+            renderContent: <Event data={event} onCheckOut={() => handleCheckOut(event.id)} />,
+            index: index + 1,
+          })),
+        ]}
+        onAccordionChange={(sections) => setActiveSections(sections)}
+        contentContainerStyle={{ paddingTop: headerHeight + 16 }}
+      />
+      <View style={{ paddingBottom: tabBarMargin }} />
     </LinearGradient>
   );
 }
