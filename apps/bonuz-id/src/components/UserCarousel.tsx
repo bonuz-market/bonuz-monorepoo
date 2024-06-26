@@ -48,11 +48,12 @@ export default function UserCarousel(props: ICarouselProps): React.ReactElement 
                 spaceBetween={30}
                 loop={true}
                 className="flex flex-row"
+
             >
                 {(props.users || []).map((user, index) => (
                     <SwiperSlide key={index}>
                         <div
-                            className='rounded-[30px] bg-[#a2a2a20a] p-4 h-[165px] w-[300px] md:w-[450px] flex flex-row gap-4 justify-center items-center flex-1'
+                            className='rounded-[30px] bg-[#a2a2a20a] p-2 h-[160px] w-[300px] md:w-[450px] flex flex-row gap-4 justify-center items-center flex-1'
                             key={user.wallet}>
                             {user.profileImage ? <img
                                 src={user.profileImage}

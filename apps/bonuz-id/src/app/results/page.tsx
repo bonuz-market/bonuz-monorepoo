@@ -37,6 +37,15 @@ const sliderData = [
         left_top_text: 'NFT',
         left_bottom_text: 'Reward',
       },
+      {
+        url: '/images/bdoge.png',
+        bottom_top_text: 'CryptoCanvas Showcase',
+        bottom_bottom_text: 'May 15,2024',
+        left_url: '/images/sample1.png',
+        count: '+99',
+        left_top_text: 'NFT',
+        left_bottom_text: 'Reward',
+      },
     ],
   },
   {
@@ -62,6 +71,15 @@ const sliderData = [
         left_top_text: 'NFT',
         left_bottom_text: 'Reward',
       },
+      {
+        url: '/images/bdoge.png',
+        bottom_top_text: 'McDonalds',
+        bottom_bottom_text: '',
+        left_url: '/images/sample1.png',
+        count: '+99',
+        left_top_text: 'NFT',
+        left_bottom_text: 'Reward',
+      },
     ],
   },
   {
@@ -76,6 +94,15 @@ const sliderData = [
         left_url: '/images/sample1.png',
         count: '',
         left_top_text: 'Drink',
+        left_bottom_text: 'Reward',
+      },
+      {
+        url: '/images/bdoge.png',
+        bottom_top_text: 'Museum of Illusion Dubai',
+        bottom_bottom_text: '',
+        left_url: '/images/sample1.png',
+        count: '+99',
+        left_top_text: 'NFT',
         left_bottom_text: 'Reward',
       },
       {
@@ -277,29 +304,6 @@ export default function SearchPage() {
                     </div>
                   </>
                 )}
-                {/* {mockUserData.map((user) => {
-                  return (
-                    <div
-                      className='rounded-[30px] bg-[#a2a2a20a] p-4 h-[165px] w-[300px] md:w-[450px] flex flex-row gap-4 justify-center items-center flex-1'
-                      key={user.wallet}>
-                      {user.profileImage ? <img
-                        src={user.profileImage}
-                        className='rounded-full w-[107px] h-[94px]'
-                        alt="static-face"
-                      /> : <div className='skeleton w-32 h-32'></div>}
-
-                      <div className='flex flex-col w-full items-center gap-2'>
-                        <p>{user.name}</p>
-                        <p>@{user.handle}</p>
-                        <button className='rounded-[30px] px-[8px] h-[35px] bg-custom-gradient-mint w-full text-[12px] md:text-[16px]'
-                          onClick={() => router.push(`/profile/${user.handle}`)}
-                        >
-                          View Social ID Profile
-                        </button>
-                      </div>
-                    </div>
-                  )
-                })} */}
                 <UserCarousel
                   users={mockUserData}
                   animationDuration={1000}

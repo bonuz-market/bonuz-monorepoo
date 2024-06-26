@@ -10,7 +10,7 @@ export const ResultSlideComponent = ({ slidedata }: ResultSlideData) => {
             {slidedata.map((data, index) => (
                 <div
                     key={index}
-                    className='rounded-[30px] bg-[#a2a2a20a] p-3 h-[200px] w-[300px] md:w-[450px] flex flex-col justify-center items-center'>
+                    className='rounded-[30px] bg-[#a2a2a20a] p-3 h-[250px] w-[300px] md:w-[450px] flex flex-col justify-center items-center'>
                     <div className='flex flex-row gap-2 justify-between w-full'>
                         <div className='flex flex-row justify-center items-center gap-2'>
                             <p>{data.topic}</p>
