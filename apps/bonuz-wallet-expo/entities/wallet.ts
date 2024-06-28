@@ -4,6 +4,8 @@ export interface Wallet {
   eoaAddress: Address;
   privateKey: string;
   address: Address;
+  chainId: number;
+  walletType: 'Smart Wallet';
 }
 
 export interface TokenDataProps {
