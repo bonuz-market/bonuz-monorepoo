@@ -1,9 +1,9 @@
 import { useHeaderHeight } from '@react-navigation/elements';
 import { useQuery } from '@tanstack/react-query';
 import { LinearGradient } from 'expo-linear-gradient';
-import { useLocalSearchParams, useNavigation } from 'expo-router';
+import { Link, useLocalSearchParams, useNavigation } from 'expo-router';
 import { useLayoutEffect } from 'react';
-import { ActivityIndicator, FlatList, ImageBackground, Text, View } from 'react-native';
+import { ActivityIndicator, FlatList, ImageBackground, Pressable, Text, View } from 'react-native';
 import tw from 'twrnc';
 
 import { BACKEND_ENDPOINT } from '@/services/backend/backend.config';
@@ -48,13 +48,22 @@ const DigitalWorldList = () => {
         data={data?.apps}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
-          <ImageBackground
-            style={tw`w-full  h-[170px] rounded-[20px] justify-end`}
-            imageStyle={tw`rounded-[20px]`}
-            height={170}
-            source={{ uri: item.image.url }}>
-            <Text style={tw`text-xl text-white font-semibold p-4`}>{item.name}</Text>
-          </ImageBackground>
+          <Link
+            href={{
+              pathname: '/browser',
+              params: { url: item.link },
+            }}
+            asChild>
+            <Pressable>
+              <ImageBackground
+                style={tw`w-full  h-[170px] rounded-[20px] justify-end`}
+                imageStyle={tw`rounded-[20px]`}
+                height={170}
+                source={{ uri: item.image.url }}>
+                <Text style={tw`text-xl text-white font-semibold p-4`}>{item.name}</Text>
+              </ImageBackground>
+            </Pressable>
+          </Link>
         )}
         contentContainerStyle={[tw`p-4`, { paddingTop: headerHeight + 16 }]}
         ItemSeparatorComponent={() => <View style={tw`h-4`} />}
