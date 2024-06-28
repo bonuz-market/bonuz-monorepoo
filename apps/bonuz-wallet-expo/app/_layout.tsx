@@ -14,10 +14,14 @@ import Toast from 'react-native-toast-message';
 import tw from 'twrnc';
 
 import { Header } from '@/components/Header/header';
+import { Wallet } from '@/entities';
+import { WalletConnect } from '@/features/wallet';
+import { createOrRestoreEIP155Wallet } from '@/features/wallet/utils/EIP155WalletUtil';
 import { MessagesButton } from '@/pages/connections/sheets/components/messagesButton';
 import { RefetchMessagesHeaderButton } from '@/pages/messages/components/refetchButton';
 import { ReactQueryProvider } from '@/providers';
 import { useUserStore } from '@/store';
+import { setupSmartAccountSdk } from '@/store/smartAccounts';
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -38,8 +42,11 @@ export default function RootLayout() {
     ...FontAwesome.font,
   });
 
-  const { isHydrated } = useUserStore((store) => ({
+  const [isSmartAccountSdkReady, setIsSmartAccountSdkReady] = React.useState(false);
+
+  const { isHydrated, wallet } = useUserStore((store) => ({
     isHydrated: store._hasHydrated,
+    wallet: store.wallet as Wallet,
   }));
 
   // Expo Router uses Error Boundaries to catch errors in the navigation tree.
@@ -48,10 +55,18 @@ export default function RootLayout() {
   }, [error]);
 
   useEffect(() => {
-    if (loaded && isHydrated) {
+    if (loaded && wallet.privateKey && !isSmartAccountSdkReady) {
+      setupSmartAccountSdk(wallet.privateKey)
+        .then(createOrRestoreEIP155Wallet)
+        .then(() => setIsSmartAccountSdkReady(true));
+    }
+  });
+
+  useEffect(() => {
+    if (loaded && isHydrated && isSmartAccountSdkReady) {
       SplashScreen.hideAsync();
     }
-  }, [isHydrated, loaded]);
+  }, [isHydrated, isSmartAccountSdkReady, loaded, wallet.privateKey]);
 
   if (!loaded || !isHydrated) {
     return;
@@ -168,9 +183,38 @@ function RootLayoutNav() {
           />
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
           <Stack.Screen name="(discover)" options={{ headerShown: false }} />
+          <Stack.Screen
+            name="(browser)"
+            options={{
+              header: ({ options, navigation }) => (
+                <Header
+                  title={
+                    <Text style={[tw`text-white text-center text-xl font-semibold`]}>
+                      {options.title}
+                    </Text>
+                  }
+                  left={
+                    <View style={tw`h-[48px] w-[48px] z-50`}>
+                      <Pressable onPress={navigation.goBack} hitSlop={30} style={tw`absolute`}>
+                        <BlurView
+                          style={[tw`flex-1 p-3 rounded-full overflow-hidden`]}
+                          intensity={50}
+                          tint="light">
+                          <Iconify icon="ion:chevron-back-outline" color="white" size={24} />
+                        </BlurView>
+                      </Pressable>
+                    </View>
+                  }
+                />
+              ),
+              headerTransparent: true,
+              title: 'Browser',
+            }}
+          />
         </Stack>
       </ReactQueryProvider>
       <Toast />
+      <WalletConnect />
     </GestureHandlerRootView>
   );
 }
