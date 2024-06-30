@@ -1,7 +1,5 @@
 # Bonuz Monorepo
 
-how to use [Monorepos & Workspace](https://turbo.build/repo/docs/core-concepts/monorepos/configuring-workspaces)?
-
 ## Using this example
 
 Run the following command:
