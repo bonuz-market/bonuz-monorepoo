@@ -1,4 +1,4 @@
-# Bonuz Private Monorepo
+# Bonuz Monorepo
 
 how to use [Monorepos & Workspace](https://turbo.build/repo/docs/core-concepts/monorepos/configuring-workspaces)?
 
