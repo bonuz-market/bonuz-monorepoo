@@ -4,7 +4,7 @@ import Head from 'next/head'
 
 import Providers from '../../providers'
 import Header from '@/components/Header'
-import PageTransitionEffect from './PageTransitionEffect'
+import PageTransitionEffect from '../components/PageTransitionEffect'
 
 // Import Swiper styles
 import 'swiper/css'

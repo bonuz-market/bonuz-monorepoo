@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 export const isWalletAddress = (handle: string): boolean =>
   handle.startsWith('0x') && handle.length === 42;
 

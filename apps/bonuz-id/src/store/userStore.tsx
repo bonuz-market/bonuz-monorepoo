@@ -35,6 +35,7 @@ const initialState = {
   wallets: {},
   messagingApps: {},
   connections: [],
+  socialsLinks:[]
 };
 
 export const useUserStore = create<UserState>()(

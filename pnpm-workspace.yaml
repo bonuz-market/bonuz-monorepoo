@@ -1,5 +1,2 @@
 packages:
-  - "@bonuz/smart-contracts"
-  - "@bonuz/social-id"
   - "apps/bonuz-id"
-  - "apps/app-bonuz-market"

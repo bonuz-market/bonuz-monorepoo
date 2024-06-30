@@ -10,7 +10,6 @@ export const useBiconomyShallowStore = () =>
       isInitialized: state.isInitialized,
       web3auth: state.web3auth,
       smartAccountAddress: state.smartAccountAddress,
-      // eslint-disable-next-line @typescript-eslint/non-nullable-type-assertion-style
       smartAccount: state.smartAccount as BiconomySmartAccountV2,
       provider: state.provider,
       bonuzTokensContract: state.bonuzTokensContract,

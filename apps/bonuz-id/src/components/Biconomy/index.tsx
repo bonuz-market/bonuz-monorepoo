@@ -71,7 +71,6 @@ export const BiconomyButton = () => {
       const web3Auth = new Web3AuthNoModal({
         clientId,
         web3AuthNetwork: 'sapphire_mainnet', // Web3Auth Network
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         chainConfig,
       })

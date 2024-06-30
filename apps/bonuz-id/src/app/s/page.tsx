@@ -1,116 +1,11 @@
 'use client'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
-
+import { Suspense } from 'react'
 import { gql, useQuery } from '@apollo/client'
 
 import LoadingSpinner from '@/components/LoadingSpinner'
 import UserCarousel from '@/components/UserCarousel'
-
-const sliderData = [
-  {
-    topic: 'Events',
-    count: '99+',
-    status: 'true',
-    images: [
-      {
-        url: '/images/bdoge.png',
-        bottom_top_text: 'DecentralizeFest 2024',
-        bottom_bottom_text: 'Sep 29,2024',
-        left_url: '/images/sample1.png',
-        count: '+99',
-        left_top_text: 'NFT',
-        left_bottom_text: 'Reward',
-      },
-      {
-        url: '/images/bdoge.png',
-        bottom_top_text: 'CryptoCanvas Showcase',
-        bottom_bottom_text: 'May 15,2024',
-        left_url: '/images/sample1.png',
-        count: '+99',
-        left_top_text: 'NFT',
-        left_bottom_text: 'Reward',
-      },
-      {
-        url: '/images/bdoge.png',
-        bottom_top_text: 'CryptoCanvas Showcase',
-        bottom_bottom_text: 'May 15,2024',
-        left_url: '/images/sample1.png',
-        count: '+99',
-        left_top_text: 'NFT',
-        left_bottom_text: 'Reward',
-      },
-    ],
-  },
-  {
-    topic: 'Food',
-    count: '99+',
-    status: 'false',
-    images: [
-      {
-        url: '/images/bdoge.png',
-        bottom_top_text: 'Starbucks coffee',
-        bottom_bottom_text: '',
-        left_url: '/images/sample1.png',
-        count: '',
-        left_top_text: 'Voucher',
-        left_bottom_text: 'Reward',
-      },
-      {
-        url: '/images/bdoge.png',
-        bottom_top_text: 'McDonalds',
-        bottom_bottom_text: '',
-        left_url: '/images/sample1.png',
-        count: '+99',
-        left_top_text: 'NFT',
-        left_bottom_text: 'Reward',
-      },
-      {
-        url: '/images/bdoge.png',
-        bottom_top_text: 'McDonalds',
-        bottom_bottom_text: '',
-        left_url: '/images/sample1.png',
-        count: '+99',
-        left_top_text: 'NFT',
-        left_bottom_text: 'Reward',
-      },
-    ],
-  },
-  {
-    topic: 'Attractions',
-    count: '99+',
-    status: 'false',
-    images: [
-      {
-        url: '/images/bdoge.png',
-        bottom_top_text: 'Dubai Opera Grand Tour',
-        bottom_bottom_text: '',
-        left_url: '/images/sample1.png',
-        count: '',
-        left_top_text: 'Drink',
-        left_bottom_text: 'Reward',
-      },
-      {
-        url: '/images/bdoge.png',
-        bottom_top_text: 'Museum of Illusion Dubai',
-        bottom_bottom_text: '',
-        left_url: '/images/sample1.png',
-        count: '+99',
-        left_top_text: 'NFT',
-        left_bottom_text: 'Reward',
-      },
-      {
-        url: '/images/bdoge.png',
-        bottom_top_text: 'Museum of Illusion Dubai',
-        bottom_bottom_text: '',
-        left_url: '/images/sample1.png',
-        count: '+99',
-        left_top_text: 'NFT',
-        left_bottom_text: 'Reward',
-      },
-    ],
-  },
-]
 
 const GET_USER_PROFILES = gql`
   query GetUserProfilesByHandles($handles: String!) {
@@ -128,52 +23,6 @@ const GET_USER_PROFILES = gql`
   }
 `
 
-const mockUserData = [
-  {
-    wallet: '0xfd046d678588e3a0b714Bf1B13852d22c8703Fd666',
-    handle: '@wayneweb3',
-    name: 'Jack Abdo',
-    profileImage: '/images/user.png',
-    socialLinks: {
-      platform: '',
-      link: '',
-      lastUpdated: '',
-    },
-  },
-  {
-    wallet: '0xfd046d678588e3a0b714Bf1B1d0d394c8703Fd666',
-    handle: '@wab3news',
-    name: 'Jason Taman',
-    profileImage: '/images/user.png',
-    socialLinks: {
-      platform: '',
-      link: '',
-      lastUpdated: '',
-    },
-  },
-  {
-    wallet: '0xfd046d678588e3a0b714Bf1B1d0d22c87232Fd666',
-    handle: '@wayneweb3',
-    name: 'Jack Abdo',
-    profileImage: '/images/user.png',
-    socialLinks: {
-      platform: '',
-      link: '',
-      lastUpdated: '',
-    },
-  },
-  {
-    wallet: '0xfd046d678588e3a0b714Bf1B1d0d22c8703Fd3426',
-    handle: '@wab3news',
-    name: 'Jason Taman',
-    profileImage: '/images/user.png',
-    socialLinks: {
-      platform: '',
-      link: '',
-      lastUpdated: '',
-    },
-  },
-]
 interface GraphQLUser {
   wallet: string
   handle: string
@@ -186,18 +35,7 @@ interface GraphQLUser {
   }
 }
 
-interface User {
-  createdAt: string
-  handle: string
-  id: number
-  isCurrentConnection: boolean
-  smartAccountAddress: string
-  updatedAt: string
-  walletAddress: string
-}
-
-export default function SearchPage() {
-  const router = useRouter()
+function Search() {
   const searchParams = useSearchParams()
   const query = searchParams.get('query')
   const [searchQuery, setSearchQuery] = useState('')
@@ -205,7 +43,6 @@ export default function SearchPage() {
   const { data, loading } = useQuery(GET_USER_PROFILES, {
     variables: { handles: searchQuery },
   })
-
 
   useEffect(() => {
     if (query) {
@@ -259,5 +96,12 @@ export default function SearchPage() {
       )}
     </div>
   )
+}
 
+export default function SearchPage() {
+  return (
+    <Suspense>
+      <Search />
+    </Suspense>
+  )
 }

@@ -4,20 +4,16 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import { useCallback, useEffect, useState } from 'react'
 import { shallow } from 'zustand/shallow'
 
-import {
-  digitalTypesMockData,
-  realTypesMockData,
-} from '@/mockUpData/resultTypesData'
-import { useResultTypeStore } from '@/store/resultTypeStore'
 
 import BiconomyButton from '@/components/Biconomy'
-import Loader from '@/components/Loader'
 import GuestView from '@/components/Profile/GuestView'
 import ProfileDataComponent from '@/components/ProfileDataComponent'
 import { useBiconomyShallowStore } from '@/hooks/useBiconomyShallowStore'
 import useConnect from '@/hooks/useConnect'
 import { ChangeEvent } from 'react'
 
+import LoadingSpinner from '@/components/LoadingSpinner'
+import CreateSocialId from '@/components/Profile/CreateSocialId'
 import EditForm from '@/components/Profile/EditForm'
 import {
   useMutationSetSocialLink,
@@ -36,8 +32,6 @@ import { useUserStore } from '@/store/userStore'
 import { User, UserProfileData } from '@/types'
 import { NFT } from '@/types/backend'
 import { bonuzTokensChainId, twitterRedirectUri } from '../../config'
-import LoadingSpinner from '@/components/LoadingSpinner'
-import CreateSocialId from '@/components/Profile/CreateSocialId'
 
 export default function Home() {
   const { web3auth, isConnected, smartAccount } = useBiconomyShallowStore()
@@ -45,12 +39,6 @@ export default function Home() {
 
   const [searchQuery, setSearchQuery] = useState('')
   const router = useRouter()
-  const { setDigitalTypes, setRealWorldTypes } = useResultTypeStore(
-    (store: { setDigitalTypes: any; setRealWorldTypes: any }) => ({
-      setDigitalTypes: store.setDigitalTypes,
-      setRealWorldTypes: store.setRealWorldTypes,
-    })
-  )
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') {
@@ -63,8 +51,6 @@ export default function Home() {
     const value = e.target.value
     setSearchQuery(value)
     if (value.length === 3) {
-      setDigitalTypes(digitalTypesMockData)
-      setRealWorldTypes(realTypesMockData)
       router.push(`/results?query=${value}`)
     }
   }
