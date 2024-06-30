@@ -30,6 +30,21 @@ Key aspects of the BonuzTokens system include:
 
 This system ensures a structured and secure approach to NFT management and distribution.
 
+
+## Installation
+
+1. Clone this repository:
+
+   ```bash
+   git clone https://github.com/bonuz-market/BonuzSmartContracts.git
+   
+
+2. Install the required dependencies:
+
+   `cd BonuzSmartContracts  `
+
+   `npm install`
+
 ## Project Structure
 
 - `contracts/`: Contains the smart contract source code written in Solidity.

@@ -1,0 +1,98 @@
+type AdminSet @entity(immutable: true) {
+  id: Bytes!
+  account: Bytes! # address
+  isAdmin: Boolean! # bool
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type AllowedSocialLinkSet @entity(immutable: true) {
+  id: Bytes!
+  platform: String! # string
+  allowed: Boolean! # bool
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type IssuerSet @entity(immutable: true) {
+  id: Bytes!
+  account: Bytes! # address
+  isIssuer: Boolean! # bool
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type OwnershipTransferred @entity(immutable: true) {
+  id: Bytes!
+  previousOwner: Bytes! # address
+  newOwner: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type Paused @entity(immutable: true) {
+  id: Bytes!
+  account: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type SocialLinkSet @entity(immutable: true) {
+  id: Bytes!
+  user: Bytes! # address
+  platform: String! # string
+  link: String! # string
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type SocialLinksSet @entity(immutable: true) {
+  id: Bytes!
+  user: Bytes! # address
+  platforms: [String!]! # string[]
+  links: [String!]! # string[]
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type Unpaused @entity(immutable: true) {
+  id: Bytes!
+  account: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type UserHandleSet @entity(immutable: true) {
+  id: Bytes!
+  user: Bytes! # address
+  handle: String! # string
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type UserImageSet @entity(immutable: true) {
+  id: Bytes!
+  user: Bytes! # address
+  profileImage: String! # string
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type UserNameSet @entity(immutable: true) {
+  id: Bytes!
+  user: Bytes! # address
+  name: String! # string
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}

@@ -94,6 +94,7 @@ lint/tmp/
 # lint/reports/
 
 gas-report.txt
+deployments
 
 typechain
 typechain-types

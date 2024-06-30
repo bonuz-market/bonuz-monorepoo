@@ -1,0 +1,31 @@
+
+ ›   Warning: In next version, we are removing this flag in favor of '--deploy-key'
+  Skip migration: Bump mapping apiVersion from 0.0.1 to 0.0.2
+  Skip migration: Bump mapping apiVersion from 0.0.2 to 0.0.3
+  Skip migration: Bump mapping apiVersion from 0.0.3 to 0.0.4
+  Skip migration: Bump mapping apiVersion from 0.0.4 to 0.0.5
+  Skip migration: Bump mapping apiVersion from 0.0.5 to 0.0.6
+  Skip migration: Bump manifest specVersion from 0.0.1 to 0.0.2
+  Skip migration: Bump manifest specVersion from 0.0.2 to 0.0.4
+✔ Apply migrations
+✔ Load subgraph from subgraph.yaml
+  Compile data source: BonuzSocialId => build/BonuzSocialId/BonuzSocialId.wasm
+✔ Compile subgraph
+  Copy schema file build/schema.graphql
+  Write subgraph file build/BonuzSocialId/abis/BonuzSocialId.json
+  Write subgraph manifest build/subgraph.yaml
+✔ Write compiled subgraph to build/
+  Add file to IPFS build/schema.graphql
+                .. QmWPvithtW2gjB6wPwb8pj5k79eiqPFKSnXUZhkMeNcvdg
+  Add file to IPFS build/BonuzSocialId/abis/BonuzSocialId.json
+                .. QmdhWbURemC7QuQUCRDzMTrnUb6cLHZ41KPEPExMV3wpm9
+  Add file to IPFS build/BonuzSocialId/BonuzSocialId.wasm
+                .. QmSqzKDR3RNuQR4nypuXgZTdG7q957UiarwSA4VV6KTuUf
+✔ Upload subgraph to IPFS
+
+Build completed: QmdAznDHXsv3h1g6VXYTzuSV7Tvjbzqb52dps6Xiib2tTN
+
+Deployed to https://thegraph.coredao.org/subgraphs/name/bonuz-social-id/graphql
+
+Subgraph endpoints:
+Queries (HTTP):     https://thegraph.coredao.org/subgraphs/name/bonuz-social-id
