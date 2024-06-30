@@ -87,8 +87,8 @@ async function main() {
   console.log(' ')
 
   const url = 'https://bonuz-admin-wts46rwpca-ey.a.run.app/api/users?limit=10000&depth=0'
-  const token =
-    'eyJhbGciOiJSUzI1NiIsImtpZCI6IkdScmlJbW50cEFFREVRUmw5N2FYbk9XSVo5enBNbEVIVlN1Mi1zZE9PUzAifQ.eyJpZCI6NjksIndhbGxldEFkZHJlc3MiOiIweDA5MzU5NTJiZjhBMDMwMTBjZUVlMzkwNzBhMTA0OWY4MjhFODE2ZmIiLCJzbWFydEFjY291bnRBZGRyZXNzIjoiMHg1MjU5YjM2MEM5M0EyYTg5Y2M5Y2Y5MDQyZWFiNjFCQUM2NWNGOEE2IiwiaWF0IjoxNzE3ODQyMTEzLCJpc3MiOiJodHRwczovL2FwaS5ib251ei5hcHAiLCJhdWQiOiJodHRwczovL2FwaS5ib251ei5hcHAiLCJleHAiOjE3MTg0NDY5MTMsInN1YiI6IkN1c3RvbSBKV1QgZm9yIEJvbnV6IEF1dGhlbnRpY2F0aW9uIn0.Np5b9FNb6JbFieeWuxqy7hdJfxAcnlJQZ3J1mWBFxztX3Cs42lLjFeTb_7kfJLy2abg3ZHNxd4DVhhvrC0FfR0IMH8Du8-7BsTwpLikMa4Hm1K3Cw7s4hKKvc0_dmPCFVaf4L4EgsbtzqQ1Oy3n2C5clkHnIBBGr5M7RQe2ImvgwgReNP6XNvbh3B0-akGrRf1qqyjpAn2YINEOzWIjuTKfCJLgIedo_zOP02ppZcZSN-cDtJbHrnCMMdp6x3Ga2rik12tqSMVFkC2IPoJAGEY5LO123QpDJqCKnoWMLM7a-UoSALDHF1uyem5eL1hprspDapeVWs0GPI4lHchztqA'
+  const token = process.env.JWT_TOKEN
+
   const userDataFromBackend = await axios.get(url, {
     headers: {
       Authorization: `Bearer ${token}`
