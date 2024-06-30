@@ -9,6 +9,7 @@ const Header = () => {
   
   const router = useRouter();
   const [searchQuery, setSearchQuery] = useState("");
+
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "Enter") {
       e.preventDefault();
@@ -19,7 +20,7 @@ const Header = () => {
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setSearchQuery(value);
-    if (value.length === 2) {
+    if (value.length >= 2) {
       router.push(`/s?query=${value}&filters=all`);
     }
   };
