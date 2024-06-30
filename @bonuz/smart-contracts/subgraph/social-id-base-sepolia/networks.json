@@ -1,0 +1,8 @@
+{
+  "base-sepolia": {
+    "BonuzSocialId": {
+      "address": "0xB16A86e0D35cBAAcE25DdCF7107876008332f877",
+      "startBlock": 0
+    }
+  }
+}

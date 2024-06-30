@@ -1,8 +1,5 @@
 packages:
   - "@bonuz/smart-contracts"
   - "@bonuz/social-id"
-  - "admin-bonuz-xyz"
-  - "apps/partner-bocuz-xyz"
-  - "apps/quests-bonuz-xyz"
   - "apps/bonuz-id"
-  - "apps/bonuz-wallet-expo"
+  - "apps/app-bonuz-market"

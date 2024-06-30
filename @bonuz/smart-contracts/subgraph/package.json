@@ -1,0 +1,32 @@
+{
+  "name": "subgraph",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "clean": "npx graph clean",
+    "graph-init": "npx graph init --product hosted-service",
+    "graph-auth": "graph auth --product hosted-service YOUR_ACCESS_TOKEN",
+    "graph-deploy": "npx graph deploy graph-test --version-label v0.0.1-new-version --node https://subgraphs.alchemy.com/api/subgraphs/deploy  --deploy-key g3ArfvtecmvzY --ipfs https://ipfs.satsuma.xyz",
+    "==================== POLYGON NETWORK ====================": "",
+    "graph-init-bonuz-tokens-polygon": "npx graph init --product hosted-service --protocol ethereum --from-contract 0x2A945B46EE2c6B8BAC319514d5EcdEdf2CBB607b --abi ./BonuzTokens.json --network matic",
+    "graph-deploy-bonuz-tokens-polygon": "cd bonuz-tokens && npx graph deploy bonuz-tokens-matic --version-label v0.0.1-new-version --node https://subgraphs.alchemy.com/api/subgraphs/deploy  --deploy-key g3ArfvtecmvzY --ipfs https://ipfs.satsuma.xyz",
+    "==================== MUMBAI NETWORK ====================": "",
+    "graph-init-bonuz-social-id-mumbai": "npx graph init --product hosted-service --protocol ethereum --from-contract 0x131FD47BD3ba332A945A2bAC967F6183D9a9A5F3 --abi ./BonuzSocialId.json --network mumbai",
+    "graph-deploy-bonuz-social-id-mumbai": "cd s && npx graph deploy graph-test --version-label v0.0.2-new-version --node https://subgraphs.alchemy.com/api/subgraphs/deploy  --deploy-key g3ArfvtecmvzY --ipfs https://ipfs.satsuma.xyz",
+    "==================== BASE NETWORK ====================": "",
+    "graph-init-bonuz-social-id-base-sepolia": "npx graph init bonuz/social-id-base-sepolia --product hosted-service --protocol ethereum --contract-name  BonuzSocialId --from-contract 0xB16A86e0D35cBAAcE25DdCF7107876008332f877 --abi ./BonuzSocialId.json --network base-sepolia --skip-git",
+    "graph-deploy-bonuz-social-id-base-sepolia": "cd social-id-base-sepolia && npm run codegen && npm run build && npx graph deploy bonuz-social-id-base-sepolia --version-label v0.0.2-new-version --node https://subgraphs.alchemy.com/api/subgraphs/deploy  --deploy-key g3ArfvtecmvzY --ipfs https://ipfs.satsuma.xyz",
+    "graph-init-bonuz-tokens-base-sepolia": "npx graph init bonuz/tokens-base-sepolia --product hosted-service --protocol ethereum --contract-name  BonuzTokens --from-contract 0x6396597E6E7f986dCd604c280C9A8F9fA5795aDB --abi ./BonuzTokens.json --network base-sepolia --skip-git",
+    "graph-deploy-bonuz-tokens-base-sepolia": "cd tokens-base-sepolia && npm run codegen && npm run build && npx graph deploy bonuz-tokens-base-sepolia --version-label v0.0.2-new-version --node https://subgraphs.alchemy.com/api/subgraphs/deploy  --deploy-key g3ArfvtecmvzY --ipfs https://ipfs.satsuma.xyz",
+    "==================== CORE DAO NETWORK ====================": "",
+    "graph-create-bonuz-social-id-core-dao-mainnet": "cd social-id-core-dao && npx graph create bonuz-social-id --node https://thegraph.coredao.org/deploy/ --access-token 41e94d7bd5924bc6994829a2d3591b05",
+    "graph-deploy-bonuz-social-id-core-dao-mainnet": "cd social-id-core-dao &&  npx graph deploy bonuz-social-id --node https://thegraph.coredao.org/deploy/ --access-token 41e94d7bd5924bc6994829a2d3591b05 --ipfs https://thegraph.coredao.org/ipfs/ --version-label v0.0.1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@graphprotocol/graph-cli": "^0.68.0"
+  }
+}

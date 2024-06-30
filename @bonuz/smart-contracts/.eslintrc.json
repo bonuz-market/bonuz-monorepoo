@@ -1,0 +1,232 @@
+{
+  "extends": [
+    "eslint:recommended",
+    "plugin:import/recommended",
+    "plugin:sonarjs/recommended",
+    "plugin:unicorn/recommended",
+    "plugin:import/typescript",
+    "plugin:@typescript-eslint/recommended",
+    "prettier",
+    "plugin:security/recommended",
+    "plugin:node/recommended"
+  ],
+  "plugins": [
+    "prettier",
+    "import",
+    "sonarjs",
+    "deprecate",
+    "unicorn",
+    "@typescript-eslint",
+    "no-loops",
+    "security",
+    "promise",
+    "simple-import-sort"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": 2020,
+    "sourceType": "module",
+    "project": ["./tsconfig.json"],
+    "ignorePatterns": ["babel.config.js"]
+  },
+  "env": {
+    "browser": true,
+    "es6": true,
+    "node": true,
+    "jest": true
+  },
+  "ignorePatterns": ["/resources/*"],
+  "rules": {
+    "semi": ["warn", "never"],
+    "node/no-unsupported-features/es-syntax": 0,
+    "comma-dangle": [
+      "off",
+      {
+        "arrays": "never",
+        "objects": "always",
+        "imports": "never",
+        "exports": "never",
+        "functions": "never"
+      }
+    ],
+    "object-property-newline": "warn",
+    "object-curly-newline": [
+      "warn",
+      {
+        "ObjectExpression": "always",
+        "ObjectPattern": { "multiline": true, "minProperties": 5 }
+        // "ImportDeclaration": "never",
+        // "ExportDeclaration":  "never"
+      }
+    ],
+    "no-use-before-define": "off",
+    "@typescript-eslint/no-use-before-define": ["error"],
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        "js": "never",
+        "jsx": "never",
+        "ts": "never",
+        "tsx": "never"
+      }
+    ],
+    "no-shadow": "off",
+    "@typescript-eslint/explicit-module-boundary-types": 0,
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/no-empty-interface": "off",
+    "max-len": [
+      "off",
+      {
+        "code": 80
+      }
+    ],
+    "import/namespace": "off",
+    "import/no-extraneous-dependencies": "off",
+    "import/default": "off",
+    "quotes": ["error", "single"],
+    "no-multiple-empty-lines": [
+      "warn",
+      {
+        "max": 1
+      }
+    ],
+    "import/newline-after-import": 0,
+    "class-methods-use-this": 0,
+    "no-console": "off",
+    "no-unused-vars": 0,
+    "@typescript-eslint/no-unused-vars": ["off"],
+    "@typescript-eslint/no-shadow": 0,
+    "prefer-const": "warn",
+    "import/prefer-default-export": "off",
+    "no-undef": "error",
+    "simple-import-sort/exports": "warn",
+    "simple-import-sort/imports": "warn",
+    "unicorn/prefer-node-protocol": 0,
+    "unicorn/no-await-expression-member":0,
+    "unicorn/import-style": 0,
+    "unicorn/prevent-abbreviations":0,
+    "no-process-exit":0,
+    "unicorn/no-process-exit":0,
+    "unicorn/prefer-top-level-await":0,
+    "unicorn/filename-case": [
+      "off",
+      {
+        "cases": {
+          "camelCase": true,
+          "pascalCase": true,
+          "kebabCase": true
+        }
+      }
+    ],
+    "security/detect-object-injection":"off",
+    "node/no-missing-import": 0,
+    // "import/order": [
+    //   "warn",
+    //   {
+    //     "groups": ["builtin", "external", "internal"],
+    //     "pathGroups": [
+    //       {
+    //         "pattern": "react",
+    //         "group": "external",
+    //         "position": "before"
+    //       }
+    //     ],
+    //     "pathGroupsExcludedImportTypes": ["react"],
+    //     "newlines-between": "always",
+    //     "alphabetize": {
+    //       "order": "asc",
+    //       "caseInsensitive": true
+    //     }
+    //   }
+    // ],
+    "padding-line-between-statements": [
+      "warn",
+      {
+        "blankLine": "always",
+        "prev": [
+          // "const",
+          // "let",
+          // "var",
+          "return",
+          "case"
+        ],
+        "next": "*"
+      },
+      {
+        "blankLine": "always",
+        "prev": "*",
+        "next": "return"
+      },
+      {
+        "blankLine": "always",
+        "prev": ["function"],
+        "next": "*"
+      },
+      {
+        "blankLine": "always",
+        "prev": "*",
+        "next": ["function"]
+      },
+      {
+        "blankLine": "always",
+        "prev": "*",
+        "next": "multiline-expression"
+      },
+      {
+        "blankLine": "always",
+        "prev": "multiline-expression",
+        "next": "*"
+      },
+      {
+        "blankLine": "always",
+        "prev": "*",
+        "next": "multiline-expression"
+      },
+      {
+        "blankLine": "always",
+        "prev": "multiline-expression",
+        "next": "*"
+      },
+      {
+        "blankLine": "always",
+        "prev": "directive",
+        "next": "*"
+      },
+      {
+        "blankLine": "any",
+        "prev": "directive",
+        "next": "directive"
+      },
+      {
+        "blankLine": "always",
+        "prev": "import",
+        "next": "*"
+      },
+      {
+        "blankLine": "any",
+        "prev": "import",
+        "next": "import"
+      },
+      {
+        "blankLine": "always",
+        "prev": "*",
+        "next": ["if", "class", "for", "do", "while", "switch", "try"]
+      },
+      {
+        "blankLine": "always",
+        "prev": ["if", "class", "for", "do", "while", "switch", "try"],
+        "next": "*"
+      }
+    ]
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"],
+        "moduleDirectory": ["node_modules", "src/"]
+      },
+      "extensions": [".js", ".jsx", ".ts", ".tsx"]
+    }
+  }
+}

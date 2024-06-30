@@ -1,0 +1,56 @@
+specVersion: 1.0.0
+indexerHints:
+  prune: auto
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: BonuzSocialId
+    network: base-sepolia
+    source:
+      address: "0xB16A86e0D35cBAAcE25DdCF7107876008332f877"
+      abi: BonuzSocialId
+      startBlock: 0
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - AdminSet
+        - AllowedSocialLinkSet
+        - IssuerSet
+        - OwnershipTransferred
+        - Paused
+        - SocialLinkSet
+        - SocialLinksSet
+        - Unpaused
+        - UserHandleSet
+        - UserImageSet
+        - UserNameSet
+      abis:
+        - name: BonuzSocialId
+          file: ./abis/BonuzSocialId.json
+      eventHandlers:
+        - event: AdminSet(indexed address,bool)
+          handler: handleAdminSet
+        - event: AllowedSocialLinkSet(indexed string,bool)
+          handler: handleAllowedSocialLinkSet
+        - event: IssuerSet(indexed address,bool)
+          handler: handleIssuerSet
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: Paused(address)
+          handler: handlePaused
+        - event: SocialLinkSet(indexed address,string,string)
+          handler: handleSocialLinkSet
+        - event: SocialLinksSet(indexed address,string[],string[])
+          handler: handleSocialLinksSet
+        - event: Unpaused(address)
+          handler: handleUnpaused
+        - event: UserHandleSet(indexed address,string)
+          handler: handleUserHandleSet
+        - event: UserImageSet(indexed address,string)
+          handler: handleUserImageSet
+        - event: UserNameSet(indexed address,string)
+          handler: handleUserNameSet
+      file: ./src/bonuz-social-id.ts

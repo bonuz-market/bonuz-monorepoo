@@ -1,0 +1,8 @@
+{
+  "base-sepolia": {
+    "BonuzTokens": {
+      "address": "0x6396597E6E7f986dCd604c280C9A8F9fA5795aDB",
+      "startBlock": 0
+    }
+  }
+}

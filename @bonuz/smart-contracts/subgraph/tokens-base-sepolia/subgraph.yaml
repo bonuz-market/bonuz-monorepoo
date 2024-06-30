@@ -1,0 +1,71 @@
+specVersion: 1.0.0
+indexerHints:
+  prune: auto
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: BonuzTokens
+    network: base-sepolia
+    source:
+      address: "0x6396597E6E7f986dCd604c280C9A8F9fA5795aDB"
+      abi: BonuzTokens
+      startBlock: 0
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - AdminSet
+        - Approval
+        - ApprovalForAll
+        - BatchMetadataUpdate
+        - IssuerSet
+        - Locked
+        - LoyaltyPointsAdded
+        - LoyaltyPointsRemoved
+        - MetadataUpdate
+        - OwnershipTransferred
+        - Paused
+        - TokenMinted
+        - TokenRedeemed
+        - Transfer
+        - Unlocked
+        - Unpaused
+      abis:
+        - name: BonuzTokens
+          file: ./abis/BonuzTokens.json
+      eventHandlers:
+        - event: AdminSet(indexed address,bool)
+          handler: handleAdminSet
+        - event: Approval(indexed address,indexed address,indexed uint256)
+          handler: handleApproval
+        - event: ApprovalForAll(indexed address,indexed address,bool)
+          handler: handleApprovalForAll
+        - event: BatchMetadataUpdate(uint256,uint256)
+          handler: handleBatchMetadataUpdate
+        - event: IssuerSet(indexed address,bool)
+          handler: handleIssuerSet
+        - event: Locked(uint256)
+          handler: handleLocked
+        - event: LoyaltyPointsAdded(indexed address,uint256,uint256)
+          handler: handleLoyaltyPointsAdded
+        - event: LoyaltyPointsRemoved(indexed address,uint256,uint256)
+          handler: handleLoyaltyPointsRemoved
+        - event: MetadataUpdate(uint256)
+          handler: handleMetadataUpdate
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: Paused(address)
+          handler: handlePaused
+        - event: TokenMinted(indexed address,indexed address,uint256,string,string,string,string,bool,uint256,uint256,string)
+          handler: handleTokenMinted
+        - event: TokenRedeemed(indexed address,uint256)
+          handler: handleTokenRedeemed
+        - event: Transfer(indexed address,indexed address,indexed uint256)
+          handler: handleTransfer
+        - event: Unlocked(uint256)
+          handler: handleUnlocked
+        - event: Unpaused(address)
+          handler: handleUnpaused
+      file: ./src/bonuz-tokens.ts
