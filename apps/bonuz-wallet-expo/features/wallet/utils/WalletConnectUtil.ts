@@ -17,7 +17,6 @@ const WALLET_CONNECT_METADATA =
 export async function createWeb3Wallet(relayerRegionURL?: string) {
   const core = new Core({
     projectId: ENV_PROJECT_ID,
-    logger: 'debug',
   });
   web3wallet = await Web3Wallet.init({
     core,

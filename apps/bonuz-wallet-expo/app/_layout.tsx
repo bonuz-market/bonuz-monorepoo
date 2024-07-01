@@ -3,7 +3,9 @@ import { useQueryClient } from '@tanstack/react-query';
 import { BlurView } from 'expo-blur';
 import { useFonts } from 'expo-font';
 import { LinearGradient } from 'expo-linear-gradient';
-import { Stack } from 'expo-router';
+import { useURL } from 'expo-linking';
+import * as Linking from 'expo-linking';
+import { Stack, useNavigation, usePathname } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import React, { useEffect } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
@@ -20,9 +22,11 @@ import { createOrRestoreEIP155Wallet } from '@/features/wallet/utils/EIP155Walle
 import { MessagesButton } from '@/pages/connections/sheets/components/messagesButton';
 import { RefetchMessagesHeaderButton } from '@/pages/messages/components/refetchButton';
 import { ReactQueryProvider } from '@/providers';
+import Emitter from '@/services/emitter';
 import { useUserStore } from '@/store';
 import { setupSmartAccountSdk } from '@/store/smartAccounts';
 
+const BASE_URL = Linking.createURL('/');
 export {
   // Catch any errors thrown by the Layout component.
   ErrorBoundary,
@@ -41,6 +45,14 @@ export default function RootLayout() {
     SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
     ...FontAwesome.font,
   });
+
+  const url = useURL();
+  useEffect(() => {
+    if (url?.includes('wc:')) {
+      const wcLink = url.replace(`${BASE_URL}`, '');
+      Emitter.emit('wcScan', wcLink);
+    }
+  }, [url]);
 
   const [isSmartAccountSdkReady, setIsSmartAccountSdkReady] = React.useState(false);
 
@@ -81,6 +93,7 @@ function RootLayoutNav() {
       <ReactQueryProvider>
         <Stack initialRouteName="index">
           <Stack.Screen name="index" options={{ headerShown: false }} />
+          <Stack.Screen name="wc" options={{ headerShown: false, presentation: 'modal' }} />
           <Stack.Screen name="wallet" options={{ headerShown: false }} />
           <Stack.Screen name="nfts" options={{ headerShown: false }} />
           <Stack.Screen name="tokens" options={{ headerShown: false }} />
