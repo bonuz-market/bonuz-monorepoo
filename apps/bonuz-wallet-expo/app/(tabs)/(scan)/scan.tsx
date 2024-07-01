@@ -36,6 +36,11 @@ export default function Scan() {
     removeEvent(eventId);
   };
 
+  const onEventCheckIn = () => {
+    const newScannedEventIndex = data?.length ?? 0 - 1;
+    setActiveSections([2 + newScannedEventIndex]);
+  };
+
   const headerHeight = useHeaderHeight();
 
   return (
@@ -45,7 +50,9 @@ export default function Scan() {
         sections={[
           {
             titleComponent: <Text style={tw`text-white text-xl font-semibold`}>Scan</Text>,
-            renderContent: <ScanQrCode isActive={activeSections.includes(0)} />,
+            renderContent: (
+              <ScanQrCode isActive={activeSections.includes(0)} onEventCheckIn={onEventCheckIn} />
+            ),
             index: 0,
           },
           {
