@@ -66,7 +66,7 @@ const DigitalWorldList = () => {
           </Link>
         )}
         contentContainerStyle={[tw`p-4`, { paddingTop: headerHeight + 16 }]}
-        ItemSeparatorComponent={() => <View style={tw`h-4`} />}
+        ItemSeparatorComponent={() => <View style={tw`h-3`} />}
         refreshing={isLoading}
         onRefresh={refetch}
         ListEmptyComponent={() => {

@@ -4,6 +4,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { Link, useRouter } from 'expo-router';
 import React, { useState } from 'react';
 import { Image, ScrollView, StatusBar, TextInput, TouchableOpacity } from 'react-native';
+import { Iconify } from 'react-native-iconify';
 import tw from 'twrnc';
 
 import { HomeBanner } from '@/components/HomeBanner/HomeBanner';
@@ -91,21 +92,18 @@ export default function Home() {
         containerStyle={tw`mx-4 bg-[#684FCD]`}
       />
 
-      <View style={tw`flex flex-row items-center bg-transparent mx-4 justify-between`}>
-        <View style={tw`w-[54px] h-[54px] rounded-full bg-[#684FCD] justify-center items-center`}>
-          <Image
-            style={tw`w-[30px] h-[30px]`}
-            source={require('@/assets/images/home/filter.png')}
-          />
+      <View style={tw`flex flex-row items-center bg-transparent mx-4 gap-4 justify-between`}>
+        <View style={tw`w-12 h-12 rounded-full bg-[#684FCD] justify-center items-center`}>
+          <Iconify icon="mage:filter" size={20} color={'white'} />
         </View>
 
         <View
-          style={tw`py-2 flex flex-row items-center bg-[#5F42BE] w-83 h-12 rounded-full border-2 border-[#7651CD]`}>
-          <Image style={tw`w-7 h-7 mr-2`} source={require('@/assets/images/home/search.png')} />
+          style={tw`p-2 flex-1 flex-row items-center bg-[#5F42BE] h-11 rounded-full border-2 border-[#7651CD]`}>
+          <Iconify icon="bx:bx-search" size={20} color={'#BAB3E2'} />
           <TextInput
             placeholderTextColor={'#BAB3E2'}
             placeholder="Search events, shops, communities..."
-            style={tw`text-[16px] font-normal text-white w-80`}
+            style={tw`text-[16px] font-normal text-white flex-1`}
           />
         </View>
       </View>

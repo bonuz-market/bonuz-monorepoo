@@ -32,7 +32,7 @@ export default function TabLayout() {
               <Header
                 title={
                   <Image
-                    style={tw`w-33 h-9 self-center`}
+                    style={[tw`self-center flex-1 h-[48px] w-[82px]`, { objectFit: 'contain' }]}
                     source={require('@/assets/images/home/logo.png')}
                   />
                 }
