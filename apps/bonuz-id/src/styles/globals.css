@@ -204,6 +204,10 @@ header {
   position: relative !important;
 }
 
+.swiper-slide-active{
+  justify-content: center;
+}
+
 .swiper-pagination-bullet {
   width: 9px !important;
   height: 9px !important;
