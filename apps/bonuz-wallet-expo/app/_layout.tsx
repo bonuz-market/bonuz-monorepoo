@@ -67,12 +67,14 @@ export default function RootLayout() {
   }, [error]);
 
   useEffect(() => {
-    if (loaded && wallet.privateKey && !isSmartAccountSdkReady) {
+    if (wallet.privateKey && !isSmartAccountSdkReady) {
       setupSmartAccountSdk(wallet.privateKey)
         .then(createOrRestoreEIP155Wallet)
         .then(() => setIsSmartAccountSdkReady(true));
+    } else {
+      setIsSmartAccountSdkReady(true);
     }
-  });
+  }, [isSmartAccountSdkReady, wallet.privateKey]);
 
   useEffect(() => {
     if (loaded && isHydrated && isSmartAccountSdkReady) {
