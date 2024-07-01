@@ -88,6 +88,10 @@ const UserSheetContent = ({
   const socialsSection = () => {
     const linksFiltered = Object.values(connection.socials ?? {}).filter((link) => !!link.handle);
 
+    if (linksFiltered.length === 0) {
+      return;
+    }
+
     return {
       index: SECTIONS.SOCIALS_MEDIA_ACCOUNTS.index,
       titleComponent: (
@@ -123,35 +127,35 @@ const UserSheetContent = ({
                 content={
                   <Text style={{ fontSize: 16, color: 'white', opacity: 0.7 }}>@{item.handle}</Text>
                 }
-              // RightComponent={
-              //   <HStack space={2} alignItems="center" justifyContent="center">
-              //     {item.type === SOCIAL_ACCOUNTS.s_x && !item.isVerified && (
-              //       <Button
-              //         onPress={async () => {
-              //           setIsVerifyDone(false);
-              //           promptAsync();
-              //         }}
-              //         size="xs"
-              //         colorScheme="fuchsia"
-              //         disabled={isVerifyLoading}>
-              //         Verify
-              //       </Button>
-              //     )}
-              //     <Ionicons
-              //       name={item.isPublic ? 'eye-outline' : 'eye-off-outline'}
-              //       color="white"
-              //       size={20}
-              //     />
-              //   </HStack>
-              // }
-              // isVerified={item.isVerified}
+                // RightComponent={
+                //   <HStack space={2} alignItems="center" justifyContent="center">
+                //     {item.type === SOCIAL_ACCOUNTS.s_x && !item.isVerified && (
+                //       <Button
+                //         onPress={async () => {
+                //           setIsVerifyDone(false);
+                //           promptAsync();
+                //         }}
+                //         size="xs"
+                //         colorScheme="fuchsia"
+                //         disabled={isVerifyLoading}>
+                //         Verify
+                //       </Button>
+                //     )}
+                //     <Ionicons
+                //       name={item.isPublic ? 'eye-outline' : 'eye-off-outline'}
+                //       color="white"
+                //       size={20}
+                //     />
+                //   </HStack>
+                // }
+                // isVerified={item.isVerified}
               />
             )}
             keyExtractor={(item) => item.type}
             ItemSeparatorComponent={() => (
               <View style={{ height: 10, backgroundColor: 'transparent' }} />
             )}
-          // ListEmptyComponent={<EmptySectionMessage text="social media" />}
+            // ListEmptyComponent={<EmptySectionMessage text="social media" />}
           />
         </View>
       ),
@@ -160,6 +164,10 @@ const UserSheetContent = ({
 
   const walletsSection = () => {
     const wallets = Object.values(connection.wallets ?? {}).filter((item) => !!item.handle);
+
+    if (wallets.length === 0) {
+      return;
+    }
 
     return {
       index: SECTIONS.WALLETS.index,
@@ -193,14 +201,14 @@ const UserSheetContent = ({
                   <Text style={{ fontSize: 16, color: 'white', opacity: 0.7 }}>{item.handle}</Text>
                 }
 
-              //   isVerified={item.isVerified}
+                //   isVerified={item.isVerified}
               />
             )}
             keyExtractor={(item) => item.type}
             ItemSeparatorComponent={() => (
               <View style={{ height: 10, backgroundColor: 'transparent' }} />
             )}
-          // ListEmptyComponent={<EmptySectionMessage text="wallets" />}
+            // ListEmptyComponent={<EmptySectionMessage text="wallets" />}
           />
         </View>
       ),
@@ -211,6 +219,10 @@ const UserSheetContent = ({
     const messagingApps = Object.values(connection.messagingApps ?? {}).filter(
       (item) => !!item.handle,
     );
+
+    if (messagingApps.length === 0) {
+      return;
+    }
 
     return {
       index: SECTIONS.MESSAGING_APPS.index,
@@ -243,16 +255,16 @@ const UserSheetContent = ({
                 content={
                   <Text style={{ fontSize: 16, color: 'white', opacity: 0.7 }}>{item.handle}</Text>
                 }
-              //   text={item.handle}
+                //   text={item.handle}
 
-              //   isVerified={item.isVerified}
+                //   isVerified={item.isVerified}
               />
             )}
             keyExtractor={(item) => item.type}
             ItemSeparatorComponent={() => (
               <View style={{ height: 10, backgroundColor: 'transparent' }} />
             )}
-          // ListEmptyComponent={<EmptySectionMessage text="messaging apps" />}
+            // ListEmptyComponent={<EmptySectionMessage text="messaging apps" />}
           />
         </View>
       ),
@@ -263,6 +275,10 @@ const UserSheetContent = ({
     const others = Object.values(connection.decentralizedIdentifiers ?? {}).filter(
       (item) => !!item.handle,
     );
+
+    if (others.length === 0) {
+      return;
+    }
 
     return {
       index: SECTIONS.DECENTRALIZED_IDENTIFERS.index,
@@ -300,14 +316,14 @@ const UserSheetContent = ({
                   <Text style={{ fontSize: 16, color: 'white', opacity: 0.7 }}>{item.handle}</Text>
                 }
 
-              // isVerified={item.isVerified}
+                // isVerified={item.isVerified}
               />
             )}
             keyExtractor={(item) => item.type}
             ItemSeparatorComponent={() => (
               <View style={{ height: 10, backgroundColor: 'transparent' }} />
             )}
-          // ListEmptyComponent={<EmptySectionMessage text="decentralized identifiers" />}
+            // ListEmptyComponent={<EmptySectionMessage text="decentralized identifiers" />}
           />
         </View>
       ),

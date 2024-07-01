@@ -73,6 +73,10 @@ const ConnectionSheetContent = ({
   const socialsSection = () => {
     const linksFiltered = Object.values(connection.socials ?? {}).filter((link) => !!link.handle);
 
+    if (linksFiltered.length === 0) {
+      return;
+    }
+
     return {
       index: SECTIONS.SOCIALS_MEDIA_ACCOUNTS.index,
       titleComponent: (
@@ -151,6 +155,10 @@ const ConnectionSheetContent = ({
   const walletsSection = () => {
     const wallets = Object.values(connection.wallets ?? {}).filter((item) => !!item.handle);
 
+    if (wallets.length === 0) {
+      return;
+    }
+
     return {
       index: SECTIONS.WALLETS.index,
       titleComponent: (
@@ -206,6 +214,10 @@ const ConnectionSheetContent = ({
     const messagingApps = Object.values(connection.messagingApps ?? {}).filter(
       (item) => !!item.handle,
     );
+
+    if (messagingApps.length === 0) {
+      return;
+    }
 
     return {
       index: SECTIONS.MESSAGING_APPS.index,
@@ -264,6 +276,10 @@ const ConnectionSheetContent = ({
       (item) => !!item.handle,
     );
 
+    if (others.length === 0) {
+      return;
+    }
+
     return {
       index: SECTIONS.DECENTRALIZED_IDENTIFERS.index,
       titleComponent: (
@@ -318,13 +334,14 @@ const ConnectionSheetContent = ({
       ),
     };
   };
+
   const sections = () => {
     const sections: Section[] = [
       socialsSection(),
       messagingAppsSection(),
       walletsSection(),
       othersSection(),
-    ];
+    ].filter(Boolean) as Section[];
 
     return sections;
   };

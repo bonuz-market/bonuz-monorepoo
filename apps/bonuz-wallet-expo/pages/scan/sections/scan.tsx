@@ -149,6 +149,7 @@ export const ScanQrCode = ({ isActive }: { isActive: boolean }) => {
         onRemoveConnection={handleRemoveConnection}
         onAddConnection={handleAddConnection}
         onDismiss={() => setScannedUserHandle(undefined)}
+        snapPoints={['85%']}
       />
       <EventSheet
         ref={eventBottomModalRef}
