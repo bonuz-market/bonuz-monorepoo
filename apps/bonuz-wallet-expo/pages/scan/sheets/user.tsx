@@ -335,7 +335,7 @@ const UserSheetContent = ({
       messagingAppsSection(),
       walletsSection(),
       othersSection(),
-    ];
+    ].filter(Boolean) as Section[];
 
     return sections;
   };
