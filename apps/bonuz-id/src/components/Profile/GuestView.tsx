@@ -144,7 +144,7 @@ const GuestView = () => {
             >
               <span className="inline-flex items-center justify-center w-10 h-10 rounded-full">
                 <svg
-                  className="w-4 h-4 text-white  rtl:rotate-180"
+                  className="w-4 h-4 text-white rtl:rotate-180"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -190,7 +190,7 @@ const GuestView = () => {
             >
               <span className="inline-flex items-center justify-center w-10 h-10 rounded-full">
                 <svg
-                  className="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180"
+                  className="w-4 h-4 text-white rtl:rotate-180"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
