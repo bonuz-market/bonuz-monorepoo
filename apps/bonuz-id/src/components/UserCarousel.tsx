@@ -60,7 +60,12 @@ export default function UserCarousel(
             <div
               className='rounded-[30px] bg-[#a2a2a20a] p-2 h-[160px] w-[300px] md:w-[450px] flex flex-row gap-4 justify-center items-center'
               key={user.wallet}>
-              {user.profileImage ? (
+                                <img
+                  src={user.profileImage  || '/images/default-image.jpeg'}
+                  className='rounded-full w-[107px] h-[94px]'
+                  alt='static-face'
+                />
+              {/* {user.profileImage ? (
                 <img
                   src={user.profileImage}
                   className='rounded-full w-[107px] h-[94px]'
@@ -68,7 +73,7 @@ export default function UserCarousel(
                 />
               ) : (
                 <div className='skeleton w-32 h-32'></div>
-              )}
+              )} */}
 
               <div className='flex flex-col w-full items-center gap-2'>
                 <p>{user.name}</p>

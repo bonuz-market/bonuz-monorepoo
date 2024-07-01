@@ -1,14 +1,15 @@
 import { useState } from 'react';
 
 interface CollapsibleProps {
+  open?: boolean;
   title: string;
   subTitle: React.ReactNode;
   icon: string;
   children: React.ReactNode;
 }
 
-const Collapsible = ({ title, subTitle, icon, children }: CollapsibleProps) => {
-  const [isOpen, setIsOpen] = useState(false);
+const Collapsible = ({ open=false,title, subTitle, icon, children }: CollapsibleProps) => {
+  const [isOpen, setIsOpen] = useState(open);
 
   const toggleCollapse = () => {
     setIsOpen(!isOpen);

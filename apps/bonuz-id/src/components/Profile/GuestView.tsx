@@ -11,7 +11,7 @@ const profileData = [
     url: '/icons/message-icon.svg',
   },
   {
-    label: 'Blockchain & Wallets',
+    label: 'External Wallets & Accounts',
     url: '/icons/blockchain-icon.svg',
   },
   {
@@ -117,13 +117,13 @@ const GuestView = () => {
           <div>
             <div className='max-w-[510px] mt-[2rem]'>
               <p className='font-space-grotesk font-medium tracking-[-0.08em] text-left text-white text-[20px] md:text-[36px]'>
-                Exclusive BRC-721 Social ID Airdrop
+                Exclusive Social ID Usernames
               </p>
               <p className='font-inter font-normal leading-[24px] tracking-[-0.4px] text-left text-white opacity-60 text-[10px] md:text-[12px]'>
                 Get Your exclusive 2-char, 3-char or 4-char letter Bonuz
                 username and secure your spot for the next round of quests
-                coming soon! We will mint BTC username similar to lens powered
-                by the bonuz ecosystem!
+                coming soon! We will mint username similar to Lens powered by
+                the bonuz ecosystem!
               </p>
             </div>
           </div>
@@ -210,8 +210,17 @@ const GuestView = () => {
             </p>
           </div>
           <div className='mt-[25px] flex gap-[24px] flex-col justify-center md:flex-row w-full'>
-            <button className='flex items-center justify-center gap-[4px] isolate h-[36px] bg-white rounded-[16px] w-full md:w-[172.63px] lg:w-[150px]'>
-              <Image src={'/icons/apple.png'} alt='GoogleIcon' width={22} height={26} />
+            <button className='flex items-center justify-center gap-[4px] isolate h-[36px] bg-white rounded-[16px] w-full md:w-[172.63px] lg:w-[150px]'
+               onClick={() => {
+                window.open('https://bonuz.xyz/', '_blank')
+              }}
+            >
+              <Image
+                src={'/icons/apple.png'}
+                alt='GoogleIcon'
+                width={22}
+                height={26}
+              />
               <div>
                 <p className='text-start text-black text-[10px] font-normal'>
                   Download on the
@@ -222,8 +231,17 @@ const GuestView = () => {
               </div>
             </button>
 
-            <button className='flex items-center justify-center gap-[4px] isolate h-[36px] bg-white rounded-[16px] w-full md:w-[172.63px] lg:w-[150px]'>
-              <Image src={'/icons/apple.png'} alt='GoogleIcon' width={22} height={26} />
+            <button
+              className='flex items-center justify-center gap-[4px] isolate h-[36px] bg-white rounded-[16px] w-full md:w-[172.63px] lg:w-[150px]'
+              onClick={() => {
+                window.open('https://bonuz.xyz/', '_blank')
+              }}>
+              <Image
+                src={'/icons/apple.png'}
+                alt='GoogleIcon'
+                width={22}
+                height={26}
+              />
               <div>
                 <p className='text-start text-black text-[10px] font-normal'>
                   GET IT ON{' '}

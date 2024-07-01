@@ -39,12 +39,11 @@ function Profile() {
         </div>
       ) : data ? (
         <>
-          <div className='grid grid-col xl:grid-cols-[1fr_2fr] mt-10 p-10 gap-4 relative max-h-[500px] w-full overflow-auto'>
+          <div className='grid grid-col xl:grid-cols-[1fr_2fr] mt-10 p-10 gap-4 relative w-full'>
             <div className='flex flex-col items-center justify-start'>
               <div className='flex flex-col items-center px-5 tracking-tight  w-full'>
                 <img
-                  loading='lazy'
-                  srcSet={data?.profileImage}
+                  src={data?.profileImage || '/images/default-image.jpeg'}
                   className='max-w-full aspect-square w-[140px] rounded-full'
                 />
                 <div className='mt-5 text-3xl font-bold text-center text-white'>
@@ -71,10 +70,16 @@ function Profile() {
             </Collapsible> */}
             </div>
             <div className='grid-item-2 flex flex-col gap-5'>
+              {!socialMedias && !messengers && !blockchainsWallets && (
+                <div className='flex flex-col items-center justify-center text-2xl text-meta-1 font-bold h-full'>
+                  No links found
+                </div>
+              )}
               {/* socials */}
 
               {socialMedias && (
                 <Collapsible
+                  open
                   title='Social Media Accounts'
                   subTitle={
                     data?.links?.socialMedias
@@ -227,7 +232,7 @@ function Profile() {
 
               {blockchainsWallets && (
                 <Collapsible
-                  title='Blockchain & Wallets'
+                  title='External Wallets & Accounts'
                   subTitle={
                     data?.links?.blockchainsWallets
                       ? Object.values(data.links.blockchainsWallets).filter(

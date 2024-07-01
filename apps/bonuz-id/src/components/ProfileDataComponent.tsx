@@ -268,7 +268,7 @@ export default function ProfileDataComponent({
 
           {blockchainsWallets && (
             <Collapsible
-              title='Blockchain & Wallets'
+              title='External Wallets & Accounts'
               subTitle={
                 data?.links?.blockchainsWallets
                   ? Object.values(data.links.blockchainsWallets).filter(
