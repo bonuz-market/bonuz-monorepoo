@@ -10,6 +10,7 @@ import tw from 'twrnc';
 import { Tabs } from '@/components/Tabs';
 import { getEventById } from '@/services/backend/events.service';
 import { useQueryGetUserProfileAndSocialLinksByHandle } from '@/services/blockchain/bonuz/useSocialId';
+import Emitter from '@/services/emitter';
 import { useUserStore } from '@/store';
 import { isNotEmpty } from '@/utils/object';
 
@@ -74,6 +75,8 @@ export const ScanQrCode = ({ isActive }: { isActive: boolean }) => {
 
       setEventId(Number(eventId));
       eventBottomModalRef.current?.present();
+    } else if (scanResult.data.startsWith('wc:')) {
+      Emitter.emit('wcScan', scanResult.data);
     }
 
     setActiveTab('My QR Code');

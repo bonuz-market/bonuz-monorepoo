@@ -159,7 +159,8 @@ export default function Home() {
                   title: app.name,
                   image: app.image.url,
                   href: {
-                    pathname: '/home',
+                    pathname: '/browser',
+                    params: { url: app.link },
                   },
                 }))}
               />

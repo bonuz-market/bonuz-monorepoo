@@ -10,7 +10,7 @@ import { Accordion } from '@/components/Accordion/Accordion';
 import { Text } from '@/components/Themed';
 import { useBottomTabBarMargin } from '@/hooks/useBottomTabBarHeight';
 import { Event } from '@/pages/scan/components/event';
-import { ScanQrCode } from '@/pages/scan/sections';
+import { ConnectedDapps, ScanQrCode } from '@/pages/scan/sections';
 import { getEventsByIds } from '@/services/backend/events.service';
 import { useUserStore } from '@/store';
 
@@ -48,11 +48,17 @@ export default function Scan() {
             renderContent: <ScanQrCode isActive={activeSections.includes(0)} />,
             index: 0,
           },
-
+          {
+            index: 1,
+            renderContent: <ConnectedDapps />,
+            titleComponent: (
+              <Text style={tw`text-white text-xl font-semibold`}>Connected Dapps</Text>
+            ),
+          },
           ...(data ?? []).map((event, index) => ({
             titleComponent: <Text style={tw`text-white text-xl font-semibold`}>{event.title}</Text>,
             renderContent: <Event data={event} onCheckOut={() => handleCheckOut(event.id)} />,
-            index: index + 1,
+            index: index + 2,
           })),
         ]}
         onAccordionChange={(sections) => setActiveSections(sections)}

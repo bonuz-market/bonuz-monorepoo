@@ -85,6 +85,17 @@
       },
       "backendUrl": "https://bonuz-admin-wts46rwpca-ey.a.run.app",
       "nftStorageToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweDdmRWYzNmYwOTU2ZjM3OTY1RmRlRDI0OTcxMERlQ2U0MjE4YmZlNTEiLCJpc3MiOiJuZnQtc3RvcmFnZSIsImlhdCI6MTY5MDU0ODI5MzQ0OCwibmFtZSI6IkJvbnV6IFdlYiBBcHAifQ.odJ-TxYjLV8wbtCF_oxP8gH5hebEuG6keGtqUN0K6Dg",
+      "walletConnectProjectId": "78113614b56ec5a8f1c869ed62bb7db4",
+      "walletConnectMetadata": {
+        "name": "Bonuz",
+        "description": "Social Engagement Platform",
+        "url": "https://app.bonuz.market",
+        "icons": ["https://avatars.githubusercontent.com/u/83910762?s=200&v=4"],
+        "redirect": {
+          "native": "bonuzapp://wc",
+          "universal": ""
+        }
+      },
       "router": {
         "origin": false
       },

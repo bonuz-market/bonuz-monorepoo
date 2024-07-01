@@ -3,7 +3,9 @@ import { useQueryClient } from '@tanstack/react-query';
 import { BlurView } from 'expo-blur';
 import { useFonts } from 'expo-font';
 import { LinearGradient } from 'expo-linear-gradient';
-import { Stack } from 'expo-router';
+import { useURL } from 'expo-linking';
+import * as Linking from 'expo-linking';
+import { Stack, useNavigation, usePathname } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import React, { useEffect } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
@@ -14,11 +16,17 @@ import Toast from 'react-native-toast-message';
 import tw from 'twrnc';
 
 import { Header } from '@/components/Header/header';
+import { Wallet } from '@/entities';
+import { WalletConnect } from '@/features/wallet';
+import { createOrRestoreEIP155Wallet } from '@/features/wallet/utils/EIP155WalletUtil';
 import { MessagesButton } from '@/pages/connections/sheets/components/messagesButton';
 import { RefetchMessagesHeaderButton } from '@/pages/messages/components/refetchButton';
 import { ReactQueryProvider } from '@/providers';
+import Emitter from '@/services/emitter';
 import { useUserStore } from '@/store';
+import { setupSmartAccountSdk } from '@/store/smartAccounts';
 
+const BASE_URL = Linking.createURL('/');
 export {
   // Catch any errors thrown by the Layout component.
   ErrorBoundary,
@@ -38,8 +46,19 @@ export default function RootLayout() {
     ...FontAwesome.font,
   });
 
-  const { isHydrated } = useUserStore((store) => ({
+  const url = useURL();
+  useEffect(() => {
+    if (url?.includes('wc:')) {
+      const wcLink = url.replace(`${BASE_URL}`, '');
+      Emitter.emit('wcScan', wcLink);
+    }
+  }, [url]);
+
+  const [isSmartAccountSdkReady, setIsSmartAccountSdkReady] = React.useState(false);
+
+  const { isHydrated, wallet } = useUserStore((store) => ({
     isHydrated: store._hasHydrated,
+    wallet: store.wallet as Wallet,
   }));
 
   // Expo Router uses Error Boundaries to catch errors in the navigation tree.
@@ -48,10 +67,18 @@ export default function RootLayout() {
   }, [error]);
 
   useEffect(() => {
-    if (loaded && isHydrated) {
+    if (loaded && wallet.privateKey && !isSmartAccountSdkReady) {
+      setupSmartAccountSdk(wallet.privateKey)
+        .then(createOrRestoreEIP155Wallet)
+        .then(() => setIsSmartAccountSdkReady(true));
+    }
+  });
+
+  useEffect(() => {
+    if (loaded && isHydrated && isSmartAccountSdkReady) {
       SplashScreen.hideAsync();
     }
-  }, [isHydrated, loaded]);
+  }, [isHydrated, isSmartAccountSdkReady, loaded, wallet.privateKey]);
 
   if (!loaded || !isHydrated) {
     return;
@@ -66,6 +93,7 @@ function RootLayoutNav() {
       <ReactQueryProvider>
         <Stack initialRouteName="index">
           <Stack.Screen name="index" options={{ headerShown: false }} />
+          <Stack.Screen name="wc" options={{ headerShown: false, presentation: 'modal' }} />
           <Stack.Screen name="wallet" options={{ headerShown: false }} />
           <Stack.Screen name="nfts" options={{ headerShown: false }} />
           <Stack.Screen name="tokens" options={{ headerShown: false }} />
@@ -168,9 +196,38 @@ function RootLayoutNav() {
           />
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
           <Stack.Screen name="(discover)" options={{ headerShown: false }} />
+          <Stack.Screen
+            name="(browser)"
+            options={{
+              header: ({ options, navigation }) => (
+                <Header
+                  title={
+                    <Text style={[tw`text-white text-center text-xl font-semibold`]}>
+                      {options.title}
+                    </Text>
+                  }
+                  left={
+                    <View style={tw`h-[48px] w-[48px] z-50`}>
+                      <Pressable onPress={navigation.goBack} hitSlop={30} style={tw`absolute`}>
+                        <BlurView
+                          style={[tw`flex-1 p-3 rounded-full overflow-hidden`]}
+                          intensity={50}
+                          tint="light">
+                          <Iconify icon="ion:chevron-back-outline" color="white" size={24} />
+                        </BlurView>
+                      </Pressable>
+                    </View>
+                  }
+                />
+              ),
+              headerTransparent: true,
+              title: 'Browser',
+            }}
+          />
         </Stack>
       </ReactQueryProvider>
       <Toast />
+      <WalletConnect />
     </GestureHandlerRootView>
   );
 }
