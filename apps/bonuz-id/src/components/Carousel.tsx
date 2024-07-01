@@ -2,14 +2,7 @@ import { cn } from "@/lib/utils";
 import { VoucherProps } from "@/store/voucherStore";
 import * as React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-// import Swiper core and required modules
 import { Navigation, Pagination, Scrollbar, A11y } from "swiper/modules";
-
-// // Import Swiper styles
-// import 'swiper/css'
-// import 'swiper/css/navigation'
-// import 'swiper/css/pagination'
-// import 'swiper/css/scrollbar'
 
 interface ICarouselProps {
   slides: VoucherProps[];
