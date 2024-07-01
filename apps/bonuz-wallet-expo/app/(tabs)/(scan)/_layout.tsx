@@ -5,6 +5,7 @@ import { Iconify } from 'react-native-iconify';
 import tw from 'twrnc';
 
 import { Header } from '@/components/Header/header';
+import { ShareNavigationButton } from '@/pages/scan/components/ShareNavigationButton';
 
 export default function ScanLayout() {
   return (
@@ -31,18 +32,7 @@ export default function ScanLayout() {
                   </Pressable>
                 </View>
               }
-              right={
-                <View style={tw`h-[48px] w-[48px] z-50`}>
-                  <Pressable onPress={navigation.goBack} hitSlop={30} style={tw`absolute`}>
-                    <BlurView
-                      style={[tw`flex-1 p-3 rounded-full overflow-hidden`]}
-                      intensity={50}
-                      tint="light">
-                      <Iconify icon="ion:share-outline" color="white" size={24} />
-                    </BlurView>
-                  </Pressable>
-                </View>
-              }
+              right={<ShareNavigationButton />}
             />
           ),
           headerTransparent: true,

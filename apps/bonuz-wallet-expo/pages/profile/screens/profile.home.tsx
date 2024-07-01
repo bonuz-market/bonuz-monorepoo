@@ -41,6 +41,7 @@ import { Tabs } from '@/components/Tabs';
 import { SocialIdUser, Wallet } from '@/entities';
 import { NFT } from '@/entities/nfts';
 import { useBottomTabBarMargin } from '@/hooks/useBottomTabBarHeight';
+import { ShareNavigationButton } from '@/pages/scan/components/ShareNavigationButton';
 import { getNftsByAddress } from '@/services/backend';
 import { useQueryGetUserProfileAndSocialLinks } from '@/services/blockchain/bonuz/useSocialId';
 import { useUserStore } from '@/store';
@@ -194,19 +195,7 @@ const HeaderComponent = ({
         headerCenterFadesIn={false}
         headerStyle={tw`bg-transparent`}
         noBottomBorder
-        headerRight={
-          <Pressable
-            onPress={() => {}}
-            style={tw`h-[48px] w-[48px] rounded-full justify-center items-center`}
-            hitSlop={30}>
-            <BlurView
-              style={[tw`flex-1 p-3 rounded-full overflow-hidden`]}
-              intensity={50}
-              tint="light">
-              <Iconify icon="ion:share-outline" color="white" size={24} />
-            </BlurView>
-          </Pressable>
-        }
+        headerRight={<ShareNavigationButton />}
         headerRightStyle={[tw`pr-4 -top-1`]}
         headerLeft={
           <View style={tw`flex flex-row gap-2 items-center`}>
