@@ -127,7 +127,7 @@ export default function Home() {
                     </Link>
                   </View>
                 }
-                data={partners.slice(0, 3).map((partner) => ({
+                data={partners.slice(0, 7).map((partner) => ({
                   title: partner.name,
                   image: partner.image.url,
                   href: {
@@ -153,7 +153,7 @@ export default function Home() {
                     </Link>
                   </View>
                 }
-                data={apps.slice(0, 3).map((app) => ({
+                data={apps.slice(0, 7).map((app) => ({
                   title: app.name,
                   image: app.image.url,
                   href: {
