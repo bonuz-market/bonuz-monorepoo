@@ -33,7 +33,17 @@ export default function RootLayout({
       </Head>
       <body>
         <Providers>
-          <div className="bg-[url('/images/third-baackground.svg')] bg-center bg-no-repeat bg-cover flex w-full h-auto min-h-screen flex-col px-7 pb-6">
+          <div className="flex w-full h-screen flex-col px-7 pb-6"
+          style={{
+            backgroundImage: "url(/images/third-baackground.svg)",
+            backgroundSize: 'cover',
+            backgroundRepeat: 'no-repeat',
+            backgroundPosition: 'center',
+            backgroundAttachment: 'fixed',
+            overflow: 'auto',
+            
+          }}
+          >
             <div className='md:container md:mx-auto md:px-16 mt-8'>
               <Header />
 
