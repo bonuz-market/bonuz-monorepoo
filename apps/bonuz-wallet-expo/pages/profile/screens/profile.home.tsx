@@ -207,7 +207,7 @@ const HeaderComponent = ({
             </BlurView>
           </Pressable>
         }
-        headerRightStyle={[tw`pr-4`]}
+        headerRightStyle={[tw`pr-4 -top-1`]}
         headerLeft={
           <View style={tw`flex flex-row gap-2 items-center`}>
             <Link href="/settings" asChild>
@@ -228,7 +228,7 @@ const HeaderComponent = ({
             </FadingView>
           </View>
         }
-        headerLeftStyle={[tw`pl-4`]}
+        headerLeftStyle={[tw`pl-4 -top-1`]}
       />
     </View>
   );
