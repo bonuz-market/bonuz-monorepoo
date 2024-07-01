@@ -61,10 +61,13 @@ export default function Carousel(props: ICarouselProps): React.ReactElement {
       onRealIndexChange={(swiperCore) => {
         props.setSwiperIndex(swiperCore.realIndex);
       }}
-      className="flex flex-row w-[300px] lg:w-[720px]"
+      className="flex flex-row w-[300px] sm:w-[500px] lg:w-[720px]"
       breakpoints={{
         1000: {
           slidesPerView: 3,
+        },
+        700: {
+          slidesPerView: 2,
         },
       }}
     >
