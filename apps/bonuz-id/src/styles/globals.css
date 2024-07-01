@@ -163,8 +163,6 @@ header {
 }
 
 .swiper {
-  width: 100%;
-  height: 100%;
   display: flex !important;
   flex-direction: column;
   gap: 10px;
@@ -177,8 +175,17 @@ header {
 }
 
 .swiper-slide-active {
-  transform: scale(1.1) !important;
+  transform: scale(1.0);
   transition: transform 0.3s ease-in-out;
+}
+
+@media (min-width: 1000px) {
+  .swiper-slide-active {
+    transform: scale(1.1) !important;
+  }
+  .swiper-wrapper{
+    padding-left: 15px !important;
+  }
 }
 
 .swiper-wrapper {
@@ -186,8 +193,11 @@ header {
   flex-direction: row;
   height: 180px !important;
   align-items: center;
-  gap: 20px;
-  padding-left: 20px !important;
+  padding-left: 0px;
+}
+
+.swiper-backface-hidden .swiper-slide{
+  width: 100%;
 }
 
 .swiper-pagination {
