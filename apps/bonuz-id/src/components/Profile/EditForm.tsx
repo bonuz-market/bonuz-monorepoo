@@ -98,7 +98,7 @@ const EditForm = ({
   return (
     <div className="">
       <form onSubmit={onSubmit}>
-        <div className="ms-auto mt-8 flex flex-col md:flex-row w-full justify-end gap-4 lg:w-max">
+        <div className="ms-auto mt-8 flex flex-col lg:flex-row w-full justify-end gap-4 lg:w-max">
           <Button
             transition
             className="w-full rounded-[10px] px-8 py-3"
