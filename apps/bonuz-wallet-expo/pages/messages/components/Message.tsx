@@ -67,7 +67,7 @@ export const Message = (props: MessageProps<any>) => {
   };
 
   const isCurrentUser = props.currentMessage.user._id === props.user._id;
-  const marginBottom = isSameUser(props.currentMessage, props.nextMessage) ? 2 : 12;
+  const marginBottom = isSameUser(props.currentMessage, props.nextMessage) ? 4 : 12;
 
   return (
     props.currentMessage && (

@@ -1,3 +1,4 @@
+import { LinearGradient } from 'expo-linear-gradient';
 import { Pressable, Text, View } from 'react-native';
 import {
   Avatar,
@@ -8,6 +9,7 @@ import {
   Time,
   utils,
 } from 'react-native-gifted-chat';
+import { Shadow } from 'react-native-shadow-2';
 import tw from 'twrnc';
 
 const { isSameUser, isSameDay } = utils;
@@ -59,8 +61,8 @@ export const Bubble = (props: BubbleProps<any>) => {
         <Time
           {...timeProps}
           timeTextStyle={{
-            left: [tw`text-xs text-[rgba(255,255,255,0.7)]`],
-            right: [tw`text-xs text-[rgba(255,255,255,0.7)]`],
+            left: [tw`text-[10px] text-[rgba(255,255,255,0.7)]`],
+            right: [tw`text-[10px] text-[rgba(255,255,255,0.7)]`],
           }}
         />
       );
@@ -119,20 +121,30 @@ export const Bubble = (props: BubbleProps<any>) => {
   const messageHeader = <View style={tw`mb-1`}>{renderUsername()}</View>;
   const isCurrentUser = props.currentMessage?.user._id === props.user?._id;
   return (
-    <Pressable
+    <LinearGradient
+      colors={isCurrentUser ? ['#FFA34E', '#CE09FF'] : ['transparent', 'transparent']}
+      start={[0, 0]}
+      end={[1, 0]}
       style={[
-        tw`flex-col w-full gap-0.5`,
-        isCurrentUser && tw`bg-[#3759f8] w-full ml-auto p-2.5 rounded-xl`,
-        !isCurrentUser && tw`bg-[#2b389e] w-full p-2.5 rounded-xl`,
+        tw`rounded-xl overflow-hidden flex-1 p-[1px]`,
         styledBubbleToNext(),
         styledBubbleToPrevious(),
-      ]}
-      onPress={() => props.onPress?.(undefined, props.currentMessage)}>
-      {renderCustomView()}
-      {messageHeader}
-      {renderMessageText()}
-      {renderTime()}
-    </Pressable>
+      ]}>
+      <Pressable
+        style={[
+          tw`flex-col w-full gap-0.5`,
+          isCurrentUser && tw`bg-[#3759f8] w-full ml-auto p-2.5 rounded-xl`,
+          !isCurrentUser && tw`bg-[#2b389e] w-full p-2.5 rounded-xl`,
+          styledBubbleToNext(),
+          styledBubbleToPrevious(),
+        ]}
+        onPress={() => props.onPress?.(undefined, props.currentMessage)}>
+        {renderCustomView()}
+        {messageHeader}
+        {renderMessageText()}
+        {renderTime()}
+      </Pressable>
+    </LinearGradient>
   );
 };
 
