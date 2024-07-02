@@ -28,8 +28,10 @@ export default function Scan() {
   console.log(checkedInEvents);
 
   const { data } = useQuery({
-    queryKey: ['eventssssssss', checkedInEvents, checkedInEvents.join('-')],
+    queryKey: ['events', checkedInEvents, checkedInEvents.join('-')],
     queryFn: ({ queryKey }) => getEventsByIds(queryKey[1] as number[]),
+    select: (data) =>
+      data.sort((a, b) => checkedInEvents.indexOf(a.id) - checkedInEvents.indexOf(b.id)),
   });
 
   const handleCheckOut = (eventId: number) => {
@@ -37,7 +39,7 @@ export default function Scan() {
   };
 
   const onEventCheckIn = () => {
-    const newScannedEventIndex = data?.length ?? 0 - 1;
+    const newScannedEventIndex = checkedInEvents.length;
     setActiveSections([2 + newScannedEventIndex]);
   };
 
