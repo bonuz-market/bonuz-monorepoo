@@ -222,8 +222,8 @@ const UserProfile = () => {
     }
   }, [code, token])
 
-  const { data: userProfileData, isLoading: isLoadingUserData } =
-    useQueryGetUserProfileAndSocialLinks()
+  const { data: userProfileData, isLoading: isLoadingUserData, refetch } =
+  useQueryGetUserProfileAndSocialLinks()
 
   const [isEditing, setIsEditing] = useState(false)
 
@@ -289,7 +289,7 @@ const UserProfile = () => {
 
   const onSave = useCallback(
     async (userData: UserProfileData & { imageFile: File | null }) => {
-      console.log('userData ', userData)
+      console.log('updating userData ', userData)
       if (!token) return
 
       if (userData.imageFile)
@@ -331,6 +331,7 @@ const UserProfile = () => {
 
       setToken(res.token)
       setIsCreatingSocialId(false)
+      refetch()
     } catch (e: any) {
       if (e?.response?.data) {
         setCreatingSocialIdError(e.response.data.message)
@@ -343,7 +344,7 @@ const UserProfile = () => {
 
   return (
     <div className="relative z-[100] pb-[13px] rounded-[40px] w-full flex bg-cover flex-col px-[15px] py-[15px] md:px-[25px] md:py-[35px] lg:py-[20px] bg-[url('/images/background.png')] mt-8 sm:h-[70vh]">
-      {loading || isLoadingUserData ? (
+      {loading || (isLoadingUserData && !isGuest) ? (
         <LoadingSpinner />
       ) : isGuest ? (
         <CreateSocialId
@@ -354,8 +355,11 @@ const UserProfile = () => {
       ) : (
         <>
           {isLoading ? (
-            <div className='flex flex-col items-center justify-center gap-4 h-full'>
-              <LoadingSpinner />
+            <div className='flex  flex-col items-center justify-center gap-4 h-full'>
+            <div>
+            <LoadingSpinner />
+
+            </div>
 
               <h4>Updating Blockchain</h4>
             </div>

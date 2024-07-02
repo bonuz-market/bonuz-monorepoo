@@ -2,10 +2,12 @@
 
 import Head from 'next/head'
 
-import Providers from '../../providers'
 import Header from '@/components/Header'
+import { ToastContainer } from 'react-toastify'
+import Providers from '../../providers'
 import PageTransitionEffect from '../components/PageTransitionEffect'
 
+  import 'react-toastify/dist/ReactToastify.css'
 // Import Swiper styles
 import 'swiper/css'
 import 'swiper/css/navigation'
@@ -51,6 +53,7 @@ export default function RootLayout({
               {children}
               </PageTransitionEffect>
             </div>
+          <ToastContainer />
           </div>
         </Providers>
       </body>

@@ -73,7 +73,6 @@ export default function ProfileDataComponent({
   const blockchainsWallets = hasNonEmptyLink(data?.links?.blockchainsWallets);
   const digitalIdentifiers = hasNonEmptyLink(data?.links?.digitalIdentifiers);
   const [swiperIndex, setSwiperIndex] = useState(0);
-  console.log("swiperIndex ", swiperIndex);
 
   const attributeToTabMap: Record<string, string> = {
     MEMBERSHIP: "Memberships",
@@ -109,7 +108,6 @@ export default function ProfileDataComponent({
     };
   });
 
-  console.log("tabs ", tabs);
 
   return (
     <>

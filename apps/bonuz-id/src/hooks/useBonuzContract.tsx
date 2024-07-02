@@ -1,8 +1,8 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import axios from 'axios'
 import { ethers } from 'ethers'
-import CryptoES from 'crypto-es';
-
+import CryptoES from 'crypto-es'
+import { ToastContainer, toast } from 'react-toastify'
 import { BonuzSocialId, contractAddresses } from '../constants/contracts'
 import {
   BLOCKCHAIN_WALLET_BASE_URLS,
@@ -17,8 +17,9 @@ import { User, UserProfileData } from '../types/user'
 import { isWalletAddress } from '../utils'
 import { backendBaseUrl, bonuzSocialIdChainId, RPC_URL } from '../../config'
 import { getUserInfo, updateUser, updateUserLink } from '@/lib/services'
-import { useBiconomyShallowStore } from './useBiconomyShallowStore';
-import { useSessionStore } from '@/store/sessionStore';
+import { useBiconomyShallowStore } from './useBiconomyShallowStore'
+import { useSessionStore } from '@/store/sessionStore'
+import { shallow } from 'zustand/shallow'
 
 export const useQueryGetPublicUserProfileAndSocialLinks = (handle: string) => {
   const queryKey = ['getPublicUserProfileAndSocialLinks', handle]
@@ -453,78 +454,90 @@ export const useQueryGetPublicUserProfileAndSocialLinks = (handle: string) => {
   })
 }
 
-
-
 // -----------------------------------------
 export const useQueryGetUserProfileAndSocialLinks = () => {
   const { web3auth, isConnected, smartAccount, bonuzSocialIdContract } =
-    useBiconomyShallowStore();
+    useBiconomyShallowStore()
 
-  const { token } = useSessionStore.getState();
+  // const { token } = useSessionStore.getState();
+  const { token, setToken } = useSessionStore(
+    (state) => ({
+      token: state.token,
+      setToken: state.setToken,
+      resetToken: state.resetToken,
+    }),
+    shallow
+  )
 
-  const queryKey = ['getUserProfileAndSocialLinks'];
+  const queryKey = ['getUserProfileAndSocialLinks']
 
+  //  console.log("isConnected && !!bonuzSocialIdContract && !!web3auth && !token, ", isConnected && !!bonuzSocialIdContract && !!web3auth && !token,);
+  //  console.log({
+  //   isConnected,
+  //   bonuzSocialIdContract: !!bonuzSocialIdContract,
+  //   web3auth: !!web3auth,
+  //   token: !!token,
+  //  })
   const queryFn = async () => {
-    const address = await smartAccount?.getAccountAddress();
+    const address = await smartAccount?.getAccountAddress()
 
     const contractData =
       await bonuzSocialIdContract?.getUserProfileAndSocialLinks(
         address,
-        SUPPORTED_PLATFORMS,
-      );
+        SUPPORTED_PLATFORMS
+      )
 
-    const user = await getUserInfo(token!);
+    const user = await getUserInfo(token!)
 
     const privateKey = await web3auth?.provider!.request({
       method: 'eth_private_key',
-    });
+    })
 
     return {
       contractData,
       privateKey,
-      user
-    };
-  };
+      user,
+    }
+  }
 
   return useQuery(queryKey, queryFn, {
-    enabled: isConnected && !!bonuzSocialIdContract && !!web3auth,
+    enabled: isConnected && !!bonuzSocialIdContract && !!web3auth && !!token,
 
     select: ({ contractData, privateKey, user: userData }) => {
-      if (!contractData || !privateKey) return null;
+      if (!contractData || !privateKey) return null
 
-      const [name, profileImage, handle, links] = contractData;
+      const [name, profileImage, handle, links] = contractData
 
       const decryptLink = (link: string) => {
         if (link.startsWith('e_')) {
           return {
             link: CryptoES.AES.decrypt(
               link.slice(2),
-              privateKey as string,
+              privateKey as string
             ).toString(CryptoES.enc.Utf8),
             isPublic: false,
-          };
+          }
         }
         if (link.startsWith('p_')) {
           return {
             link: link.slice(2),
             isPublic: true,
-          };
+          }
         }
 
         return {
           link,
           isPublic: true,
-        };
-      };
+        }
+      }
 
       const socialsLinksMap = userData?.socialsLinks?.reduce(
         (acc: any, link: any) => {
-          acc[link.type] = link;
-          return acc;
+          acc[link.type] = link
+          return acc
         },
         {} as Record<string, { type: string; isVerified: boolean }>
-      );
-
+      )
 
       const [
         s_x,
@@ -562,7 +575,7 @@ export const useQueryGetUserProfileAndSocialLinks = () => {
         d_ens,
         d_worldId,
         d_lens,
-      ] = links.map(decryptLink);
+      ] = links.map(decryptLink)
 
       return {
         name,
@@ -587,7 +600,7 @@ export const useQueryGetUserProfileAndSocialLinks = () => {
               icon: 'mdi:instagram',
               imgSrc: '/svg/social/Instagram.svg',
               baseUrl: SOCIAL_BASE_URLS[SOCIAL_ACCOUNTS.s_instagram],
-              isVerified: socialsLinksMap.instagram?.isVerified
+              isVerified: socialsLinksMap.instagram?.isVerified,
             },
             s_facebook: {
               link: s_facebook.link,
@@ -864,28 +877,31 @@ export const useQueryGetUserProfileAndSocialLinks = () => {
             },
           },
         },
-      };
+      }
     },
     onError: (error) => {
-      console.log("error ", error);
+      console.log(
+        '🚀MMM - ~ file: useBonuzContract.tsx:871 ~ useQueryGetUserProfileAndSocialLinks ~ error:',
+        error
+      )
     },
-  });
-};
+  })
+}
 
 // ----------------------------------------------------
 
 interface setUserProfileMutationArgs {
-  userData: UserProfileData;
+  userData: UserProfileData
 }
 export const useMutationSetUserProfile = (
   handelOnSuccess: (data: any) => void,
-  handleOnError: (data: any) => void,
+  handleOnError: (data: any) => void
 ) => {
   const { web3auth, isConnected, smartAccount, bonuzSocialIdContract } =
-    useBiconomyShallowStore();
-  const queryClient = useQueryClient();
+    useBiconomyShallowStore()
+  const queryClient = useQueryClient()
 
-  const queryKey = ['getUserProfileAndSocialLinks'];
+  const queryKey = ['getUserProfileAndSocialLinks']
 
   const mutationFn = async ({ userData }: setUserProfileMutationArgs) => {
     // const setUserProfileTx = new ethers.utils.Interface([
@@ -931,130 +947,130 @@ export const useMutationSetUserProfile = (
 
     // -------------------------
 
-    const name = userData?.name;
-    const profileImage = userData?.profileImage;
-    const handle = userData?.handle;
+    const name = userData?.name
+    const profileImage = userData?.profileImage
+    const handle = userData?.handle
     const privateKey = await web3auth?.provider!.request({
       method: 'eth_private_key',
-    });
+    })
 
     const socialLinks: {
-      platforms: string[];
-      links: string[];
+      platforms: string[]
+      links: string[]
     } = {
       platforms: [],
       links: [],
-    };
+    }
 
     if (userData?.links?.socialMedias) {
       const socialPlatforms = Object.keys(userData?.links?.socialMedias).map(
-        (platform) => platform,
-      );
+        (platform) => platform
+      )
       const links = Object.values(userData?.links?.socialMedias).map(
         (platform) => {
-          const { link, isPublic } = platform;
-          let newLink;
+          const { link, isPublic } = platform
+          let newLink
 
-          newLink = `p_${link}`;
+          newLink = `p_${link}`
 
           if (isPublic) {
-            newLink = `p_${link}`;
+            newLink = `p_${link}`
           } else {
             const encrypted = CryptoES.AES.encrypt(
               link,
-              privateKey as string,
-            ).toString();
-            newLink = `e_${encrypted}`;
+              privateKey as string
+            ).toString()
+            newLink = `e_${encrypted}`
           }
-          return newLink;
-        },
-      );
-      socialLinks.platforms.push(...socialPlatforms);
-      socialLinks.links.push(...links);
+          return newLink
+        }
+      )
+      socialLinks.platforms.push(...socialPlatforms)
+      socialLinks.links.push(...links)
     }
 
     if (userData?.links?.blockchainsWallets) {
       const blockchainsWalletsPlatforms = Object.keys(
-        userData?.links?.blockchainsWallets,
-      ).map((platform) => platform);
+        userData?.links?.blockchainsWallets
+      ).map((platform) => platform)
       const blockchainsWalletsLinks = Object.values(
-        userData?.links?.blockchainsWallets,
+        userData?.links?.blockchainsWallets
       ).map((platform) => {
-        const { link, isPublic } = platform;
-        let newLink;
+        const { link, isPublic } = platform
+        let newLink
 
-        newLink = `p_${link}`;
+        newLink = `p_${link}`
 
         if (isPublic) {
-          newLink = `p_${link}`;
+          newLink = `p_${link}`
         } else {
           const encrypted = CryptoES.AES.encrypt(
             link,
-            privateKey as string,
-          ).toString();
-          newLink = `e_${encrypted}`;
+            privateKey as string
+          ).toString()
+          newLink = `e_${encrypted}`
         }
-        return newLink;
-      });
+        return newLink
+      })
 
-      socialLinks.platforms.push(...blockchainsWalletsPlatforms);
-      socialLinks.links.push(...blockchainsWalletsLinks);
+      socialLinks.platforms.push(...blockchainsWalletsPlatforms)
+      socialLinks.links.push(...blockchainsWalletsLinks)
     }
 
     if (userData?.links?.messengers) {
       const messagePlatforms = Object.keys(userData?.links?.messengers).map(
-        (platform) => platform,
-      );
+        (platform) => platform
+      )
       const messageLinks = Object.values(userData?.links?.messengers).map(
         (platform) => {
-          const { link, isPublic } = platform;
-          let newLink;
+          const { link, isPublic } = platform
+          let newLink
 
-          newLink = `p_${link}`;
+          newLink = `p_${link}`
 
           if (isPublic) {
-            newLink = `p_${link}`;
+            newLink = `p_${link}`
           } else {
             const encrypted = CryptoES.AES.encrypt(
               link,
-              privateKey as string,
-            ).toString();
-            newLink = `e_${encrypted}`;
+              privateKey as string
+            ).toString()
+            newLink = `e_${encrypted}`
           }
-          return newLink;
-        },
-      );
+          return newLink
+        }
+      )
 
-      socialLinks.platforms.push(...messagePlatforms);
-      socialLinks.links.push(...messageLinks);
+      socialLinks.platforms.push(...messagePlatforms)
+      socialLinks.links.push(...messageLinks)
     }
 
     if (userData?.links?.digitalIdentifiers) {
       const digitalIdentifiersPlatforms = Object.keys(
-        userData?.links?.digitalIdentifiers,
-      ).map((platform) => platform);
+        userData?.links?.digitalIdentifiers
+      ).map((platform) => platform)
       const digitalIdentifiersLinks = Object.values(
-        userData?.links?.digitalIdentifiers,
+        userData?.links?.digitalIdentifiers
       ).map((platform) => {
-        const { link, isPublic } = platform;
-        let newLink;
+        const { link, isPublic } = platform
+        let newLink
 
-        newLink = `p_${link}`;
+        newLink = `p_${link}`
 
         if (isPublic) {
-          newLink = `p_${link}`;
+          newLink = `p_${link}`
         } else {
           const encrypted = CryptoES.AES.encrypt(
             link,
-            privateKey as string,
-          ).toString();
-          newLink = `e_${encrypted}`;
+            privateKey as string
+          ).toString()
+          newLink = `e_${encrypted}`
         }
-        return newLink;
-      });
+        return newLink
+      })
 
-      socialLinks.platforms.push(...digitalIdentifiersPlatforms);
-      socialLinks.links.push(...digitalIdentifiersLinks);
+      socialLinks.platforms.push(...digitalIdentifiersPlatforms)
+      socialLinks.links.push(...digitalIdentifiersLinks)
     }
 
     const reqData = {
@@ -1068,42 +1084,53 @@ export const useMutationSetUserProfile = (
         handle,
       }),
       socialLinks,
-    };
+    }
     // return updateUser(reqData)
-    return updateUser(reqData, bonuzSocialIdChainId);
-  };
+    const res = await updateUser(reqData, bonuzSocialIdChainId)
+    console.log(
+      '🚀MMM - ~ file: useBonuzContract.tsx:1090 ~ mutationFn ~ res:',
+      res
+    )
+    return res
+  }
 
   return useMutation(mutationFn, {
     onSuccess(data) {
-      queryClient.invalidateQueries({
-        queryKey,
+      console.log('data ', data)
+      // toast('Congratulation. You SocialId has been updated on blockchain')
+        toast.success("Congratulation. You SocialId has been updated on blockchain", {
+        position: "top-center"
       });
 
-      handelOnSuccess(data);
+      queryClient.invalidateQueries({
+        queryKey,
+      })
+
+      handelOnSuccess(data)
     },
     onError(error) {
-      handleOnError(error);
+      handleOnError(error)
     },
-  });
-};
+  })
+}
 
 // ----------------------------------------------------
 interface setSocialLinkMutationArgs {
-  platform: string;
-  baseUrl: string;
-  link: string;
-  isPublic: boolean;
+  platform: string
+  baseUrl: string
+  link: string
+  isPublic: boolean
 }
 
 export const useMutationSetSocialLink = (
   handelOnSuccess: (data: any) => void,
-  handleOnError: (data: any) => void,
+  handleOnError: (data: any) => void
 ) => {
   const { web3auth, isConnected, smartAccount, bonuzSocialIdContract } =
-    useBiconomyShallowStore();
-  const queryClient = useQueryClient();
+    useBiconomyShallowStore()
+  const queryClient = useQueryClient()
 
-  const queryKey = ['getUserProfileAndSocialLinks'];
+  const queryKey = ['getUserProfileAndSocialLinks']
 
   const mutationFn = async ({
     platform,
@@ -1113,34 +1140,34 @@ export const useMutationSetSocialLink = (
   }: setSocialLinkMutationArgs) => {
     const privateKey = await web3auth?.provider!.request({
       method: 'eth_private_key',
-    });
-    let newLink;
+    })
+    let newLink
 
-    newLink = `p_${link}`;
+    newLink = `p_${link}`
 
     if (isPublic) {
-      newLink = `p_${link}`;
+      newLink = `p_${link}`
     } else {
       const encrypted = CryptoES.AES.encrypt(
         link,
-        privateKey as string,
-      ).toString();
-      newLink = `e_${encrypted}`;
+        privateKey as string
+      ).toString()
+      newLink = `e_${encrypted}`
     }
 
     const data = {
       platform,
       link: newLink,
-    };
+    }
 
-    return updateUserLink(data);
-  };
+    return updateUserLink(data)
+  }
 
   return useMutation(mutationFn, {
     onSuccess(data) {
       queryClient.invalidateQueries({
         queryKey,
-      });
+      })
 
       // queryClient.setQueryData(queryKey, (old) => {
       //   console.log(old)
@@ -1148,10 +1175,10 @@ export const useMutationSetSocialLink = (
       //   return old
       // })
 
-      handelOnSuccess(data);
+      handelOnSuccess(data)
     },
     onError(error) {
-      handleOnError(error);
+      handleOnError(error)
     },
-  });
-};
+  })
+}
