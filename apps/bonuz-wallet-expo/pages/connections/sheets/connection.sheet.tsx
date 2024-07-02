@@ -463,7 +463,7 @@ export const ConnectionSheet = forwardRef<BottomSheetModal, ConnectionSheetProps
         ref={_bottomSheetModalRef}
         handleComponent={() => (
           <View style={tw`absolute bg-transparent w-full flex items-center`}>
-            <View style={tw`w-12 h-1.5 top-2.5 rounded-full bg-white`} />
+            <View style={tw`w-12 h-1.5 top-2.5 rounded-full bg-white bg-opacity-35`} />
           </View>
         )}
         footerComponent={({ animatedFooterPosition }) =>

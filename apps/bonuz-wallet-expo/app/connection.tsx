@@ -16,7 +16,7 @@ export default function Connection() {
 
   const bottomModalRef = useRef<BottomSheetModal>(null);
 
-  const [activeTab, setActiveTab] = useState<'Lens.xys Feed' | 'My Connections'>('My Connections');
+  const [activeTab, setActiveTab] = useState<'Lens.xyz Feed' | 'My Connections'>('My Connections');
   const { data, isLoading, refetch } = useUserConnections();
 
   const handleConnectionPress = (data: any) => {
@@ -54,7 +54,7 @@ export default function Connection() {
         style={[tw`flex-1`, { paddingTop: headerHeight }]}>
         <View style={tw`bg-transparent mx-5 mt-10`}>
           <Tabs
-            tabs={['Lens.xys Feed', 'My Connections']}
+            tabs={['Lens.xyz Feed', 'My Connections']}
             value={activeTab}
             onValueChange={(tab) => setActiveTab(tab)}
           />
@@ -68,7 +68,7 @@ export default function Connection() {
           contentContainerStyle={tw`m-5`}
         />
       </LinearGradient>
-      <ConnectionSheet ref={bottomModalRef} onRemoveConnection={refetch} snapPoints={['85%']} />
+      <ConnectionSheet ref={bottomModalRef} onRemoveConnection={refetch} snapPoints={['85.5%']} />
     </BottomSheetModalProvider>
   );
 }

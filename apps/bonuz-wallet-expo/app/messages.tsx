@@ -188,7 +188,7 @@ const Messages = () => {
           ref={bottomSheetModalRef}
           onRemoveConnection={handleRemoveConnection}
           onDismiss={() => setSelectedUserHandle(undefined)}
-          snapPoints={['85%']}
+          snapPoints={['85.5%']}
         />
       </GestureHandlerRootView>
     </BottomSheetModalProvider>

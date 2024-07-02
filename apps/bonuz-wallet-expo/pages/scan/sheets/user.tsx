@@ -76,8 +76,8 @@ const UserSheetContent = ({
       setActiveSections([SECTIONS.SOCIALS_MEDIA_ACCOUNTS.index]);
     }, 250);
   }, []);
-  const [activeTab, setActiveTab] = useState<'On-Chain Social ID' | 'Passes & Vouchers'>(
-    'On-Chain Social ID',
+  const [activeTab, setActiveTab] = useState<'Onchain Social ID' | 'Passes & Vouchers'>(
+    'Onchain Social ID',
   );
   const connection = data?.data;
 
@@ -429,12 +429,12 @@ const UserSheetContent = ({
         <View style={tw`flex gap-4`}>
           <View style={tw`px-4`}>
             <Tabs
-              tabs={['On-Chain Social ID', 'Passes & Vouchers']}
+              tabs={['Onchain Social ID', 'Passes & Vouchers']}
               value={activeTab}
               onValueChange={(tab) => setActiveTab(tab)}
             />
           </View>
-          {activeTab === 'On-Chain Social ID' ? (
+          {activeTab === 'Onchain Social ID' ? (
             <Accordion
               sections={sections()}
               activeSections={activeSections}

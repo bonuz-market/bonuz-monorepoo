@@ -263,7 +263,7 @@ export const ProfileHome = () => {
 
   const bottomModalRef = useRef<BottomSheetModal>(null);
 
-  const tabs = ['On-Chain Social ID', 'Items'];
+  const tabs = ['Onchain Social ID', 'My Items'];
   const [activeTab, setActiveTab] = useState(tabs[0]);
 
   const [activeSections, setActiveSections] = useState([SECTIONS.SOCIALS_MEDIA_ACCOUNTS.index]);
@@ -707,7 +707,7 @@ export const ProfileHome = () => {
             disableLargeHeaderFadeAnim
             contentContainerStyle={[{ paddingBottom: tabBarMargin }]}
             renderItem={() =>
-              activeTab === 'On-Chain Social ID' ? (
+              activeTab === 'Onchain Social ID' ? (
                 <>
                   <View style={tw.style(`flex flex-row justify-between px-4 py-4`)}>
                     <View style={tw`flex flex-col gap-1`}>
