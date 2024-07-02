@@ -67,7 +67,7 @@ export default function RootLayout() {
   }, [error]);
 
   useEffect(() => {
-    if (wallet.privateKey && !isSmartAccountSdkReady) {
+    if (wallet.privateKey) {
       setupSmartAccountSdk(wallet.privateKey)
         .then(createOrRestoreEIP155Wallet)
         .then(() => setIsSmartAccountSdkReady(true));

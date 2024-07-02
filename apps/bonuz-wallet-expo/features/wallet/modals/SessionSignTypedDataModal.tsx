@@ -7,26 +7,26 @@ import { Chains } from '../components/Modal/Chains';
 import { Message } from '../components/Modal/Message';
 import { Methods } from '../components/Modal/Methods';
 import Text from '../components/Text';
-import { getChainData } from '../data/chainsUtil';
 import ModalStore from '../store/ModalStore';
 import { approveEIP155Request, rejectEIP155Request } from '../utils/EIP155RequestHandlerUtil';
 import { getSignParamsMessage } from '../utils/HelperUtils';
 import { handleDeepLinkRedirect } from '../utils/LinkingUtils';
+import { PresetsUtil } from '../utils/PresetsUtil';
 import { web3wallet } from '../utils/WalletConnectUtil';
 import { RequestModal } from './RequestModal';
 
 export default function SessionSignTypedDataModal() {
   // Get request and wallet data from store
   const { data } = useSnapshot(ModalStore.state);
-  const requestEvent = data?.requestEvent;
-  const requestSession = data?.requestSession;
+  const requestEvent = data?.requestEvent!;
+  const requestSession = data?.requestSession!;
   const [isLoadingApprove, setIsLoadingApprove] = useState(false);
   const [isLoadingReject, setIsLoadingReject] = useState(false);
 
   // Get required request data
-  const { topic, params } = requestEvent;
+  const { params, topic } = requestEvent;
   const { request, chainId } = params;
-  const chain = getChainData(chainId);
+  const chain = PresetsUtil.getChainData(chainId);
 
   const method = request?.method;
   const message = getSignParamsMessage(request?.params);

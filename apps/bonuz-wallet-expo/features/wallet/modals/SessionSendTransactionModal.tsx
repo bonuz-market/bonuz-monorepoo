@@ -6,10 +6,10 @@ import { useSnapshot } from 'valtio';
 import { Chains } from '../components/Modal/Chains';
 import { Message } from '../components/Modal/Message';
 import { Methods } from '../components/Modal/Methods';
-import { getChainData } from '../data/chainsUtil';
 import ModalStore from '../store/ModalStore';
 import { approveEIP155Request, rejectEIP155Request } from '../utils/EIP155RequestHandlerUtil';
 import { handleDeepLinkRedirect } from '../utils/LinkingUtils';
+import { PresetsUtil } from '../utils/PresetsUtil';
 import { web3wallet } from '../utils/WalletConnectUtil';
 import { RequestModal } from './RequestModal';
 
@@ -25,7 +25,7 @@ export default function SessionSendTransactionModal() {
   const topic = requestEvent?.topic;
   const params = requestEvent?.params;
   const chainId = params?.chainId;
-  const chain = getChainData(chainId);
+  const chain = PresetsUtil.getChainData(chainId!);
   const request = params?.request;
   const transaction = request?.params[0];
   const method = requestEvent?.params?.request?.method;
@@ -82,7 +82,7 @@ export default function SessionSendTransactionModal() {
       <View style={styles.container}>
         <Chains chains={chain ? [chain] : undefined} />
         <Methods methods={method ? [method] : undefined} />
-        <Message message={JSON.stringify(transaction, null, 2)} />
+        <Message message={JSON.stringify(transaction, undefined, 2)} />
       </View>
     </RequestModal>
   );

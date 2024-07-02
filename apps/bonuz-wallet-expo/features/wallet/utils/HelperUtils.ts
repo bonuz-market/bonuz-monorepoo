@@ -1,6 +1,6 @@
-import { bytesToString, hexToString, isAddress, isHex } from 'viem';
+import { hexToString, isAddress, isHex } from 'viem';
 
-import { EIP155_CHAINS, TEIP155Chain } from '../data/EIP155';
+import { EIP155_CHAINS } from './PresetsUtil';
 
 /**
  * Truncates string (in the middle) via given lenght value
@@ -99,5 +99,5 @@ export function isSolanaChain(chain: string) {
  * Formats chainId to its name
  */
 export function formatChainName(chainId: string) {
-  return EIP155_CHAINS[chainId as TEIP155Chain]?.name ?? chainId;
+  return EIP155_CHAINS[chainId]?.name ?? chainId;
 }

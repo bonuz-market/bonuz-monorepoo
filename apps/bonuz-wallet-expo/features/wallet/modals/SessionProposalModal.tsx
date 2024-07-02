@@ -7,13 +7,12 @@ import { useSnapshot } from 'valtio';
 import { Chains } from '../components/Modal/Chains';
 import { Events } from '../components/Modal/Events';
 import { Methods } from '../components/Modal/Methods';
-import { getChainData } from '../data/chainsUtil';
-import { EIP155_CHAINS, EIP155_SIGNING_METHODS } from '../data/EIP155';
 import { useTheme } from '../hooks/useTheme';
 import ModalStore from '../store/ModalStore';
 import SettingsStore from '../store/SettingsStore';
 import { eip155Addresses } from '../utils/EIP155WalletUtil';
 import { handleDeepLinkRedirect } from '../utils/LinkingUtils';
+import { EIP155_CHAINS, EIP155_SIGNING_METHODS, PresetsUtil } from '../utils/PresetsUtil';
 import { web3wallet } from '../utils/WalletConnectUtil';
 import { RequestModal } from './RequestModal';
 
@@ -22,8 +21,6 @@ export default function SessionProposalModal() {
   // Get proposal data and wallet address from store
   const data = useSnapshot(ModalStore.state);
   const proposal = data?.data?.proposal as SignClientTypes.EventArguments['session_proposal'];
-
-  console.log('proposal', proposal);
 
   const [isLoadingApprove, setIsLoadingApprove] = useState(false);
   const [isLoadingReject, setIsLoadingReject] = useState(false);
@@ -35,7 +32,8 @@ export default function SessionProposalModal() {
 
   const supportedNamespaces = useMemo(() => {
     // eip155
-    const eip155Chains = Object.keys(EIP155_CHAINS);
+    const eip155Chains = Object.keys(EIP155_CHAINS).map((chain) => `eip155:${chain}`);
+
     const eip155Methods = Object.values(EIP155_SIGNING_METHODS);
 
     return {
@@ -43,7 +41,7 @@ export default function SessionProposalModal() {
         chains: eip155Chains,
         methods: eip155Methods,
         events: ['accountsChanged', 'chainChanged'],
-        accounts: eip155Chains.flatMap((chain) => `${chain}:${eip155Addresses[0]}`),
+        accounts: eip155Chains?.flatMap((chain) => `${chain}:${eip155Addresses[0]}`),
       },
     };
   }, []);
@@ -52,19 +50,19 @@ export default function SessionProposalModal() {
     if (!proposal) {
       return [];
     }
-    const required = [] as string[];
+    const required = [];
     for (const [key, values] of Object.entries(proposal.params.requiredNamespaces)) {
       const chains = key.includes(':') ? key : values.chains;
       if (chains) {
-        required.push(...chains);
+        required.push(chains);
       }
     }
 
-    const optional = [] as string[];
+    const optional = [];
     for (const [key, values] of Object.entries(proposal.params.optionalNamespaces)) {
       const chains = key.includes(':') ? key : values.chains;
       if (chains) {
-        optional.push(...chains);
+        optional.push(chains);
       }
     }
     console.log('requestedChains', [...new Set([...required.flat(), ...optional.flat()])]);
@@ -73,13 +71,12 @@ export default function SessionProposalModal() {
 
   // the chains that are supported by the wallet from the proposal
   const supportedChains = useMemo(() => {
-    const chains = requestedChains
-      .map((chain) => getChainData(chain))
+    return requestedChains
+      .map((chain) => PresetsUtil.getChainData(chain.split(':')[1]))
       .filter((chain) => chain !== undefined);
-    return chains as Exclude<ReturnType<typeof getChainData>, undefined>[];
   }, [requestedChains]);
 
-  // Hanlde approve action, construct session namespace
+  // Handle approve action, construct session namespace
   const onApprove = useCallback(async () => {
     if (proposal) {
       setIsLoadingApprove(true);
@@ -135,9 +132,11 @@ export default function SessionProposalModal() {
       approveLoader={isLoadingApprove}
       rejectLoader={isLoadingReject}>
       <View style={[styles.divider, { backgroundColor: Theme['bg-300'] }]} />
-      <Chains chains={supportedChains} />
-      <Methods methods={methods} />
-      <Events events={events} />
+      <View style={styles.container}>
+        <Chains chains={supportedChains} />
+        <Methods methods={methods} />
+        <Events events={events} />
+      </View>
     </RequestModal>
   );
 }
@@ -147,5 +146,10 @@ const styles = StyleSheet.create({
     height: 1,
     width: '100%',
     marginVertical: 16,
+  },
+  container: {
+    paddingHorizontal: 16,
+    marginBottom: 8,
+    rowGap: 8,
   },
 });

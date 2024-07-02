@@ -42,3 +42,12 @@ export type ThemeKeys =
   | 'gray-glass-060'
   | 'gray-glass-080'
   | 'gray-glass-090';
+
+export type Chain = {
+  id: number;
+  network: string;
+  name: string;
+  nativeCurrency: { name: string; symbol: string; decimals: number };
+  rpcUrl: string;
+  blockExplorer: string;
+};
