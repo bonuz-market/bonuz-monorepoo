@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Image from "next/image";
-import { SliderText } from "./SliderText";
+import TextView from "./TextView";
 
 const profileData = [
   {
@@ -125,7 +125,7 @@ const GuestView = () => {
                 Get Your exclusive 2-char, 3-char or 4-char letter Bonuz
                 username and secure your spot for the next round of quests
                 coming soon! We will mint username similar to Lens powered by
-                the bonuz ecosystem!
+                the Bonuz ecosystem!
               </p>
             </div>
           </div>
@@ -144,7 +144,7 @@ const GuestView = () => {
             >
               <span className="inline-flex items-center justify-center w-10 h-10 rounded-full">
                 <svg
-                  className="w-4 h-4 text-white rtl:rotate-180"
+                  className="w-4 h-4 text-white  rtl:rotate-180"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -190,7 +190,7 @@ const GuestView = () => {
             >
               <span className="inline-flex items-center justify-center w-10 h-10 rounded-full">
                 <svg
-                  className="w-4 h-4 text-white rtl:rotate-180"
+                  className="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -208,7 +208,9 @@ const GuestView = () => {
               </span>
             </button>
           </div>
-          <SliderText currentIndex={currentIndex} />
+          <div>
+            <TextView currentIndex={currentIndex} />
+          </div>
           <div className="mt-[25px] flex gap-[24px] flex-col justify-center md:flex-row w-full">
             <button
               className="flex items-center justify-center gap-[4px] isolate h-[36px] bg-white rounded-[16px] w-full md:w-[172.63px] lg:w-[150px]"
