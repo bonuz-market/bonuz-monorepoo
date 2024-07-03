@@ -8,7 +8,7 @@ const TextView = ({ currentIndex }: TextViewInterface) => {
         <>
           <h2 className="mt-[62px] font-inter font-bold text-[20px] text-center text-white w-[300px] md:w-[360px]">
             Welcome to your <br />
-            On-chain Social Wallet
+            Onchain Social Wallet
           </h2>
           <p className="font-inter font-normal text-[16px] text-center text-white opacity-60 w-[300px] md:w-[360px]">
             Add links to your profile so new friends can easily find you

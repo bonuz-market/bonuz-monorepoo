@@ -65,7 +65,7 @@ export default function ProfileDataComponent({
   nfts,
 }: ProfileDataComponentProps) {
   const [selectedOption, setSelectedOption] =
-    useState<string>("On-Chain Social ID");
+    useState<string>("Onchain Social ID");
   const socialMedias = hasNonEmptyLink(data?.links?.socialMedias);
 
   const messengers = hasNonEmptyLink(data?.links?.messengers);
@@ -114,9 +114,9 @@ export default function ProfileDataComponent({
       <SwitchButton
         selectedOption={selectedOption}
         setSelectedOption={setSelectedOption}
-        title={["On-Chain Social ID", "Items"]}
+        title={["Onchain Social ID", "Items"]}
       />
-      {selectedOption === "On-Chain Social ID" ? (
+      {selectedOption === "Onchain Social ID" ? (
         <div className="max-h-[55vh] overflow-auto flex flex-col gap-5">
           {socialMedias && (
             <Collapsible

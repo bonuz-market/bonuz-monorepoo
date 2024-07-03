@@ -7,7 +7,7 @@ export const SliderText = ({ currentIndex }: SliderTextProps) => {
       {currentIndex === 0 && (
         <div>
           <h2 className="mt-[62px] font-inter font-bold text-[20px] text-center text-white w-[300px] md:w-[360px]">
-            Welcome to your On-chain Social Wallet
+            Welcome to your Onchain Social Wallet
           </h2>
           <p className="font-inter font-normal text-[16px] text-center text-white opacity-60 w-[300px] md:w-[360px]">
             Add your social media links to your profile so new friends can

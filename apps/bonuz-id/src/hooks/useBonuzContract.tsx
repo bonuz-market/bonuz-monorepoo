@@ -1097,8 +1097,8 @@ export const useMutationSetUserProfile = (
   return useMutation(mutationFn, {
     onSuccess(data) {
       console.log('data ', data)
-      // toast('Congratulation. You SocialId has been updated on blockchain')
-        toast.success("Congratulation. You SocialId has been updated on blockchain", {
+      // Your Social ID has been updated! <BaseLink>
+        toast.success("Your Social ID has been updated! ", {
         position: "top-center"
       });
 
