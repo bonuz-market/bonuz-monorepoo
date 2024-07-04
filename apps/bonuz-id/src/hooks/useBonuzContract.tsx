@@ -1109,7 +1109,7 @@ export const useMutationSetUserProfile = (
       // Your Social ID has been updated! <BaseLink>
         toast.success(
           <div>
-          Your Social ID has been updated! <a href={url} target='_blank'><a>Check it here</a></a>
+          Your Social ID has been updated! <a href={url} target='_blank'><a>View on Explorer</a></a>
         </div>
         , {
         position: "top-center"
