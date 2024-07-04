@@ -241,7 +241,7 @@ const GuestView = () => {
               }}
             >
               <Image
-                src={"/icons/apple.png"}
+                src={"/icons/play store.png"}
                 alt="GoogleIcon"
                 width={22}
                 height={26}
