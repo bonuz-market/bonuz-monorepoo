@@ -25,6 +25,7 @@ import {
   BACKEND_ENDPOINT,
   createUser,
   getUserNFTs,
+  setupUserInterceptor,
   verifySocialLink,
 } from '@/lib/services'
 import { useSessionStore } from '@/store/sessionStore'
@@ -332,6 +333,7 @@ const UserProfile = () => {
       setToken(res.token)
       setIsCreatingSocialId(false)
       refetch()
+      setupUserInterceptor(() => {})
     } catch (e: any) {
       if (e?.response?.data) {
         setCreatingSocialIdError(e.response.data.message)

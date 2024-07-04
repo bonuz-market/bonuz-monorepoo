@@ -33,7 +33,7 @@ import {
   BonuzTokens,
   contractAddresses,
 } from '../constants/contracts';
-import { authenticate, getAuthMessage } from '../lib/services';
+import { authenticate, getAuthMessage, setupUserInterceptor } from '../lib/services';
 import { useSessionStore } from '../store/sessionStore';
 import { useUserStore } from '../store/userStore';
 import { useBiconomyShallowStore } from './useBiconomyShallowStore';
@@ -279,6 +279,7 @@ const useConnect = () => {
 
       const { token } = authReq.data;
       setToken(token);
+      setupUserInterceptor(() => {})
 
       setUser({
         isGuest: false,

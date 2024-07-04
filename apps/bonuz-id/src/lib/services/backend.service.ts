@@ -90,7 +90,7 @@ export const getUser = async (handle: string) => {
 };
 
 export const updateUser = async (data: Partial<UserProfileUpdateData>, chainId: string | number) => {
-  const res = await instance.patch<User>(
+  const res = await instance.patch(
     `${BACKEND_ENDPOINT}/api/users/me?chainId=${chainId}`,
     data,
   );

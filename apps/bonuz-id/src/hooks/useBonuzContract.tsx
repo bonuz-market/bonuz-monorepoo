@@ -1097,8 +1097,21 @@ export const useMutationSetUserProfile = (
   return useMutation(mutationFn, {
     onSuccess(data) {
       console.log('data ', data)
+
+      const handleTxHash = data?.handleTxHash
+      const nameTxHash = data?.nameTxHash
+      const socialLinksTxHash = data?.socialLinksTxHash
+
+      const tx = handleTxHash || nameTxHash || socialLinksTxHash
+      
+      const url = `https://basescan.org/tx/${tx}`
+      
       // Your Social ID has been updated! <BaseLink>
-        toast.success("Your Social ID has been updated! ", {
+        toast.success(
+          <div>
+          Your Social ID has been updated! <a href={url} target='_blank'><a>Check it here</a></a>
+        </div>
+        , {
         position: "top-center"
       });
 
