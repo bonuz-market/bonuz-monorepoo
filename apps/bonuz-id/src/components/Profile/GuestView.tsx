@@ -52,7 +52,7 @@ const GuestView = () => {
   };
   return (
     <div className="relative z-[100] pb-[13px] rounded-[40px] w-full flex bg-cover flex-col px-[15px] py-[15px] md:px-[25px] md:py-[35px] lg:py-[20px] bg-[url('/images/background.png')] mt-8">
-      <div className="flex w-full flex-col md:flex-row">
+      <div className="flex w-full flex-col lg:flex-row">
         <div className="flex flex-col flex-1">
           <div className="flex justify-between max-w-[700px] p-[10px] gap-0 rounded-[30px] bg-gradient-to-r from-[#0e2875] to-[#4b2ea2] via-[#4b2ea2] flex-col md:flex-row md:p-[16px]">
             <div>
@@ -211,7 +211,7 @@ const GuestView = () => {
           <div>
             <TextView currentIndex={currentIndex} />
           </div>
-          <div className="mt-[25px] flex gap-[24px] flex-col justify-center md:flex-row w-full">
+          <div className="mt-[25px] flex gap-[24px] flex-col justify-center lg:flex-row w-full">
             <button
               className="flex items-center justify-center gap-[4px] isolate h-[36px] bg-white rounded-[16px] w-full md:w-[172.63px] lg:w-[150px]"
               onClick={() => {

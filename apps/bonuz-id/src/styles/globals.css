@@ -222,3 +222,7 @@ header {
   height: 9px !important;
   border-radius: 5px !important;
 }
+
+.modal-box{
+  background-color: #202023;
+}

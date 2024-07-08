@@ -4,10 +4,7 @@ import Collapsible from "./Collapsible";
 import { hasNonEmptyLink } from "@/utils";
 import { Icon } from "@iconify/react";
 import { cn } from "@/lib/utils";
-import Image from "next/image";
-import voucherImage from "../../public/images/Header.png";
 import { User, UserProfileData } from "@/types/user";
-import VoucherComponent from "./VoucherComponent";
 import { voucherSliderData } from "../mockUpData/profileSliderData";
 import Carousel from "./Carousel";
 import { NFT } from "@/types/backend";
@@ -107,7 +104,6 @@ export default function ProfileDataComponent({
       ),
     };
   });
-
 
   return (
     <>
