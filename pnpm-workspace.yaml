@@ -1,2 +1,4 @@
 packages:
+  - "@bonuz/sdk"
   - "apps/bonuz-id"
+

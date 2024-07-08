@@ -32,6 +32,8 @@ import { useSessionStore } from '@/store/sessionStore'
 import { useUserStore } from '@/store/userStore'
 import { User, UserProfileData } from '@/types'
 import { NFT } from '@/types/backend'
+import {UserDetails} from '@bonuz/sdk'
+// import {UserDetails} from '@bonuz/sdk/components'
 import { bonuzTokensChainId, twitterRedirectUri } from '../../config'
 
 export default function Home() {
@@ -56,25 +58,27 @@ export default function Home() {
     }
   }
 
-  if (web3auth?.status !== 'ready' && !isInitialized) {
-    return (
-      <>
-        <div className="relative z-[100] pb-[13px] rounded-[40px] w-full flex bg-cover flex-col px-[15px] py-[15px] md:px-[25px] md:py-[35px] lg:py-[20px] bg-[url('/images/background.png')] mt-8 h-[70vh]">
-          <LoadingSpinner />
-        </div>
 
-        <div className='hidden'>
-          <BiconomyButton />
-        </div>
-      </>
-    )
-  }
+  <UserDetails/>
+  // if (web3auth?.status !== 'ready' && !isInitialized) {
+  //   return (
+  //     <>
+  //       <div className="relative z-[100] pb-[13px] rounded-[40px] w-full flex bg-cover flex-col px-[15px] py-[15px] md:px-[25px] md:py-[35px] lg:py-[20px] bg-[url('/images/background.png')] mt-8 h-[70vh]">
+  //         <LoadingSpinner />
+  //       </div>
 
-  if (!isInitialized && !smartAccount) {
-    return <GuestView />
-  }
+  //       <div className='hidden'>
+  //         <BiconomyButton />
+  //       </div>
+  //     </>
+  //   )
+  // }
 
-  return <UserProfile />
+  // if (!isInitialized && !smartAccount) {
+  //   return <GuestView />
+  // }
+
+  // return <UserProfile />
 }
 
 const UserProfile = () => {

@@ -1,15 +1,15 @@
-# bonuz-social-id
+# bonuz-sdk
 
 ## Installation
 
 ```bash
-npm install @bonuz/social-id
+npm install @bonuz/sdk
 ```
 
 ## Usage
 
 ```tsx
-import { BonuzSocialId } from "@bonuz/social-id";
+import { BonuzSocialId } from "@bonuz/sdk";
 
 return (
 	<WagmiProvider config={config}>
@@ -26,6 +26,6 @@ Add to next.config.js
 ```javascript
 const nextConfig = {
   ...
-transpilePackages: ["@bonuz/social-id"],
+transpilePackages: ["@bonuz/sdk"],
 };
 ```
