@@ -7,14 +7,6 @@
 	"files": [
 		"dist"
 	],
-	"exports": {
-		".": {
-			"require": "./dist/index.js",
-			"import": "./dist/index.mjs",
-			"types": "./dist/index.d.ts"
-		},
-		"./styles.css": "./dist/index.css"
-	},
 	"scripts": {
 		"build": "tsup src/index.ts",
 		"clean": "rm -rf dist",
