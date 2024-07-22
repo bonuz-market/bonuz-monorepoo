@@ -34,6 +34,8 @@ import { User, UserProfileData } from '@/types'
 import { NFT } from '@/types/backend'
 import { bonuzTokensChainId, twitterRedirectUri } from '../../config'
 
+import {UserDetails} from '@bonuz/sdk'
+
 export default function Home() {
   const { web3auth, isConnected, smartAccount } = useBiconomyShallowStore()
   const { isInitialized } = useConnect()
@@ -55,6 +57,8 @@ export default function Home() {
       router.push(`/results?query=${value}`)
     }
   }
+
+  return <UserDetails/>
 
   if (web3auth?.status !== 'ready' && !isInitialized) {
     return (

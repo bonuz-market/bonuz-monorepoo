@@ -1,10 +1,10 @@
-import { coreDao } from "viem/chains";
+import { Chain, coreDao } from "viem/chains";
 
 export const BONUZ_WALLET_NAME = "Bonuz";
 
 export const BONUZ_SOCIAL_ID_ADDRESS =
 	"0x9220070245b67130977FdF32acA4acdF6aD163cC";
-export const BONUZ_SOCIAL_ID_CHAIN = coreDao;
+export const BONUZ_SOCIAL_ID_CHAIN: Chain = coreDao;
 
 export const SUPPORTED_PLATFORMS = [
 	"s_x",
