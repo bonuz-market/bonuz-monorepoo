@@ -3,11 +3,13 @@
 import Head from 'next/head'
 
 import Header from '@/components/Header'
+// import {Header} from '@bonuz/sdk'
+
 import { ToastContainer } from 'react-toastify'
 import Providers from '../../providers'
 import PageTransitionEffect from '../components/PageTransitionEffect'
 
-  import 'react-toastify/dist/ReactToastify.css'
+import 'react-toastify/dist/ReactToastify.css'
 // Import Swiper styles
 import 'swiper/css'
 import 'swiper/css/navigation'

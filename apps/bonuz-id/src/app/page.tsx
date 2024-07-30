@@ -58,7 +58,6 @@ export default function Home() {
     }
   }
 
-  return <UserDetails/>
 
   if (web3auth?.status !== 'ready' && !isInitialized) {
     return (
@@ -78,7 +77,7 @@ export default function Home() {
     return <GuestView />
   }
 
-  return <UserProfile />
+  return <UserProfile/>
 }
 
 const UserProfile = () => {

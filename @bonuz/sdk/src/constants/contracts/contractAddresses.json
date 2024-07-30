@@ -1,0 +1,20 @@
+{
+  "80001": {
+    "BonuzTokens": "0x1f3988bd7cb7fe3a08b75543cc45744a8ca9b583",
+    "BonuzSocialId": "0x131FD47BD3ba332A945A2bAC967F6183D9a9A5F3"
+  },
+  "137": {
+    "BonuzTokens": "0x2A945B46EE2c6B8BAC319514d5EcdEdf2CBB607b",
+    "BonuzSocialId": "0x178C18Cc348C1b6eBc76d91A61E2D8f840227d28"
+  },
+  "42170": {
+    "BonuzSocialId": "0x3920F2C479D3C805EB89F2fdC6069dda58f4A734"
+  },
+  "1116": {
+    "BonuzSocialId": "0x9220070245b67130977FdF32acA4acdF6aD163cC"
+  },
+  "8453": {
+    "BonuzSocialId": "0x9220070245b67130977FdF32acA4acdF6aD163cC",
+    "BonuzTokens": "0xf13d5259421D84C56A886a6e4F18814555eEb24c"
+  }
+}
