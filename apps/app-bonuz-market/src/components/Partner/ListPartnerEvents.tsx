@@ -51,7 +51,7 @@ const ListPartnerEvents = ({ partner }: { partner: any }) => {
         </Link>
       ))}
 
-      {partner.status === NewPartnerStatus.ACTIVE && (
+      {partner?.status === NewPartnerStatus.ACTIVE && (
         <div
           className={clsxm(
             'flex items-center justify-center self-start  rounded-2xl bg-cover bg-center bg-no-repeat text-2xl font-bold text-white',
