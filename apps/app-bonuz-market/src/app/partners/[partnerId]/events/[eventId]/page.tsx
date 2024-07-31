@@ -8,7 +8,7 @@ import QRCode from 'react-qr-code';
 import { useParams, useRouter } from 'next/navigation';
 import { useSessionStore } from '@/store/sessionStore';
 import { useQueryPartners } from '@/hooks/queries';
-import { CheckIns, TokenType } from '@/types';
+import { CheckIns, PartnerStatus, TokenType } from '@/types';
 import { useMediaQuery } from 'usehooks-ts';
 import { GET_EVENT_BY_ID } from '@/lib/graphql-queries';
 import { useBiconomyShallowStore } from '@/hooks/useBiconomyShallowStore';
@@ -30,12 +30,6 @@ interface PartnerChallenges {
     url: string;
   };
   link: string;
-}
-
-export enum PartnerStatus {
-  In_Review = 'In_Review',
-  Active = 'ACTIVE',
-  Revoked = 'REVOKED',
 }
 
 interface Event {

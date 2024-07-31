@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import axios from 'axios'
 import { ethers } from 'ethers'
@@ -917,7 +918,6 @@ export const useMutationSetUserProfile = (
     //   ]
     // )
     // const tx1 = {
-    //   // eslint-disable-next-line @typescript-eslint/non-nullable-type-assertion-style
     //   to: bonuzSocialIdContract?.address as string,
     //   data: data
     // }

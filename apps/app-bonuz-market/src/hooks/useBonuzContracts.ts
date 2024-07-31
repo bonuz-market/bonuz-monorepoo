@@ -147,7 +147,6 @@ export const useMutationRevokeProgram = (
       smartContractKey,
     ]);
     const tx1 = {
-      // eslint-disable-next-line @typescript-eslint/non-nullable-type-assertion-style
       to: bonuzTokensContract?.address as string,
       data,
     };
@@ -380,8 +379,6 @@ export const useQueryIsIssuer = () => {
     bonuzSocialIdContract,
   } = useBiconomyShallowStore();
 
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
   const address = smartAccountAddress;
 
   const queryKey = ['isIssuer', address];
@@ -1669,7 +1666,6 @@ export const useMutationCreateUserProfile = (
       userData.profilePicture,
     ]);
     const tx1 = {
-      // eslint-disable-next-line @typescript-eslint/non-nullable-type-assertion-style
       to: bonuzSocialIdContract?.address as string,
       data,
     };
@@ -1744,7 +1740,6 @@ export const useMutationSetUserProfile = (
     //   ]
     // )
     // const tx1 = {
-    //   // eslint-disable-next-line @typescript-eslint/non-nullable-type-assertion-style
     //   to: bonuzSocialIdContract?.address as string,
     //   data: data
     // }
@@ -2086,7 +2081,6 @@ export const useMutationAddLoyaltyPoints = (
       points,
     ]);
     const tx1 = {
-      // eslint-disable-next-line @typescript-eslint/non-nullable-type-assertion-style
       to: bonuzTokensContract?.address as string,
       data,
     };
@@ -2159,7 +2153,6 @@ export const useMutationRedeemLoyaltyPoints = (
       [tokenId, points],
     );
     const tx1 = {
-      // eslint-disable-next-line @typescript-eslint/non-nullable-type-assertion-style
       to: bonuzTokensContract?.address as string,
       data,
     };

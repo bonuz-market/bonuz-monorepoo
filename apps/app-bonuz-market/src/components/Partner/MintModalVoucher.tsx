@@ -9,14 +9,10 @@ import {
 
 import { Dialog, Transition } from '@headlessui/react';
 
-import { Button } from '../../../components';
-import Checkbox from '../../../components/Checkbox';
-import CanvasTicketMembership from './CanvasTicketMembership';
-import UploadFile from '../../../components/UploadFile';
-import { uploadFile } from '../../../lib/services';
-import UploadFileVoucher from './UploadFileVoucher';
-import CanvasTicketVoucher from './CanvasTicketVoucher';
 import { Icon } from '@iconify/react/dist/iconify.js';
+import CanvasTicketVoucher from './CanvasTicketVoucher';
+import UploadFileVoucher from './UploadFileVoucher';
+import Button from '../Button';
 
 interface ImageData {
   title: string;

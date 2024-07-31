@@ -8,15 +8,12 @@ import {
 
 import { Dialog, Transition } from '@headlessui/react';
 import { useMediaQuery } from 'usehooks-ts';
-
-import {
-  Button,
-  CopyToClipboard,
-  LoadingSpinner
-} from '../../../components';
-import { useQueryGetPublicUserProfileAndSocialLinks } from '../../../hooks/useBonuzContracts';
-import clsxm from '../../../lib/frontend/clsxm';
-import truncateAddress from '../../../utils/truncateAddress';
+import LoadingSpinner from '../LoadingSpinner';
+import clsxm from '@/lib/frontend/clsxm';
+import truncateAddress from '@/utils/truncateAddress';
+import Button from '../Button';
+import CopyToClipboard from '../CopyToClipboard';
+import { useQueryGetPublicUserProfileAndSocialLinks } from '@/hooks/useBonuzContracts';
 
 interface ImageData {
   title: string;

@@ -19,6 +19,13 @@ export enum TokenType {
   CERTIFICATE = 'CERTIFICATE',
   MEMBERSHIP = 'MEMBERSHIP',
 }
+// -------------------------
+
+export enum PartnerStatus {
+  In_Review = 'In_Review',
+  Active = 'ACTIVE',
+  Revoked = 'REVOKED',
+}
 
 // -------------------------
 

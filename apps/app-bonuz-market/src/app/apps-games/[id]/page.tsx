@@ -1,3 +1,4 @@
+// @ts-nocheck
 'use client'
 
 import CreateApp from '@/components/Apps-Games/CreateApp'

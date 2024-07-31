@@ -8,10 +8,10 @@ import {
 } from 'react';
 
 import { Dialog, Transition } from '@headlessui/react';
-
-import { Button } from '../../../components';
-import Checkbox from '../../../components/Checkbox';
 import CanvasTicketMembership from './CanvasTicketMembership';
+import Checkbox from '../Checkbox';
+import Button from '../Button';
+
 
 interface ImageData {
   title: string;

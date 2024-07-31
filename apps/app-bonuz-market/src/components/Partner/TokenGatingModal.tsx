@@ -7,8 +7,8 @@ import {
 } from 'react';
 
 import { Dialog, Transition } from '@headlessui/react';
+import Button from '../Button';
 
-import { Button } from '../../../components';
 
 
 interface User {
