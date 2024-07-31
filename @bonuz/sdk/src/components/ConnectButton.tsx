@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react'
 import { useBiconomyShallowStore } from '@/hooks/useBiconomyShallowStore'
 import useConnect from '@/hooks/useConnect'
