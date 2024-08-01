@@ -10,13 +10,8 @@ interface Props {}
 
 const AuthGate = ({ children }: { children: React.ReactNode }) => {
   const { web3auth, isConnected, smartAccount } = useBiconomyShallowStore()
-  console.log('isConnected ', isConnected)
   const { isInitialized } = useConnect()
 
-  console.log('web3auth?.status  ', web3auth?.status)
-  console.log('isInitialized ', isInitialized)
-
-  // TODO: this should be in layout.tsx
   if (web3auth?.status !== 'ready' && !isInitialized) {
     return (
       <>

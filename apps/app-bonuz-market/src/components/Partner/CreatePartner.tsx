@@ -143,6 +143,9 @@ const CreatePartner = ({ isEditing, setIsEditing, partner }: CreatePartnerProps)
       })
     };
 
+ console.log("variables ", variables);
+
+
     if (isEditing) {
       await updatePartnerMutation({
         variables,

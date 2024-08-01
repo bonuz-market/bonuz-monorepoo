@@ -567,6 +567,7 @@ export const ADD_NEW_PARTNER_MUTATION = gql`
     $description: JSON!
     $image: String!
     $link: String!
+    $logo: String!
     $externalNftCollection: String!
   ) {
     createPartner(
@@ -575,6 +576,7 @@ export const ADD_NEW_PARTNER_MUTATION = gql`
         description: $description
         image: $image
         link: $link
+        logo: $logo
         externalNftCollection: $externalNftCollection
       }
     ) {
@@ -582,6 +584,9 @@ export const ADD_NEW_PARTNER_MUTATION = gql`
       name
       description
       image {
+        url
+      }
+      logo {
         url
       }
       link
@@ -597,6 +602,7 @@ export const UPDATE_PARTNER_MUTATION = gql`
     $name: String!
     $description: JSON!
     $image: String!
+    $logo: String!
     $link: String!
     $externalNftCollection: String!
   ) {
@@ -606,6 +612,7 @@ export const UPDATE_PARTNER_MUTATION = gql`
         name: $name
         description: $description
         image: $image
+        logo: $logo
         link: $link
         externalNftCollection: $externalNftCollection
       }
@@ -614,6 +621,10 @@ export const UPDATE_PARTNER_MUTATION = gql`
       name
       description
       image {
+        id
+        url
+      }
+      logo {
         id
         url
       }
