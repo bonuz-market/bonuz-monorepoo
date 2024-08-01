@@ -17,4 +17,4 @@ pnpm install:in <workspace-package-name> <package-name>
 - `bonuz-id`: a [Next.js](https://nextjs.org/) app (in /apps) consumer web version of bonuz
 - `app-bonuz-market`: a [Next.js](https://nextjs.org/) app (in /apps) business web dashboard of bonuz
 - `@bonuz/smart-contracts`: Types, ABIs, SubGraphs, audits (in /@bonuz)
-- `@bonuz/social-id`: React components & hooks library (which contains `<BonuzSocialId>` and `useSocialId()`) (in /@bonuz)
+- `@bonuz/sdk`: React components & hooks library (which contains `<BonuzSocialId>` and `useSocialId()`) (in /@bonuz)
