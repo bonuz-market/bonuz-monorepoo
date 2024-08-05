@@ -39,7 +39,7 @@ const Sidebar = (props: Props) => {
 
   const SIDE_BAR_ITEMS = [
     {
-      name: 'Partner Profile',
+      name: 'Brand Profile',
       logo: '/svg/side-bar/partner-profile.svg',
       route: '/',
     },

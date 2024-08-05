@@ -83,7 +83,7 @@ export default function Home() {
         <div className='flex justify-between items-center'>
           <div />
           {/* <StyledIcon icon='mdi:arrow-left' onClick={goBack} /> */}
-          <h2 className='text-2xl font-bold'>Partner Details</h2>
+          <h2 className='text-2xl font-bold'>Brand Details</h2>
           <div className='flex items-center gap-4'>
             <StyledIcon icon='mdi:refresh' onClick={handleRefresh} />
 
