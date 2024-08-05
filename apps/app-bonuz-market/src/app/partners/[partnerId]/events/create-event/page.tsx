@@ -572,7 +572,7 @@ const CreatePartnerEvent = () => {
       variables,
     })
 
-    router.push('/')
+    router.push( `/partners/${partnerId}/events`)
   }
 
   return (
@@ -976,7 +976,7 @@ const CreatePartnerEvent = () => {
               variant='outlined'
               onClick={() => {
                 reset()
-                router.push('/')
+                router.push( `/partners/${partnerId}/events`)
               }}>
               Cancel
             </Button>

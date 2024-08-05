@@ -105,7 +105,6 @@ export const CREATE_APP_NEW_MUTATION = gql`
     $image: String!
     $banner: String!
     $link: String!
-    $type: App_type_MutationInput!
     $tokenGating: App_tokenGating_MutationInput!
     $contractAddress: String!
     $tokenGatingAmount: Float!
@@ -117,7 +116,6 @@ export const CREATE_APP_NEW_MUTATION = gql`
         image: $image
         banner: $banner
         link: $link
-        type: $type
         tokenGating: $tokenGating
         contractAddress: $contractAddress
         tokenGatingAmount: $tokenGatingAmount
@@ -133,7 +131,6 @@ export const CREATE_APP_NEW_MUTATION = gql`
         url
       }
       link
-      type
       contractAddress
       network
     }
@@ -147,7 +144,6 @@ export const UPDATE_APP_NEW_MUTATION = gql`
     $image: String!
     $banner: String!
     $link: String!
-    $type: AppUpdate_type_MutationInput!
     $tokenGating: AppUpdate_tokenGating_MutationInput!
     $contractAddress: String!
     $tokenGatingAmount: Float!
@@ -160,7 +156,6 @@ export const UPDATE_APP_NEW_MUTATION = gql`
         image: $image
         banner: $banner
         link: $link
-        type: $type
         tokenGating: $tokenGating
         contractAddress: $contractAddress
         tokenGatingAmount: $tokenGatingAmount
@@ -176,7 +171,6 @@ export const UPDATE_APP_NEW_MUTATION = gql`
         url
       }
       link
-      type
       contractAddress
       network
     }
@@ -659,6 +653,27 @@ export const GET_NEW_PARTNERS_QUERY = gql`
         externalNftCollection
         status
       }
+    }
+  }
+`;
+
+export const GET_NEW_PARTNER_QUERY_BY_ID = gql`
+  query MyQuery($id: Int!) {
+    Partner(id: $id) {
+      id
+      name
+      description
+      image {
+        id
+        url
+      }
+      logo {
+        id
+        url
+      }
+      link
+      externalNftCollection
+      status
     }
   }
 `;

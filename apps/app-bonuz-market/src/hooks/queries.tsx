@@ -4,7 +4,7 @@ import axios from 'axios';
 
 import { BACKEND_ENDPOINT } from '../lib/services';
 import { useSessionStore } from '../store/sessionStore';
-import { Apps } from '@/types';
+import { Apps, Partners } from '@/types';
 
 
 export const useQueryPartners = () => {
@@ -12,7 +12,7 @@ export const useQueryPartners = () => {
   const queryFn = async () => {
     const { token } = useSessionStore.getState();
 
-    const res = await axios.get(`${BACKEND_ENDPOINT}/api/partners/all`, {
+    const res = await axios.get<Partners>(`${BACKEND_ENDPOINT}/api/partners/all`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

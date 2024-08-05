@@ -1,47 +1,57 @@
-import { useState } from 'react';
+import { useState } from 'react'
 
-import { useMutation } from '@apollo/client';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { useQueryClient } from '@tanstack/react-query';
-import { useForm } from 'react-hook-form';
-import * as Yup from 'yup';
+import { useMutation } from '@apollo/client'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { useQueryClient } from '@tanstack/react-query'
+import { useForm } from 'react-hook-form'
+import * as Yup from 'yup'
 
-import UploadFile from '../../components/UploadFile';
-import { uploadFile } from '../../lib/services';
-import { useSessionStore } from '../../store/sessionStore';
-import { getImgUrl } from '../../utils/getImgUrl';
-import { useRouter } from 'next/navigation';
-import { ADD_NEW_PARTNER_MUTATION, UPDATE_PARTNER_MUTATION } from '@/lib/graphql-queries';
-import MarkdownInput from '../MarkdownInput';
-import Button from '../Button';
+import UploadFile from '../../components/UploadFile'
+import { uploadFile } from '../../lib/services'
+import { useSessionStore } from '../../store/sessionStore'
+import { getImgUrl } from '../../utils/getImgUrl'
+import { useRouter } from 'next/navigation'
+import {
+  ADD_NEW_PARTNER_MUTATION,
+  UPDATE_PARTNER_MUTATION,
+} from '@/lib/graphql-queries'
+import MarkdownInput from '../MarkdownInput'
+import Button from '../Button'
+import { Partner } from '@/types'
 interface CreatePartnerFormValues {
-  name: string;
-  description: string;
+  name: string
+  description: string
   image: {
     doc: {
-      id: string;
-    };
-  };
+      id: string
+    }
+  }
   logo: {
     doc: {
-      id: string;
-    };
-  };
-  partnerLink: string;
+      id: string
+    }
+  }
+  partnerLink: string
   // externalNftCollection: string;
 }
 
 interface CreatePartnerProps {
-  isEditing: boolean;
+  isEditing: boolean
   setIsEditing: (isEditing: boolean) => void
-  partner: any;
+  partner: any
+  handleOnSave?: (response: Partner) => void
 }
 
-const CreatePartner = ({ isEditing, setIsEditing, partner }: CreatePartnerProps) => {
-  const router = useRouter();
-  const queryClient = useQueryClient();
+const CreatePartner = ({
+  isEditing,
+  setIsEditing,
+  partner,
+  handleOnSave,
+}: CreatePartnerProps) => {
+  const router = useRouter()
+  const queryClient = useQueryClient()
 
-  const { token } = useSessionStore.getState();
+  const { token } = useSessionStore.getState()
 
   const [createPartnerMutation, { loading }] = useMutation(
     ADD_NEW_PARTNER_MUTATION,
@@ -52,21 +62,20 @@ const CreatePartner = ({ isEditing, setIsEditing, partner }: CreatePartnerProps)
         },
       },
       // refetchQueries: [{ query: GET_PARTNERS_QUERY }],
-    },
-  );
+    }
+  )
 
-
-  const [updatePartnerMutation, { data, loading: updatePartnerLoading, error }] = useMutation(
-    UPDATE_PARTNER_MUTATION,
-    {
-      context: {
-        headers: {
-          authorization: `Bearer ${token}`,
-        },
+  const [
+    updatePartnerMutation,
+    { data, loading: updatePartnerLoading, error },
+  ] = useMutation(UPDATE_PARTNER_MUTATION, {
+    context: {
+      headers: {
+        authorization: `Bearer ${token}`,
       },
-      // refetchQueries: [{ query: GET_PARTNERS_QUERY }],
     },
-  );
+    // refetchQueries: [{ query: GET_PARTNERS_QUERY }],
+  })
 
   const isLoading = loading || updatePartnerLoading
 
@@ -81,7 +90,7 @@ const CreatePartner = ({ isEditing, setIsEditing, partner }: CreatePartnerProps)
     // externalNftCollection: Yup.string()
     //   .required('Field is required')
     //   .url('Must be a valid URL'),
-  });
+  })
 
   const defaultValues = {
     name: isEditing ? partner?.name : '',
@@ -90,13 +99,13 @@ const CreatePartner = ({ isEditing, setIsEditing, partner }: CreatePartnerProps)
     logo: isEditing ? partner?.logo?.id : '',
     partnerLink: isEditing ? partner?.link : '',
     // externalNftCollection: isEditing ? partner?.externalNftCollection : ''
-  };
+  }
 
   const methods = useForm<CreatePartnerFormValues>({
     // @ts-ignore
     resolver: yupResolver(createAppSchema),
     defaultValues,
-  });
+  })
 
   const {
     control,
@@ -107,26 +116,25 @@ const CreatePartner = ({ isEditing, setIsEditing, partner }: CreatePartnerProps)
     setValue,
     handleSubmit,
     formState: { errors, isSubmitting, isSubmitSuccessful },
-  } = methods;
+  } = methods
 
   const handleOnDrop = async (
     files: File[],
-    key?: keyof CreatePartnerFormValues,
+    key?: keyof CreatePartnerFormValues
   ) => {
-    const formData = new FormData();
-    formData.append('file', files[0]);
+    const formData = new FormData()
+    formData.append('file', files[0])
 
-    const uploadImage = await uploadFile(formData);
-    if (key) setValue(key, uploadImage);
+    const uploadImage = await uploadFile(formData)
+    if (key) setValue(key, uploadImage)
 
-    return uploadImage;
-  };
+    return uploadImage
+  }
 
   // const watchCategory = watch('category', '');
   // console.log('watchCategory ', watchCategory);
 
   const onSubmit = async (data: CreatePartnerFormValues) => {
-
     const newImageId = data?.image?.doc?.id?.toString()
     const newLogoId = data?.logo?.doc?.id?.toString()
 
@@ -139,57 +147,53 @@ const CreatePartner = ({ isEditing, setIsEditing, partner }: CreatePartnerProps)
       // externalNftCollection: data.externalNftCollection,
       externalNftCollection: '',
       ...(isEditing && {
-        id: partner?.id
-      })
-    };
+        id: partner?.id,
+      }),
+    }
 
- console.log("variables ", variables);
-
-
+    let response
     if (isEditing) {
-      await updatePartnerMutation({
+      response = await updatePartnerMutation({
         variables,
-      });
-    }
-    else {
-      await createPartnerMutation({
+      })
+    } else {
+      response = await createPartnerMutation({
         variables,
-      });
+      })
     }
 
-
-    const queryKey = ['getUserPartnersNew'];
+    const queryKey = ['getUserPartnersNew']
     queryClient.invalidateQueries({
       queryKey,
-    });
+    })
     setIsEditing(false)
-  };
-
+    if (handleOnSave) handleOnSave(response?.data?.createPartner ?? response?.data?.updatePartner as Partner)
+  }
 
   return (
     <>
-      <div className="mx-auto">
+      <div className='mx-auto'>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="flex flex-col gap-9">
+          <div className='flex flex-col gap-9'>
             {/* <!-- Input Fields --> */}
-            <div className="rounded-sm glass p-4">
-              <div className="border-b border-stroke py-4 px-6.5 dark:border-strokedark">
-                <h3 className="font-medium text-black dark:text-white">
+            <div className='rounded-sm glass p-4'>
+              <div className='border-b border-stroke py-4 px-6.5 dark:border-strokedark'>
+                <h3 className='font-medium text-black dark:text-white'>
                   Submit for review
                 </h3>
               </div>
-              <div className="flex flex-col gap-5.5 p-6.5">
+              <div className='flex flex-col gap-5.5 p-6.5'>
                 <div>
-                  <label className="mb-3 block text-black dark:text-white">
-                 Your Company / Brand / Organization 
+                  <label className='mb-3 block text-black dark:text-white'>
+                    Your Company / Brand / Organization
                   </label>
                   <input
                     {...register('name')}
-                    type="text"
-                    className="w-full rounded-lg border-[1.5008px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+                    type='text'
+                    className='w-full rounded-lg border-[1.5008px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary'
                   />
                   {errors?.name?.message && (
-                    <p className="text-meta-1 text-14 mt-2">
+                    <p className='text-meta-1 text-14 mt-2'>
                       {errors?.name?.message}
                     </p>
                   )}
@@ -197,10 +201,10 @@ const CreatePartner = ({ isEditing, setIsEditing, partner }: CreatePartnerProps)
 
                 <div>
                   <MarkdownInput
-                    label="Description"
+                    label='Description'
                     error={errors?.description?.message}
                     onChange={(value: string | undefined) => {
-                      if (value) setValue('description', value);
+                      if (value) setValue('description', value)
                     }}
                     value={partner?.description}
                   />
@@ -209,11 +213,15 @@ const CreatePartner = ({ isEditing, setIsEditing, partner }: CreatePartnerProps)
                 <div>
                   <UploadFile
                     showPreview
-                    imagePreview={partner?.image?.url ? getImgUrl(partner?.image?.url) : undefined}
-                    label="Your Logo (Please use a square image. Recommended size: 600 x 600px) "
+                    imagePreview={
+                      partner?.image?.url
+                        ? getImgUrl(partner?.image?.url)
+                        : undefined
+                    }
+                    label='Your Logo (Please use a square image. Recommended size: 600 x 600px) '
                     error={errors?.image?.message}
                     onDrop={(files: File[]) => {
-                      handleOnDrop(files, 'image');
+                      handleOnDrop(files, 'image')
                     }}
                     dropzoneOptions={{
                       accept: {
@@ -230,11 +238,15 @@ const CreatePartner = ({ isEditing, setIsEditing, partner }: CreatePartnerProps)
                 <div>
                   <UploadFile
                     showPreview
-                    imagePreview={partner?.logo?.url ? getImgUrl(partner?.logo?.url) : undefined}
-                    label="Your Banner"
+                    imagePreview={
+                      partner?.logo?.url
+                        ? getImgUrl(partner?.logo?.url)
+                        : undefined
+                    }
+                    label='Your Banner'
                     error={errors?.logo?.message}
                     onDrop={(files: File[]) => {
-                      handleOnDrop(files, 'logo');
+                      handleOnDrop(files, 'logo')
                     }}
                     dropzoneOptions={{
                       accept: {
@@ -249,16 +261,16 @@ const CreatePartner = ({ isEditing, setIsEditing, partner }: CreatePartnerProps)
                   />
                 </div>
                 <div>
-                  <label className="mb-3 block text-black dark:text-white">
+                  <label className='mb-3 block text-black dark:text-white'>
                     Your Website
                   </label>
                   <input
                     {...register('partnerLink')}
-                    type="text"
-                    className="w-full rounded-lg border-[1.5008px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
+                    type='text'
+                    className='w-full rounded-lg border-[1.5008px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary'
                   />
                   {errors?.partnerLink?.message && (
-                    <p className="text-meta-1 text-14 mt-2">
+                    <p className='text-meta-1 text-14 mt-2'>
                       {errors?.partnerLink?.message}
                     </p>
                   )}
@@ -282,27 +294,26 @@ const CreatePartner = ({ isEditing, setIsEditing, partner }: CreatePartnerProps)
               </div>
             </div>
           </div>
-          <div className="flex justify-end gap-4.5 p-6.5">
+          <div className='flex justify-end gap-4.5 p-6.5'>
             <Button
-              variant="outlined"
+              variant='outlined'
               type='button'
               onClick={() => {
                 setIsEditing(false)
-                reset();
-                router.push('/');
-              }}
-            >
+                reset()
+                router.push('/')
+              }}>
               Cancel
             </Button>
 
-            <Button isLoading={isLoading} type="submit">
+            <Button isLoading={isLoading} type='submit'>
               Save
             </Button>
           </div>
         </form>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default CreatePartner;
+export default CreatePartner

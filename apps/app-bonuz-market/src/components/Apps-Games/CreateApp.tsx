@@ -9,7 +9,7 @@ import clsxm from '../../lib/frontend/clsxm'
 import { uploadFile } from '../../lib/services'
 import { useSessionStore } from '../../store/sessionStore'
 import { getImgUrl } from '../../utils/getImgUrl'
-import { useRouter } from 'next/navigation'
+import { useParams, useRouter } from 'next/navigation'
 import {
   CREATE_APP_NEW_MUTATION,
   GET_APPS_QUERY,
@@ -50,6 +50,8 @@ interface CreateAppProps {
 
 const CreateApp = ({ isEditing, app }: CreateAppProps) => {
   const router = useRouter()
+  const { partnerId } = useParams()
+
 
   const { token } = useSessionStore.getState()
 
@@ -186,7 +188,7 @@ const CreateApp = ({ isEditing, app }: CreateAppProps) => {
       image: newImageId || data.image,
       banner: newBannerId || data.banner,
       link: data.link,
-      type: data.type,
+      // type: data.type,
       tokenGating: data.tokenGating,
       contractAddress: data.contractAddress,
       tokenGatingAmount: Number(data.tokenGatingAmount),
@@ -205,7 +207,8 @@ const CreateApp = ({ isEditing, app }: CreateAppProps) => {
         variables,
       })
     }
-    router.push('/apps-games')
+    router.push( `/partners/${partnerId}/apps-games`)
+
   }
   return (
     <>
@@ -474,7 +477,7 @@ const CreateApp = ({ isEditing, app }: CreateAppProps) => {
                   variant='outlined'
                   onClick={() => {
                     reset()
-                    router.push('/apps-games')
+                    router.push( `/partners/${partnerId}/apps-games`)
                   }}>
                   Cancel
                 </Button>

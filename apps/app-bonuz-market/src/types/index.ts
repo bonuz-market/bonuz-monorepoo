@@ -130,3 +130,22 @@ export type App = {
 }
 
 export type Apps = App[] 
+
+
+export type Partner = {
+  id: number;
+  name: string;
+  owner: Owner;
+  status: string;
+  image: Image;
+  logo: Image;
+  description: string;
+  memberships: any[]; 
+  vouchers: any[]; 
+  link: string;
+  externalNftCollection: string;
+  updatedAt: string;
+  createdAt: string;
+};
+
+export type Partners = Partner[]

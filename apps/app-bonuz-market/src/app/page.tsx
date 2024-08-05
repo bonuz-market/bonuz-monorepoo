@@ -1,4 +1,3 @@
-// @ts-nocheck
 'use client'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
@@ -17,16 +16,18 @@ import { GET_NFTS_QUERY } from '@/lib/graphql-queries'
 import StyledIcon from '@/components/StyledIcon'
 import Button from '@/components/Button'
 import ListPartnerEvents from '@/components/Partner/ListPartnerEvents'
-import { NewPartnerStatus } from '@/types'
+import { NewPartnerStatus, Partner } from '@/types'
 import { getImgUrl } from '@/utils/getImgUrl'
 import CreatePartner from '@/components/Partner/CreatePartner'
 import DashboardLayout from '@/components/DashboardLayout'
+import { useAppShallowStore } from '@/store/appStore'
 
 export default function Home() {
   const { token } = useSessionStore.getState()
+  const { data: partners, refetch, isLoading } = useQueryPartners()
 
-  const { data, refetch, isLoading } = useQueryPartners()
-  const partner = data?.[0]
+  const { selectedPartner, setSelectPartner } = useAppShallowStore()
+  const partner = selectedPartner
   const status = partner?.status
 
   const [isEditing, setIsEditing] = useState(false)
@@ -39,6 +40,11 @@ export default function Home() {
   const handleRefresh = () => {
     refetch()
   }
+
+  const handleOnSave = (data: Partner) => { 
+    handleRefresh()
+    setSelectPartner(data)
+   }
 
   // TODO: this should be in layout.tsx
   if (web3auth?.status !== 'ready' && !isInitialized) {
@@ -67,7 +73,7 @@ export default function Home() {
     )
 
   if (
-    !isEditing &&
+    !isEditing && partner &&
     (status === NewPartnerStatus.IN_REVIEW ||
       status === NewPartnerStatus.REJECTED ||
       status === NewPartnerStatus.ACTIVE)
@@ -124,12 +130,14 @@ export default function Home() {
     )
   }
 
+  // this is for editing 
   return (
     <DashboardLayout>
       <CreatePartner
         isEditing={isEditing}
         setIsEditing={setIsEditing}
         partner={partner}
+        handleOnSave={handleOnSave}
       />
     </DashboardLayout>
   )
