@@ -101,6 +101,7 @@ export const CREATE_APP_MUTATION = gql`
 
 export const CREATE_APP_NEW_MUTATION = gql`
   mutation CreateApp(
+    $partner: Int
     $name: String!
     $image: String!
     $banner: String!
@@ -112,6 +113,7 @@ export const CREATE_APP_NEW_MUTATION = gql`
   ) {
     createApp(
       data: {
+        partner: $partner
         name: $name
         image: $image
         banner: $banner
@@ -140,6 +142,7 @@ export const CREATE_APP_NEW_MUTATION = gql`
 export const UPDATE_APP_NEW_MUTATION = gql`
   mutation UpdateApp(
     $id: Int!
+    $partner: Int
     $name: String!
     $image: String!
     $banner: String!
@@ -152,6 +155,7 @@ export const UPDATE_APP_NEW_MUTATION = gql`
     updateApp(
       id: $id
       data: {
+        partner: $partner
         name: $name
         image: $image
         banner: $banner

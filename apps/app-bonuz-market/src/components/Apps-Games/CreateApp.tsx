@@ -184,6 +184,7 @@ const CreateApp = ({ isEditing, app }: CreateAppProps) => {
     const newBannerId = data?.banner?.doc?.id?.toString()
 
     const variables = {
+      partner: Number(partnerId),
       name: data.name,
       image: newImageId || data.image,
       banner: newBannerId || data.banner,
