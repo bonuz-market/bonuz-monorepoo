@@ -68,8 +68,8 @@ const GuestView = () => {
                   />
                 </div>
                 <div className="h-[82px] px-[16px] gap-[12px] w-full md:w-[213px] text-sm">
-                  <p className="text-center">Santiago Bob</p>
-                  <p className="text-center">@bob</p>
+                  <p className="text-center">Jessica Lauren</p>
+                  <p className="text-center">@jessica</p>
                   <div className="flex h-[40px] p-[8px_10px] gap-[12px] rounded-[12px] w-full justify-center md:w-[200px]">
                     <Image
                       src={"/icons/wallet-icon.svg"}
