@@ -80,7 +80,7 @@ function Profile() {
               {socialMedias && (
                 <Collapsible
                   open
-                  title='Social Media Accounts'
+                  title='Social Accounts'
                   subTitle={
                     data?.links?.socialMedias
                       ? Object.values(data.links.socialMedias).filter(
@@ -232,7 +232,7 @@ function Profile() {
 
               {blockchainsWallets && (
                 <Collapsible
-                  title='External Wallets & Accounts'
+                  title='Wallets & Accounts'
                   subTitle={
                     data?.links?.blockchainsWallets
                       ? Object.values(data.links.blockchainsWallets).filter(
@@ -300,7 +300,7 @@ function Profile() {
 
               {digitalIdentifiers && (
                 <Collapsible
-                  title='Decentralized identifiers'
+                  title='Digital identifiers'
                   subTitle={
                     data?.links?.digitalIdentifiers
                       ? Object.values(data.links.digitalIdentifiers).filter(

@@ -2,8 +2,8 @@
 
 import Head from "next/head";
 
-// import Header from "@/components/Header";
-import { Header } from "@bonuz/sdk";
+import Header from "@/components/Header";
+// import { Header } from "@bonuz/sdk";
 
 import { ToastContainer } from "react-toastify";
 import Providers from "../../providers";

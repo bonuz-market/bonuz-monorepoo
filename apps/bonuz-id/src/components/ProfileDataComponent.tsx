@@ -120,7 +120,7 @@ export default function ProfileDataComponent({
         <div className="max-h-[55vh] overflow-auto flex flex-col gap-5">
           {socialMedias && (
             <Collapsible
-              title="Social Media Accounts"
+              title="Social Accounts"
               subTitle={
                 data?.links?.socialMedias
                   ? Object.values(data.links.socialMedias).filter(
@@ -271,7 +271,7 @@ export default function ProfileDataComponent({
 
           {blockchainsWallets && (
             <Collapsible
-              title="External Wallets & Accounts"
+              title="Wallets & Accounts"
               subTitle={
                 data?.links?.blockchainsWallets
                   ? Object.values(data.links.blockchainsWallets).filter(
@@ -339,7 +339,7 @@ export default function ProfileDataComponent({
 
           {digitalIdentifiers && (
             <Collapsible
-              title="Decentralized identifiers"
+              title="Digital Identifiers"
               subTitle={
                 data?.links?.digitalIdentifiers
                   ? Object.values(data.links.digitalIdentifiers).filter(

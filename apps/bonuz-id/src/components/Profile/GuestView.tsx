@@ -4,7 +4,7 @@ import TextView from "./TextView";
 
 const profileData = [
   {
-    label: "Social Media Accounts",
+    label: "Social Accounts",
     url: "/icons/social-icon.svg",
   },
   {
@@ -12,11 +12,11 @@ const profileData = [
     url: "/icons/message-icon.svg",
   },
   {
-    label: "External Wallets & Accounts",
+    label: "Wallets & Accounts",
     url: "/icons/blockchain-icon.svg",
   },
   {
-    label: "Decentralized Identifiers",
+    label: "Digital Identifiers",
     url: "/icons/decentral-icon.svg",
   },
 ];
@@ -59,10 +59,12 @@ const GuestView = () => {
               <div className="gap-[16px] w-full md:w-[213px]">
                 <div className="flex w-full justify-center mb-[30px]">
                   <Image
-                    src={"/icons/wallet-avatar-icon.svg"}
+                    // src={"/icons/wallet-avatar-icon.svg"}
+                    src={"/icons/wallet-avatar-icon.jpeg"}
                     alt="walletAvatar"
                     width={100}
                     height={100}
+                    className='rounded-full'
                   />
                 </div>
                 <div className="h-[82px] px-[16px] gap-[12px] w-full md:w-[213px] text-sm">
