@@ -268,7 +268,7 @@ const EditForm = ({
                                 'hover:bg-white/10'
                               )}
                               disabled={isVerified}>
-                              {isVerified ? 'Connected' : 'Connect X'}
+                              {isVerified ? 'Connected' : 'Connect'}
 
                               {isVerified && !isTwitterVerified && (
                                 <Icon
