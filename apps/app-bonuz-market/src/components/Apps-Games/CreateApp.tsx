@@ -248,7 +248,7 @@ const CreateApp = ({ isEditing, app }: CreateAppProps) => {
                     imagePreview={
                       app?.image?.url ? getImgUrl(app?.image?.url) : undefined
                     }
-                    label='Image'
+                    label='Image Banner'
                     error={errors?.image?.message}
                     onDrop={(files: File[]) => {
                       handleOnDrop(files, 'image')
@@ -272,7 +272,7 @@ const CreateApp = ({ isEditing, app }: CreateAppProps) => {
                     imagePreview={
                       app?.banner?.url ? getImgUrl(app?.banner?.url) : undefined
                     }
-                    label='Banner'
+                    label='Ad Banner'
                     error={errors?.banner?.message}
                     onDrop={(files: File[]) => {
                       handleOnDrop(files, 'banner')

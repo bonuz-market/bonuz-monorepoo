@@ -243,7 +243,7 @@ const CreatePartner = ({
                         ? getImgUrl(partner?.logo?.url)
                         : undefined
                     }
-                    label='Your Banner'
+                    label='Your Image Banner'
                     error={errors?.logo?.message}
                     onDrop={(files: File[]) => {
                       handleOnDrop(files, 'logo')
