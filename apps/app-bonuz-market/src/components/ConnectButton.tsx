@@ -8,6 +8,7 @@ import SignIn from './SignIn'
 import { useQueryGetUserProfileAndSocialLinks } from '@/hooks/useBonuzContracts'
 import { Icon } from '@iconify/react/dist/iconify.js'
 import LoadingSpinner from './LoadingSpinner'
+import BiconomyButton from './Biconomy'
 interface Props {}
 
 const ConnectButton = (props: Props) => {
@@ -41,13 +42,28 @@ const ConnectButton = (props: Props) => {
     setIsDropdownOpen((prev) => !prev)
   }
 
+  // if (web3auth?.status !== 'ready' && !isInitialized) {
+  //   return (
+  //     <>
+  //       <div className="relative z-[100] pb-[13px] rounded-[40px] w-full flex bg-cover flex-col px-[15px] py-[15px] md:px-[25px] md:py-[35px] lg:py-[20px] bg-[url('/images/background.png')] mt-8 h-[70vh]">
+  //         <LoadingSpinner />
+  //       </div>
+
+  //       <div className='hidden'>
+  //         <BiconomyButton />
+  //       </div>
+  //     </>
+  //   )
+  // }
+
+  
   return (
     <>
-    {isLoading && (
+    {/* {isLoading && (
         <div className='flex items-center justify-center w-[200px] h-[50px] glass p-2'>
         <LoadingSpinner />
         </div>
-    )}
+    )} */}
       {smartAccount?.accountAddress && !isLoading && (
         <>
           <div className='dropdown dropdown-end'>

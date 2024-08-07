@@ -11,10 +11,10 @@ import {
   UPDATE_EVENT_MUTATION,
   GET_NEW_PARTNERS_QUERY,
   GET_PARTNERS_EVENTS_QUERY,
-  GET_PARTNERS_EVENTS_CHALLENGES_QUERY,
-  CREATE_PARTNERS_EVENTS_CHALLENGES_MUTATION,
+  GET_CHALLENGES_QUERY,
+  CREATE_CHALLENGE_MUTATION,
   UPDATE_EVENT_WITH_NEW_CHALLENGES_MUTATION,
-  UPDATE_PARTNERS_EVENTS_CHALLENGES_MUTATION,
+  UPDATE_CHALLENGE_MUTATION,
   GET_DEFAULT_CHALLENGES_QUERY,
 } from '@/lib/graphql-queries'
 import { uploadFile } from '../../lib/services';
@@ -169,14 +169,14 @@ const CustomOption = (props: any) => (
 
           <div className="flex flex-row gap-4">
             <div>
-              <label className="block mb-1 font-bold text-gray-700">
+              <label className="block mb-1 font-bold ">
                 Name:
               </label>
               <p>{props?.data?.label}</p>
             </div>
 
             <div>
-              <label className="block mb-1 font-bold text-gray-700">
+              <label className="block mb-1 font-bold ">
                 Description:
               </label>
               <p>{props?.data?.description}</p>
@@ -295,7 +295,7 @@ const EditPartnerEvent = ({
     refetch: refetchChallenges,
   } = useQuery<{
     Challenges: ChallengesData;
-  }>(GET_PARTNERS_EVENTS_CHALLENGES_QUERY, {
+  }>(GET_CHALLENGES_QUERY, {
     context: {
       headers: {
         authorization: `Bearer ${token}`,
@@ -387,26 +387,26 @@ const EditPartnerEvent = ({
   };
 
   const [createChallengeMutation] = useMutation(
-    CREATE_PARTNERS_EVENTS_CHALLENGES_MUTATION,
+    CREATE_CHALLENGE_MUTATION,
     {
       context: {
         headers: {
           authorization: `Bearer ${token}`,
         },
       },
-      refetchQueries: [{ query: GET_PARTNERS_EVENTS_CHALLENGES_QUERY }],
+      refetchQueries: [{ query: GET_CHALLENGES_QUERY }],
     },
   );
 
   const [updateChallengeMutation] = useMutation(
-    UPDATE_PARTNERS_EVENTS_CHALLENGES_MUTATION,
+    UPDATE_CHALLENGE_MUTATION,
     {
       context: {
         headers: {
           authorization: `Bearer ${token}`,
         },
       },
-      refetchQueries: [{ query: GET_PARTNERS_EVENTS_CHALLENGES_QUERY }],
+      refetchQueries: [{ query: GET_CHALLENGES_QUERY }],
     },
   );
 
@@ -426,7 +426,7 @@ const EditPartnerEvent = ({
     description: Yup.string().required('Description is required'),
     agenda: Yup.string().required('Agenda is required'),
     image: Yup.mixed().required('Image is required'),
-    banner: Yup.mixed().required('Banner is required'),
+    // banner: Yup.mixed().required('Banner is required'),
     link: Yup.string()
       .required('Link is required')
       .url('Link must be a valid URL'),
@@ -574,7 +574,7 @@ const EditPartnerEvent = ({
       description: data.description,
       agenda: data.agenda,
       image: newImageId || data.image,
-      banner: newBannerId || data.banner,
+      banner: newBannerId || data.banner || '',
       link: data.link,
       sourceEventLink: data.sourceEventLink,
       start_date: data.startDate,
@@ -590,6 +590,9 @@ const EditPartnerEvent = ({
       // })),
       challenges_new: data.challenges.map((challenge) => (challenge.challengeId)),
     };
+
+ console.log("variables ", variables);
+
 
     await updateEventMutation({
       variables,
@@ -832,18 +835,18 @@ const EditPartnerEvent = ({
                         value={selectedChallenges}
                         styles={darkThemeStyles}
                       />
-                      <div className="flex items-end justify-end mt-5">
+                      <div className="flex items-end justify-end mt-5 gap-2">
                         <Button
-                          variant="outlined"
+                          className='min-w-max'
                           onClick={() => {
                             setIsAddingNewChallenge(false)
                             setIsAddingCustomChallenge(false)
                           }}
-                          className="px-4 py-2 bg-red-500 text-white rounded"
                         >
                           Cancel Challenges
                         </Button>
                         <Button
+                          className='min-w-max'
                           onClick={() => {
                             setIsAddingNewChallenge(false);
                             // handleAddSave({
@@ -999,7 +1002,7 @@ const EditPartnerEvent = ({
                           )}
                         </div>
 
-                        <div className="flex items-end justify-end">
+                        <div className="flex items-end justify-end gap-2">
                           <Button
                             variant="outlined"
                             onClick={() => {
@@ -1013,7 +1016,6 @@ const EditPartnerEvent = ({
                               setIsAddingCustomChallenge(false)
                             }
                             }
-                            className="px-4 py-2 bg-red-500 text-white rounded"
                           >
                             Cancel
                           </Button>

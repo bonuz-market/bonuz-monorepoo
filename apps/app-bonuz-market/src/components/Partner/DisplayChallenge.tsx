@@ -18,12 +18,12 @@ const DisplayChallenge = ({ imgSrc, name, description }: Props) => (
 
         <div className="flex flex-col gap-4">
           <div>
-            <label className="block mb-1 font-bold text-gray-700">Name:</label>
+            <label className="block mb-1 font-bold ">Name:</label>
             <p>{name}</p>
           </div>
 
           <div>
-            <label className="block mb-1 font-bold text-gray-700">
+            <label className="block mb-1 font-bold ">
               Description:
             </label>
             <p>{description}</p>

@@ -15,12 +15,12 @@ import * as Yup from 'yup'
 
 import {
   CREATE_EVENT_MUTATION,
-  CREATE_PARTNERS_EVENTS_CHALLENGES_MUTATION,
+  CREATE_CHALLENGE_MUTATION,
   GET_DEFAULT_CHALLENGES_QUERY,
   GET_NEW_PARTNERS_QUERY,
-  GET_PARTNERS_EVENTS_CHALLENGES_QUERY,
+  GET_CHALLENGES_QUERY,
   GET_PARTNERS_EVENTS_QUERY,
-  UPDATE_PARTNERS_EVENTS_CHALLENGES_MUTATION,
+  UPDATE_CHALLENGE_MUTATION,
 } from '@/lib/graphql-queries'
 import { useParams, useRouter } from 'next/navigation'
 import { useSessionStore } from '@/store/sessionStore'
@@ -168,14 +168,14 @@ const CustomOption = (props: any) => (
 
           <div className='flex flex-row gap-4'>
             <div>
-              <label className='block mb-1 font-bold text-gray-700'>
+              <label className='block mb-1 font-bold '>
                 Name:
               </label>
               <p>{props?.data?.label}</p>
             </div>
 
             <div>
-              <label className='block mb-1 font-bold text-gray-700'>
+              <label className='block mb-1 font-bold '>
                 Description:
               </label>
               <p>{props?.data?.description}</p>
@@ -295,7 +295,7 @@ const CreatePartnerEvent = () => {
     refetch: refetchChallenges,
   } = useQuery<{
     Challenges: ChallengesData
-  }>(GET_PARTNERS_EVENTS_CHALLENGES_QUERY, {
+  }>(GET_CHALLENGES_QUERY, {
     context: {
       headers: {
         authorization: `Bearer ${token}`,
@@ -377,26 +377,26 @@ const CreatePartnerEvent = () => {
     }
   }
   const [createChallengeMutation] = useMutation(
-    CREATE_PARTNERS_EVENTS_CHALLENGES_MUTATION,
+    CREATE_CHALLENGE_MUTATION,
     {
       context: {
         headers: {
           authorization: `Bearer ${token}`,
         },
       },
-      refetchQueries: [{ query: GET_PARTNERS_EVENTS_CHALLENGES_QUERY }],
+      refetchQueries: [{ query: GET_CHALLENGES_QUERY }],
     }
   )
 
   const [updateChallengeMutation] = useMutation(
-    UPDATE_PARTNERS_EVENTS_CHALLENGES_MUTATION,
+    UPDATE_CHALLENGE_MUTATION,
     {
       context: {
         headers: {
           authorization: `Bearer ${token}`,
         },
       },
-      refetchQueries: [{ query: GET_PARTNERS_EVENTS_CHALLENGES_QUERY }],
+      refetchQueries: [{ query: GET_CHALLENGES_QUERY }],
     }
   )
 
@@ -583,13 +583,13 @@ const CreatePartnerEvent = () => {
             {/* <!-- Input Fields --> */}
             <div className='rounded-sm glass p-4'>
               <div className='border-b border-stroke py-4 px-6.5 dark:border-strokedark'>
-                <h3 className='font-medium text-black dark:text-white'>
+                <h3 className='font-medium'>
                   Please fill the form to create a event
                 </h3>
               </div>
               <div className='flex flex-col gap-5.5 p-6.5'>
                 <div>
-                  <label className='mb-3 block text-black dark:text-white'>
+                  <label className='mb-3 block'>
                     Title
                   </label>
                   <input
@@ -605,7 +605,7 @@ const CreatePartnerEvent = () => {
                 </div>
 
                 <div>
-                  <label className='mb-3 block text-black dark:text-white'>
+                  <label className='mb-3 block'>
                     Short Description
                   </label>
                   <input
@@ -683,7 +683,7 @@ const CreatePartnerEvent = () => {
                 </div>
 
                 <div>
-                  <label className='mb-3 block text-black dark:text-white'>
+                  <label className='mb-3 block'>
                     Link
                   </label>
                   <input
@@ -699,7 +699,7 @@ const CreatePartnerEvent = () => {
                 </div>
 
                 <div>
-                  <label className='mb-3 block text-black dark:text-white'>
+                  <label className='mb-3 block'>
                     Source Event Link
                   </label>
                   <input
@@ -715,7 +715,7 @@ const CreatePartnerEvent = () => {
                 </div>
 
                 <div>
-                  <label className='mb-3 block text-black dark:text-white'>
+                  <label className='mb-3 block'>
                     Start Date
                   </label>
                   <div className='relative'>
@@ -728,7 +728,7 @@ const CreatePartnerEvent = () => {
                 </div>
 
                 <div>
-                  <label className='mb-3 block text-black dark:text-white'>
+                  <label className='mb-3 block'>
                     End Date
                   </label>
                   <div className='relative'>
@@ -762,17 +762,18 @@ const CreatePartnerEvent = () => {
                         value={selectedChallenges}
                         styles={darkThemeStyles}
                       />
-                      <div className='flex items-end justify-end mt-5'>
+                      <div className='flex items-end justify-end mt-5 gap-2'>
                         <Button
-                          variant='outlined'
                           onClick={() => {
                             setIsAddingNewChallenge(false)
                             setIsAddingCustomChallenge(false)
                           }}
-                          className='px-4 py-2 bg-red-500 text-white rounded'>
+                          className='min-w-max'
+                          >
                           Cancel Challenges
                         </Button>
                         <Button
+                          className='min-w-max'
                           onClick={() => {
                             setIsAddingNewChallenge(false)
                             // handleAddSave({
@@ -801,7 +802,7 @@ const CreatePartnerEvent = () => {
                     <>
                       <div className='flex flex-col gap-5.5 p-6.5'>
                         <div>
-                          <label className='mb-3 block text-black dark:text-white'>
+                          <label className='mb-3 block'>
                             Name
                           </label>
                           <input
@@ -825,7 +826,7 @@ const CreatePartnerEvent = () => {
                         <div>
                           <label
                             htmlFor={`challenges[${fields.length}].description`}
-                            className='mb-3 block text-black dark:text-white'>
+                            className='mb-3 block'>
                             Description
                           </label>
                           <input
@@ -877,7 +878,7 @@ const CreatePartnerEvent = () => {
                         <div>
                           <label
                             htmlFor={`challenges[${fields.length}].link`}
-                            className='mb-3 block text-black dark:text-white'>
+                            className='mb-3 block'>
                             Link
                           </label>
                           <input
@@ -901,7 +902,7 @@ const CreatePartnerEvent = () => {
                         <div>
                           <label
                             htmlFor={`challenges[${fields.length}].btnLabel`}
-                            className='mb-3 block text-black dark:text-white'>
+                            className='mb-3 block'>
                             Button Label
                           </label>
                           <input
@@ -935,7 +936,7 @@ const CreatePartnerEvent = () => {
                               })
                               setIsAddingCustomChallenge(false)
                             }}
-                            className='px-4 py-2 bg-red-500 text-white rounded'>
+                            >
                             Cancel
                           </Button>
                           <Button

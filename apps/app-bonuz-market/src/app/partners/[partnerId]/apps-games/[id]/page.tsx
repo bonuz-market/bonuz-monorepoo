@@ -14,7 +14,7 @@ import LoadingSpinner from '@/components/LoadingSpinner'
 import StyledIcon from '@/components/StyledIcon'
 import Button from '@/components/Button'
 import { getImgUrl } from '@/utils/getImgUrl'
-import { GET_APP_NEW_QUERY } from '@/lib/graphql-queries'
+import { GET_APP_BY_ID_QUERY } from '@/lib/graphql-queries'
 import { useParams } from 'next/navigation'
 import { useSessionStore } from '@/store/sessionStore'
 import { App, CheckIns } from '@/types'
@@ -40,7 +40,7 @@ const AppDetails = () => {
     refetch,
   } = useQuery<{
     App: App
-  }>(GET_APP_NEW_QUERY, {
+  }>(GET_APP_BY_ID_QUERY, {
     variables: {
       id: Number(id),
     },
@@ -196,7 +196,9 @@ const AppDetails = () => {
           </div> */}
         </div>
 
-        <div className='mt-10 grid grid-cols-1 sm:grid-cols-2 gap-4'>
+        <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <ChallengesTable challenges={app?.quests} />
+
           <CheckInsTable
             checkIns={app?.check_ins}
             onClick={() => {
@@ -223,6 +225,77 @@ const formatDateString = (date: Date | string) =>
     day: 'numeric',
   })
 
+
+const ChallengesTable = ({
+  challenges,
+}: {
+  challenges: PartnerChallenges[];
+}) => (
+  <div className="rounded-sm px-5 pt-6 pb-2.5 sm:px-7.5 xl:pb-1 glass">
+    <h4 className="mb-6 text-xl font-semibold text-black dark:text-white">
+      Challenges
+    </h4>
+
+    <div className="flex flex-col">
+      <div className="grid grid-cols-[100px_1fr_1fr_1fr] rounded-sm bg-gray-2 dark:bg-meta-4">
+        <div className="p-2.5 xl:p-5">
+          <h5 className="text-sm font-medium uppercase xsm:text-base">Image</h5>
+        </div>
+        <div className="p-2.5 text-center xl:p-5">
+          <h5 className="text-sm font-medium uppercase xsm:text-base">Name</h5>
+        </div>
+        <div className="p-2.5 text-center xl:p-5">
+          <h5 className="text-sm font-medium uppercase xsm:text-base">
+            Description
+          </h5>
+        </div>
+        <div className="p-2.5 text-center xl:p-5">
+          <h5 className="text-sm font-medium uppercase xsm:text-base">
+            Link
+          </h5>
+        </div>
+      </div>
+
+
+      {challenges.map((challenge) => (
+        <div key={challenge.id}>
+          <div className="grid grid-cols-[100px_1fr_1fr_1fr]  border-b border-stroke dark:border-strokedark">
+            <div className="flex items-center gap-3 p-2.5 xl:p-5">
+              <div className="flex-shrink-0">
+                <img
+                  src={getImgUrl(challenge.image?.url)}
+                  alt="Brand"
+                  className="w-20 rounded-lg"
+                />
+              </div>
+            </div>
+
+            <div className="flex items-center justify-start p-2.5 xl:p-5 w-full overflow-x-auto whitespace-nowrap md:w-full md:overflow-x-visible md:whitespace-normal">
+              <p className="text-black dark:text-white">{challenge.name}</p>
+            </div>
+
+            <div className="flex items-center justify-start p-2.5 xl:p-5 w-full overflow-x-auto whitespace-nowrap md:w-full md:overflow-x-visible md:whitespace-normal">
+              <p className="text-black dark:text-white">
+                {challenge.description}
+              </p>
+            </div>
+
+            <div className="flex items-center justify-start p-2.5 xl:p-5 w-full overflow-x-auto whitespace-nowrap md:w-full md:overflow-x-visible md:whitespace-normal">
+              <a
+                className="cursor-pointer underline"
+                href={challenge.link}
+                target="_blank"
+                rel="noreferrer"
+              >
+                {challenge.link}
+              </a>
+          </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+);
 
 const CheckInsTable = ({
   checkIns,

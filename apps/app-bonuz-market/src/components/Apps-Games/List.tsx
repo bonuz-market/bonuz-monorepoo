@@ -38,7 +38,6 @@ const ListPartnerApps = ({ partner }: { partner: any }) => {
   const router = useRouter()
 
   const { data } = useQueryPartnerApps(partner?.id)
- console.log("data ", data);
 
   return (
     <div className='grid grid-cols-1 gap-4 lg:grid-cols-3'>

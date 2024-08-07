@@ -1,103 +1,8 @@
 import { gql } from '@apollo/client';
 
-export const GET_APP_BY_ID_QUERY = gql`
-  query MyQuery($id: Int!) {
-    App(id: $id) {
-      id
-      name
-      slug
-      description
-      logo {
-        url
-      }
-      image {
-        url
-      }
-      link
-      type
-      category
-      check_ins {
-        id
-        user {
-          id
-          walletAddress
-          smartAccountAddress
-          handle
-          createdAt
-        }
-      }
-    }
-  }
-`;
-// ---
-
-export const GET_APPS_QUERY = gql`
-  query {
-    Apps {
-      docs {
-        id
-        name
-        slug
-        description
-        logo {
-          id
-          url
-        }
-        image {
-          id
-          url
-        }
-        link
-        type
-        category
-      }
-    }
-  }
-`;
 // ---------------------------------------------------------------------------------------------
 
-export const CREATE_APP_MUTATION = gql`
-  mutation CreateApp(
-    $name: String!
-    $slug: String!
-    $description: JSON!
-    $image: String!
-    $logo: String!
-    $link: String!
-    $type: App_type_MutationInput!
-    $category: App_category_MutationInput!
-  ) {
-    createApp(
-      data: {
-        name: $name
-        slug: $slug
-        description: $description
-        image: $image
-        logo: $logo
-        link: $link
-        type: $type
-        category: $category
-      }
-    ) {
-      id
-      slug
-      name
-      description
-      image {
-        url
-      }
-      logo {
-        url
-      }
-      link
-      type
-      category
-    }
-  }
-`;
 
-// 
-// 
 
 export const CREATE_APP_NEW_MUTATION = gql`
   mutation CreateApp(
@@ -110,6 +15,7 @@ export const CREATE_APP_NEW_MUTATION = gql`
     $contractAddress: String!
     $tokenGatingAmount: Float!
     $network: App_network_MutationInput!
+    $quests: [Int!]
   ) {
     createApp(
       data: {
@@ -122,6 +28,7 @@ export const CREATE_APP_NEW_MUTATION = gql`
         contractAddress: $contractAddress
         tokenGatingAmount: $tokenGatingAmount
         network: $network
+        quests: $quests
       }
     ) {
       id
@@ -135,6 +42,17 @@ export const CREATE_APP_NEW_MUTATION = gql`
       link
       contractAddress
       network
+      quests {
+        id
+        name
+        description
+        image {
+          id
+          url
+        }
+        link
+        label
+      }
     }
   }
 `;
@@ -151,6 +69,7 @@ export const UPDATE_APP_NEW_MUTATION = gql`
     $contractAddress: String!
     $tokenGatingAmount: Float!
     $network: AppUpdate_network_MutationInput!
+    $quests: [Int!]
   ) {
     updateApp(
       id: $id
@@ -164,6 +83,7 @@ export const UPDATE_APP_NEW_MUTATION = gql`
         contractAddress: $contractAddress
         tokenGatingAmount: $tokenGatingAmount
         network: $network
+        quests: $quests
       }
     ) {
       id
@@ -177,6 +97,17 @@ export const UPDATE_APP_NEW_MUTATION = gql`
       link
       contractAddress
       network
+      quests {
+        id
+        name
+        description
+        image {
+          id
+          url
+        }
+        link
+        label
+      }
     }
   }
 `;
@@ -193,7 +124,6 @@ export const GET_APPS_NEW_QUERY = gql`
           url
         }
         link
-        type
         status
         check_ins {
           id
@@ -209,12 +139,24 @@ export const GET_APPS_NEW_QUERY = gql`
         contractAddress
         tokenGatingAmount
         network
-      }
+        quests {
+              id
+              name
+              description
+              image
+              {
+                id
+                url
+              }
+              link
+              label
+            }
+        }
     }
   }
 `;
 
-export const GET_APP_NEW_QUERY = gql`
+export const GET_APP_BY_ID_QUERY = gql`
   query MyQuery($id: Int!) {
     App(id: $id) {
       id
@@ -228,7 +170,6 @@ export const GET_APP_NEW_QUERY = gql`
         url
       }
       link
-      type
       check_ins {
         id
         user {
@@ -243,6 +184,18 @@ export const GET_APP_NEW_QUERY = gql`
       contractAddress
       tokenGatingAmount
       network
+      quests {
+            id
+            name
+            description
+            image
+            {
+              id
+              url
+            }
+            link
+            label
+          }
     }
   }
 `;
@@ -541,6 +494,7 @@ export const GET_EVENT_BY_ID = gql`
         }
         trackable   
         link     
+        label
       }
       location
       check_ins {
@@ -700,7 +654,7 @@ export const GET_DEFAULT_CHALLENGES_QUERY = gql`
   }
 `;
 
-export const GET_PARTNERS_EVENTS_CHALLENGES_QUERY = gql`
+export const GET_CHALLENGES_QUERY = gql`
   query {
     Challenges {
       docs {
@@ -712,13 +666,14 @@ export const GET_PARTNERS_EVENTS_CHALLENGES_QUERY = gql`
           url
         }
         link
+        label
       }
     }
   }
 `;
 
 
-export const CREATE_PARTNERS_EVENTS_CHALLENGES_MUTATION = gql`
+export const CREATE_CHALLENGE_MUTATION = gql`
   mutation CreateChallenge(
     $name: String!
     $description: String!
@@ -750,7 +705,7 @@ export const CREATE_PARTNERS_EVENTS_CHALLENGES_MUTATION = gql`
   }
 `;
 
-export const UPDATE_PARTNERS_EVENTS_CHALLENGES_MUTATION = gql`
+export const UPDATE_CHALLENGE_MUTATION = gql`
   mutation UpdateChallenge(
     $id: Int!
     $name: String!

@@ -59,7 +59,7 @@ export const AddNewChallenge: React.FC<ChallengeProps> = ({
     return (
       <div className="flex flex-col gap-5.5 p-6.5">
         <div>
-          <label className="mb-3 block text-black dark:text-white">Name</label>
+          <label className="mb-3 block">Name</label>
           <input
             type="text"
             name="name"
@@ -72,7 +72,7 @@ export const AddNewChallenge: React.FC<ChallengeProps> = ({
         <div>
           <label
             // htmlFor={`challenges[${fields.length}].description`}
-            className="mb-3 block text-black dark:text-white"
+            className="mb-3 block"
           >
             Description
           </label>
@@ -116,7 +116,7 @@ export const AddNewChallenge: React.FC<ChallengeProps> = ({
         <div>
           <label
             // htmlFor={`challenges[${fields.length}].link`}
-            className="mb-3 block text-black dark:text-white"
+            className="mb-3 block"
           >
             Link
           </label>
@@ -132,7 +132,7 @@ export const AddNewChallenge: React.FC<ChallengeProps> = ({
         <div>
           <label
             // htmlFor={`challenges[${fields.length}].link`}
-            className="mb-3 block text-black dark:text-white"
+            className="mb-3 block"
           >
             Button Label
           </label>
@@ -145,11 +145,10 @@ export const AddNewChallenge: React.FC<ChallengeProps> = ({
           />
         </div>
 
-        <div className="flex items-end justify-end">
+        <div className="flex items-end justify-end gap-2">
           <Button
             variant="outlined"
             onClick={() => handleCancel()}
-            className="px-4 py-2 bg-red-500 text-white rounded"
           >
             Cancel
           </Button>
@@ -186,26 +185,26 @@ export const AddNewChallenge: React.FC<ChallengeProps> = ({
 
           <div className="flex flex-col gap-4">
             <div>
-              <label className="block mb-1 font-bold text-gray-700">
+              <label className="block mb-1 font-bold ">
                 Name:
               </label>
               <p>{challenge.name}</p>
             </div>
 
             <div>
-              <label className="block mb-1 font-bold text-gray-700">
+              <label className="block mb-1 font-bold ">
                 Description:
               </label>
               <p>{challenge.description}</p>
             </div>
 
             <div>
-              <label className="block mb-1 font-bold text-gray-700">Link:</label>
+              <label className="block mb-1 font-bold ">Link:</label>
               <p>{challenge.link}</p>
             </div>
 
             <div>
-              <label className="block mb-1 font-bold text-gray-700">
+              <label className="block mb-1 font-bold ">
                 Button Label:
               </label>
               <p>{challenge.btnLabel}</p>
