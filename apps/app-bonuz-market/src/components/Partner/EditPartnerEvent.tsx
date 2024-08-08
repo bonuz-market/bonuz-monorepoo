@@ -641,7 +641,7 @@ const EditPartnerEvent = ({
 
       <div className="mx-auto">
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="flex flex-col gap-9">
+          <div className="flex flex-col gap-9 relative z-10">
             {/* <!-- Input Fields --> */}
             <div className="rounded-sm glass p-4">
               <div className="border-b border-stroke py-4 px-6.5 dark:border-strokedark">

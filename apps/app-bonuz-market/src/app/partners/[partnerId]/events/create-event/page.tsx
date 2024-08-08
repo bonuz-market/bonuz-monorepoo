@@ -579,7 +579,7 @@ const CreatePartnerEvent = () => {
     <>
       <div className='mx-auto'>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div className='flex flex-col gap-9'>
+          <div className='flex flex-col gap-9 relative z-10'>
             {/* <!-- Input Fields --> */}
             <div className='rounded-sm glass p-4'>
               <div className='border-b border-stroke py-4 px-6.5 dark:border-strokedark'>
@@ -972,7 +972,7 @@ const CreatePartnerEvent = () => {
               </div>
             </div>
           </div>
-          <div className='flex justify-end gap-4.5 p-6.5'>
+          <div className='flex justify-end gap-4.5 p-6.5 '>
             <Button
               variant='outlined'
               onClick={() => {

@@ -26,6 +26,11 @@ interface CreatePartnerFormValues {
       id: string
     }
   }
+  banner: {
+    doc: {
+      id: string
+    }
+  }
   logo: {
     doc: {
       id: string
@@ -83,6 +88,7 @@ const CreatePartner = ({
     name: Yup.string().required('Name is required'),
     description: Yup.string().required('Description is required'),
     image: Yup.mixed().required('Image is required'),
+    // banner: Yup.mixed().required('Banner is required'),
     logo: Yup.mixed().required('Logo is required'),
     partnerLink: Yup.string()
       .required('Field is required')
@@ -97,6 +103,7 @@ const CreatePartner = ({
     description: isEditing ? partner?.description : '',
     image: isEditing ? partner?.image?.id : '',
     logo: isEditing ? partner?.logo?.id : '',
+    banner: isEditing ? partner?.banner?.id : '',
     partnerLink: isEditing ? partner?.link : '',
     // externalNftCollection: isEditing ? partner?.externalNftCollection : ''
   }
@@ -118,6 +125,7 @@ const CreatePartner = ({
     formState: { errors, isSubmitting, isSubmitSuccessful },
   } = methods
 
+ console.log("errors ", errors);
   const handleOnDrop = async (
     files: File[],
     key?: keyof CreatePartnerFormValues
@@ -135,14 +143,17 @@ const CreatePartner = ({
   // console.log('watchCategory ', watchCategory);
 
   const onSubmit = async (data: CreatePartnerFormValues) => {
+ console.log("data ", data);
     const newImageId = data?.image?.doc?.id?.toString()
     const newLogoId = data?.logo?.doc?.id?.toString()
+    const newBannerId = data?.banner?.doc?.id?.toString()
 
     const variables = {
       name: data.name,
       description: data.description,
       image: newImageId || data.image,
       logo: newLogoId || data.logo,
+      banner: newBannerId || data.banner || '',
       link: data.partnerLink,
       // externalNftCollection: data.externalNftCollection,
       externalNftCollection: '',
@@ -218,7 +229,7 @@ const CreatePartner = ({
                         ? getImgUrl(partner?.image?.url)
                         : undefined
                     }
-                    label='Your Logo (Please use a square image. Recommended size: 600 x 600px) '
+                    label='Image Banner (Please use a square image. Recommended size: 600 x 600px) '
                     error={errors?.image?.message}
                     onDrop={(files: File[]) => {
                       handleOnDrop(files, 'image')
@@ -239,11 +250,37 @@ const CreatePartner = ({
                   <UploadFile
                     showPreview
                     imagePreview={
+                      partner?.banner?.url
+                        ? getImgUrl(partner?.banner?.url)
+                        : undefined
+                    }
+                    label='Featured Banner (optional)'
+                    error={errors?.banner?.message}
+                    onDrop={(files: File[]) => {
+                      handleOnDrop(files, 'banner')
+                    }}
+                    dropzoneOptions={{
+                      accept: {
+                        'image/jpeg': [],
+                        'image/png': [],
+                        'image/webp': [],
+                        'image/heic': [],
+                        'image/jfif': [],
+                      },
+                      multiple: false,
+                    }}
+                  />
+                </div>
+
+                <div>
+                  <UploadFile
+                    showPreview
+                    imagePreview={
                       partner?.logo?.url
                         ? getImgUrl(partner?.logo?.url)
                         : undefined
                     }
-                    label='Your Image Banner'
+                    label='Logo'
                     error={errors?.logo?.message}
                     onDrop={(files: File[]) => {
                       handleOnDrop(files, 'logo')
